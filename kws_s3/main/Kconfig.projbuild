@@ -115,12 +115,14 @@ menu "KWS (wake word) settings"
                 "INJ <id> det=<n> first=<sample> max=<score>". Driven by benchmarks/run_injected.py.
         config KWS_TELEMETRY_MS
             int "Telemetry line for the live dashboard every N ms (0 = off)"
-            default 100
+            default 0
             range 0 10000
             help
                 Prints one short "@T ..." line per period (score, CPU, RAM, mic level) that
                 tools/dashboard.py turns into live graphs. About 1.4 KB/s at 100 ms.
-                0 = off: only the human status line is printed.
+                0 = off (default): only the human status line is printed. Measured: 100 ms telemetry costs
+                ~4 % of core 0 (formatting + heap and task walks 10 times a second), more than Wi-Fi itself.
+                Turn it on only for the dashboard, never for CPU measurements.
     endmenu
 
 endmenu

@@ -14,3 +14,6 @@ __pycache__/
 recordings/
 logs/
 training_clips/
+# Benchmark audio is generated (make_tts.py) or copied from recordings; not versioned
+benchmarks/audio/
+benchmarks/*.out

@@ -40,3 +40,6 @@ CONFIG_ESP_WIFI_DYNAMIC_TX_BUFFER_NUM=16
 
 CONFIG_KWS_PREROLL_MS=0
 CONFIG_KWS_MIC_GAIN_SHIFT=0
+
+# Dashboard telemetry off: at 100 ms it cost ~4 % of core 0 (benchmarks/results/*_idle_*.json)
+CONFIG_KWS_TELEMETRY_MS=0
