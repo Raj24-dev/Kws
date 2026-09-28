@@ -1,0 +1,14 @@
+# Secrets: kws_s3/sdkconfig holds the Wi-Fi password (set it with idf.py menuconfig, never commit it)
+sdkconfig
+sdkconfig.old
+.env
+# Generated / downloaded
+build/
+managed_components/
+node_modules/
+__pycache__/
+*.pyc
+# Personal voice recordings and raw logs stay local (benchmark evidence goes to benchmarks/results/)
+recordings/
+logs/
+training_clips/

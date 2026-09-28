@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KWS Transcription</title>
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface: #fcfcfb; --text: #0b0b0b; --text2: #52514e; --muted: #898781;
+  --border: rgba(11,11,11,.10); --hover: rgba(11,11,11,.05); --s1: #2a78d6;
+  --good: #0ca30c; --warn: #fab219; --crit: #d03b3b;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --text: #ffffff; --text2: #c3c2b7; --muted: #898781;
+    --border: rgba(255,255,255,.10); --hover: rgba(255,255,255,.06); --s1: #3987e5;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --text: #ffffff; --text2: #c3c2b7; --muted: #898781;
+  --border: rgba(255,255,255,.10); --hover: rgba(255,255,255,.06); --s1: #3987e5;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--page); color: var(--text); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+a.btn, button { font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 6px 12px; cursor: pointer; text-decoration: none; white-space: nowrap; }
+a.btn:hover, button:hover { background: var(--hover); }
+a.btn:focus-visible, button:focus-visible { outline: 2px solid var(--s1); outline-offset: 2px; }
+header { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 10px 16px;
+  border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--page); z-index: 2; }
+header h1 { font-size: 17px; margin: 0; font-weight: 650; }
+.hint { color: var(--muted); font-size: 12.5px; }
+.controls { margin-left: auto; display: flex; gap: 6px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border);
+  font-weight: 600; font-size: 13px; background: var(--surface); }
+.pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--crit); }
+.pill.live .dot { background: var(--good); animation: pulse 1.6s infinite; }
+@keyframes pulse { 50% { opacity: .35; } }
+main { max-width: 1100px; margin: 0 auto; padding: 16px; display: grid; gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; min-width: 0; }
+.meta { font-size: 13px; color: var(--text2); display: flex; flex-wrap: wrap; gap: 4px 14px; margin-bottom: 6px; }
+#now { font-size: clamp(22px, 4vw, 34px); font-weight: 650; line-height: 1.3; min-height: 2.6em; overflow-wrap: anywhere; }
+#now.partial { color: var(--text2); font-weight: 500; }
+#now.partial::after { content: '▍'; animation: pulse 1s infinite; margin-left: 2px; }
+#now.empty { color: var(--muted); font-size: 17px; font-weight: 400; }
+h2 { font-size: 15px; margin: 0 0 8px; font-weight: 650; display: flex; gap: 12px; align-items: baseline; }
+ol { list-style: none; margin: 0; padding: 0; }
+li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 4px 12px; padding: 10px 0; border-top: 1px solid var(--border); }
+li:first-child { border-top: 0; }
+.t { color: var(--text2); font-variant-numeric: tabular-nums; }
+.txt { font-size: 16px; overflow-wrap: anywhere; }
+.sub { grid-column: 2; font-size: 12.5px; color: var(--muted); }
+.ic { font-style: normal; font-weight: 700; }
+.good { color: var(--good); } .crit { color: var(--crit); } .warn { color: var(--warn); }
+.empty-list { color: var(--muted); text-align: center; padding: 24px; }
+#banner { border: 1px solid var(--border); border-left: 4px solid var(--crit); border-radius: 10px; padding: 10px 14px; background: var(--surface); }
+#now.lost { color: var(--crit); font-size: 19px; font-weight: 600; }
+@media (max-width: 600px) { li { grid-template-columns: minmax(0, 1fr); } .sub { grid-column: 1; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Live transcription</h1>
+  <span id="link" class="pill" title="This page -> speech server"><span class="dot"></span><span id="link-text">connecting</span></span>
+  <span id="board" class="pill" title="Board -> speech server (from the board's USB log)"><span class="dot"></span><span id="board-text">board: no data</span></span>
+  <span class="hint" id="url"></span>
+  <div class="controls">
+    <button id="theme" aria-label="Toggle light or dark theme">◐</button>
+    <a class="btn" href="/">← Analytics board</a>
+  </div>
+</header>
+<main>
+  <div id="banner" role="alert" hidden></div>
+  <section class="card" aria-labelledby="h-now">
+    <div class="meta" id="meta"><span id="h-now">Say “Marvin, …” near the board: what you say after “Marvin” appears here when you stop speaking.</span></div>
+    <div id="now" class="empty" aria-live="polite">Nothing heard yet.</div>
+  </section>
+  <section class="card" aria-labelledby="h-hist">
+    <h2 id="h-hist">Saved on the server <span class="hint" id="count"></span></h2>
+    <ol id="list"></ol>
+  </section>
+</main>
+<script>
+'use strict';
+// The model on the board detects "Marvin"; what is said after it streams to the cloud server, whose Whisper (small.en)
+// writes it down when the speaker stops ("Close the door."). This page gets it from the server's /live WebSocket;
+// the server stores it in recordings/index.jsonl with the WAV and replays the stored ones when the page connects.
+const $ = id => document.getElementById(id);
+const URL_ = new URLSearchParams(location.search).get('asr') || `ws://${location.hostname || 'localhost'}:3000/live`;
+const utts = new Map();
+let cur = null, up = false;
+$('url').textContent = URL_;
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const clock = T => new Date(T * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+const day = T => new Date(T * 1000).toLocaleDateString();
+const icon = (cls, ch) => `<i class="ic ${cls}">${ch}</i> `;
+// Older recordings also carry the server's former Whisper check of the wake word (verified true / false)
+const detection = u => u.verified === false ? icon('crit', '✗') + 'rejected by the former server check'
+  : icon('good', '✓') + 'wake word detected on the board' + (u.score != null ? ` · score ${u.score.toFixed(2)}` : '');
+
+function onEvent(m) {
+  if (m.type === 'start') {
+    if (!utts.has(m.id)) utts.set(m.id, { id: m.id, T: m.T, text: '', final: false, score: m.score });
+    cur = m.id;
+  }
+  const u = utts.get(m.id);
+  if (!u || m.type !== 'final') return;
+  u.final = true; u.text = m.text ?? ''; u.noStt = m.text == null;
+  u.file = m.file; u.dur = m.duration_s; u.verified = m.verified;
+}
+
+// The board's own view, from dashboard.py (USB): every detection, and whether the board is connected to the server.
+// A detection shows as "listening" at once; if no audio from it reaches the server, the page says so.
+let board = null, det = null;  // board: {srv, serial}; det: the newest detection {T, score}
+function boardConnect() {
+  const es = new EventSource('stream');
+  es.onmessage = e => {
+    const m = JSON.parse(e.data);
+    if (!m.info) return;  // only "snap" and "state" carry the board's state
+    board = { srv: m.info.srv, serial: m.serial };
+    const d = m.dets[m.dets.length - 1];
+    if (d && (!det || d.T > det.T)) det = d;
+    render();
+  };
+}
+// the server's utterance for a detection starts within ~1 s after it (network), and a stream may be extended
+const covered = d => [...utts.values()].some(x => d.T >= x.T - 3 && d.T <= x.T + (x.final ? (x.dur || 0) + 1 : 60));
+
+function renderBoard() {
+  const srv = board ? board.srv : undefined, usb = board && board.serial.status !== 'error';
+  const ok = usb && srv === 1, text = !board ? 'board: no data' : !usb ? 'board: USB not connected'
+    : srv === 1 ? 'board → server OK' : srv === 0 ? 'board cannot reach the server' : srv < 0 ? 'board: streaming off' : 'board: waiting';
+  $('board').className = 'pill' + (ok ? ' live' : ''); $('board-text').textContent = text;
+  const bn = $('banner');
+  bn.hidden = !(usb && srv === 0);
+  bn.textContent = 'The board is not connected to the speech server, so its audio cannot be transcribed. The laptop and the '
+    + 'board must be on the same Wi-Fi (the laptop’s own hotspot; the campus Wi-Fi blocks devices from reaching each other), '
+    + 'and the laptop must have the address in the board’s CONFIG_KWS_SERVER_URI.';
+}
+
+function render() {
+  const link = $('link'); link.className = 'pill' + (up ? ' live' : '');
+  $('link-text').textContent = up ? 'connected' : 'server offline · retrying';
+  renderBoard();
+  const u = cur != null ? utts.get(cur) : null, now = $('now');
+  if (det && !covered(det) && (!u || det.T > u.T)) {  // heard on the board, nothing from the server (yet)
+    const lost = Date.now() / 1000 - det.T > 3;
+    now.textContent = lost ? '“Marvin” was heard on the board, but its audio never reached the speech server.' : 'listening…';
+    now.className = lost ? 'lost' : 'partial';
+    $('meta').innerHTML = `<span>${clock(det.T)}</span><span>` + (lost
+      ? icon('crit', '✗') + (board && board.srv === 0 ? 'the board is not connected to the server' : 'no audio arrived from the board')
+      : icon('good', '●') + `wake word heard on the board (score ${det.score.toFixed(2)}) · waiting for its audio`) + '</span>';
+  } else if (u) {
+    now.textContent = u.noStt ? '(speech-to-text offline)' : u.text || (u.final ? '(nothing said after “Marvin”)' : 'listening…');
+    now.className = u.final ? '' : 'partial';
+    $('meta').innerHTML = `<span>${clock(u.T)}</span><span>${u.final ? 'finished' : icon('good', '●') + 'listening'}</span><span>${detection(u)}</span>`;
+  }
+  const done = [...utts.values()].filter(x => x.final).sort((a, b) => b.T - a.T);
+  $('count').textContent = done.length ? `${done.length} utterances` : '';
+  $('list').innerHTML = done.map(x =>
+    `<li><span class="t" title="${day(x.T)}">${clock(x.T)}</span><span class="txt">${esc(x.noStt ? '(speech-to-text offline)' : x.text || '(nothing said after “Marvin”)')}</span>` +
+    `<span class="sub">${detection(x)}${x.dur != null ? ` · ${x.dur} s` : ''}${x.file ? ` · ${esc(x.file)}` : ''}</span></li>`).join('')
+    || '<li class="empty-list">No transcripts saved yet.</li>';
+}
+
+function connect() {
+  let ws;
+  try { ws = new WebSocket(URL_); } catch { setTimeout(connect, 3000); return; }
+  ws.onopen = () => { up = true; render(); };
+  ws.onclose = () => { up = false; render(); setTimeout(connect, 3000); };
+  ws.onmessage = e => { const m = JSON.parse(e.data); (m.type === 'hello' ? m.history : [m]).forEach(onEvent); render(); };
+}
+
+const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+                set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
+const saved = store.get('kws-theme'); if (saved) document.documentElement.dataset.theme = saved;
+$('theme').addEventListener('click', () => {
+  const dark = matchMedia('(prefers-color-scheme: dark)').matches, c = document.documentElement.dataset.theme || (dark ? 'dark' : 'light');
+  const next = c === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = next; store.set('kws-theme', next);
+});
+render();
+connect();
+if (location.protocol !== 'file:') boardConnect();
+setInterval(render, 1000);  // turns "waiting for its audio" into "never reached the server"
+</script>
+</body>
+</html>

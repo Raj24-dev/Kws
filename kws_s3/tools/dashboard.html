@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KWS Live Monitor</title>
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface: #fcfcfb; --text: #0b0b0b; --text2: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,.10); --hover: rgba(11,11,11,.05);
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a;
+  --good: #0ca30c; --warn: #fab219; --serious: #ec835a; --crit: #d03b3b;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --text: #ffffff; --text2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,.10); --hover: rgba(255,255,255,.06);
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --text: #ffffff; --text2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,.10); --hover: rgba(255,255,255,.06);
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--page); color: var(--text); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+button, a.btn { font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 6px 12px; cursor: pointer; text-decoration: none; white-space: nowrap; }
+button:hover, a.btn:hover { background: var(--hover); }
+button:focus-visible, a.btn:focus-visible { outline: 2px solid var(--s1); outline-offset: 2px; }
+button[aria-pressed="true"] { background: var(--text); color: var(--surface); border-color: var(--text); }
+kbd { font: 12px ui-monospace, Consolas, monospace; border: 1px solid currentColor; border-radius: 4px; padding: 0 5px; opacity: .8; }
+
+header { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px;
+  padding: 10px 16px; background: var(--page); border-bottom: 1px solid var(--border); }
+header h1 { font-size: 17px; margin: 0; font-weight: 650; }
+#sub { color: var(--text2); font-size: 13px; }
+.brand { display: flex; flex-direction: column; min-width: 0; }
+.controls { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; align-items: center; }
+.seg { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; padding: 6px 10px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border);
+  font-weight: 600; font-size: 13px; background: var(--surface); }
+.pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+.pill.live .dot { background: var(--good); animation: pulse 1.6s infinite; }
+.pill.bad .dot { background: var(--crit); }
+.pill.stale .dot { background: var(--warn); }
+@keyframes pulse { 50% { opacity: .35; } }
+#banner { margin: 12px 16px 0; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface);
+  border-left: 4px solid var(--warn); }
+#banner.bad { border-left-color: var(--crit); }
+
+main { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding: 16px; max-width: 1500px; margin: 0 auto; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+.wide { grid-column: 1 / -1; }
+@media (max-width: 900px) { main { grid-template-columns: minmax(0, 1fr); padding: 12px; gap: 12px; } header { position: static; } }
+.card-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; margin-bottom: 8px; }
+h2 { font-size: 15px; margin: 0; font-weight: 650; }
+.hint { color: var(--muted); font-size: 12.5px; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12.5px; color: var(--text2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend b { color: var(--text); font-weight: 600; }
+.sw { display: inline-block; width: 16px; height: 0; border-top: 2px solid var(--c, var(--muted)); }
+.sw.dash { border-top: 2px dashed var(--text2); }
+.mk { display: inline-block; width: 9px; height: 9px; background: var(--c); }
+.mk.dot { border-radius: 50%; }
+.mk.tri { clip-path: polygon(50% 0, 100% 100%, 0 100%); background: var(--text2); }
+.mk.dia { transform: rotate(45deg) scale(.85); }
+.shade { display: inline-block; width: 16px; height: 10px; background: var(--hover); border: 1px solid var(--border); }
+
+canvas { display: block; width: 100%; touch-action: pan-y; }
+#cv-score { height: 250px; }
+#cv-mic { height: 96px; }
+#cv-cpu, #cv-mem { height: 180px; }
+.sublabel { font-size: 12px; color: var(--muted); margin: 6px 0 2px; }
+
+#flash { margin-left: auto; font-weight: 700; font-size: 13px; padding: 3px 10px; border-radius: 999px; opacity: 0;
+  background: var(--text); color: var(--surface); transition: opacity .25s; }
+#flash.on { opacity: 1; transition: none; }
+.evalbar { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; align-items: stretch; }
+#said { background: var(--text); color: var(--surface); border-color: var(--text); font-size: 16px; font-weight: 650;
+  padding: 12px 20px; border-radius: 10px; min-width: 230px; }
+#said:hover { opacity: .9; }
+#said.hit { animation: press .35s; }
+@keyframes press { 30% { transform: scale(.96); } }
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; flex: 1; min-width: 260px; }
+.tile { border: 1px solid var(--border); border-radius: 10px; padding: 7px 10px; }
+.tl { font-size: 12px; color: var(--text2); display: flex; gap: 5px; align-items: center; }
+.tv { font-size: 21px; font-weight: 650; }
+.ic { font-style: normal; font-weight: 700; }
+.ic.good { color: var(--good); } .ic.crit { color: var(--crit); } .ic.warn { color: var(--warn); }
+.ic.serious { color: var(--serious); } .ic.muted { color: var(--muted); }
+
+.hero { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.big { font-size: 38px; font-weight: 650; line-height: 1.1; }
+.unit { color: var(--text2); }
+.minmax { display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--text2); font-size: 13px; margin: 4px 0 10px; }
+.minmax b { color: var(--text); font-weight: 600; }
+.facts { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 13px; color: var(--text2); margin-top: 8px; }
+.facts b { color: var(--text); font-weight: 600; }
+
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; color: var(--muted); font-weight: 500; font-size: 12px; padding: 4px 8px; border-bottom: 1px solid var(--border); }
+td { padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+td.num, th.num { font-variant-numeric: tabular-nums; text-align: right; }
+td.time { font-variant-numeric: tabular-nums; color: var(--text2); white-space: nowrap; }
+td.act { text-align: right; white-space: nowrap; }
+td.act button { padding: 3px 8px; font-size: 12px; }
+td.empty { color: var(--muted); text-align: center; padding: 20px; }
+.tablewrap { max-height: 420px; overflow: auto; }
+
+dl.health { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; margin: 0 0 12px; }
+dl.health div { border: 1px solid var(--border); border-radius: 10px; padding: 7px 10px; }
+dt { font-size: 12px; color: var(--text2); }
+dd { margin: 0; font-weight: 600; }
+#log { height: 250px; overflow: auto; font: 12px/1.5 ui-monospace, Consolas, monospace; background: var(--page);
+  border: 1px solid var(--border); border-radius: 8px; padding: 6px 8px; white-space: pre-wrap; word-break: break-word; }
+#log .e { color: var(--crit); font-weight: 600; } #log .w { color: var(--text); background: color-mix(in srgb, var(--warn) 18%, transparent); }
+#log .d { color: var(--text); font-weight: 700; } #log .t { color: var(--muted); }
+
+.tip { position: fixed; z-index: 10; pointer-events: none; background: var(--surface); color: var(--text); border: 1px solid var(--border);
+  border-radius: 8px; padding: 7px 10px; font-size: 12.5px; box-shadow: 0 4px 16px rgba(0,0,0,.18); max-width: 260px; }
+.tip .tt { color: var(--muted); font-variant-numeric: tabular-nums; margin-bottom: 2px; }
+.tip .row { display: flex; gap: 6px; align-items: center; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><h1>KWS Live Monitor</h1><span id="sub">waiting for the board…</span></div>
+  <span id="link" class="pill"><span class="dot"></span><span id="link-text">connecting</span></span>
+  <div class="controls">
+    <div class="seg" id="win" role="group" aria-label="Time window">
+      <button data-s="30">30 s</button><button data-s="60">1 min</button><button data-s="120">2 min</button><button data-s="300">5 min</button><button data-s="600">10 min</button>
+    </div>
+    <button id="pause" title="Freeze the graphs (P); data keeps recording">Pause</button>
+    <button id="port" title="Free the COM port for flashing without stopping the dashboard">Release port</button>
+    <button id="reset" title="Start a new test run: clears marks, scores and lowest/highest values">New run</button>
+    <a class="btn" id="export" href="export.csv" download title="Download this run's scorecard and events">Export CSV</a>
+    <a class="btn" id="tx" href="transcription" target="_blank" title="Live speech-to-text of what the board hears (opens a new page)">Transcription</a>
+    <button id="theme" title="Light / dark" aria-label="Toggle light or dark theme">◐</button>
+  </div>
+</header>
+<div id="banner" hidden></div>
+
+<main>
+  <section class="card wide" aria-labelledby="h-det">
+    <div class="card-head">
+      <h2 id="h-det">Wake-word detection · evaluator</h2>
+      <div class="legend">
+        <span><i class="sw" style="--c:var(--s1)"></i>Score (averaged probability)</span>
+        <span><i class="sw dash"></i>Threshold <b id="thr">–</b></span>
+        <span><i class="mk tri"></i>You said it</span>
+        <span><i class="shade"></i>Counts as detected</span>
+        <span><i class="mk dot" style="--c:var(--good)"></i>Correct</span>
+        <span><i class="mk dot" style="--c:var(--crit)"></i>False alarm</span>
+        <span><i class="mk dia" style="--c:var(--warn)"></i>Near miss</span>
+      </div>
+      <span id="flash" aria-live="polite"></span>
+    </div>
+    <canvas id="cv-score" aria-label="Wake-word score over time"></canvas>
+    <div class="sublabel">Microphone level (dBFS) — did the board hear you?</div>
+    <canvas id="cv-mic" aria-label="Microphone level over time"></canvas>
+    <div class="evalbar">
+      <button id="said" title="Press Space every time you say the wake word">I said <span id="said-ww">it</span> <kbd>Space</kbd></button>
+      <div class="tiles">
+        <div class="tile" title="How many times you pressed Space"><div class="tl">Said</div><div class="tv" id="m-said">0</div></div>
+        <div class="tile" title="Detections that match a mark, or that you marked correct"><div class="tl"><i class="ic good">✓</i>Correct</div><div class="tv" id="m-tp">0</div></div>
+        <div class="tile" title="Detections nobody marked, or that you marked false"><div class="tl"><i class="ic crit">✗</i>False alarms</div><div class="tv" id="m-fp">0</div></div>
+        <div class="tile" title="Marks with no detection in their window"><div class="tl"><i class="ic serious">○</i>Missed</div><div class="tv" id="m-fn">0</div></div>
+        <div class="tile" title="Correct ÷ (correct + missed)  —  recall"><div class="tl">Detection rate</div><div class="tv" id="m-recall">–</div></div>
+        <div class="tile" title="Correct ÷ (correct + false alarms)"><div class="tl">Precision</div><div class="tv" id="m-prec">–</div></div>
+        <div class="tile" title="False alarms per hour of listening (shown after 1 min)"><div class="tl">False alarms / h</div><div class="tv" id="m-fah">–</div></div>
+        <div class="tile" title="Score rose above 0.20 but did not fire"><div class="tl"><i class="ic warn">◆</i>Near misses</div><div class="tv" id="m-near">0</div></div>
+        <div class="tile" title="Time with live data from the board in this run"><div class="tl">Listening</div><div class="tv" id="m-listen">0:00</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="h-cpu">
+    <div class="card-head"><h2 id="h-cpu">CPU · whole chip (2 cores)</h2><span class="hint">100 % = both cores busy</span></div>
+    <div class="hero"><span class="big" id="cpu-now">–</span><span class="unit">% now</span></div>
+    <div class="minmax"><span>lowest <b id="cpu-lo">–</b></span><span>highest <b id="cpu-hi">–</b></span><span class="hint">since run start</span></div>
+    <div class="legend">
+      <span><i class="sw" style="--c:var(--s1)"></i>Total <b id="cpu-l0">–</b></span>
+      <span><i class="sw" style="--c:var(--s2)"></i>Core 0 (Wi-Fi, audio) <b id="cpu-l1">–</b></span>
+      <span><i class="sw" style="--c:var(--s3)"></i>Core 1 (wake word) <b id="cpu-l2">–</b></span>
+    </div>
+    <canvas id="cv-cpu" aria-label="CPU load over time"></canvas>
+    <div class="facts">
+      <span>Core 0 highest <b id="c0-hi">–</b></span><span>Core 1 highest <b id="c1-hi">–</b></span>
+      <span>Wake-word pipeline <b id="kw">–</b> of one core</span>
+      <span>Inference <b id="inf">–</b> (highest <b id="inf-hi">–</b>)</span>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="h-mem">
+    <div class="card-head"><h2 id="h-mem">Memory</h2><span class="hint">heap in use</span></div>
+    <div class="hero"><span class="big" id="ram-now">–</span><span class="unit" id="ram-of">KB internal RAM</span></div>
+    <div class="minmax"><span>lowest <b id="ram-lo">–</b></span><span>highest <b id="ram-hi">–</b></span>
+      <span title="The chip's own low-water mark: catches short peaks between samples">peak since boot <b id="ram-boot">–</b></span></div>
+    <div class="legend">
+      <span><i class="sw" style="--c:var(--s1)"></i>Internal RAM <b id="ram-pct">–</b></span>
+      <span><i class="sw" style="--c:var(--s2)"></i>PSRAM <b id="ps-pct">–</b></span>
+    </div>
+    <canvas id="cv-mem" aria-label="Memory use over time, percent"></canvas>
+    <div class="facts">
+      <span>PSRAM <b id="ps-now">–</b></span><span>lowest <b id="ps-lo">–</b></span><span>highest <b id="ps-hi">–</b></span>
+      <span>peak since boot <b id="ps-boot">–</b></span>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="h-ev">
+    <div class="card-head"><h2 id="h-ev">Events · review</h2><span class="hint">click ✓ / ✗ to override a verdict (click again for automatic)</span></div>
+    <div class="tablewrap">
+      <table><thead><tr><th>Time</th><th>Event</th><th class="num">Score</th><th>Result</th><th></th></tr></thead>
+        <tbody id="events"></tbody></table>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="h-health">
+    <div class="card-head"><h2 id="h-health">Board health</h2></div>
+    <dl class="health">
+      <div><dt>Link</dt><dd id="h-link">–</dd></div>
+      <div><dt>Board uptime</dt><dd id="h-up">–</dd></div>
+      <div><dt>Microphone</dt><dd id="h-mic">–</dd></div>
+      <div><dt>Audio lost since boot (I2S · net)</dt><dd id="h-lost">–</dd></div>
+      <div><dt>Wi-Fi · ASR server</dt><dd id="h-net">–</dd></div>
+      <div><dt>Model runs</dt><dd id="h-model">–</dd></div>
+      <div><dt>Reboots this run</dt><dd id="h-boots">0</dd></div>
+      <div><dt>Detections since boot</dt><dd id="h-dets">–</dd></div>
+    </dl>
+    <div class="sublabel">Device log (telemetry lines hidden)</div>
+    <div id="log" role="log" aria-live="off"></div>
+  </section>
+</main>
+<div id="tip" class="tip" hidden></div>
+
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const FONT = 'system-ui, -apple-system, "Segoe UI", sans-serif';
+const S = { tel: [], st: null, ext: {} };
+const C = {};
+let clockOffset = null, lastTelPerf = 0, bridgeUp = false, seenDet = 0, lastEventsHtml = '', lastDraw = 0;
+let win = 60, paused = false, pausedAt = 0, hover = null, flashTimer = 0;
+
+const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+                set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
+
+function readColors() {
+  const cs = getComputedStyle(document.documentElement);
+  for (const k of ['surface', 'text', 'text2', 'muted', 'grid', 'axis', 's1', 's2', 's3', 'good', 'warn', 'serious', 'crit', 'hover'])
+    C[k] = cs.getPropertyValue('--' + k).trim();
+}
+
+// ---------- formatting ----------
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const f1 = v => v == null ? '–' : v.toFixed(1);
+const pct = v => v == null ? '–' : (v * 100).toFixed(0) + ' %';
+const kb = b => b == null ? '–' : Math.round(b / 1024).toLocaleString() + ' KB';
+const mb = b => b == null ? '–' : (b / 1048576).toFixed(2) + ' MB';
+const clock = (T, secs = true) => { const d = new Date(T * 1000), p = n => String(n).padStart(2, '0');
+  return p(d.getHours()) + ':' + p(d.getMinutes()) + (secs ? ':' + p(d.getSeconds()) : ''); };
+const dur = s => { s = Math.max(0, Math.round(s)); const h = Math.floor(s / 3600), m = Math.floor(s / 60) % 60, x = s % 60;
+  return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + String(x).padStart(2, '0'); };
+function set(id, text) { const el = $(id); if (el && el.textContent !== text) el.textContent = text; }
+function setHTML(id, html) { const el = $(id); if (el && el.innerHTML !== html) el.innerHTML = html; }
+const icon = (cls, ch) => `<i class="ic ${cls}">${ch}</i> `;
+
+// ---------- data in ----------
+function serverNow() { return clockOffset == null ? Date.now() / 1000 : Date.now() / 1000 + clockOffset; }
+function syncClock(T) { const o = T - Date.now() / 1000; clockOffset = clockOffset == null ? o : clockOffset + (o - clockOffset) * 0.2; }
+function stripTel(m) { const { type, ext, ...x } = m; return x; }
+
+const on = {
+  snap(m) {
+    S.tel = m.tel; S.ext = m.ext; $('log').textContent = '';
+    m.logs.forEach(addLog);
+    seenDet = Math.max(0, ...m.dets.map(d => d.id));
+    syncClock(m.now);
+    if (S.tel.length) { const x = S.tel[S.tel.length - 1]; lastTelPerf = performance.now() - (m.now - x.T) * 1000; updateLive(x); }
+    onState(m);
+  },
+  tel(m) {
+    const x = stripTel(m);
+    S.tel.push(x);
+    if (S.tel[0].T < x.T - 610) S.tel = S.tel.filter(y => y.T >= x.T - 600);
+    S.ext = m.ext; lastTelPerf = performance.now(); syncClock(x.T);
+    updateLive(x);
+  },
+  log(m) { addLog(m); },
+  state(m) { onState(m); },
+  reset(m) { S.ext = m.ext; if (S.tel.length) updateLive(S.tel[S.tel.length - 1]); },
+};
+
+function connect() {
+  let es;
+  try { es = new EventSource('stream'); } catch { setTimeout(connect, 2000); return; }
+  es.onopen = () => { bridgeUp = true; };
+  es.onerror = () => {  // EventSource retries by itself; if it gave up, start over
+    bridgeUp = false;
+    if (es.readyState === EventSource.CLOSED) setTimeout(connect, 2000);
+  };
+  es.onmessage = e => { const m = JSON.parse(e.data); (on[m.type] || (() => {}))(m); };
+}
+
+// Opened as a file (double-clicked): nothing can feed it. Wait for dashboard.py, then switch to the live page.
+const SERVER = 'http://localhost:8090/', fileMode = location.protocol === 'file:';
+function waitForServer() {
+  fetch(SERVER, { mode: 'no-cors', cache: 'no-store' }).then(() => { location.href = SERVER; }, () => setTimeout(waitForServer, 2000));
+}
+
+function post(path, body = {}) {
+  return fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }).catch(() => {});
+}
+
+// ---------- live numbers (every telemetry line) ----------
+function updateLive(x) {
+  const e = S.ext, lo = k => e[k] ? e[k][0] : null, hi = k => e[k] ? e[k][1] : null;
+  set('cpu-now', f1(x.c));
+  set('cpu-lo', lo('c') == null ? '–' : f1(lo('c')) + ' %'); set('cpu-hi', hi('c') == null ? '–' : f1(hi('c')) + ' %');
+  set('cpu-l0', x.c == null ? '–' : f1(x.c) + ' %'); set('cpu-l1', x.c0 == null ? '–' : f1(x.c0) + ' %'); set('cpu-l2', x.c1 == null ? '–' : f1(x.c1) + ' %');
+  set('c0-hi', hi('c0') == null ? '–' : f1(hi('c0')) + ' %'); set('c1-hi', hi('c1') == null ? '–' : f1(hi('c1')) + ' %');
+  set('kw', x.kw == null ? '–' : x.kw.toFixed(1) + ' %');
+  set('inf', x.inf == null ? '–' : x.inf.toFixed(2) + ' ms'); set('inf-hi', hi('inf') == null ? '–' : hi('inf').toFixed(2) + ' ms');
+
+  set('ram-now', Math.round(x.ram / 1024).toLocaleString());
+  set('ram-of', `KB of ${kb(x.ramT)} internal RAM · ${pct(x.ram / x.ramT)}`);
+  set('ram-lo', kb(lo('ram'))); set('ram-hi', kb(hi('ram'))); set('ram-boot', kb(x.ramP));
+  set('ram-pct', pct(x.ram / x.ramT));
+  if (x.psT) {
+    set('ps-pct', pct(x.ps / x.psT)); set('ps-now', `${mb(x.ps)} of ${mb(x.psT)}`);
+    set('ps-lo', mb(lo('ps'))); set('ps-hi', mb(hi('ps'))); set('ps-boot', mb(x.psP));
+  } else { set('ps-pct', 'none'); set('ps-now', 'not present'); }
+
+  set('h-up', dur(x.t / 1000));
+  const silent = x.pk != null && x.pk < -85;
+  setHTML('h-mic', (silent ? icon('crit', '✗') + 'silent — check wiring · ' : '') + `${f1(x.lv)} dBFS <span class="hint">peak ${f1(x.pk)}</span>`);
+  const recent = S.tel.slice(-20), span = recent.length > 1 ? recent[recent.length - 1].T - recent[0].T : 0;
+  const runs = span > 0 ? recent.slice(1).reduce((a, y) => a + (y.n || 0), 0) / span : null;
+  const lines = span > 0 ? (recent.length - 1) / span : null;
+  setHTML('h-model', runs == null ? '–' : (runs < 1 ? icon('crit', '✗') + 'model not running' : `${runs.toFixed(1)} /s`)
+    + (lines ? ` <span class="hint">· telemetry ${lines.toFixed(1)}/s</span>` : ''));
+  set('h-dets', x.d == null ? '–' : String(x.d));
+}
+
+// ---------- state (marks, detections, verdicts; every second and on change) ----------
+function onState(m) {
+  S.st = m; syncClock(m.now);
+  const info = m.info || {}, ww = info.ww || 'the wake word';
+  set('said-ww', `“${ww}”`);
+  set('thr', info.cut != null ? info.cut.toFixed(2) : '–');
+  set('sub', info.ww ? `“${info.ww}” · threshold ${info.cut.toFixed(2)} · window ${info.win} · cool-down ${info.cool} ms · ${m.serial.port}`
+                     : `${m.serial.port} · waiting for device info…`);
+  $('port').textContent = m.serial.want_open ? 'Release port' : 'Reconnect port';
+  $('port').setAttribute('aria-pressed', String(!m.serial.want_open));
+
+  const newest = m.dets.length ? m.dets[m.dets.length - 1] : null;
+  if (newest && newest.id > seenDet) {
+    seenDet = newest.id;
+    const f = $('flash'); f.textContent = `DETECTED · ${newest.score.toFixed(2)}`; f.classList.add('on');
+    clearTimeout(flashTimer); flashTimer = setTimeout(() => f.classList.remove('on'), 1800);
+  }
+
+  const k = m.m;
+  set('m-said', String(k.said)); set('m-tp', String(k.tp)); set('m-fp', String(k.fp)); set('m-fn', String(k.fn));
+  set('m-recall', pct(k.recall)); set('m-prec', pct(k.precision));
+  set('m-fah', k.fa_per_h == null ? '–' : k.fa_per_h.toFixed(1)); set('m-near', String(k.near)); set('m-listen', dur(k.listen_s));
+
+  const lost = [info.li, info.ln];
+  setHTML('h-lost', info.li == null ? '–' : (lost.some(v => v > 0) ? icon('warn', '⚠') : icon('good', '✓')) + lost.join(' · '));
+  const net = v => v == null ? '–' : v < 0 ? 'off' : v ? icon('good', '✓') + 'OK' : icon('crit', '✗') + 'down';
+  setHTML('h-net', info.wifi == null ? '–' : info.wifi < 0 ? 'streaming off' : `${net(info.wifi)} · ${net(info.srv)}`);
+  const b = m.boots;
+  setHTML('h-boots', b.length ? icon('crit', '⚠') + `${b.length} <span class="hint">last: ${esc(b[b.length - 1].why)}</span>` : icon('good', '✓') + '0');
+  renderEvents();
+}
+
+function renderEvents() {
+  const st = S.st, cut = st.info && st.info.cut != null ? st.info.cut.toFixed(2) : '?';
+  const marks = new Map(st.marks.map(m => [m.id, m])), rows = [];
+  for (const d of st.dets) {
+    const mk = d.mark != null ? marks.get(d.mark) : null, lat = mk ? ` (${d.T - mk.T >= 0 ? '+' : ''}${(d.T - mk.T).toFixed(1)} s)` : '';
+    const res = d.v === 'tp' ? icon('good', '✓') + (d.ov ? 'Correct · marked by you' : 'Correct · you said it' + lat)
+              : d.v === 'fp' ? icon('crit', '✗') + (d.ov ? 'False alarm · marked by you' : 'False alarm · not marked')
+              : icon('muted', '…') + 'Waiting — press Space if you said it';
+    const btn = (v, label) => `<button data-act="verdict" data-id="${d.id}" data-v="${d.ov === v ? '' : v}" aria-pressed="${d.ov === v}">${label}</button>`;
+    rows.push([d.T, `<td>Detection</td><td class="num">${d.score.toFixed(2)}</td><td>${res}</td><td class="act">${btn('tp', '✓ Correct')} ${btn('fp', '✗ False')}</td>`]);
+  }
+  for (const m of st.marks) {
+    const det = m.det != null ? st.dets.find(d => d.id === m.det) : null;
+    const res = m.r === 'hit' ? icon('good', '✓') + `Detected${det ? ` (${det.T - m.T >= 0 ? '+' : ''}${(det.T - m.T).toFixed(1)} s)` : ''}`
+              : m.r === 'miss' ? icon('serious', '○') + 'Missed' + (m.near != null ? ` · near miss, peak ${m.near.toFixed(2)}` : '')
+              : icon('muted', '…') + 'Listening';
+    rows.push([m.T, `<td>You said it</td><td class="num"></td><td>${res}</td><td class="act"><button data-act="unmark" data-id="${m.id}">Remove</button></td>`]);
+  }
+  for (const n of st.near)
+    rows.push([n.T, `<td>Near miss</td><td class="num">${n.peak.toFixed(2)}</td><td>${icon('warn', '◆')}Below threshold ${cut} or in cool-down · ${n.ms} ms</td><td></td>`]);
+  for (const b of st.boots)
+    rows.push([b.T, `<td>Board rebooted</td><td class="num"></td><td>${icon('crit', '⚠')}${esc(b.why)}</td><td></td>`]);
+  rows.sort((a, b) => b[0] - a[0]);
+  const html = rows.slice(0, 400).map(([T, r]) => `<tr><td class="time">${clock(T)}</td>${r}</tr>`).join('')
+    || '<tr><td colspan="5" class="empty">No events yet. Say the wake word and press Space at the same time.</td></tr>';
+  if (html !== lastEventsHtml) { $('events').innerHTML = html; lastEventsHtml = html; }
+}
+
+function addLog(m) {
+  const box = $('log'), stick = box.scrollTop + box.clientHeight >= box.scrollHeight - 30;
+  const div = document.createElement('div'), t = document.createElement('span');
+  t.className = 't'; t.textContent = clock(m.T) + ' ';
+  div.append(t, m.text);
+  if (/^E \(|Guru Meditation|abort\(\)/.test(m.text)) div.className = 'e';
+  else if (/^W \(/.test(m.text)) div.className = 'w';
+  else if (/WAKE WORD/.test(m.text)) div.className = 'd';
+  box.append(div);
+  while (box.childElementCount > 300) box.firstElementChild.remove();
+  if (stick) box.scrollTop = box.scrollHeight;
+}
+
+// ---------- link status / banner (every frame) ----------
+function updateLink() {
+  const st = S.st, age = lastTelPerf ? (performance.now() - lastTelPerf) / 1000 : Infinity;
+  let cls = 'stale', text, banner = '', bad = false;
+  if (fileMode) { cls = 'bad'; text = 'not running'; bad = true;
+    banner = 'This page was opened as a file, so nothing feeds it. Start the dashboard: double-click tools\\dashboard.cmd '
+           + '(or run: python tools/dashboard.py). This page switches to the live view by itself.'; }
+  else if (!bridgeUp && !st) { cls = 'bad'; text = 'dashboard offline'; banner = 'Cannot reach dashboard.py — start it with tools\\dashboard.cmd. Retrying…'; bad = true; }
+  else if (!bridgeUp) { cls = 'bad'; text = 'dashboard offline'; banner = 'Lost the connection to dashboard.py (stopped?) — reconnecting by itself…'; bad = true; }
+  else if (!st) { text = 'connecting'; }
+  else if (!st.serial.want_open) { text = 'port released'; banner = `${st.serial.port} is free: flash the board now, then press “Reconnect port”.`; }
+  else if (st.serial.status === 'error') { cls = 'bad'; text = 'serial error'; banner = `${st.serial.port}: ${st.serial.msg}`; bad = true; }
+  else if (!S.tel.length && $('log').childElementCount) { text = 'no telemetry'; banner = 'The board is talking but sends no telemetry lines. Flash the firmware with KWS_TELEMETRY_MS > 0 (menuconfig → KWS → status).'; }
+  else if (!S.tel.length) { text = 'waiting for the board'; }
+  else if (age > 2) { text = `no data ${Math.round(age)} s`; banner = `No data from the board for ${Math.round(age)} s (unplugged, rebooting or crashed?). The graphs resume by themselves.`; }
+  else { cls = 'live'; text = paused ? 'live · paused' : 'live'; }
+  const link = $('link'); if (link.className !== 'pill ' + cls) link.className = 'pill ' + cls;
+  set('link-text', text);
+  setHTML('h-link', cls === 'live' ? icon('good', '✓') + 'live' : (cls === 'bad' ? icon('crit', '✗') : icon('warn', '⚠')) + esc(text));
+  const bn = $('banner'); bn.hidden = !banner; set('banner', banner); bn.classList.toggle('bad', bad);
+}
+
+// ---------- charts ----------
+function lowerBound(arr, T) { let lo = 0, hi = arr.length; while (lo < hi) { const mid = (lo + hi) >> 1; if (arr[mid].T < T) lo = mid + 1; else hi = mid; } return lo; }
+function nearestIdx(T) {
+  const i = lowerBound(S.tel, T); if (!S.tel.length) return -1;
+  if (i === 0) return 0; if (i >= S.tel.length) return S.tel.length - 1;
+  return T - S.tel[i - 1].T < S.tel[i].T - T ? i - 1 : i;
+}
+const STEPS = [1, 2, 5, 10, 15, 30, 60, 120, 300, 600];
+
+function drawChart(ch, t0, t1) {
+  const cv = ch.cv, dpr = window.devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight;
+  if (!W || !H) return;
+  if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+  const ctx = cv.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+  const L = 44, R = 14, T = 10, B = ch.xLabels ? 22 : 4, pw = W - L - R, ph = H - T - B;
+  const X = t => L + (t - t0) / (t1 - t0) * pw;
+  const Y = v => T + (1 - (Math.min(Math.max(v, ch.yMin), ch.yMax) - ch.yMin) / (ch.yMax - ch.yMin)) * ph;
+  ch.geo = { L, pw, t0, t1, top: T, ph, W };
+
+  ctx.font = `11px ${FONT}`; ctx.lineWidth = 1;
+  ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+  for (const v of ch.yTicks) {
+    const y = Math.round(Y(v)) + .5;
+    ctx.strokeStyle = v === ch.yMin ? C.axis : C.grid; ctx.beginPath(); ctx.moveTo(L, y); ctx.lineTo(W - R, y); ctx.stroke();
+    ctx.fillStyle = C.muted; ctx.fillText(ch.fmtY(v), L - 6, y);
+  }
+  if (ch.xLabels) {
+    const step = STEPS.find(s => s * pw / (t1 - t0) >= 80) || 600;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    for (let t = Math.ceil(t0 / step) * step; t <= t1; t += step) {
+      const x = X(t); if (x < L + 24 || x > W - R - 24) continue;
+      ctx.fillText(clock(t, step < 60), x, T + ph + 6);
+    }
+  }
+  ctx.save(); ctx.beginPath(); ctx.rect(L, 0, pw, T + ph + 1); ctx.clip();
+  if (ch.under) ch.under(ctx, X, Y, ch.geo);
+  const data = S.tel, i0 = Math.max(0, lowerBound(data, t0 - 2));
+  ctx.lineWidth = 2; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  let any = false;
+  for (const s of ch.series) {
+    ctx.strokeStyle = C[s.color]; ctx.beginPath();
+    let prevT = null;
+    for (let i = i0; i < data.length; i++) {
+      const d = data[i]; if (d.T > t1 + 1) break;
+      const v = s.get(d);
+      if (v == null || Number.isNaN(v)) { prevT = null; continue; }
+      const x = X(d.T), y = Y(v);
+      if (prevT !== null && d.T - prevT < 1.5) ctx.lineTo(x, y); else ctx.moveTo(x, y);  // gaps stay gaps
+      prevT = d.T; any = true;
+    }
+    ctx.stroke();
+  }
+  if (ch.over) ch.over(ctx, X, Y, ch.geo);
+  if (hover && hover.group === ch.group && hover.T != null) {
+    const i = nearestIdx(hover.T);
+    if (i >= 0 && Math.abs(S.tel[i].T - hover.T) < 2) {
+      const d = S.tel[i], x = Math.round(X(d.T)) + .5;
+      ctx.strokeStyle = C.axis; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x, T); ctx.lineTo(x, T + ph); ctx.stroke();
+      for (const s of ch.series) {
+        const v = s.get(d); if (v == null || Number.isNaN(v)) continue;
+        ctx.beginPath(); ctx.arc(x, Y(v), 4, 0, 7); ctx.fillStyle = C[s.color]; ctx.fill();
+        ctx.lineWidth = 2; ctx.strokeStyle = C.surface; ctx.stroke();
+      }
+    }
+  }
+  ctx.restore();
+  if (!any) {
+    ctx.fillStyle = C.muted; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.font = `13px ${FONT}`;
+    ctx.fillText(S.tel.length ? 'No data in this time window' : 'Waiting for telemetry from the board…', L + pw / 2, T + ph / 2);
+  }
+}
+
+function verdictColor(v) { return v === 'tp' ? C.good : v === 'fp' ? C.crit : C.muted; }
+function diamond(ctx, x, y, r) { ctx.beginPath(); ctx.moveTo(x, y - r); ctx.lineTo(x + r, y); ctx.lineTo(x, y + r); ctx.lineTo(x - r, y); ctx.closePath(); }
+
+const charts = {
+  score: {
+    group: 'eval', yMin: 0, yMax: 1, yTicks: [0, .25, .5, .75, 1], fmtY: v => v.toFixed(2), xLabels: false,
+    series: [{ get: d => d.s, color: 's1' }],
+    under(ctx, X, Y, g) {  // each mark's acceptance window
+      const st = S.st; if (!st) return;
+      const [wb, wa] = st.window;
+      ctx.fillStyle = C.hover;
+      for (const m of st.marks) ctx.fillRect(X(m.T - wb), g.top, X(m.T + wa) - X(m.T - wb), g.ph);
+      for (const b of st.boots) {
+        const x = Math.round(X(b.T)) + .5;
+        ctx.strokeStyle = C.crit; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x, g.top); ctx.lineTo(x, g.top + g.ph); ctx.stroke();
+        ctx.fillStyle = C.crit; ctx.textAlign = 'left'; ctx.textBaseline = 'top'; ctx.font = `11px ${FONT}`; ctx.fillText(' reboot', x, g.top + 14);
+        ctx.fillStyle = C.hover;
+      }
+    },
+    over(ctx, X, Y, g) {
+      const st = S.st; if (!st) return;
+      const cut = st.info && st.info.cut;
+      if (cut != null) {
+        const y = Math.round(Y(cut)) + .5;
+        ctx.setLineDash([5, 4]); ctx.strokeStyle = C.text2; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.moveTo(g.L, y); ctx.lineTo(g.L + g.pw, y); ctx.stroke(); ctx.setLineDash([]);
+        ctx.fillStyle = C.text2; ctx.font = `11px ${FONT}`; ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+        ctx.fillText(`threshold ${cut.toFixed(2)}`, g.L + g.pw - 4, y - 3);
+      }
+      for (const n of st.near) {
+        diamond(ctx, X(n.T), Y(n.peak), 6); ctx.fillStyle = C.warn; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = C.surface; ctx.stroke();
+      }
+      ctx.font = `bold 12px ${FONT}`; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      for (const d of st.dets) {
+        const x = Math.round(X(d.T)) + .5, col = verdictColor(d.v);
+        ctx.strokeStyle = col; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x, g.top + 14); ctx.lineTo(x, g.top + g.ph); ctx.stroke();
+        ctx.beginPath(); ctx.arc(x, Y(d.score), 5, 0, 7); ctx.fillStyle = col; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = C.surface; ctx.stroke();
+        ctx.fillStyle = col; ctx.fillText(d.v === 'tp' ? '✓' : d.v === 'fp' ? '✗' : '?', x, g.top - 2);
+      }
+      ctx.fillStyle = C.text2;
+      for (const m of st.marks) {
+        const x = X(m.T), y = g.top + g.ph;
+        ctx.beginPath(); ctx.moveTo(x, y - 11); ctx.lineTo(x + 6, y); ctx.lineTo(x - 6, y); ctx.closePath(); ctx.fill();
+      }
+    },
+  },
+  mic: {
+    group: 'eval', yMin: -90, yMax: 0, yTicks: [-90, -60, -30, 0], fmtY: v => String(v), xLabels: true,
+    series: [{ get: d => d.lv, color: 's1' }],
+  },
+  cpu: {
+    group: 'cpu', yMin: 0, yMax: 100, yTicks: [0, 25, 50, 75, 100], fmtY: v => v + '%', xLabels: true,
+    series: [{ get: d => d.c0, color: 's2', label: 'Core 0' }, { get: d => d.c1, color: 's3', label: 'Core 1' }, { get: d => d.c, color: 's1', label: 'Total' }],
+  },
+  mem: {
+    group: 'mem', yMin: 0, yMax: 100, yTicks: [0, 25, 50, 75, 100], fmtY: v => v + '%', xLabels: true,
+    series: [{ get: d => d.ram / d.ramT * 100, color: 's1', label: 'Internal RAM' }, { get: d => d.psT ? d.ps / d.psT * 100 : null, color: 's2', label: 'PSRAM' }],
+  },
+};
+for (const [k, ch] of Object.entries(charts)) {
+  ch.cv = $('cv-' + k);
+  ch.cv.addEventListener('pointermove', e => { const r = ch.cv.getBoundingClientRect(); hover = { group: ch.group, ch, x: e.clientX - r.left, cx: e.clientX, cy: e.clientY }; });
+  ch.cv.addEventListener('pointerleave', () => { hover = null; });
+}
+
+function tooltip() {
+  const tip = $('tip');
+  if (!hover || !hover.ch.geo) { tip.hidden = true; return; }
+  const g = hover.ch.geo, T = g.t0 + (hover.x - g.L) / g.pw * (g.t1 - g.t0);
+  hover.T = hover.x >= g.L && hover.x <= g.L + g.pw ? T : null;
+  const i = hover.T == null ? -1 : nearestIdx(T), d = i >= 0 ? S.tel[i] : null;
+  if (!d || Math.abs(d.T - T) > 2) { tip.hidden = true; return; }
+  const sw = c => `<i class="sw" style="--c:var(--${c})"></i>`;
+  let h = `<div class="tt">${clock(d.T)}.${String(Math.floor((d.T % 1) * 10))}</div>`;
+  if (hover.group === 'eval') {
+    h += `<div class="row">${sw('s1')}score <b>${d.s.toFixed(2)}</b></div><div class="row">mic <b>${f1(d.lv)} dBFS</b></div>`;
+    const st = S.st, near = x => Math.abs(x.T - T) < (g.t1 - g.t0) / 120 + .3;
+    if (st) {
+      for (const x of st.dets.filter(near)) h += `<div class="row">${x.v === 'tp' ? icon('good', '✓') + 'correct' : x.v === 'fp' ? icon('crit', '✗') + 'false alarm' : icon('muted', '?') + 'waiting'} detection ${x.score.toFixed(2)}</div>`;
+      for (const x of st.marks.filter(near)) h += `<div class="row">${icon('muted', '▲')}you said it</div>`;
+      for (const x of st.near.filter(near)) h += `<div class="row">${icon('warn', '◆')}near miss ${x.peak.toFixed(2)}</div>`;
+    }
+  } else {
+    for (const s of hover.ch.series) {
+      const v = s.get(d); if (v == null || Number.isNaN(v)) continue;
+      const extra = hover.group === 'mem' ? (s.label === 'PSRAM' ? ` · ${mb(d.ps)}` : ` · ${kb(d.ram)}`) : '';
+      h += `<div class="row">${sw(s.color)}${s.label} <b>${v.toFixed(1)} %</b>${extra}</div>`;
+    }
+  }
+  tip.innerHTML = h; tip.hidden = false;
+  const w = tip.offsetWidth, hh = tip.offsetHeight;
+  tip.style.left = Math.min(window.innerWidth - w - 8, hover.cx + 14) + 'px';
+  tip.style.top = Math.max(8, hover.cy - hh - 12) + 'px';
+}
+
+function frame(now) {
+  requestAnimationFrame(frame);
+  if (now - lastDraw < 33) return;  // ~30 fps is plenty
+  lastDraw = now;
+  const t1 = paused ? pausedAt : serverNow(), t0 = t1 - win;
+  tooltip();
+  for (const ch of Object.values(charts)) drawChart(ch, t0, t1);
+  updateLink();
+}
+
+// ---------- controls ----------
+function setWin(s) {
+  win = s; store.set('kws-win', String(s));
+  for (const b of $('win').children) b.setAttribute('aria-pressed', String(Number(b.dataset.s) === s));
+}
+function togglePause() {
+  paused = !paused; pausedAt = serverNow();
+  $('pause').textContent = paused ? 'Resume' : 'Pause'; $('pause').setAttribute('aria-pressed', String(paused));
+}
+function said() {
+  post('mark');
+  const b = $('said'); b.classList.remove('hit'); void b.offsetWidth; b.classList.add('hit');
+}
+$('win').addEventListener('click', e => { if (e.target.dataset.s) setWin(Number(e.target.dataset.s)); });
+$('pause').addEventListener('click', togglePause);
+$('said').addEventListener('click', said);
+$('port').addEventListener('click', () => post('serial', { open: !(S.st && S.st.serial.want_open) }));
+$('reset').addEventListener('click', () => {
+  if (confirm('Start a new test run?\n\nClears marks, detections, the scorecard and the lowest/highest values.\nThe serial log file keeps everything.')) post('reset');
+});
+$('theme').addEventListener('click', () => {
+  const dark = matchMedia('(prefers-color-scheme: dark)').matches, cur = document.documentElement.dataset.theme || (dark ? 'dark' : 'light');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = next; store.set('kws-theme', next); readColors();
+});
+$('events').addEventListener('click', e => {
+  const b = e.target.closest('button[data-act]'); if (!b) return;
+  if (b.dataset.act === 'verdict') post('verdict', { id: Number(b.dataset.id), v: b.dataset.v || null });
+  else if (b.dataset.act === 'unmark') post('unmark', { id: Number(b.dataset.id) });
+});
+// Buttons keep no focus, so Space always means "I said it" and never re-clicks the last button
+document.addEventListener('click', e => { if (e.target.closest('button')) e.target.closest('button').blur(); });
+const typing = e => /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName);
+document.addEventListener('keydown', e => {
+  if (typing(e) || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.code === 'Space') { e.preventDefault(); if (!e.repeat) said(); }
+  else if (e.key === 'p' || e.key === 'P') togglePause();
+});
+document.addEventListener('keyup', e => { if (e.code === 'Space' && !typing(e)) e.preventDefault(); });
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', readColors);
+
+const savedTheme = store.get('kws-theme'); if (savedTheme) document.documentElement.dataset.theme = savedTheme;
+readColors();
+setWin(Number(store.get('kws-win')) || 60);
+requestAnimationFrame(frame);  // draw first: the page shows its status even if connecting fails
+if (fileMode) waitForServer(); else connect();
+$('tx').search = location.search;  // keeps an ?asr= address override
+</script>
+</body>
+</html>

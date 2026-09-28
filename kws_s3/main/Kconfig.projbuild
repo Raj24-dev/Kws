@@ -1,0 +1,112 @@
+menu "KWS (wake word) settings"
+
+    menu "Microphones (one or two INMP441)"
+        comment "Two microphones: same SCK/WS/SD pins; mic 1 L/R->GND (left), mic 2 L/R->3V3 (right)"
+        comment "Both are found at boot and averaged (e.g. 55 mm apart, talker in front of the pair)"
+        config KWS_MIC_SCK_GPIO
+            int "SCK (bit clock) GPIO"
+            default 16
+        config KWS_MIC_WS_GPIO
+            int "WS (word select / LRCLK) GPIO"
+            default 15
+        config KWS_MIC_SD_GPIO
+            int "SD (data) GPIO"
+            default 17
+        config KWS_MIC_GAIN_SHIFT
+            int "Digital gain (0=x1, 1=x2, 2=x4, 3=x8, 4=x16)"
+            range 0 4
+            default 0
+            help
+                x1 measured best on the test board: speech at 30-50 cm peaks around -9 dBFS, x4 clipped.
+                Raise it only if speech in the saved recordings stays below about -40 dBFS.
+    endmenu
+
+    menu "Wake word detection"
+        config KWS_CUTOFF_PERCENT
+            int "Detection threshold in percent (0 = use the value from the model .json)"
+            range 0 99
+            default 0
+            help
+                Higher = fewer false triggers but more missed words. Colab Step 12 suggests a value.
+        config KWS_SLIDING_WINDOW
+            int "Sliding window size (0 = use the value from the model .json)"
+            range 0 20
+            default 0
+        config KWS_COOLDOWN_MS
+            int "Cool-down after a detection (ms of below-threshold audio)"
+            default 1000
+        config KWS_TENSOR_ARENA_KB
+            int "Tensor arena size to try first (KB, 0 = use the value from the model .json)"
+            range 0 200
+            default 0
+            help
+                Working memory for the model. 0 = the model's "tensor_arena_size" (30000 bytes for
+                microWakeWord models). The firmware grows it automatically if needed and prints the
+                amount actually used at boot.
+        config KWS_SELFTEST
+            bool "Run the self-test on model/*.wav at boot"
+            default y
+    endmenu
+
+    menu "Wi-Fi and speech-recognition server"
+        config KWS_WIFI_SSID
+            string "Wi-Fi name (SSID), 2.4 GHz only. Empty = no Wi-Fi"
+            default ""
+        config KWS_WIFI_PASSWORD
+            string "Wi-Fi password"
+            default ""
+        config KWS_SERVER_URI
+            string "WebSocket server, e.g. ws://192.168.1.50:8765 . Empty = no streaming"
+            default ""
+        config KWS_PREROLL_MS
+            int "Audio sent from before the detection (ms)"
+            range 0 1000
+            default 0
+            help
+                0 = only what is said after the wake word goes to the server: the model on the board decides,
+                the server only transcribes the command. > 0 also sends the wake word itself (e.g. to collect
+                training recordings); the server's transcript still starts at the detection. The audio ring
+                buffer holds 2 s: this pre-roll plus ~1 s of slack for a slow network.
+        config KWS_STREAM_MIN_MS
+            int "Always stream at least this long after detection (ms)"
+            default 1500
+        config KWS_STREAM_MAX_MS
+            int "Stop streaming after this long (ms)"
+            default 8000
+        config KWS_STREAM_SILENCE_MS
+            int "Stop streaming after this much silence (ms)"
+            default 700
+    endmenu
+
+    menu "Board"
+        config KWS_LED_GPIO
+            int "RGB LED (WS2812) GPIO, -1 = none"
+            default 48
+            help
+                ESP32-S3-DevKitC-1 v1.0 boards and most clones use GPIO48, v1.1 boards use GPIO38.
+        config KWS_BUTTON_GPIO
+            int "Button that manually starts streaming (BOOT = GPIO0), -1 = none"
+            default 0
+        config KWS_STATUS_INTERVAL_S
+            int "Print a status line every N seconds"
+            default 10
+        config KWS_RAM_LIMIT_KB
+            int "RAM limit test: make only this much RAM usable (KB, 0 = off)"
+            range 0 512
+            default 0
+            help
+                Proof for the SIH "< 256 KB of RAM" limit. At boot the firmware reserves all internal RAM
+                beyond this limit (static data + heap), so everything after that (Wi-Fi, model, audio,
+                streaming) has to fit. Run it for a while with streaming: any allocation failure shows up
+                in the log. Code the ESP32 copies into IRAM is not counted (it is code, not data).
+        config KWS_TELEMETRY_MS
+            int "Telemetry line for the live dashboard every N ms (0 = off)"
+            default 100
+            range 0 10000
+            help
+                Prints one short "@T ..." line per period (score, CPU, RAM, mic level) that
+                tools/dashboard.py turns into live graphs. About 1.4 KB/s at 100 ms.
+                0 = off: only the human status line is printed.
+    endmenu
+
+endmenu

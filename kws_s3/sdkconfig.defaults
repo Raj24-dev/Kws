@@ -1,0 +1,42 @@
+# Defaults for the SIH KWS firmware. They are applied the first time the project is configured.
+# If you change this file later, delete "sdkconfig" (and the build folder) so it is applied again.
+
+CONFIG_IDF_TARGET="esp32s3"
+
+# 240 MHz, and optimise for speed (makes the neural network faster)
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+CONFIG_COMPILER_OPTIMIZATION_PERF=y
+
+# 4 MB flash layout with one big app partition (works on 4/8/16 MB ESP32-S3 boards).
+# QIO reads the flash twice as fast as DIO: code and model weights are fetched from flash through the caches.
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+CONFIG_ESPTOOLPY_FLASHMODE_QIO=y
+CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y
+
+# Bigger caches: with 16 KB/32 KB the CPU spent most of each inference waiting for flash (4.9 ms per inference).
+# 32 KB instruction cache holds TFLite + ESP-NN, 64 KB data cache holds the whole model. Costs 48 KB of SRAM.
+CONFIG_ESP32S3_INSTRUCTION_CACHE_32KB=y
+CONFIG_ESP32S3_DATA_CACHE_64KB=y
+CONFIG_ESP32S3_DATA_CACHE_LINE_64B=y
+
+# 1 ms scheduler tick and task statistics (used to measure CPU usage)
+CONFIG_FREERTOS_HZ=1000
+CONFIG_FREERTOS_USE_TRACE_FACILITY=y
+CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS=y
+
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=6144
+
+# Logs on the UART ("COM") port and also on the native USB port
+CONFIG_ESP_CONSOLE_UART_DEFAULT=y
+CONFIG_ESP_CONSOLE_SECONDARY_USB_SERIAL_JTAG=y
+
+# SIH limit: the whole firmware must fit in 256 KB of RAM, so no PSRAM (the board's 8 MB stays unused).
+# Wi-Fi buffers sized for one audio stream (~64 kbit/s up) instead of maximum throughput.
+# CONFIG_SPIRAM is not set
+CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM=6
+CONFIG_ESP_WIFI_DYNAMIC_RX_BUFFER_NUM=16
+CONFIG_ESP_WIFI_DYNAMIC_TX_BUFFER_NUM=16
+# CONFIG_ESP_WIFI_AMPDU_RX_ENABLED is not set
+
+CONFIG_KWS_PREROLL_MS=0
+CONFIG_KWS_MIC_GAIN_SHIFT=0

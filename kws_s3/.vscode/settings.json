@@ -1,0 +1,5 @@
+{
+  "idf.currentSetup": "C:\\esp\\v5.5.5\\esp-idf",
+  "idf.flashType": "UART",
+  "idf.monitorBaudRate": "115200"
+}
