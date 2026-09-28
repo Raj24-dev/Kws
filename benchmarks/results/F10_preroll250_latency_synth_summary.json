@@ -1,0 +1,34 @@
+{
+ "files": [
+  "F10_preroll250_acoustic_latency_synth_pass1.json",
+  "F10_preroll250_acoustic_latency_synth_pass2.json"
+ ],
+ "trials": 40,
+ "positives": 40,
+ "detected": 36,
+ "tpr": 0.9,
+ "negatives": 0,
+ "false_accepts": 0,
+ "latency_ms": {
+  "n": 36,
+  "median": 128.6,
+  "median_ci95": [
+   55.5,
+   183.1
+  ],
+  "p95": 336.6,
+  "mean": 128.2,
+  "min": -87.2,
+  "max": 355.1
+ },
+ "device_detect_to_first_send_ms": {
+  "median": 6,
+  "p95": 6,
+  "n": 36
+ },
+ "synthetic_command_wer": 0.0667,
+ "ram_peak_kb_per_run": [
+  190.0,
+  187.0
+ ]
+}
