@@ -1,0 +1,182 @@
+{
+ "evidence": "HOST-ONLY",
+ "split": "val",
+ "cutoff": 0.6,
+ "preroll_s": 0.25,
+ "commands": 17,
+ "wer_no_preroll": 0.3171,
+ "wer_preroll": 0.2439,
+ "wake_word_leaks": 2,
+ "items": [
+  {
+   "file": "20260927_084258_086_e072a1d53274_marvin.wav",
+   "detect_after_kw_ms": 200,
+   "ref": "Can you hear me?",
+   "no_preroll": "Can you hear me?",
+   "preroll": "Can you hear me?",
+   "wer_no_preroll": 0.0,
+   "wer_preroll": 0.0,
+   "wake_word_leak": false
+  },
+  {
+   "file": "20260927_084310_960_e072a1d53274_marvin.wav",
+   "detect_after_kw_ms": 20,
+   "ref": "Can you hear me?",
+   "no_preroll": "Can you hear me?",
+   "preroll": "Can you hear me?",
+   "wer_no_preroll": 0.0,
+   "wer_preroll": 0.0,
+   "wake_word_leak": false
+  },
+  {
+   "file": "20260927_084537_739_e072a1d53274_marvin.wav",
+   "detect_after_kw_ms": -90,
+   "ref": "Marvin.",
+   "no_preroll": "Marvin. Marvin.",
+   "preroll": "Marvin.",
+   "wer_no_preroll": 1.0,
+   "wer_preroll": 0.0,
+   "wake_word_leak": true
+  },
+  {
+   "file": "20260927_084542_094_e072a1d53274_marvin.wav",
+   "detect_after_kw_ms": -90,
+   "ref": "Marvin. Marvin.",
+   "no_preroll": "Marvin. Marvin. Marvin.",
+   "preroll": "Marvin. Marvin.",
+   "wer_no_preroll": 0.5,
+   "wer_preroll": 0.0,
+   "wake_word_leak": true
+  },
+  {
+   "file": "20260927_084720_817_e072a1d53274_marvin.wav",
+   "detect_after_kw_ms": -780,
+   "ref": "Can you hear me Marvin?",
+   "no_preroll": "Can you hear me Marvin?",
+   "preroll": "Can you hear me, Marvin?",
+   "wer_no_preroll": 0.0,
+   "wer_preroll": 0.0,
+   "wake_word_leak": false
+  },
+  {
+   "file": "20260927_093742_561_e072a1d53274_marvin.wav",
+   "detect_after_kw_ms": 50,
+   "ref": "Okay, go ahead.",
+   "no_preroll": "",
+   "preroll": "",
+   "wer_no_preroll": 1.0,
+   "wer_preroll": 1.0,
+   "wake_word_leak": false
+  },
+  {
+   "file": "20260927_093803_418_e072a1d53274_marvin.wav",
+   "detect_after_kw_ms": -60,
+   "ref": "Okay, that's special, but not a...",
+   "no_preroll": "Okay, let's see.",
+   "preroll": "",
+   "wer_no_preroll": 0.833,
+   "wer_preroll": 1.0,
+   "wake_word_leak": false
+  },
+  {
+   "file": "20260928_130927_582_e072a1d53274_marvin.wav",
+   "detect_after_kw_ms": 710,
+   "ref": "What time is it?",
+   "no_preroll": "Time isn't it?",
+   "preroll": "What time is it?",
+   "wer_no_preroll": 0.5,
+   "wer_preroll": 0.0,
+   "wake_word_leak": false
+  },
+  {
+   "file": "20260928_131632_649_e072a1d53274_marvin.wav",
+   "detect_after_kw_ms": 120,
+   "ref": "Okay, good.",
+   "no_preroll": "",
+   "preroll": "",
+   "wer_no_preroll": 1.0,
+   "wer_preroll": 1.0,
+   "wake_word_leak": false
+  },
+  {
+   "file": "20260928_133135_422_e072a1d53274_marvin.wav",
+   "detect_after_kw_ms": 180,
+   "ref": "Kevin, can you hear me?",
+   "no_preroll": "Can you hear me?",
+   "preroll": "Can you hear me?",
+   "wer_no_preroll": 0.2,
+   "wer_preroll": 0.2,
+   "wake_word_leak": false
+  },
+  {
+   "file": "20260928_135257_178_e072a1d53274_marvin.wav",
+   "detect_after_kw_ms": 180,
+   "ref": "Can you hear me?",
+   "no_preroll": "Can you hear me?",
+   "preroll": "Can you hear me?",
+   "wer_no_preroll": 0.0,
+   "wer_preroll": 0.0,
+   "wake_word_leak": false
+  },
+  {
+   "file": "20260928_135307_684_e072a1d53274_marvin.wav",
+   "detect_after_kw_ms": -10,
+   "ref": "Raj is a good guy.",
+   "no_preroll": "Raj is a good guy.",
+   "preroll": "Him. Raj is a good guy.",
+   "wer_no_preroll": 0.0,
+   "wer_preroll": 0.2,
+   "wake_word_leak": false
+  },
+  {
+   "file": "20260928_135426_632_e072a1d53274_marvin.wav",
+   "detect_after_kw_ms": 320,
+   "ref": "Okay, go ahead.",
+   "no_preroll": "",
+   "preroll": "",
+   "wer_no_preroll": 1.0,
+   "wer_preroll": 1.0,
+   "wake_word_leak": false
+  },
+  {
+   "file": "20260928_141602_262_e072a1d53274_marvin.wav",
+   "detect_after_kw_ms": 480,
+   "ref": "Please play the music.",
+   "no_preroll": "Please play the music.",
+   "preroll": "Please play the music.",
+   "wer_no_preroll": 0.0,
+   "wer_preroll": 0.0,
+   "wake_word_leak": false
+  },
+  {
+   "file": "20260928_141910_288_e072a1d53274_marvin.wav",
+   "detect_after_kw_ms": 300,
+   "ref": "Are you okay?",
+   "no_preroll": "Are you okay?",
+   "preroll": "Are you okay?",
+   "wer_no_preroll": 0.0,
+   "wer_preroll": 0.0,
+   "wake_word_leak": false
+  },
+  {
+   "file": "20260928_144053_709_e072a1d53274_marvin.wav",
+   "detect_after_kw_ms": 160,
+   "ref": "Are you listening?",
+   "no_preroll": "I'll listen to you.",
+   "preroll": "Are you listening?",
+   "wer_no_preroll": 1.333,
+   "wer_preroll": 0.0,
+   "wake_word_leak": false
+  },
+  {
+   "file": "20260928_144239_086_e072a1d53274_marvin.wav",
+   "detect_after_kw_ms": 150,
+   "ref": "Are you listening to my word, what I'm saying right now? And can you also detect that what I'm saying actually being transcribed like?",
+   "no_preroll": "Are you listening to my word what I am saying right now and can you also detect that what I am saying actually being transcribed like?",
+   "preroll": "Are you listening to my word, what I am saying right now? And can you also detect that what I am saying actually being transcribed like?",
+   "wer_no_preroll": 0.167,
+   "wer_preroll": 0.167,
+   "wake_word_leak": false
+  }
+ ]
+}
