@@ -37,6 +37,10 @@
 
 static const char *TAG = "kws";
 
+#ifndef CONFIG_KWS_INJECT_TEST
+#define CONFIG_KWS_INJECT_TEST 0
+#endif
+
 // Generated from the "model" folder by main/embed_model.cmake
 extern const char g_ww_model_file[];
 extern const unsigned char g_ww_model[];
@@ -218,18 +222,47 @@ static void cpu_load(float load[2]) {
 #endif
 }
 
-// Free stack of every task (bytes never used since boot), to size the stacks
-static void print_stacks(void) {
-#if configUSE_TRACE_FACILITY
+// Every task's CPU share since the previous call (% of one core) and free stack (bytes never used since boot)
+static void print_tasks(void) {
+#if configUSE_TRACE_FACILITY && configGENERATE_RUN_TIME_STATS
+    enum { MAXT = 32 };
+    static TaskHandle_t prev_h[MAXT];
+    static configRUN_TIME_COUNTER_TYPE prev_rt[MAXT], prev_total;
+    static int prev_n;
     UBaseType_t cap = uxTaskGetNumberOfTasks() + 4;
     TaskStatus_t *st = malloc(cap * sizeof(TaskStatus_t));
     if (!st) return;
-    UBaseType_t n = uxTaskGetSystemState(st, cap, NULL);
-    printf("[stacks] unused bytes:");
-    for (UBaseType_t i = 0; i < n; i++) printf(" %s=%u", st[i].pcTaskName, (unsigned)st[i].usStackHighWaterMark);
+    configRUN_TIME_COUNTER_TYPE total = 0;
+    UBaseType_t n = uxTaskGetSystemState(st, cap, &total);
+    const float dt = prev_total ? (float)(total - prev_total) : 0.0f;
+    printf("[tasks] %% of one core (free stack):");
+    for (UBaseType_t i = 0; i < n; i++) {
+        float pct = -1;
+        for (int k = 0; k < prev_n; k++)
+            if (prev_h[k] == st[i].xHandle && dt > 0) pct = 100.0f * (float)(st[i].ulRunTimeCounter - prev_rt[k]) / dt;
+        const BaseType_t core = xTaskGetCoreID(st[i].xHandle);
+        printf(" %s@%c=%.2f(%u)", st[i].pcTaskName, core == tskNO_AFFINITY ? '*' : (char)('0' + core), pct,
+               (unsigned)st[i].usStackHighWaterMark);
+    }
     printf("\n");
+    prev_n = 0;
+    for (UBaseType_t i = 0; i < n && i < MAXT; i++, prev_n++) {
+        prev_h[i] = st[i].xHandle;
+        prev_rt[i] = st[i].ulRunTimeCounter;
+    }
+    prev_total = total;
     free(st);
 #endif
+}
+
+// Boot-time heap accounting: internal heap taken by each start-up stage
+static void heap_mark(const char *stage) {
+    static size_t last;
+    const size_t free_now = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
+    if (last) printf("[heap] %-28s took %6d B, %6u B free\n", stage, (int)(last - free_now), (unsigned)free_now);
+    else printf("[heap] %-28s %6u B free (of %u B)\n", stage, (unsigned)free_now,
+                (unsigned)heap_caps_get_total_size(MALLOC_CAP_INTERNAL));
+    last = free_now;
 }
 
 // The engine/microphone counters are taken (and reset) once per tick. With KWS_TELEMETRY_MS > 0 every tick also
@@ -324,16 +357,62 @@ static void print_status(void) {
     s_acc = (status_acc_t){.mic_peak_dbfs = -120.0f};
 }
 
+#if CONFIG_KWS_INJECT_TEST
+// [DEVICE-INJECTED] benchmark: test audio arrives on the console UART and goes through ww_process() exactly like
+// microphone audio (same 20 ms blocks). One clip = "INJ <id> <samples>\n" + samples x int16 LE; the detector is reset
+// before every clip. Answer: "INJ <id> det=<detections> first=<sample index of the 1st> max=<highest average score>".
+static void inject_loop(void) {
+    const uart_port_t u = CONFIG_ESP_CONSOLE_UART_NUM;
+    printf("INJECT READY 921600\n");
+    fflush(stdout);
+    uart_wait_tx_done(u, pdMS_TO_TICKS(200));
+    uart_set_baudrate(u, 921600);
+    static int16_t block[AUDIO_BLOCK_SAMPLES];
+    char line[64];
+    for (;;) {
+        int n = 0;
+        while (n < (int)sizeof(line) - 1) {  // header line
+            uint8_t c;
+            if (uart_read_bytes(u, &c, 1, portMAX_DELAY) != 1) continue;
+            if (c == '\n') break;
+            line[n++] = (char)c;
+        }
+        line[n] = 0;
+        unsigned id = 0, total = 0;
+        if (sscanf(line, "INJ %u %u", &id, &total) != 2) continue;
+        ww_reset();
+        ww_stats_t st;
+        ww_take_stats(&st);
+        unsigned fed = 0, dets = 0;
+        int first = -1;
+        while (fed < total) {
+            const unsigned k = total - fed < AUDIO_BLOCK_SAMPLES ? total - fed : AUDIO_BLOCK_SAMPLES;
+            int got = 0;
+            while (got < (int)(k * 2)) got += uart_read_bytes(u, (uint8_t *)block + got, k * 2 - got, portMAX_DELAY);
+            fed += k;
+            if (ww_process(block, k, NULL)) {
+                if (first < 0) first = (int)fed;
+                dets++;
+            }
+        }
+        ww_take_stats(&st);
+        printf("INJ %u det=%u first=%d max=%.3f\n", id, dets, first, st.max_avg_probability);
+        fflush(stdout);
+    }
+}
+#endif
+
 // ---------------------------------------------------------------------------------------------------------------
 void app_main(void) {
     // Console through the UART driver: printf copies into a buffer and returns. Without the driver every printf
     // busy-waits on the 128-byte UART FIFO (the 10 Hz telemetry line alone cost ~3% of core 0).
-    if (uart_driver_install(CONFIG_ESP_CONSOLE_UART_NUM, 256, 2048, 0, NULL, 0) == ESP_OK)
+    if (uart_driver_install(CONFIG_ESP_CONSOLE_UART_NUM, CONFIG_KWS_INJECT_TEST ? 16384 : 256, 2048, 0, NULL, 0) == ESP_OK)
         uart_vfs_dev_use_driver(CONFIG_ESP_CONSOLE_UART_NUM);
 #if CONFIG_KWS_RAM_LIMIT_KB > 0
     apply_ram_limit();
 #endif
     print_banner();
+    heap_mark("start of app_main");
     status_led_init(CONFIG_KWS_LED_GPIO);
 
     esp_err_t err = nvs_flash_init();
@@ -342,6 +421,7 @@ void app_main(void) {
         err = nvs_flash_init();
     }
     ESP_ERROR_CHECK(err);
+    heap_mark("NVS");
 
     // 1) Model -----------------------------------------------------------------------------------------------
     load_model_settings(&s_ms);
@@ -372,6 +452,11 @@ void app_main(void) {
         ESP_LOGW(TAG, "no model in the firmware -> microphone-test mode. Put your .tflite (+ .json) into the model folder.");
     }
 
+    heap_mark("model + features + self-test");
+#if CONFIG_KWS_INJECT_TEST
+    if (s_model_ok) inject_loop();
+#endif
+
     // 2) Microphone ------------------------------------------------------------------------------------------
     s_streaming_enabled = strlen(CONFIG_KWS_WIFI_SSID) > 0 && strlen(CONFIG_KWS_SERVER_URI) > 0;
     audio_input_config_t acfg = {
@@ -400,11 +485,13 @@ void app_main(void) {
     }
     // Audio + wake word task (core 1, away from Wi-Fi on core 0). Started now so no audio piles up in DMA.
     xTaskCreatePinnedToCore(audio_task, "audio_kws", 4096, NULL, 10, NULL, 1);  // uses ~2.8 KB
+    heap_mark("I2S + ring + audio task");
     if (s_model_ok) ESP_LOGI(TAG, "listening for \"%s\" ...", s_ms.wake_word);
 
     // 3) Wi-Fi + streaming ----------------------------------------------------------------------------------
     if (s_streaming_enabled) {
         wifi_start(CONFIG_KWS_WIFI_SSID, CONFIG_KWS_WIFI_PASSWORD);
+        heap_mark("Wi-Fi driver + netif");
         streamer_config_t scfg = {
             .uri = CONFIG_KWS_SERVER_URI,
             .wake_word = s_ms.wake_word,
@@ -413,7 +500,9 @@ void app_main(void) {
             .max_ms = CONFIG_KWS_STREAM_MAX_MS,
             .silence_ms = CONFIG_KWS_STREAM_SILENCE_MS,
         };
-        if (streamer_init(&scfg) != ESP_OK) {
+        const esp_err_t serr = streamer_init(&scfg);
+        heap_mark("WebSocket client + streamer");
+        if (serr != ESP_OK) {
             ESP_LOGE(TAG, "streamer could not start");
             s_streaming_enabled = false;
         }
@@ -461,7 +550,7 @@ void app_main(void) {
         }
         if (now >= next_status) {
             print_status();
-            if (n_status++ % 6 == 0) print_stacks();  // at the first status line, then every minute
+            if (n_status++ % 6 == 0) print_tasks();  // at the first status line, then every minute
             next_status = now + interval_us;
         }
     }

@@ -207,6 +207,8 @@ async function finishUtterance(utt, end) {
     reason: end.reason ?? (end.type === "stop" ? "stop" : null),
     first_audio_latency_ms: end.first_audio_latency_ms ?? null,
     first_audio_rx_ms: utt.firstAudioMs ?? null, // server: start message -> first audio frame
+    start_rx_epoch_ms: utt.startRxEpochMs ?? null, // arrival times on this PC's clock (latency benchmark)
+    first_audio_rx_epoch_ms: utt.firstAudioEpochMs ?? null,
     resumes: end.resumes ?? utt.resumed, // reconnects bridged without losing audio
     event_peak: end.event_peak ?? null, // the device's wake word score peak and length
     event_ms: end.event_ms ?? null,
@@ -284,6 +286,7 @@ app.get("/ws", { websocket: true }, (socket, req) => {
 
   socket.on("message", async (message, isBinary) => {
     lastSeen = Date.now();
+    const rxEpochMs = performance.timeOrigin + performance.now(); // arrival time, sub-ms (latency benchmark)
 
     // ---------- Binary audio ----------
     if (isBinary) {
@@ -296,7 +299,11 @@ app.get("/ws", { websocket: true }, (socket, req) => {
         return;
       }
       utt.stt?.send(pcm); // to the ASR first: this is the latency that counts
-      utt.firstAudioMs ??= Date.now() - utt.startedAt;
+      if (utt.firstAudioMs == null) {
+        utt.firstAudioMs = Date.now() - utt.startedAt;
+        utt.firstAudioEpochMs = rxEpochMs;
+        live({ type: "first_audio", id: utt.base, rx_epoch_ms: rxEpochMs, bytes: message.length });
+      }
       fs.writeSync(utt.fd, pcm); // ponytail: synchronous 640 B write per 20 ms; fine for a few devices
       utt.bytes += pcm.length;
       return;
@@ -351,6 +358,7 @@ app.get("/ws", { websocket: true }, (socket, req) => {
             log(`${deviceId}: resumed after a reconnect, appending to ${path.basename(part)}`);
           } else {
             utt = openUtterance(deviceId, data);
+            utt.startRxEpochMs = rxEpochMs;
             log(`${deviceId}: ${data.type === "start" ? `wake word "${data.wake_word}" (score ${data.score}${data.source === "resume" ? ", resume without the first part" : ""})` : "trigger"}`);
             const current = utt;
             live({ type: "start", id: current.base, device: deviceId, wake_word: data.wake_word ?? null,

@@ -1,9 +1,11 @@
 # Secrets: kws_s3/sdkconfig holds the Wi-Fi password (set it with idf.py menuconfig, never commit it)
 sdkconfig
-sdkconfig.old
+sdkconfig.*
+!sdkconfig.defaults
 .env
 # Generated / downloaded
 build/
+build_*/
 managed_components/
 node_modules/
 __pycache__/

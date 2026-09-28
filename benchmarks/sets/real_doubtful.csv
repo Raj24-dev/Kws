@@ -1,0 +1,14 @@
+file,split,label,label_index,label_whisper,kw_start,kw_end,kw_end_method,duration_s,orig_score,text_whisper,ref_transcript,sha256
+20260927_080213_805_e072a1d53274_marvin.wav,excluded,doubtful,0,1,0.0,0.8,energy,2.8,0.562,Marvin.,Margin,7d2909dce1c20e94c73e35e8a6f675f424ef4435f114770165d4223d62b143b1
+20260927_084351_542_e072a1d53274_marvin.wav,excluded,doubtful,1,0,,,,9.64,0.532,"can you hear me, can you hear me, can you hear me, can you hear me, can you hear me","Marvin, can you hear me Marvin, Marvin, Marvin, Marvin, Marvin, Marvin, can you hear me?",c6e04cc9667fd9f810c6221f347df29c89f08397c44b54952db6b6fa72210bb7
+20260927_084528_115_e072a1d53274_marvin.wav,excluded,doubtful,1,0,,,,2.5,0.691,Martin,Marvin.,f5c7860210ed3877deec77cfcc3a93aaa8fd06dfe0da337b872ffc7eea90a5eb
+20260927_084531_114_e072a1d53274_marvin.wav,excluded,doubtful,0,1,0.0,0.78,energy,4.2,0.67,Marvin. Marvin.,Margin. Margin.,3cb9ac6a9f5855e20fb21b3de91304ef4df10d914d39981b981810300f6c8dba
+20260927_093218_606_e072a1d53274_marvin.wav,excluded,doubtful,0,1,0.0,0.62,whisper,2.76,0.577,Marvin,Madhavan,4e6e796c14b0b9717c8a39cfbe150f19afd172f83dd62315b3c2c25b8589eebe
+20260927_093750_532_e072a1d53274_marvin.wav,excluded,doubtful,0,1,0.0,0.97,energy,3.66,0.672,Marvin! Marvin!,Mauin? Mauin?,39ed9ed93cb75e21f9c1b558c8089e94591c4fe0b610d4f3c9a00636c2aad275
+20260927_093754_121_e072a1d53274_marvin.wav,excluded,doubtful,0,1,0.0,0.7,whisper,2.5,0.634,Marvin,Mauin,5a7d940bbfd5e595d00994f4014936ea2ae1e78e17f2a1db6f889e94fcf89386
+20260927_094722_682_e072a1d53274_marvin.wav,excluded,doubtful,0,1,0.0,0.83,energy,2.52,0.67,Marvin,My win,e55ff4326e4ac1028a28190040427c79dc96ea13a982d9d05dfac8d3c8979830
+20260927_104827_403_e072a1d53274_marvin.wav,excluded,doubtful,0,1,0.0,0.62,energy,2.52,0.509,Marvin?,Bye-bye.,942d78e2b9a08b27b067c70667f962186645a306e7bf6c12d8a697d15aedc4b0
+20260928_141552_914_e072a1d53274_marvin.wav,excluded,doubtful,0,1,0.0,0.85,energy,2.5,0.555,Marvyn,Marvyn,291647c387c79a9417b22048eb5cd4d5838d84e2a014a6b9973c2ba3d7780190
+20260928_141619_693_e072a1d53274_marvin.wav,excluded,doubtful,0,1,0.0,0.77,energy,2.5,0.504,Marvim,Marvim,525a94cff2f50629749d045f40d8938c59b8ea431b723877f2973f372f1fb630
+20260928_141733_070_e072a1d53274_marvin.wav,excluded,doubtful,0,1,0.0,1.01,energy,2.5,0.509,Marvyn,Marvyn,734c19034db038570c8ee396bc9e84a27ad473493962cf0b2417cbb8cf3c239f
+20260928_141851_017_e072a1d53274_marvin.wav,excluded,doubtful,0,1,0.54,0.91,energy,2.5,0.53,"Marvyn, are you okay?","Marvyn, are you okay?",eb7d54398fbd566757a6d4e42f087ffda9e2e17b3a2785e89ab14a32128ccabc

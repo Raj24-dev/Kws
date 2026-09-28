@@ -99,6 +99,20 @@ menu "KWS (wake word) settings"
                 beyond this limit (static data + heap), so everything after that (Wi-Fi, model, audio,
                 streaming) has to fit. Run it for a while with streaming: any allocation failure shows up
                 in the log. Code the ESP32 copies into IRAM is not counted (it is code, not data).
+        config KWS_PROFILE_OPS
+            bool "Profile the model's operations and the feature stages (benchmark builds only)"
+            default n
+            help
+                Every 1000 inferences, prints the CPU time of each TFLite operation type and of each feature
+                frontend stage ("[prof]" lines). Adds a few cycle-counter reads per operation.
+        config KWS_INJECT_TEST
+            bool "Injection test firmware: take test audio from the serial port instead of the microphones"
+            default n
+            help
+                Benchmark build only ([DEVICE-INJECTED] evidence). No microphones, no Wi-Fi: after boot the console
+                switches to 921600 baud and waits for "INJ <id> <samples>" + raw 16 kHz int16 audio, runs it through
+                the same features + model + detector as the live firmware and answers
+                "INJ <id> det=<n> first=<sample> max=<score>". Driven by benchmarks/run_injected.py.
         config KWS_TELEMETRY_MS
             int "Telemetry line for the live dashboard every N ms (0 = off)"
             default 100

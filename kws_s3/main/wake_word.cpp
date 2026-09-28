@@ -21,6 +21,60 @@
 
 static const char *TAG = "wake_word";
 
+#if CONFIG_KWS_PROFILE_OPS
+#include "esp_cpu.h"
+#include "tensorflow/lite/micro/micro_profiler_interface.h"
+extern "C" uint32_t g_frontend_prof_cycles[8];  // frontend.c (same Kconfig option)
+namespace {
+// Sums the CPU cycles of each operation type (TFLM calls BeginEvent/EndEvent around every operator)
+class OpProfiler : public tflite::MicroProfilerInterface {
+   public:
+    uint32_t BeginEvent(const char *tag) override {
+        if (open_ >= 4) return 0;
+        tag_[open_] = tag;
+        t0_[open_] = esp_cpu_get_cycle_count();
+        return open_++;
+    }
+    void EndEvent(uint32_t h) override {
+        const uint32_t dt = esp_cpu_get_cycle_count() - t0_[h];
+        open_ = h;
+        int k = 0;
+        while (k < n_ && strcmp(names_[k], tag_[h]) != 0) k++;
+        if (k == n_) {
+            if (n_ == kMax) return;
+            names_[n_++] = tag_[h];
+        }
+        cycles_[k] += dt;
+        count_[k]++;
+    }
+    void print_and_reset(uint32_t inferences) {
+        printf("[prof] model ops per inference (us @240MHz):");
+        uint64_t tot = 0;
+        for (int k = 0; k < n_; k++) {
+            printf(" %s=%.1f/%lu", names_[k], cycles_[k] / 240.0 / inferences, (unsigned long)(count_[k] / inferences));
+            tot += cycles_[k];
+            cycles_[k] = count_[k] = 0;
+        }
+        printf(" | total=%.1f\n", tot / 240.0 / inferences);
+    }
+
+   private:
+    static constexpr int kMax = 32;
+    const char *tag_[4];
+    uint32_t t0_[4];
+    int open_ = 0, n_ = 0;
+    const char *names_[kMax];
+    uint64_t cycles_[kMax] = {};
+    uint32_t count_[kMax] = {};
+};
+OpProfiler g_prof;
+uint32_t g_prof_inferences = 0, g_prof_frames = 0;
+}  // namespace
+#define PROFILER_ARG , &g_prof
+#else
+#define PROFILER_ARG
+#endif
+
 namespace {
 
 // ---- Feature settings. These MUST match training (microWakeWord / pymicro-features). ----
@@ -183,6 +237,19 @@ bool infer(int64_t *invoke_us) {
     portENTER_CRITICAL(&g_stats_lock);
     g_stat_inferences++;
     portEXIT_CRITICAL(&g_stats_lock);
+#if CONFIG_KWS_PROFILE_OPS
+    if (++g_prof_inferences == 1000) {
+        g_prof.print_and_reset(g_prof_inferences);
+        static const char *stage[8] = {"window", "fft", "energy", "filterbank", "sqrt", "noise_red", "pcan", "log"};
+        printf("[prof] feature stages per 10 ms frame (us):");
+        for (int k = 0; k < 8; k++) {
+            printf(" %s=%.1f", stage[k], g_frontend_prof_cycles[k] / 240.0 / g_prof_frames);
+            g_frontend_prof_cycles[k] = 0;
+        }
+        printf("\n");
+        g_prof_inferences = g_prof_frames = 0;
+    }
+#endif
     const float p = (g_out->data.uint8[0] - g_out_zp) * g_out_scale;
     g_probs[g_prob_idx] = p;
     g_prob_idx = (g_prob_idx + 1) % g_window;
@@ -254,7 +321,7 @@ extern "C" esp_err_t ww_init(const uint8_t *model_data, size_t model_len, const 
         uint8_t *arena = (uint8_t *)heap_caps_aligned_alloc(16, attempt, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
         if (!arena) continue;
         reset_resource_variables();
-        auto *interp = new tflite::MicroInterpreter(model, g_resolver, arena, attempt, g_mrv);
+        auto *interp = new tflite::MicroInterpreter(model, g_resolver, arena, attempt, g_mrv PROFILER_ARG);
         if (interp->AllocateTensors() == kTfLiteOk) {
             g_arena = arena;
             g_arena_size = attempt;
@@ -335,6 +402,9 @@ extern "C" bool ww_process(const int16_t *samples, size_t num_samples, float *av
             continue;
         }
 
+#if CONFIG_KWS_PROFILE_OPS
+        g_prof_frames++;
+#endif
         // A new 40-value feature frame (every 10 ms): quantize it exactly like the model's input expects
         int8_t *frame = g_lookback[g_lb_next];
         g_lb_next = (g_lb_next + 1) % kLookbackFrames;
@@ -379,7 +449,7 @@ extern "C" void ww_reset(void) {
     // Rebuild the interpreter on the same memory: all internal state starts exactly as after boot.
     delete g_interp;
     reset_resource_variables();
-    g_interp = new tflite::MicroInterpreter(g_model, g_resolver, g_arena, g_arena_size, g_mrv);
+    g_interp = new tflite::MicroInterpreter(g_model, g_resolver, g_arena, g_arena_size, g_mrv PROFILER_ARG);
     if (g_interp->AllocateTensors() != kTfLiteOk) {
         ESP_LOGE(TAG, "model reset failed");
         delete g_interp;
