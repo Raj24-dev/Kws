@@ -42,8 +42,10 @@ def load_items(args):
     items = []
     for src in args:
         if src.endswith(".csv"):
+            audio_dir = os.path.join(HERE, "audio", os.path.splitext(os.path.basename(src))[0])
             for r in csv.DictReader(open(src, encoding="utf-8")):
-                items.append({"path": os.path.join(REC, r["file"]), "label": int(r["label"]),
+                path = os.path.join(audio_dir if os.path.isdir(audio_dir) else REC, r["file"])
+                items.append({"path": path, "label": int(r["label"]),
                               "kw_end": float(r["kw_end"]) if r["kw_end"] else None, "set": os.path.basename(src),
                               "ref": r.get("ref_transcript", "")})
         else:  # folder of wavs: label from the name (marvin -> 1)

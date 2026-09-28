@@ -6,6 +6,7 @@ set(srcs
     "wifi.c"
     "status_led.c"
     "wav_selftest.c"
+    "fast_ops.cc"
 )
 
 # Embed the model files (skipped during ESP-IDF's early "requirements" pass)

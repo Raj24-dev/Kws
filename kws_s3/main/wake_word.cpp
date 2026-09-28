@@ -21,6 +21,20 @@
 
 static const char *TAG = "wake_word";
 
+// main/fast_ops.cc: same results as TFLite Micro's kernels, the copy plan is worked out once
+TFLMRegistration Register_STRIDED_SLICE_FAST();
+TFLMRegistration Register_CONCATENATION_FAST();
+TFLMRegistration Register_SPLIT_V_FAST();
+#if CONFIG_KWS_FAST_SLICE
+#define KWS_STRIDED_SLICE Register_STRIDED_SLICE_FAST()
+#define KWS_CONCATENATION Register_CONCATENATION_FAST()
+#define KWS_SPLIT_V Register_SPLIT_V_FAST()
+#else
+#define KWS_STRIDED_SLICE tflite::Register_STRIDED_SLICE()
+#define KWS_CONCATENATION tflite::Register_CONCATENATION()
+#define KWS_SPLIT_V tflite::Register_SPLIT_V()
+#endif
+
 #if CONFIG_KWS_PROFILE_OPS
 #include "esp_cpu.h"
 #include "tensorflow/lite/micro/micro_profiler_interface.h"
@@ -158,14 +172,15 @@ bool register_ops() {
     // Superset of the operations used by microWakeWord streaming models (same list as ESPHome).
     return g_resolver.AddCallOnce() == kTfLiteOk && g_resolver.AddVarHandle() == kTfLiteOk &&
            g_resolver.AddReshape() == kTfLiteOk && g_resolver.AddReadVariable() == kTfLiteOk &&
-           g_resolver.AddStridedSlice() == kTfLiteOk && g_resolver.AddConcatenation() == kTfLiteOk &&
+           g_resolver.AddStridedSlice(KWS_STRIDED_SLICE) == kTfLiteOk &&
+           g_resolver.AddConcatenation(KWS_CONCATENATION) == kTfLiteOk &&
            g_resolver.AddAssignVariable() == kTfLiteOk && g_resolver.AddConv2D() == kTfLiteOk &&
            g_resolver.AddMul() == kTfLiteOk && g_resolver.AddAdd() == kTfLiteOk &&
            g_resolver.AddMean() == kTfLiteOk && g_resolver.AddFullyConnected() == kTfLiteOk &&
            g_resolver.AddLogistic() == kTfLiteOk && g_resolver.AddQuantize() == kTfLiteOk &&
            g_resolver.AddDepthwiseConv2D() == kTfLiteOk && g_resolver.AddAveragePool2D() == kTfLiteOk &&
            g_resolver.AddMaxPool2D() == kTfLiteOk && g_resolver.AddPad() == kTfLiteOk &&
-           g_resolver.AddPack() == kTfLiteOk && g_resolver.AddSplitV() == kTfLiteOk;
+           g_resolver.AddPack() == kTfLiteOk && g_resolver.AddSplitV(KWS_SPLIT_V) == kTfLiteOk;
 }
 
 void reset_resource_variables() {

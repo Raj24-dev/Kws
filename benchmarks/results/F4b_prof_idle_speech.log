@@ -1,0 +1,171 @@
+20:00:48.428 `25) �ESP-ROM:esp32s3-20210327
+20:00:48.428 Build:Mar 27 2021
+20:00:48.428 rst:0x1 (POWERON),boot:0xa (SPI_FAST_FLASH_BOOT)
+20:00:48.428 SPIWP:0xee
+20:00:48.428 mode:DIO, clock div:1
+20:00:48.428 load:0x3fce2820,len:0x1668
+20:00:48.428 load:0x403c8700,len:0xec0
+20:00:48.428 load:0x403cb700,len:0x3178
+20:00:48.428 entry 0x403c894c
+20:00:48.428 I (24) boot: ESP-IDF v5.5.5 2nd stage bootloader
+20:00:48.428 I (25) boot: compile time Sep 27 2026 18:23:27
+20:00:48.428 I (25) boot: Multicore bootloader
+20:00:48.429 I (25) boot: chip revision: v0.2
+20:00:48.429 I (28) boot: efuse block revision: v1.4
+20:00:48.429 I (31) qio_mode: Enabling default flash chip QIO
+20:00:48.429 I (36) boot.esp32s3: Boot SPI Speed : 80MHz
+20:00:48.429 I (40) boot.esp32s3: SPI Mode       : QIO
+20:00:48.429 I (43) boot.esp32s3: SPI Flash Size : 4MB
+20:00:48.429 I (47) boot: Enabling RNG early entropy source...
+20:00:48.429 I (52) boot: Partition Table:
+20:00:48.429 I (54) boot: ## Label            Usage          Type ST Offset   Length
+20:00:48.429 I (60) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+20:00:48.429 I (67) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+20:00:48.430 I (73) boot:  2 factory          factory app      00 00 00010000 00177000
+20:00:48.430 I (80) boot: End of partition table
+20:00:48.430 I (83) esp_image: segment 0: paddr=00010020 vaddr=3c0e0020 size=36f60h (225120) map
+20:00:48.430 I (126) esp_image: segment 1: paddr=00046f88 vaddr=3fc9ff00 size=050dch ( 20700) load
+20:00:48.430 I (130) esp_image: segment 2: paddr=0004c06c vaddr=40378000 size=03fach ( 16300) load
+20:00:48.430 I (133) esp_image: segment 3: paddr=00050020 vaddr=42000020 size=d9498h (890008) map
+20:00:48.430 I (275) esp_image: segment 4: paddr=001294c0 vaddr=4037bfac size=13e50h ( 81488) load
+20:00:48.430 I (291) esp_image: segment 5: paddr=0013d318 vaddr=50000000 size=00020h (    32) load
+20:00:48.430 I (301) boot: Loaded app from partition at offset 0x10000
+20:00:48.430 I (301) boot: Disabling RNG early entropy source...
+20:00:48.430 I (311) cpu_start: Multicore app
+20:00:48.430 I (319) cpu_start: GPIO 44 and 43 are used as console UART I/O pins
+20:00:48.430 I (320) cpu_start: Pro cpu start user code
+20:00:48.430 I (320) cpu_start: cpu freq: 240000000 Hz
+20:00:48.430 I (321) app_init: Application information:
+20:00:48.430 I (325) app_init: Project name:     kws_s3
+20:00:48.430 I (329) app_init: App version:      4aa7c12-dirty
+20:00:48.430 I (333) app_init: Compile time:     Sep 28 2026 19:51:55
+20:00:48.430 I (339) app_init: ELF file SHA256:  0c416a4bf...
+20:00:48.430 I (343) app_init: ESP-IDF:          v5.5.5
+20:00:48.430 I (347) efuse_init: Min chip rev:     v0.0
+20:00:48.430 I (351) efuse_init: Max chip rev:     v0.99
+20:00:48.430 I (355) efuse_init: Chip rev:         v0.2
+20:00:48.430 I (358) heap_init: Initializing. RAM available for dynamic allocation:
+20:00:48.430 I (365) heap_init: At 3FCABEA0 len 0003D870 (246 KiB): RAM
+20:00:48.430 I (370) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM
+20:00:48.430 I (375) heap_init: At 600FE000 len 00001FE8 (7 KiB): RTCRAM
+20:00:48.430 I (381) spi_flash: detected chip: boya
+20:00:48.430 I (384) spi_flash: flash io: qio
+20:00:48.430 W (387) spi_flash: Detected size(16384k) larger than the size in the binary image header(4096k). Using the size in the binary image header.
+20:00:48.430 I (399) sleep_gpio: Configure to isolate all GPIO pins in sleep state
+20:00:48.430 I (405) sleep_gpio: Enable automatic switching of GPIO sleep configuration
+20:00:48.430 I (412) main_task: Started on CPU0
+20:00:48.430 I (430) main_task: Calling app_main()
+20:00:48.430 
+20:00:48.430 ==================== SIH KWS firmware ====================
+20:00:48.430  chip      : esp32s3 rev v0.2, 2 cores, flash 4 MB
+20:00:48.430  ESP-IDF   : v5.5.5
+20:00:48.431  RAM       : 47 KB static data, 247 KB heap free (code in IRAM: 95 KB, not counted)
+20:00:48.431  model     : marvin.tflite (60896 bytes, stored in flash)
+20:00:48.431 ===========================================================
+20:00:48.431 
+20:00:48.431 [heap] start of app_main            253152 B free (of 282492 B)
+20:00:48.431 [heap] NVS                          took   3072 B, 250080 B free
+20:00:48.431 I (495) kws: model ready: wake word "marvin", threshold 0.50 (json), window 5, input 3x40 int8
+20:00:48.431 I (497) kws: model RAM: tensor arena 25964 of 30000 bytes used; engine total 41 KB of heap
+20:00:48.431 
+20:00:48.431 ------------------------ SELF-TEST ------------------------
+20:00:48.431  noise only (3 s)   : PASS - stayed quiet  (highest score 0.01, threshold 0.50)
+20:00:48.431  wake word recording: skipped - no WAV file in the model folder (optional)
+20:00:48.431 -----------------------------------------------------------
+20:00:48.431 
+20:00:48.431 [heap] model + features + self-test took  43036 B, 207044 B free
+20:00:48.431 I (738) audio: I2S running: 16 kHz, 32-bit slots, both channels, SCK=16 WS=15 SD=17, gain x1
+20:00:49.097 I (1240) kws: microphones: left (L/R to GND) -30.5 dBFS (not used), right (L/R to 3V3) -18.8 dBFS, similarity 0.42 -> using right
+20:00:49.097 [heap] I2S + ring + audio task      took  53620 B, 153424 B free
+20:00:49.097 I (1252) kws: listening for "marvin" ...
+20:00:49.097 I (1253) pp: pp rom version: e7ae62f
+20:00:49.097 I (1258) net80211: net80211 rom version: e7ae62f
+20:00:49.097 I (1264) wifi:wifi driver task: 3fccab0c, prio:23, stack:6656, core=0
+20:00:49.097 I (1275) wifi:wifi firmware version: b9f67df
+20:00:49.098 I (1276) wifi:wifi certification version: v7.0
+20:00:49.098 I (1277) wifi:config NVS flash: enabled
+20:00:49.098 I (1280) wifi:config nano formatting: disabled
+20:00:49.098 I (1285) wifi:Init data frame dynamic rx buffer num: 16
+20:00:49.098 I (1291) wifi:Init static rx mgmt buffer num: 5
+20:00:49.098 I (1291) wifi:Init management short buffer num: 32
+20:00:49.098 I (1297) wifi:Init dynamic tx buffer num: 16
+20:00:49.098 I (1302) wifi:Init static tx FG buffer num: 2
+20:00:49.098 I (1307) wifi:Init static rx buffer size: 1600
+20:00:49.098 I (1308) wifi:Init static rx buffer num: 6
+20:00:49.098 I (1313) wifi:Init dynamic rx buffer num: 16
+20:00:49.098 I (1319) wifi_init: accept mbox: 6
+20:00:49.098 I (1320) wifi_init: tcpip mbox: 32
+20:00:49.098 I (1324) wifi_init: udp mbox: 6
+20:00:49.099 I (1325) wifi_init: tcp mbox: 6
+20:00:49.099 I (1330) wifi_init: tcp tx win: 5760
+20:00:49.099 I (1330) wifi_init: tcp rx win: 5760
+20:00:49.099 I (1336) wifi_init: tcp mss: 1440
+20:00:49.099 I (1341) wifi_init: WiFi IRAM OP enabled
+20:00:49.099 I (1341) wifi_init: WiFi RX IRAM OP enabled
+20:00:49.099 I (1347) phy_init: phy_version 712,87e8c20e,Apr 13 2026,18:51:10
+20:00:49.099 I (1384) wifi:mode : sta (e0:72:a1:d5:32:74)
+20:00:49.099 I (1385) wifi:enable tsf
+20:00:49.099 I (1386) wifi:Set ps type: 0, coexist: 0
+20:00:49.099 
+20:00:49.099 I (1389) wifi: connecting to "ARYA 9252" ...
+20:00:49.099 [heap] Wi-Fi driver + netif         took  42492 B, 110932 B free
+20:00:49.099 W (1397) stream: cannot reach the server ws://192.168.137.1:3000/ws (is it running? same network?) - retrying every second
+20:00:49.099 [heap] WebSocket client + streamer  took  13928 B,  97004 B free
+20:00:51.495 W (3796) wifi: cannot connect (reason 201). Check the name/password in menuconfig; the ESP32 needs a 2.4 GHz network (201 = network not found, 15/204 = wrong password)
+20:00:59.179 [status] up 11s | mic -40.4 dBFS (peak -32.3) | score max 0.01 | detections 0 | inferences 215 (21.5/s; model 0.98 ms each, paused in quiet 40%; features 1.32 ms per 30 ms) | CPU core0 -1.0% core1 -1.0% (wake word pipeline 7.49% of one core) | RAM used 228 KB (peak 229 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:00:59.180 [tasks] % of one core (free stack): main@0=-1.00(1944) IDLE1@1=-1.00(728) IDLE0@0=-1.00(816) audio_kws@1=-1.00(1328) tiT@*=-1.00(2452) websocket_task@*=-1.00(1464) ipc1@1=-1.00(528) streamer@0=-1.00(2956) sys_evt@0=-1.00(428) wifi@0=-1.00(4056) esp_timer@0=-1.00(3144) ipc0@0=-1.00(536) Tmr Svc@*=-1.00(1360)
+20:01:09.154 [status] up 21s | mic -39.7 dBFS (peak -30.7) | score max 0.00 | detections 0 | inferences 195 (19.5/s; model 0.96 ms each, paused in quiet 44%; features 1.32 ms per 30 ms) | CPU core0  0.7% core1  7.4% (wake word pipeline 7.16% of one core) | RAM used 228 KB (peak 229 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:01:15.564 W (27868) wifi: cannot connect (reason 201). Check the name/password in menuconfig; the ESP32 needs a 2.4 GHz network (201 = network not found, 15/204 = wrong password)
+20:01:19.162 [status] up 31s | mic -39.6 dBFS (peak -30.3) | score max 0.00 | detections 0 | inferences 192 (19.2/s; model 0.97 ms each, paused in quiet 47%; features 1.27 ms per 30 ms) | CPU core0  0.8% core1  7.3% (wake word pipeline 7.13% of one core) | RAM used 228 KB (peak 229 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:01:29.159 [status] up 41s | mic -39.4 dBFS (peak -27.8) | score max 0.00 | detections 0 | inferences 136 (13.6/s; model 0.96 ms each, paused in quiet 61%; features 1.32 ms per 30 ms) | CPU core0  0.8% core1  6.7% (wake word pipeline 6.56% of one core) | RAM used 228 KB (peak 229 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:01:39.164 [status] up 51s | mic -40.0 dBFS (peak -33.7) | score max 0.00 | detections 0 | inferences 132 (13.2/s; model 0.98 ms each, paused in quiet 61%; features 1.34 ms per 30 ms) | CPU core0  0.8% core1  6.7% (wake word pipeline 6.55% of one core) | RAM used 228 KB (peak 229 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:01:39.634 W (51938) wifi: cannot connect (reason 201). Check the name/password in menuconfig; the ESP32 needs a 2.4 GHz network (201 = network not found, 15/204 = wrong password)
+20:01:41.826 [prof] model ops per inference (us @240MHz): VAR_HANDLE=4.5/6 ASSIGN_VARIABLE=21.6/6 CALL_ONCE=4.2/1 RESHAPE=7.3/2 READ_VARIABLE=21.7/6 CONCATENATION=25.2/8 STRIDED_SLICE=25.1/10 CONV_2D=474.2/5 DEPTHWISE_CONV_2D=226.1/6 SPLIT_V=37.7/2 FULLY_CONNECTED=22.5/1 LOGISTIC=12.6/1 QUANTIZE=5.7/1 | total=888.2
+20:01:41.826 [prof] feature stages per 10 ms frame (us): window=60.0 fft=278.6 energy=8.1 filterbank=35.0 sqrt=32.0 noise_red=7.0 pcan=12.6 log=7.1
+20:01:49.169 [status] up 61s | mic -39.9 dBFS (peak -30.9) | score max 0.00 | detections 0 | inferences 163 (16.3/s; model 0.96 ms each, paused in quiet 55%; features 1.35 ms per 30 ms) | CPU core0  0.9% core1  7.1% (wake word pipeline 7.08% of one core) | RAM used 229 KB (peak 229 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:01:59.188 [status] up 71s | mic -39.1 dBFS (peak -30.2) | score max 0.00 | detections 0 | inferences 244 (24.4/s; model 0.97 ms each, paused in quiet 32%; features 1.29 ms per 30 ms) | CPU core0  0.8% core1  7.9% (wake word pipeline 7.66% of one core) | RAM used 229 KB (peak 229 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:01:59.189 [tasks] % of one core (free stack): audio_kws@1=7.13(1328) main@0=0.28(1944) IDLE1@1=92.82(728) IDLE0@0=99.17(720) websocket_task@*=0.09(1464) tiT@*=0.05(2452) Tmr Svc@*=0.00(1360) sys_evt@0=0.02(428) ipc1@1=0.00(528) wifi@0=0.36(4056) esp_timer@0=0.06(3144) streamer@0=0.00(2956) ipc0@0=0.00(536)
+20:02:03.704 W (76012) wifi: cannot connect (reason 201). Check the name/password in menuconfig; the ESP32 needs a 2.4 GHz network (201 = network not found, 15/204 = wrong password)
+20:02:09.180 [status] up 81s | mic -39.2 dBFS (peak -31.6) | score max 0.00 | detections 0 | inferences 240 (24.0/s; model 0.98 ms each, paused in quiet 32%; features 1.32 ms per 30 ms) | CPU core0  1.2% core1  7.8% (wake word pipeline 7.66% of one core) | RAM used 229 KB (peak 229 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:02:19.181 [status] up 91s | mic -40.4 dBFS (peak -34.1) | score max 0.00 | detections 0 | inferences 63 (6.3/s; model 0.97 ms each, paused in quiet 82%; features 1.33 ms per 30 ms) | CPU core0  0.8% core1  6.0% (wake word pipeline 5.83% of one core) | RAM used 229 KB (peak 229 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:02:27.782 W (100085) wifi: cannot connect (reason 201). Check the name/password in menuconfig; the ESP32 needs a 2.4 GHz network (201 = network not found, 15/204 = wrong password)
+20:02:29.183 [status] up 101s | mic -32.8 dBFS (peak -19.9) | score max 0.13 | detections 0 | inferences 292 (29.3/s; model 0.96 ms each, paused in quiet 15%; features 1.35 ms per 30 ms) | CPU core0  0.9% core1  8.3% (wake word pipeline 8.13% of one core) | RAM used 229 KB (peak 229 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:02:31.353 [prof] model ops per inference (us @240MHz): VAR_HANDLE=4.4/6 ASSIGN_VARIABLE=21.4/6 CALL_ONCE=4.0/1 RESHAPE=7.4/2 READ_VARIABLE=21.7/6 CONCATENATION=25.2/8 STRIDED_SLICE=25.0/10 CONV_2D=474.4/5 DEPTHWISE_CONV_2D=226.1/6 SPLIT_V=37.6/2 FULLY_CONNECTED=22.8/1 LOGISTIC=11.9/1 QUANTIZE=5.7/1 | total=887.7
+20:02:31.353 [prof] feature stages per 10 ms frame (us): window=60.1 fft=278.8 energy=8.2 filterbank=35.0 sqrt=30.8 noise_red=7.1 pcan=12.7 log=7.1
+20:02:39.193 [status] up 111s | mic -32.6 dBFS (peak -21.0) | score max 0.00 | detections 0 | inferences 333 (33.3/s; model 0.96 ms each, paused in quiet 0%; features 1.47 ms per 30 ms) | CPU core0  0.8% core1  8.8% (wake word pipeline 8.77% of one core) | RAM used 229 KB (peak 229 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:02:49.182 [status] up 121s | mic -31.3 dBFS (peak -18.5) | score max 0.00 | detections 0 | inferences 334 (33.4/s; model 0.96 ms each, paused in quiet 0%; features 1.39 ms per 30 ms) | CPU core0  0.9% core1  8.7% (wake word pipeline 8.52% of one core) | RAM used 229 KB (peak 229 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:02:51.861 W (124166) wifi: cannot connect (reason 201). Check the name/password in menuconfig; the ESP32 needs a 2.4 GHz network (201 = network not found, 15/204 = wrong password)
+20:02:59.208 [status] up 131s | mic -33.3 dBFS (peak -21.3) | score max 0.00 | detections 0 | inferences 333 (33.3/s; model 0.95 ms each, paused in quiet 0%; features 1.40 ms per 30 ms) | CPU core0  0.9% core1  8.7% (wake word pipeline 8.51% of one core) | RAM used 229 KB (peak 229 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:02:59.208 [tasks] % of one core (free stack): main@0=0.32(1944) IDLE1@1=91.93(728) IDLE0@0=99.12(720) audio_kws@1=8.01(1328) websocket_task@*=0.09(1464) tiT@*=0.05(2452) ipc0@0=0.00(536) sys_evt@0=0.04(428) esp_timer@0=0.06(3144) Tmr Svc@*=0.00(1360) wifi@0=0.39(4056) ipc1@1=0.00(528) streamer@0=0.00(2956)
+20:03:01.361 [prof] model ops per inference (us @240MHz): VAR_HANDLE=4.3/6 ASSIGN_VARIABLE=21.3/6 CALL_ONCE=4.0/1 RESHAPE=7.4/2 READ_VARIABLE=21.6/6 CONCATENATION=24.7/8 STRIDED_SLICE=24.9/10 CONV_2D=473.2/5 DEPTHWISE_CONV_2D=225.0/6 SPLIT_V=38.3/2 FULLY_CONNECTED=23.1/1 LOGISTIC=4.4/1 QUANTIZE=5.0/1 | total=877.1
+20:03:01.361 [prof] feature stages per 10 ms frame (us): window=60.5 fft=280.1 energy=8.2 filterbank=35.3 sqrt=29.7 noise_red=7.8 pcan=13.1 log=7.1
+20:03:09.193 [status] up 141s | mic -33.6 dBFS (peak -21.4) | score max 0.00 | detections 0 | inferences 334 (33.4/s; model 0.96 ms each, paused in quiet 0%; features 1.47 ms per 30 ms) | CPU core0  0.7% core1  8.8% (wake word pipeline 8.80% of one core) | RAM used 229 KB (peak 230 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:03:15.936 W (148248) wifi: cannot connect (reason 201). Check the name/password in menuconfig; the ESP32 needs a 2.4 GHz network (201 = network not found, 15/204 = wrong password)
+20:03:19.195 [status] up 151s | mic -31.9 dBFS (peak -18.4) | score max 0.00 | detections 0 | inferences 333 (33.3/s; model 0.96 ms each, paused in quiet 0%; features 1.39 ms per 30 ms) | CPU core0  0.9% core1  8.7% (wake word pipeline 8.51% of one core) | RAM used 229 KB (peak 230 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:03:29.193 [status] up 161s | mic -32.3 dBFS (peak -20.1) | score max 0.00 | detections 0 | inferences 334 (33.4/s; model 0.96 ms each, paused in quiet 0%; features 1.39 ms per 30 ms) | CPU core0  0.9% core1  8.7% (wake word pipeline 8.53% of one core) | RAM used 229 KB (peak 230 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:03:31.362 [prof] model ops per inference (us @240MHz): VAR_HANDLE=4.4/6 ASSIGN_VARIABLE=21.3/6 CALL_ONCE=4.0/1 RESHAPE=7.3/2 READ_VARIABLE=21.6/6 CONCATENATION=24.7/8 STRIDED_SLICE=24.9/10 CONV_2D=473.7/5 DEPTHWISE_CONV_2D=225.2/6 SPLIT_V=38.5/2 FULLY_CONNECTED=23.2/1 LOGISTIC=5.1/1 QUANTIZE=5.1/1 | total=879.1
+20:03:31.362 [prof] feature stages per 10 ms frame (us): window=60.5 fft=280.1 energy=8.2 filterbank=35.3 sqrt=29.6 noise_red=7.8 pcan=13.1 log=7.2
+20:03:39.201 [status] up 171s | mic -34.4 dBFS (peak -24.0) | score max 0.00 | detections 0 | inferences 332 (33.3/s; model 0.96 ms each, paused in quiet 0%; features 1.47 ms per 30 ms) | CPU core0  0.8% core1  8.8% (wake word pipeline 8.76% of one core) | RAM used 229 KB (peak 230 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:03:40.030 W (172329) wifi: cannot connect (reason 201). Check the name/password in menuconfig; the ESP32 needs a 2.4 GHz network (201 = network not found, 15/204 = wrong password)
+20:03:49.204 [status] up 181s | mic -34.5 dBFS (peak -22.7) | score max 0.00 | detections 0 | inferences 333 (33.3/s; model 0.96 ms each, paused in quiet 0%; features 1.39 ms per 30 ms) | CPU core0  0.9% core1  8.7% (wake word pipeline 8.51% of one core) | RAM used 229 KB (peak 230 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:03:59.223 [status] up 191s | mic -31.6 dBFS (peak -19.7) | score max 0.00 | detections 0 | inferences 333 (33.3/s; model 0.96 ms each, paused in quiet 0%; features 1.40 ms per 30 ms) | CPU core0  0.8% core1  8.8% (wake word pipeline 8.53% of one core) | RAM used 229 KB (peak 230 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:03:59.223 [tasks] % of one core (free stack): main@0=0.26(1944) IDLE1@1=91.25(728) IDLE0@0=99.14(720) audio_kws@1=8.69(1328) websocket_task@*=0.10(1464) tiT@*=0.05(2452) streamer@0=0.00(2956) sys_evt@0=0.02(428) wifi@0=0.41(4056) esp_timer@0=0.06(3144) ipc0@0=0.00(536) Tmr Svc@*=0.00(1360) ipc1@1=0.00(528)
+20:04:01.370 [prof] model ops per inference (us @240MHz): VAR_HANDLE=4.4/6 ASSIGN_VARIABLE=21.3/6 CALL_ONCE=4.0/1 RESHAPE=7.4/2 READ_VARIABLE=21.6/6 CONCATENATION=24.7/8 STRIDED_SLICE=24.9/10 CONV_2D=473.6/5 DEPTHWISE_CONV_2D=225.2/6 SPLIT_V=38.3/2 FULLY_CONNECTED=23.1/1 LOGISTIC=5.6/1 QUANTIZE=5.1/1 | total=879.2
+20:04:01.371 [prof] feature stages per 10 ms frame (us): window=60.5 fft=280.0 energy=8.2 filterbank=35.3 sqrt=29.9 noise_red=7.8 pcan=13.1 log=7.2
+20:04:04.109 W (196410) wifi: cannot connect (reason 201). Check the name/password in menuconfig; the ESP32 needs a 2.4 GHz network (201 = network not found, 15/204 = wrong password)
+20:04:09.208 [status] up 201s | mic -32.6 dBFS (peak -19.1) | score max 0.00 | detections 0 | inferences 334 (33.4/s; model 0.96 ms each, paused in quiet 0%; features 1.47 ms per 30 ms) | CPU core0  1.2% core1  8.8% (wake word pipeline 8.81% of one core) | RAM used 229 KB (peak 230 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:04:19.212 [status] up 211s | mic -32.9 dBFS (peak -21.1) | score max 0.00 | detections 0 | inferences 334 (33.4/s; model 0.96 ms each, paused in quiet 0%; features 1.39 ms per 30 ms) | CPU core0  0.9% core1  8.7% (wake word pipeline 8.53% of one core) | RAM used 229 KB (peak 230 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:04:28.187 W (220494) wifi: cannot connect (reason 201). Check the name/password in menuconfig; the ESP32 needs a 2.4 GHz network (201 = network not found, 15/204 = wrong password)
+20:04:29.216 [status] up 221s | mic -33.8 dBFS (peak -22.2) | score max 0.00 | detections 0 | inferences 333 (33.3/s; model 0.96 ms each, paused in quiet 0%; features 1.40 ms per 30 ms) | CPU core0  0.9% core1  8.7% (wake word pipeline 8.54% of one core) | RAM used 229 KB (peak 230 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:04:31.371 [prof] model ops per inference (us @240MHz): VAR_HANDLE=4.4/6 ASSIGN_VARIABLE=21.3/6 CALL_ONCE=4.1/1 RESHAPE=7.4/2 READ_VARIABLE=21.6/6 CONCATENATION=24.8/8 STRIDED_SLICE=24.9/10 CONV_2D=474.1/5 DEPTHWISE_CONV_2D=225.4/6 SPLIT_V=38.3/2 FULLY_CONNECTED=23.3/1 LOGISTIC=5.0/1 QUANTIZE=5.1/1 | total=879.6
+20:04:31.371 [prof] feature stages per 10 ms frame (us): window=60.5 fft=280.1 energy=8.2 filterbank=35.3 sqrt=30.5 noise_red=7.8 pcan=13.1 log=7.2
+20:04:39.227 [status] up 231s | mic -32.0 dBFS (peak -17.7) | score max 0.00 | detections 0 | inferences 333 (33.4/s; model 0.96 ms each, paused in quiet 0%; features 1.47 ms per 30 ms) | CPU core0  0.9% core1  8.8% (wake word pipeline 8.79% of one core) | RAM used 229 KB (peak 230 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:04:49.221 [status] up 241s | mic -32.0 dBFS (peak -19.6) | score max 0.00 | detections 0 | inferences 332 (33.2/s; model 0.96 ms each, paused in quiet 2%; features 1.37 ms per 30 ms) | CPU core0  0.9% core1  8.7% (wake word pipeline 8.51% of one core) | RAM used 229 KB (peak 230 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:04:52.273 W (244575) wifi: cannot connect (reason 201). Check the name/password in menuconfig; the ESP32 needs a 2.4 GHz network (201 = network not found, 15/204 = wrong password)
+20:04:59.254 [status] up 251s | mic -33.2 dBFS (peak -21.6) | score max 0.00 | detections 0 | inferences 333 (33.3/s; model 0.96 ms each, paused in quiet 0%; features 1.40 ms per 30 ms) | CPU core0  0.9% core1  8.7% (wake word pipeline 8.52% of one core) | RAM used 229 KB (peak 230 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:04:59.255 [tasks] % of one core (free stack): audio_kws@1=8.69(1328) main@0=0.34(1944) IDLE1@1=91.24(728) IDLE0@0=99.08(720) websocket_task@*=0.10(1464) tiT@*=0.05(2452) ipc1@1=0.00(528) sys_evt@0=0.03(428) streamer@0=0.00(2956) wifi@0=0.41(4056) esp_timer@0=0.06(3144) ipc0@0=0.00(536) Tmr Svc@*=0.00(1360)
+20:05:01.421 [prof] model ops per inference (us @240MHz): VAR_HANDLE=4.4/6 ASSIGN_VARIABLE=21.2/6 CALL_ONCE=4.0/1 RESHAPE=7.4/2 READ_VARIABLE=21.6/6 CONCATENATION=24.7/8 STRIDED_SLICE=24.9/10 CONV_2D=473.9/5 DEPTHWISE_CONV_2D=225.5/6 SPLIT_V=38.5/2 FULLY_CONNECTED=23.3/1 LOGISTIC=4.6/1 QUANTIZE=5.1/1 | total=879.2
+20:05:01.421 [prof] feature stages per 10 ms frame (us): window=60.5 fft=280.0 energy=8.2 filterbank=35.3 sqrt=30.1 noise_red=7.8 pcan=13.1 log=7.1
+20:05:09.228 [status] up 261s | mic -34.0 dBFS (peak -21.3) | score max 0.00 | detections 0 | inferences 334 (33.4/s; model 0.96 ms each, paused in quiet 0%; features 1.47 ms per 30 ms) | CPU core0  1.1% core1  8.8% (wake word pipeline 8.79% of one core) | RAM used 229 KB (peak 230 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+20:05:16.345 W (268656) wifi: cannot connect (reason 201). Check the name/password in menuconfig; the ESP32 needs a 2.4 GHz network (201 = network not found, 15/204 = wrong password)
+20:05:19.239 [status] up 271s | mic -33.5 dBFS (peak -19.2) | score max 0.00 | detections 0 | inferences 333 (33.3/s; model 0.96 ms each, paused in quiet 0%; features 1.39 ms per 30 ms) | CPU core0  0.9% core1  8.7% (wake word pipeline 8.51% of one core) | RAM used 229 KB (peak 230 KB, 94 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0

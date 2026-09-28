@@ -43,6 +43,12 @@ menu "KWS (wake word) settings"
                 Working memory for the model. 0 = the model's "tensor_arena_size" (30000 bytes for
                 microWakeWord models). The firmware grows it automatically if needed and prints the
                 amount actually used at boot.
+        config KWS_FAST_SLICE
+            bool "Fast STRIDED_SLICE / CONCATENATION / SPLIT_V kernels (same results, copy plan computed once)"
+            default y
+            help
+                The model's state-update operations only copy bytes; TFLite Micro's reference kernels recompute the
+                geometry on every call. main/fast_ops.cc works it out once. Off = reference kernels.
         config KWS_SELFTEST
             bool "Run the self-test on model/*.wav at boot"
             default y
