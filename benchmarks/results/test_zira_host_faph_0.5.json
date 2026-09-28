@@ -1,0 +1,18 @@
+{
+ "label": "test_zira",
+ "evidence": "HOST-ONLY",
+ "cutoff": 0.5,
+ "hours": 1.502,
+ "false_accepts": 1,
+ "faph": 0.67,
+ "files": [
+  {
+   "file": "synthetic_longspeech_01_Zira_r-3.wav",
+   "hours": 1.502,
+   "false_accepts": 1,
+   "at_s": [
+    1756.0
+   ]
+  }
+ ]
+}
