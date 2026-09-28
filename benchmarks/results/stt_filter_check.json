@@ -1,0 +1,955 @@
+{
+ "evidence": "HOST-ONLY",
+ "utterances_with_speech": 65,
+ "changed_by_filter": 13,
+ "changed": [
+  {
+   "file": "20260927_045715_300_e072a1d53274_marvin.wav",
+   "old": "Okay, let's see. Okay, let's see. Okay, let's see. Okay. Okay, let's see. Okay, let's see. Okay.",
+   "new": "",
+   "segments": [
+    [
+     "Okay, let's see. Okay, let's see. Okay, let's see. Okay. Okay, let's see. Okay, let's see. Okay,",
+     3.1,
+     -0.637
+    ]
+   ]
+  },
+  {
+   "file": "20260927_045753_454_e072a1d53274_marvin.wav",
+   "old": "Okay. Marvel.",
+   "new": "",
+   "segments": [
+    [
+     "Okay. Marvel.",
+     0.62,
+     -1.006
+    ]
+   ]
+  },
+  {
+   "file": "20260927_052836_918_e072a1d53274_marvin.wav",
+   "old": "Marvin. Marvin. Marvin. Marvin. Marvin. Marvin. Marvin.",
+   "new": "",
+   "segments": [
+    [
+     "Marvin. Marvin. Marvin. Marvin. Marvin. Marvin. Marvin.",
+     2.89,
+     -0.263
+    ]
+   ]
+  },
+  {
+   "file": "20260927_084252_601_e072a1d53274_marvin.wav",
+   "old": "Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay.",
+   "new": "",
+   "segments": [
+    [
+     "Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay",
+     30.45,
+     -0.063
+    ]
+   ]
+  },
+  {
+   "file": "20260927_084417_530_e072a1d53274_marvin.wav",
+   "old": "Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan.",
+   "new": "",
+   "segments": [
+    [
+     "Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan",
+     35.76,
+     -0.051
+    ]
+   ]
+  },
+  {
+   "file": "20260927_093742_561_e072a1d53274_marvin.wav",
+   "old": "It was probably a thunder.",
+   "new": "",
+   "segments": [
+    [
+     "It was probably a thunder.",
+     0.76,
+     -1.005
+    ]
+   ]
+  },
+  {
+   "file": "20260927_093750_532_e072a1d53274_marvin.wav",
+   "old": "Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye.",
+   "new": "",
+   "segments": [
+    [
+     "Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye.",
+     8.69,
+     -0.211
+    ]
+   ]
+  },
+  {
+   "file": "20260927_093810_614_e072a1d53274_marvin.wav",
+   "old": "Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay.",
+   "new": "",
+   "segments": [
+    [
+     "Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay",
+     30.45,
+     -0.083
+    ]
+   ]
+  },
+  {
+   "file": "20260927_093813_633_e072a1d53274_marvin.wav",
+   "old": "They have marty muting on it.",
+   "new": "",
+   "segments": [
+    [
+     "They have marty muting on it.",
+     0.78,
+     -1.29
+    ]
+   ]
+  },
+  {
+   "file": "20260927_100342_907_e072a1d53274_marvin.wav",
+   "old": "Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay.",
+   "new": "",
+   "segments": [
+    [
+     "Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay.",
+     5.59,
+     -0.44
+    ]
+   ]
+  },
+  {
+   "file": "20260927_100354_708_e072a1d53274_marvin.wav",
+   "old": "So, what do you think? Well, let's see.",
+   "new": "",
+   "segments": [
+    [
+     "So, what do you think?",
+     0.83,
+     -1.066
+    ],
+    [
+     "Well, let's see.",
+     0.83,
+     -1.066
+    ]
+   ]
+  },
+  {
+   "file": "20260927_103913_200_e072a1d53274_marvin.wav",
+   "old": "Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay.",
+   "new": "",
+   "segments": [
+    [
+     "Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay.",
+     5.59,
+     -0.435
+    ]
+   ]
+  },
+  {
+   "file": "20260927_105522_177_e072a1d53274_marvin.wav",
+   "old": "So, what do you think? Well, I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure.",
+   "new": "",
+   "segments": [
+    [
+     "So, what do you think? Well, I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure.",
+     9.67,
+     -0.168
+    ]
+   ]
+  }
+ ],
+ "all": [
+  {
+   "file": "20260927_045715_300_e072a1d53274_marvin.wav",
+   "old": "Okay, let's see. Okay, let's see. Okay, let's see. Okay. Okay, let's see. Okay, let's see. Okay.",
+   "new": "",
+   "segments": [
+    [
+     "Okay, let's see. Okay, let's see. Okay, let's see. Okay. Okay, let's see. Okay, let's see. Okay,",
+     3.1,
+     -0.637
+    ]
+   ]
+  },
+  {
+   "file": "20260927_045725_619_e072a1d53274_marvin.wav",
+   "old": "What is the temperature today?",
+   "new": "What is the temperature today?",
+   "segments": [
+    [
+     "What is the temperature today?",
+     0.79,
+     -0.534
+    ]
+   ]
+  },
+  {
+   "file": "20260927_045733_124_e072a1d53274_marvin.wav",
+   "old": "Play some music.",
+   "new": "Play some music.",
+   "segments": [
+    [
+     "Play some music.",
+     0.67,
+     -0.34
+    ]
+   ]
+  },
+  {
+   "file": "20260927_045737_290_e072a1d53274_marvin.wav",
+   "old": "Stop the music.",
+   "new": "Stop the music.",
+   "segments": [
+    [
+     "Stop the music.",
+     0.65,
+     -0.434
+    ]
+   ]
+  },
+  {
+   "file": "20260927_045744_108_e072a1d53274_marvin.wav",
+   "old": "Marvel?",
+   "new": "Marvel?",
+   "segments": [
+    [
+     "Marvel?",
+     0.47,
+     -0.786
+    ]
+   ]
+  },
+  {
+   "file": "20260927_045753_454_e072a1d53274_marvin.wav",
+   "old": "Okay. Marvel.",
+   "new": "",
+   "segments": [
+    [
+     "Okay. Marvel.",
+     0.62,
+     -1.006
+    ]
+   ]
+  },
+  {
+   "file": "20260927_045759_320_e072a1d53274_marvin.wav",
+   "old": "Set an alarm for 7.",
+   "new": "Set an alarm for 7.",
+   "segments": [
+    [
+     "Set an alarm for 7.",
+     0.7,
+     -0.366
+    ]
+   ]
+  },
+  {
+   "file": "20260927_052823_144_e072a1d53274_marvin.wav",
+   "old": "Marvin? Marvin? Can you hear me, Marvin?",
+   "new": "Marvin? Marvin? Can you hear me, Marvin?",
+   "segments": [
+    [
+     "Marvin? Marvin? Can you hear me, Marvin?",
+     1.11,
+     -0.324
+    ]
+   ]
+  },
+  {
+   "file": "20260927_052830_558_e072a1d53274_marvin.wav",
+   "old": "Marvin. Marvin. Marvin. Marvin.",
+   "new": "Marvin. Marvin. Marvin. Marvin.",
+   "segments": [
+    [
+     "Marvin. Marvin. Marvin. Marvin.",
+     1.63,
+     -0.377
+    ]
+   ]
+  },
+  {
+   "file": "20260927_052836_918_e072a1d53274_marvin.wav",
+   "old": "Marvin. Marvin. Marvin. Marvin. Marvin. Marvin. Marvin.",
+   "new": "",
+   "segments": [
+    [
+     "Marvin. Marvin. Marvin. Marvin. Marvin. Marvin. Marvin.",
+     2.89,
+     -0.263
+    ]
+   ]
+  },
+  {
+   "file": "20260927_052847_118_e072a1d53274_marvin.wav",
+   "old": "Marvin.",
+   "new": "Marvin.",
+   "segments": [
+    [
+     "Marvin.",
+     0.47,
+     -0.649
+    ]
+   ]
+  },
+  {
+   "file": "20260927_052849_578_e072a1d53274_marvin.wav",
+   "old": "Marvin. Marvin.",
+   "new": "Marvin. Marvin.",
+   "segments": [
+    [
+     "Marvin. Marvin.",
+     0.83,
+     -0.528
+    ]
+   ]
+  },
+  {
+   "file": "20260927_060004_845_e072a1d53274_marvin.wav",
+   "old": "Marvin? Marvin? Marvin?",
+   "new": "Marvin? Marvin? Marvin?",
+   "segments": [
+    [
+     "Marvin? Marvin? Marvin?",
+     1.28,
+     -0.388
+    ]
+   ]
+  },
+  {
+   "file": "20260927_081253_507_e072a1d53274_marvin.wav",
+   "old": "Pardon.",
+   "new": "Pardon.",
+   "segments": [
+    [
+     "Pardon.",
+     0.47,
+     -0.882
+    ]
+   ]
+  },
+  {
+   "file": "20260927_082640_280_e072a1d53274_marvin.wav",
+   "old": "So, damn, this is not a good place.",
+   "new": "So, damn, this is not a good place.",
+   "segments": [
+    [
+     "So, damn, this is not a good place.",
+     0.81,
+     -0.965
+    ]
+   ]
+  },
+  {
+   "file": "20260927_084222_746_e072a1d53274_marvin.wav",
+   "old": "Mm-hmm. Yeah, there.",
+   "new": "Mm-hmm. Yeah, there.",
+   "segments": [
+    [
+     "Mm-hmm. Yeah, there.",
+     0.71,
+     -0.726
+    ]
+   ]
+  },
+  {
+   "file": "20260927_084252_601_e072a1d53274_marvin.wav",
+   "old": "Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay.",
+   "new": "",
+   "segments": [
+    [
+     "Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay",
+     30.45,
+     -0.063
+    ]
+   ]
+  },
+  {
+   "file": "20260927_084258_086_e072a1d53274_marvin.wav",
+   "old": "Can you hear me?",
+   "new": "Can you hear me?",
+   "segments": [
+    [
+     "Can you hear me?",
+     0.67,
+     -0.32
+    ]
+   ]
+  },
+  {
+   "file": "20260927_084310_960_e072a1d53274_marvin.wav",
+   "old": "Can you hear me?",
+   "new": "Can you hear me?",
+   "segments": [
+    [
+     "Can you hear me?",
+     0.67,
+     -0.322
+    ]
+   ]
+  },
+  {
+   "file": "20260927_084351_542_e072a1d53274_marvin.wav",
+   "old": "Can you hear me, Marvin? Marvin? Marvin? Marvin? Marvin? Marvin? Marvin? Can you hear me?",
+   "new": "Can you hear me, Marvin? Marvin? Marvin? Marvin? Marvin? Marvin? Marvin? Can you hear me?",
+   "segments": [
+    [
+     "Can you hear me, Marvin? Marvin? Marvin? Marvin? Marvin? Marvin? Marvin? Can you hear me?",
+     2.34,
+     -0.261
+    ]
+   ]
+  },
+  {
+   "file": "20260927_084401_417_e072a1d53274_marvin.wav",
+   "old": "Can you hear me?",
+   "new": "Can you hear me?",
+   "segments": [
+    [
+     "Can you hear me?",
+     0.67,
+     -0.217
+    ]
+   ]
+  },
+  {
+   "file": "20260927_084417_530_e072a1d53274_marvin.wav",
+   "old": "Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan.",
+   "new": "",
+   "segments": [
+    [
+     "Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan. Morgan",
+     35.76,
+     -0.051
+    ]
+   ]
+  },
+  {
+   "file": "20260927_084531_114_e072a1d53274_marvin.wav",
+   "old": "I'm out. I'm out. I'm out. I'm out. I'm out.",
+   "new": "I'm out. I'm out. I'm out. I'm out. I'm out.",
+   "segments": [
+    [
+     "I'm out. I'm out. I'm out. I'm out. I'm out.",
+     2.2,
+     -0.568
+    ]
+   ]
+  },
+  {
+   "file": "20260927_084537_739_e072a1d53274_marvin.wav",
+   "old": "Marvin.",
+   "new": "Marvin.",
+   "segments": [
+    [
+     "Marvin.",
+     0.47,
+     -0.549
+    ]
+   ]
+  },
+  {
+   "file": "20260927_084542_094_e072a1d53274_marvin.wav",
+   "old": "Marvin. Marvin.",
+   "new": "Marvin. Marvin.",
+   "segments": [
+    [
+     "Marvin. Marvin.",
+     0.83,
+     -0.677
+    ]
+   ]
+  },
+  {
+   "file": "20260927_084708_098_e072a1d53274_marvin.wav",
+   "old": "Can you hear me?",
+   "new": "Can you hear me?",
+   "segments": [
+    [
+     "Can you hear me?",
+     0.67,
+     -0.356
+    ]
+   ]
+  },
+  {
+   "file": "20260927_084720_817_e072a1d53274_marvin.wav",
+   "old": "Can you hear me Marvin?",
+   "new": "Can you hear me Marvin?",
+   "segments": [
+    [
+     "Can you hear me Marvin?",
+     0.74,
+     -0.346
+    ]
+   ]
+  },
+  {
+   "file": "20260927_090223_007_e072a1d53274_marvin.wav",
+   "old": "Marvin.",
+   "new": "Marvin.",
+   "segments": [
+    [
+     "Marvin.",
+     0.47,
+     -0.508
+    ]
+   ]
+  },
+  {
+   "file": "20260927_093736_188_e072a1d53274_marvin.wav",
+   "old": "Marvin? Marvin?",
+   "new": "Marvin? Marvin?",
+   "segments": [
+    [
+     "Marvin? Marvin?",
+     0.83,
+     -0.492
+    ]
+   ]
+  },
+  {
+   "file": "20260927_093742_561_e072a1d53274_marvin.wav",
+   "old": "It was probably a thunder.",
+   "new": "",
+   "segments": [
+    [
+     "It was probably a thunder.",
+     0.76,
+     -1.005
+    ]
+   ]
+  },
+  {
+   "file": "20260927_093750_532_e072a1d53274_marvin.wav",
+   "old": "Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye.",
+   "new": "",
+   "segments": [
+    [
+     "Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye.",
+     8.69,
+     -0.211
+    ]
+   ]
+  },
+  {
+   "file": "20260927_093754_121_e072a1d53274_marvin.wav",
+   "old": "Okay.",
+   "new": "Okay.",
+   "segments": [
+    [
+     "Okay.",
+     0.38,
+     -0.706
+    ]
+   ]
+  },
+  {
+   "file": "20260927_093803_418_e072a1d53274_marvin.wav",
+   "old": "Okay, let's try some bananas.",
+   "new": "Okay, let's try some bananas.",
+   "segments": [
+    [
+     "Okay, let's try some bananas.",
+     0.78,
+     -0.761
+    ]
+   ]
+  },
+  {
+   "file": "20260927_093810_614_e072a1d53274_marvin.wav",
+   "old": "Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay.",
+   "new": "",
+   "segments": [
+    [
+     "Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay",
+     30.45,
+     -0.083
+    ]
+   ]
+  },
+  {
+   "file": "20260927_093813_633_e072a1d53274_marvin.wav",
+   "old": "They have marty muting on it.",
+   "new": "",
+   "segments": [
+    [
+     "They have marty muting on it.",
+     0.78,
+     -1.29
+    ]
+   ]
+  },
+  {
+   "file": "20260927_093827_714_e072a1d53274_marvin.wav",
+   "old": "I, uh...",
+   "new": "I, uh...",
+   "segments": [
+    [
+     "I, uh...",
+     0.5,
+     -0.826
+    ]
+   ]
+  },
+  {
+   "file": "20260927_094722_682_e072a1d53274_marvin.wav",
+   "old": "I'll leave it for by.",
+   "new": "I'll leave it for by.",
+   "segments": [
+    [
+     "I'll leave it for by.",
+     0.72,
+     -0.639
+    ]
+   ]
+  },
+  {
+   "file": "20260927_094746_973_e072a1d53274_marvin.wav",
+   "old": "Martin.",
+   "new": "Martin.",
+   "segments": [
+    [
+     "Martin.",
+     0.47,
+     -0.574
+    ]
+   ]
+  },
+  {
+   "file": "20260927_094751_399_e072a1d53274_marvin.wav",
+   "old": "We'll see you again.",
+   "new": "We'll see you again.",
+   "segments": [
+    [
+     "We'll see you again.",
+     0.71,
+     -0.847
+    ]
+   ]
+  },
+  {
+   "file": "20260927_100342_907_e072a1d53274_marvin.wav",
+   "old": "Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay.",
+   "new": "",
+   "segments": [
+    [
+     "Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay.",
+     5.59,
+     -0.44
+    ]
+   ]
+  },
+  {
+   "file": "20260927_100354_708_e072a1d53274_marvin.wav",
+   "old": "So, what do you think? Well, let's see.",
+   "new": "",
+   "segments": [
+    [
+     "So, what do you think?",
+     0.83,
+     -1.066
+    ],
+    [
+     "Well, let's see.",
+     0.83,
+     -1.066
+    ]
+   ]
+  },
+  {
+   "file": "20260927_100401_666_e072a1d53274_marvin.wav",
+   "old": "Okay, let's see what I get. This car is nice to join in.",
+   "new": "Okay, let's see what I get. This car is nice to join in.",
+   "segments": [
+    [
+     "Okay, let's see what I get. This car is nice to join in.",
+     0.88,
+     -0.925
+    ]
+   ]
+  },
+  {
+   "file": "20260927_102639_228_e072a1d53274_marvin.wav",
+   "old": "Let's terminate other processes while using the...",
+   "new": "Let's terminate other processes while using the...",
+   "segments": [
+    [
+     "Let's terminate other processes while using the...",
+     0.86,
+     -0.621
+    ]
+   ]
+  },
+  {
+   "file": "20260927_103452_485_e072a1d53274_marvin.wav",
+   "old": "Okay, let's see the framework. Let's see how the model looks like in Scratch.",
+   "new": "Okay, let's see the framework. Let's see how the model looks like in Scratch.",
+   "segments": [
+    [
+     "Okay, let's see the framework. Let's see how the model looks like in Scratch.",
+     1.04,
+     -0.925
+    ]
+   ]
+  },
+  {
+   "file": "20260927_103656_705_e072a1d53274_marvin.wav",
+   "old": "Oh my gosh.",
+   "new": "Oh my gosh.",
+   "segments": [
+    [
+     "Oh my gosh.",
+     0.58,
+     -0.833
+    ]
+   ]
+  },
+  {
+   "file": "20260927_103913_200_e072a1d53274_marvin.wav",
+   "old": "Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay.",
+   "new": "",
+   "segments": [
+    [
+     "Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay.",
+     5.59,
+     -0.435
+    ]
+   ]
+  },
+  {
+   "file": "20260927_105522_177_e072a1d53274_marvin.wav",
+   "old": "So, what do you think? Well, I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure.",
+   "new": "",
+   "segments": [
+    [
+     "So, what do you think? Well, I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure. I'm not sure.",
+     9.67,
+     -0.168
+    ]
+   ]
+  },
+  {
+   "file": "20260928_131637_158_e072a1d53274_marvin.wav",
+   "old": "Marvin?",
+   "new": "Marvin?",
+   "segments": [
+    [
+     "Marvin?",
+     0.47,
+     -0.587
+    ]
+   ]
+  },
+  {
+   "file": "20260928_131708_386_e072a1d53274_marvin.wav",
+   "old": "Can you hear me?",
+   "new": "Can you hear me?",
+   "segments": [
+    [
+     "Can you hear me?",
+     0.67,
+     -0.275
+    ]
+   ]
+  },
+  {
+   "file": "20260928_133135_422_e072a1d53274_marvin.wav",
+   "old": "Can you hear me?",
+   "new": "Can you hear me?",
+   "segments": [
+    [
+     "Can you hear me?",
+     0.67,
+     -0.436
+    ]
+   ]
+  },
+  {
+   "file": "20260928_135257_178_e072a1d53274_marvin.wav",
+   "old": "Can you hear me?",
+   "new": "Can you hear me?",
+   "segments": [
+    [
+     "Can you hear me?",
+     0.67,
+     -0.242
+    ]
+   ]
+  },
+  {
+   "file": "20260928_135307_684_e072a1d53274_marvin.wav",
+   "old": "Raj is a good guy.",
+   "new": "Raj is a good guy.",
+   "segments": [
+    [
+     "Raj is a good guy.",
+     0.69,
+     -0.52
+    ]
+   ]
+  },
+  {
+   "file": "20260928_135324_781_e072a1d53274_marvin.wav",
+   "old": "Raj is a bad girl.",
+   "new": "Raj is a bad girl.",
+   "segments": [
+    [
+     "Raj is a bad girl.",
+     0.69,
+     -0.617
+    ]
+   ]
+  },
+  {
+   "file": "20260928_135449_470_e072a1d53274_marvin.wav",
+   "old": "Can you listen, man?",
+   "new": "Can you listen, man?",
+   "segments": [
+    [
+     "Can you listen, man?",
+     0.71,
+     -0.393
+    ]
+   ]
+  },
+  {
+   "file": "20260928_135855_356_e072a1d53274_marvin.wav",
+   "old": "See you soon.",
+   "new": "See you soon.",
+   "segments": [
+    [
+     "See you soon.",
+     0.62,
+     -0.755
+    ]
+   ]
+  },
+  {
+   "file": "20260928_141517_354_e072a1d53274_marvin.wav",
+   "old": "Okay. Madering.",
+   "new": "Okay. Madering.",
+   "segments": [
+    [
+     "Okay. Madering.",
+     0.65,
+     -0.964
+    ]
+   ]
+  },
+  {
+   "file": "20260928_141602_262_e072a1d53274_marvin.wav",
+   "old": "Please play the music.",
+   "new": "Please play the music.",
+   "segments": [
+    [
+     "Please play the music.",
+     0.73,
+     -0.437
+    ]
+   ]
+  },
+  {
+   "file": "20260928_141832_068_e072a1d53274_marvin.wav",
+   "old": "Can you hear me?",
+   "new": "Can you hear me?",
+   "segments": [
+    [
+     "Can you hear me?",
+     0.67,
+     -0.238
+    ]
+   ]
+  },
+  {
+   "file": "20260928_141851_017_e072a1d53274_marvin.wav",
+   "old": "Are you okay?",
+   "new": "Are you okay?",
+   "segments": [
+    [
+     "Are you okay?",
+     0.62,
+     -0.456
+    ]
+   ]
+  },
+  {
+   "file": "20260928_141910_288_e072a1d53274_marvin.wav",
+   "old": "Are you okay?",
+   "new": "Are you okay?",
+   "segments": [
+    [
+     "Are you okay?",
+     0.62,
+     -0.314
+    ]
+   ]
+  },
+  {
+   "file": "20260928_144053_709_e072a1d53274_marvin.wav",
+   "old": "Okay, go ahead and open it.",
+   "new": "Okay, go ahead and open it.",
+   "segments": [
+    [
+     "Okay, go ahead and open it.",
+     0.77,
+     -0.84
+    ]
+   ]
+  },
+  {
+   "file": "20260928_144239_086_e072a1d53274_marvin.wav",
+   "old": "Are you listening to my word, what I'm saying right now? And can you also detect that what I'm saying actually being transcribed like?",
+   "new": "Are you listening to my word, what I'm saying right now? And can you also detect that what I'm saying actually being transcribed like?",
+   "segments": [
+    [
+     "Are you listening to my word, what I'm saying right now? And can you also detect that what I'm saying actually being transcribed like?",
+     1.3,
+     -0.251
+    ]
+   ]
+  },
+  {
+   "file": "20260928_144459_008_e072a1d53274_marvin.wav",
+   "old": "Are you listening to me?",
+   "new": "Are you listening to me?",
+   "segments": [
+    [
+     "Are you listening to me?",
+     0.75,
+     -0.454
+    ]
+   ]
+  },
+  {
+   "file": "20260928_144519_400_e072a1d53274_marvin.wav",
+   "old": "Can you see what I am asking and also can respond about that question?",
+   "new": "Can you see what I am asking and also can respond about that question?",
+   "segments": [
+    [
+     "Can you see what I am asking and also can respond about that question?",
+     1.0,
+     -0.23
+    ]
+   ]
+  },
+  {
+   "file": "20260928_145023_271_e072a1d53274_marvin.wav",
+   "old": "Close the door. It is showing. Hey, Marvin, close the door.",
+   "new": "Close the door. It is showing. Hey, Marvin, close the door.",
+   "segments": [
+    [
+     "Close the door. It is showing. Hey, Marvin, close the door.",
+     1.07,
+     -0.468
+    ]
+   ]
+  }
+ ]
+}

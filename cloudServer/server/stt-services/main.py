@@ -20,6 +20,7 @@ Two ways in:
 """
 import json
 import os
+import re
 import tempfile
 import time
 
@@ -48,7 +49,21 @@ def transcribe(audio, prompt=None) -> str:
     # recording could come back as "Marvin" or "Arvin". Beam 5 is more accurate and, without the fallback, no slower.
     segments, _ = model.transcribe(audio, language="en", beam_size=5, temperature=0.0,
                                    condition_on_previous_text=False, initial_prompt=prompt)
-    return " ".join(segment.text.strip() for segment in segments).strip()
+    return " ".join(s.text.strip() for s in segments if is_speech(s)).strip()
+
+
+PROMPT_WORDS = set(re.findall(r"[a-z']+", PUNCTUATION_PROMPT.lower()))
+
+
+def is_speech(segment) -> bool:
+    """Drops Whisper's two failure modes on the board's short commands, using Whisper's own default thresholds:
+    looping text (compression ratio > 2.4: "Okay. Okay. Okay. ...", "Bye. Bye. ...") and the prompt coming back
+    (average log-probability < -1.0 AND only prompt words: "Okay, let's see."). Checked on 65 saved utterances:
+    removes 10 such texts, keeps every other one (benchmarks/results/stt_filter_check.json)."""
+    if segment.compression_ratio > 2.4:
+        return False
+    words = set(re.findall(r"[a-z']+", segment.text.lower()))
+    return not (segment.avg_logprob < -1.0 and words and words <= PROMPT_WORDS)
 
 
 def to_float(pcm: bytes):

@@ -1,0 +1,240 @@
+[
+ {
+  "file": "20260928_153900_417_e072a1d53274_marvin.wav",
+  "dur": 1.5,
+  "speech_s": 0.0,
+  "saved_transcript": "",
+  "now": "",
+  "segments": [
+   {
+    "text": "So, what do you think? Well, let's see. So, what do you think? Well, let's see. Well, let's",
+    "no_speech": 0.795,
+    "logprob": -0.645,
+    "cr": 1.72,
+    "start": 0.0,
+    "end": 7.0
+   }
+  ]
+ },
+ {
+  "file": "20260928_153915_256_e072a1d53274_marvin.wav",
+  "dur": 1.9,
+  "speech_s": 1.82,
+  "saved_transcript": "Can you listen to me?",
+  "now": "Can you listen to me?",
+  "segments": [
+   {
+    "text": "Can you listen to me?",
+    "no_speech": 0.051,
+    "logprob": -0.261,
+    "cr": 0.72,
+    "start": 0.0,
+    "end": 2.0
+   }
+  ]
+ },
+ {
+  "file": "20260928_153922_688_e072a1d53274_marvin.wav",
+  "dur": 1.56,
+  "speech_s": 1.56,
+  "saved_transcript": "What is my name?",
+  "now": "What is my name?",
+  "segments": [
+   {
+    "text": "What is my name?",
+    "no_speech": 0.054,
+    "logprob": -0.305,
+    "cr": 0.67,
+    "start": 0.0,
+    "end": 1.0
+   }
+  ]
+ },
+ {
+  "file": "20260928_153929_916_e072a1d53274_marvin.wav",
+  "dur": 2.78,
+  "speech_s": 2.78,
+  "saved_transcript": "What do you think that? Is it correct or not?",
+  "now": "What do you think that? Is it correct or not?",
+  "segments": [
+   {
+    "text": "What do you think that? Is it correct or not?",
+    "no_speech": 0.019,
+    "logprob": -0.332,
+    "cr": 0.85,
+    "start": 0.0,
+    "end": 2.64
+   }
+  ]
+ },
+ {
+  "file": "20260928_164943_354_e072a1d53274_marvin.wav",
+  "dur": 2.06,
+  "speech_s": 2.01,
+  "saved_transcript": "What do you hear from us?",
+  "now": "What do you hear from us?",
+  "segments": [
+   {
+    "text": "What do you hear from us?",
+    "no_speech": 0.014,
+    "logprob": -0.227,
+    "cr": 0.76,
+    "start": 0.0,
+    "end": 2.0
+   }
+  ]
+ },
+ {
+  "file": "20260928_164951_412_e072a1d53274_marvin.wav",
+  "dur": 1.5,
+  "speech_s": 0.0,
+  "saved_transcript": "",
+  "now": "",
+  "segments": [
+   {
+    "text": "So, what do you think? Well, let's see. Okay, let's see. So, what do you think? Well, let's",
+    "no_speech": 0.736,
+    "logprob": -0.696,
+    "cr": 1.6,
+    "start": 0.0,
+    "end": 7.0
+   }
+  ]
+ },
+ {
+  "file": "20260928_164957_873_e072a1d53274_marvin.wav",
+  "dur": 1.88,
+  "speech_s": 1.74,
+  "saved_transcript": "Okay, let's see.",
+  "now": "",
+  "segments": [
+   {
+    "text": "Okay, let's see.",
+    "no_speech": 0.008,
+    "logprob": -1.017,
+    "cr": 0.67,
+    "start": 0.0,
+    "end": 1.56
+   }
+  ]
+ },
+ {
+  "file": "20260928_165006_911_e072a1d53274_marvin.wav",
+  "dur": 3.12,
+  "speech_s": 2.78,
+  "saved_transcript": "Okay. Okay, okay. Okay, okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay.",
+  "now": "",
+  "segments": [
+   {
+    "text": "Okay. Okay, okay. Okay, okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay",
+    "no_speech": 0.088,
+    "logprob": -0.092,
+    "cr": 23.1,
+    "start": 0.0,
+    "end": 3.12
+   }
+  ]
+ },
+ {
+  "file": "20260928_165054_610_e072a1d53274_marvin.wav",
+  "dur": 2.54,
+  "speech_s": 2.24,
+  "saved_transcript": "Let's see what you think.",
+  "now": "",
+  "segments": [
+   {
+    "text": "Let's see what you think.",
+    "no_speech": 0.043,
+    "logprob": -1.044,
+    "cr": 0.76,
+    "start": 0.0,
+    "end": 2.0
+   }
+  ]
+ },
+ {
+  "file": "20260928_165224_290_e072a1d53274_marvin.wav",
+  "dur": 1.5,
+  "speech_s": 0.0,
+  "saved_transcript": "",
+  "now": "",
+  "segments": [
+   {
+    "text": "So, what do you think? Well, let's see. Okay, go ahead.",
+    "no_speech": 0.765,
+    "logprob": -0.761,
+    "cr": 0.87,
+    "start": 0.0,
+    "end": 2.0
+   }
+  ]
+ },
+ {
+  "file": "20260928_165308_766_e072a1d53274_marvin.wav",
+  "dur": 1.5,
+  "speech_s": 1.5,
+  "saved_transcript": "Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do.",
+  "now": "",
+  "segments": [
+   {
+    "text": "Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do. Okay, let's see what we can do.",
+    "no_speech": 0.135,
+    "logprob": -0.214,
+    "cr": 9.72,
+    "start": 0.0,
+    "end": 1.5
+   }
+  ]
+ },
+ {
+  "file": "20260928_165311_208_e072a1d53274_marvin.wav",
+  "dur": 1.92,
+  "speech_s": 1.65,
+  "saved_transcript": "Can you hear us?",
+  "now": "Can you hear us?",
+  "segments": [
+   {
+    "text": "Can you hear us?",
+    "no_speech": 0.012,
+    "logprob": -0.206,
+    "cr": 0.67,
+    "start": 0.0,
+    "end": 2.0
+   }
+  ]
+ },
+ {
+  "file": "20260928_174105_504_e072a1d53274_marvin.wav",
+  "dur": 0.5,
+  "speech_s": 0.0,
+  "saved_transcript": "",
+  "now": "",
+  "segments": [
+   {
+    "text": "So, what do you think? Well, let's see. Okay, go ahead. Okay, go ahead. Okay, go ahead. Okay,",
+    "no_speech": 0.701,
+    "logprob": -0.722,
+    "cr": 1.45,
+    "start": 0.0,
+    "end": 7.0
+   }
+  ]
+ },
+ {
+  "file": "20260928_182905_579_e072a1d53274_marvin.wav",
+  "dur": 1.5,
+  "speech_s": 1.5,
+  "saved_transcript": "Okay, go ahead. Okay, go ahead. Okay, go ahead. Okay, go ahead. Okay, go ahead. Okay, go ahead.",
+  "now": "",
+  "segments": [
+   {
+    "text": "Okay, go ahead. Okay, go ahead. Okay, go ahead. Okay, go ahead. Okay, go ahead. Okay, go ahead",
+    "no_speech": 0.428,
+    "logprob": -0.695,
+    "cr": 3.48,
+    "start": 0.0,
+    "end": 1.5
+   }
+  ]
+ }
+]
