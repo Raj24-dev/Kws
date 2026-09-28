@@ -19,7 +19,8 @@ STATUS = re.compile(
     r" \| detections (?P<det>\d+) \| inferences (?P<inf>\d+) \([\d.]+/s; model (?P<model_ms>[\d.]+) ms each, paused in quiet"
     r" (?P<paused>[\d.]+)%; features (?P<feat_ms>[\d.]+) ms per 30 ms\) \| CPU core0\s+(?P<c0>[\d.-]+)% core1\s+(?P<c1>[\d.-]+)%"
     r" \(wake word pipeline\s+(?P<pipe>[\d.]+)% of one core\) \| RAM used (?P<ram>\d+) KB \(peak (?P<ram_pk>\d+) KB"
-    r"(?: of the \d+ KB limit)?, (?P<free>\d+) KB free\)(?: \| wifi (?P<wifi>\S+), server (?P<srv>\S+))?"
+    r"(?:; peak \+ IRAM code (?P<strict_pk>\d+) KB)?(?: of the \d+ KB limit)?, (?P<free>\d+) KB free\)"
+    r"(?: \| wifi (?P<wifi>\S+), server (?P<srv>\S+))?"
     r" \| audio lost since boot: i2s (?P<li2s>\d+) net (?P<lnet>\d+)")
 DETECT = re.compile(r">>> WAKE WORD \"(?P<ww>[^\"]+)\" DETECTED\s+\(score (?P<score>[\d.]+), t = (?P<t>[\d.]+) s\)")
 FIRST = re.compile(r"first audio sent (?P<ms>-?\d+) ms after the detection")
@@ -147,6 +148,8 @@ def summarize_status(rows, skip_s=0):
         "pipeline_pct_one_core": stats("pipe"), "model_ms": stats("model_ms"), "features_ms_per_30ms": stats("feat_ms"),
         "paused_in_quiet_pct": stats("paused"), "mic_dbfs": stats("mic"),
         "ram_used_kb": stats("ram"), "ram_peak_since_boot_kb": max(r["ram_pk"] for r in rows),
+        # strict SIH reading (IRAM code + static data + peak heap); firmware from F8 on prints it
+        "ram_strict_peak_kb": max((r["strict_pk"] for r in rows if r["strict_pk"] is not None), default=None),
         "heap_free_kb_min": min(r["free"] for r in rows),
         "wifi_ok_share": round(sum(r["wifi"] == "OK" for r in rows) / len(rows), 3),
         "server_ok_share": round(sum(r["srv"] == "OK" for r in rows) / len(rows), 3),
@@ -166,6 +169,8 @@ if __name__ == "__main__":  # self-check of the parser on real lines from the fi
     d._parse(4.0, datetime.now(), "I (8053747) wake_word: score event: peak 0.23 over 390 ms -> not detected (below threshold or in cool-down)")
     d._parse(5.0, datetime.now(), "@T t=182852 s=0.000 lv=-34.2 pk=-33.7 c0=4.2 c1=10.3")
     assert d.events[0]["peak"] == 0.23 and not d.events[0]["detected"] and d.levels[0][1] == -33.7
+    d._parse(6.0, datetime.now(), "[status] up 21s | mic -30.1 dBFS (peak -26.0) | score max 0.00 | detections 0 | inferences 333 (33.3/s; model 0.87 ms each, paused in quiet 0%; features 1.39 ms per 30 ms) | CPU core0  0.9% core1  8.4% (wake word pipeline 8.16% of one core) | RAM used 173 KB (peak 176 KB; peak + IRAM code 230 KB of the 256 KB limit, 28 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0")
     assert d.status[0]["c1"] == 9.5 and d.status[0]["ram_pk"] == 245 and d.status[0]["srv"] == "OK"
+    assert d.status[1]["strict_pk"] == 230 and d.status[1]["free"] == 28 and d.status[0]["strict_pk"] is None
     assert d.detections[0]["score"] == 0.58 and d.banner["iram"] == 95
     print("devlog parser OK")

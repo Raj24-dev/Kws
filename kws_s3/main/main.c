@@ -69,6 +69,7 @@ static size_t s_ballast;  // RAM reserved by the KWS_RAM_LIMIT_KB test (not used
 
 // ---------------------------------------------------------------------------------------------------------------
 static size_t static_ram(void) { return (size_t)(&_bss_end - &_data_start); }
+static size_t iram_code(void) { return (size_t)(&_iram_end - &_iram_start); }  // same SRAM, counted for the SIH limit
 
 // RAM the firmware uses: static data + heap in use (now, and the highest since boot). The ballast is not counted.
 static void ram_used(size_t *now, size_t *peak) {
@@ -78,12 +79,13 @@ static void ram_used(size_t *now, size_t *peak) {
 }
 
 #if CONFIG_KWS_RAM_LIMIT_KB > 0
-// SIH limit test: reserve every byte of internal RAM beyond CONFIG_KWS_RAM_LIMIT_KB, so the rest of the firmware
-// (Wi-Fi, model, audio, streaming) has to live within the limit. Never freed.
+// SIH limit test: reserve every byte of internal RAM beyond CONFIG_KWS_RAM_LIMIT_KB (counted strictly: IRAM code +
+// static data + heap), so the rest of the firmware (Wi-Fi, model, audio, streaming) has to live within the limit.
+// Never freed.
 static void apply_ram_limit(void) {
     size_t now, peak;
     ram_used(&now, &peak);
-    const size_t limit = (size_t)CONFIG_KWS_RAM_LIMIT_KB * 1024;
+    const size_t limit = (size_t)CONFIG_KWS_RAM_LIMIT_KB * 1024 - iram_code();  // what is left for data
     if (now >= limit) {
         ESP_LOGE(TAG, "RAM limit test: already %u KB used at boot, above the %u KB limit", (unsigned)(now / 1024),
                  (unsigned)(limit / 1024));
@@ -98,8 +100,9 @@ static void apply_ram_limit(void) {
         s_ballast += block;
         want -= block;
     }
-    ESP_LOGW(TAG, "RAM limit test: %u KB reserved, the firmware has %u KB (static data + heap) to work with",
-             (unsigned)(s_ballast / 1024), (unsigned)(limit / 1024));
+    ESP_LOGW(TAG, "RAM limit test: %u KB reserved, the firmware has %u KB (static data + heap) + %u KB IRAM code "
+                  "= %d KB to work with", (unsigned)(s_ballast / 1024), (unsigned)(limit / 1024),
+             (unsigned)(iram_code() / 1024), CONFIG_KWS_RAM_LIMIT_KB);
 }
 #endif
 
@@ -112,9 +115,9 @@ static void print_banner(void) {
     printf(" chip      : %s rev v%d.%d, %d cores, flash %lu MB\n", CONFIG_IDF_TARGET, chip.revision / 100,
            chip.revision % 100, chip.cores, (unsigned long)(flash >> 20));
     printf(" ESP-IDF   : %s\n", esp_get_idf_version());
-    printf(" RAM       : %u KB static data, %u KB heap free (code in IRAM: %u KB, not counted)\n",
+    printf(" RAM       : %u KB static data, %u KB heap free (code in IRAM: %u KB, counted in the SIH total)\n",
            (unsigned)(static_ram() / 1024), (unsigned)(heap_caps_get_free_size(MALLOC_CAP_INTERNAL) / 1024),
-           (unsigned)((&_iram_end - &_iram_start) / 1024));
+           (unsigned)(iram_code() / 1024));
     printf(" model     : %s (%u bytes, stored in flash)\n", g_ww_model_len ? g_ww_model_file : "none",
            (unsigned)g_ww_model_len);
     printf("===========================================================\n\n");
@@ -344,10 +347,11 @@ static void print_status(void) {
 
     printf("[status] up %llus | mic %5.1f dBFS (peak %5.1f) | score max %.2f | detections %lu | inferences %lu "
            "(%.1f/s; model %.2f ms each, paused in quiet %.0f%%; features %.2f ms per 30 ms) | CPU core0 %4.1f%% core1 %4.1f%% "
-           "(wake word pipeline %4.2f%% of one core) | RAM used %u KB (peak %u KB",
+           "(wake word pipeline %4.2f%% of one core) | RAM used %u KB (peak %u KB; peak + IRAM code %u KB",
            (unsigned long long)(esp_timer_get_time() / 1000000), level_dbfs, s->mic_peak_dbfs, s->score_max,
            (unsigned long)s_detections, (unsigned long)s->inferences, s->inferences * 1e6f / us, model_ms,
-           slots ? 100.0f * s->skipped / slots : 0.0f, feat_ms, load0, load1, kws_pct, (unsigned)(ram_now / 1024), (unsigned)(ram_peak / 1024));
+           slots ? 100.0f * s->skipped / slots : 0.0f, feat_ms, load0, load1, kws_pct, (unsigned)(ram_now / 1024),
+           (unsigned)(ram_peak / 1024), (unsigned)((ram_peak + iram_code()) / 1024));
     if (CONFIG_KWS_RAM_LIMIT_KB > 0) printf(" of the %d KB limit", CONFIG_KWS_RAM_LIMIT_KB);
     printf(", %u KB free)", (unsigned)(heap_caps_get_free_size(MALLOC_CAP_INTERNAL) / 1024));
     if (s_streaming_enabled)

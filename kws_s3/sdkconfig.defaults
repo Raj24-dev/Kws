@@ -24,19 +24,23 @@ CONFIG_FREERTOS_HZ=1000
 CONFIG_FREERTOS_USE_TRACE_FACILITY=y
 CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS=y
 
-CONFIG_ESP_MAIN_TASK_STACK_SIZE=6144
-
 # Logs on the UART ("COM") port and also on the native USB port
 CONFIG_ESP_CONSOLE_UART_DEFAULT=y
 CONFIG_ESP_CONSOLE_SECONDARY_USB_SERIAL_JTAG=y
 
 # SIH limit: the whole firmware must fit in 256 KB of RAM, counted strictly: code the chip keeps in internal RAM
 # (IRAM) + static data + peak heap (Wi-Fi, buffers, model, stacks). No PSRAM (the board's 8 MB stays unused).
+# KWS_RAM_LIMIT_KB reserves everything above 256 KB at boot, so the firmware cannot use more (the status line shows
+# "peak + IRAM code ... of the 256 KB limit").
 # CONFIG_SPIRAM is not set
+CONFIG_KWS_RAM_LIMIT_KB=256
+# One microphone (left slot, L/R to GND), I2S mono: averaging the second one detected no more (benchmarks: micab_*)
+# and reading both slots costs 5 KB of DMA/sample buffers
+CONFIG_KWS_MIC_SELECT=1
 # Wi-Fi/lwIP: station only. Keep the default TX side (16 dynamic TX buffers, A-MPDU TX, 5760-byte TCP buffers):
 # with 8 TX buffers / 2880-byte TCP buffers the first audio left 144-424 ms after the detection instead of 19 ms and
 # audio was lost (benchmarks/results/trig_expB_*, posB_F3c_*).
-CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM=6
+CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM=4
 CONFIG_ESP_WIFI_DYNAMIC_RX_BUFFER_NUM=16
 CONFIG_ESP_WIFI_DYNAMIC_TX_BUFFER_NUM=16
 CONFIG_ESP_WIFI_MGMT_SBUF_NUM=10
@@ -51,7 +55,9 @@ CONFIG_LWIP_MAX_SOCKETS=4
 # Nothing in NVS: settings come from menuconfig, the radio calibrates at every boot
 # CONFIG_ESP_WIFI_NVS_ENABLED is not set
 # CONFIG_ESP_PHY_CALIBRATION_AND_DATA_STORAGE is not set
-# Code that does not have to run with the flash cache off lives in flash, not IRAM (IRAM 95.5 -> 65 KB)
+# Code that does not have to run with the flash cache off lives in flash, not IRAM (IRAM 95.5 -> 54 KB; FreeRTOS
+# task functions in flash measured no CPU change)
+CONFIG_FREERTOS_PLACE_FUNCTIONS_INTO_FLASH=y
 # CONFIG_ESP_WIFI_IRAM_OPT is not set
 # CONFIG_ESP_WIFI_RX_IRAM_OPT is not set
 CONFIG_HEAP_PLACE_FUNCTION_INTO_FLASH=y

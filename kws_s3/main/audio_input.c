@@ -36,7 +36,10 @@ static float s_peak_ms;  // highest block mean-square
 static uint32_t s_net_drop_samples;
 static uint64_t s_busy_us;
 static float s_noise_floor = 50.0f;
-static int32_t s_raw[AUDIO_BLOCK_SAMPLES * 2];  // one I2S block: left, right, left, right, ... (shared)
+// KWS_MIC_SELECT 1/2 reads only that slot (I2S mono): half the DMA buffers and s_raw (-5 KB RAM).
+#define MIC_CHANNELS (CONFIG_KWS_MIC_SELECT ? 1 : 2)
+#define FIRST_SLOT (CONFIG_KWS_MIC_SELECT ? CONFIG_KWS_MIC_SELECT - 1 : 0)  // slot of channel 0: 0 = left, 1 = right
+static int32_t s_raw[AUDIO_BLOCK_SAMPLES * MIC_CHANNELS];  // one I2S block: left, right, left, ... (shared)
 static volatile uint32_t s_dma_overflows;  // written from the I2S interrupt
 
 static bool IRAM_ATTR on_rx_overflow(i2s_chan_handle_t handle, i2s_event_data_t *event, void *ctx) {
@@ -65,7 +68,8 @@ static esp_err_t i2s_setup(const audio_input_config_t *cfg) {
     // with L/R to 3V3 in the right slot (each drives SD only during its own slot).
     i2s_std_config_t std_cfg = {
         .clk_cfg = I2S_STD_CLK_DEFAULT_CONFIG(AUDIO_SAMPLE_RATE),
-        .slot_cfg = I2S_STD_PHILIPS_SLOT_DEFAULT_CONFIG(I2S_DATA_BIT_WIDTH_32BIT, I2S_SLOT_MODE_STEREO),
+        .slot_cfg = I2S_STD_PHILIPS_SLOT_DEFAULT_CONFIG(I2S_DATA_BIT_WIDTH_32BIT,
+                                                        MIC_CHANNELS == 2 ? I2S_SLOT_MODE_STEREO : I2S_SLOT_MODE_MONO),
         .gpio_cfg = {
             .mclk = I2S_GPIO_UNUSED,
             .bclk = (gpio_num_t)cfg->sck_gpio,
@@ -75,6 +79,7 @@ static esp_err_t i2s_setup(const audio_input_config_t *cfg) {
             .invert_flags = {.mclk_inv = false, .bclk_inv = false, .ws_inv = false},
         },
     };
+    if (MIC_CHANNELS == 1) std_cfg.slot_cfg.slot_mask = FIRST_SLOT ? I2S_STD_SLOT_RIGHT : I2S_STD_SLOT_LEFT;
 
     err = i2s_channel_init_std_mode(s_rx, &std_cfg);
     if (err != ESP_OK) return err;
@@ -99,20 +104,19 @@ static void mic_check(audio_mic_check_t *out) {
     for (int block = 0; block < 25; block++) {  // 25 x 20 ms
         if (i2s_channel_read(s_rx, raw, sizeof(s_raw), &bytes, pdMS_TO_TICKS(500)) != ESP_OK) continue;
         if (block < 10) continue;                   // the INMP441 needs ~85 ms to start; skip 200 ms
-        const size_t frames = bytes / (2 * sizeof(int32_t));
+        const size_t frames = bytes / (MIC_CHANNELS * sizeof(int32_t));
         if (block == 10 && frames) {
-            out->raw_first[0] = (uint32_t)raw[0];
-            out->raw_first[1] = (uint32_t)raw[1];
+            for (int c = 0; c < MIC_CHANNELS; c++) out->raw_first[FIRST_SLOT + c] = (uint32_t)raw[c];
         }
         for (size_t i = 0; i < frames; i++) {
-            for (int c = 0; c < 2; c++) {
-                const int32_t v = raw[2 * i + c], s = v >> 16;
+            for (int c = FIRST_SLOT; c < FIRST_SLOT + MIC_CHANNELS; c++) {  // c = slot (the unread slot stays empty)
+                const int32_t v = raw[MIC_CHANNELS * i + c - FIRST_SLOT], s = v >> 16;
                 sum[c] += s;
                 sumsq[c] += (double)s * s;
                 if (n == 0) prev[c] = s;  // no difference for the very first sample
                 const int32_t d = s - prev[c];
                 prev[c] = s;
-                if (c == 0 && n) cross += (double)d * ((raw[2 * i + 1] >> 16) - prev[1]);
+                if (MIC_CHANNELS == 2 && c == 0 && n) cross += (double)d * ((raw[2 * i + 1] >> 16) - prev[1]);
                 dss[c] += (double)d * d;
                 bool found = false;
                 for (int k = 0; k < nseen[c]; k++) found |= (seen[c][k] == v);
@@ -150,11 +154,12 @@ size_t audio_input_read(int16_t pcm[AUDIO_BLOCK_SAMPLES]) {
         return 0;
     }
     const int64_t t0 = esp_timer_get_time();
-    const size_t n = bytes / (2 * sizeof(int32_t));
+    const size_t n = bytes / (MIC_CHANNELS * sizeof(int32_t));
     int64_t sumsq = 0;  // integer: the S3 has no double-precision FPU
     for (size_t i = 0; i < n; i++) {
         // 24-bit samples, mixed (both microphones: their average) and filtered before the gain so nothing clips
-        const float x = s_weight[0] * (float)(raw[2 * i] >> 8) + s_weight[1] * (float)(raw[2 * i + 1] >> 8);
+        const float x = MIC_CHANNELS == 1 ? (float)(raw[i] >> 8)
+                                          : s_weight[0] * (float)(raw[2 * i] >> 8) + s_weight[1] * (float)(raw[2 * i + 1] >> 8);
         const float y = s_b0 * x + s_b1 * s_x1 + s_b2 * s_x2 - s_a1 * s_y1 - s_a2 * s_y2;
         s_x2 = s_x1;
         s_x1 = x;
@@ -229,12 +234,13 @@ esp_err_t audio_input_start(const audio_input_config_t *cfg, audio_mic_check_t *
         ESP_LOGE(TAG, "I2S setup failed: %s (check the GPIO numbers in menuconfig)", esp_err_to_name(err));
         return err;
     }
-    ESP_LOGI(TAG, "I2S running: 16 kHz, 32-bit slots, both channels, SCK=%d WS=%d SD=%d, gain x%d", cfg->sck_gpio,
+    ESP_LOGI(TAG, "I2S running: 16 kHz, 32-bit slots, %s, SCK=%d WS=%d SD=%d, gain x%d",
+             MIC_CHANNELS == 2 ? "both channels" : FIRST_SLOT ? "right channel only" : "left channel only", cfg->sck_gpio,
              cfg->ws_gpio, cfg->sd_gpio, 1 << cfg->gain_shift);
 
     audio_mic_check_t chk;
     mic_check(&chk);
-    if (CONFIG_KWS_MIC_SELECT > 0) {  // A/B test: force one microphone
+    if (CONFIG_KWS_MIC_SELECT > 0) {  // one microphone only (the other slot is not even read)
         chk.use[0] = CONFIG_KWS_MIC_SELECT == 1;
         chk.use[1] = CONFIG_KWS_MIC_SELECT == 2;
     }
