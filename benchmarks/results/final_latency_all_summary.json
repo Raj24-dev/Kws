@@ -1,0 +1,36 @@
+{
+ "files": [
+  "final_acoustic_latency_synth_pass1.json",
+  "final_acoustic_latency_synth_pass2.json",
+  "final_acoustic_real_test.json"
+ ],
+ "trials": 90,
+ "positives": 73,
+ "detected": 47,
+ "tpr": 0.6438,
+ "negatives": 17,
+ "false_accepts": 3,
+ "latency_ms": {
+  "n": 47,
+  "median": 214.1,
+  "median_ci95": [
+   131.6,
+   276.7
+  ],
+  "p95": 393.5,
+  "mean": 200.6,
+  "min": -42.7,
+  "max": 502.1
+ },
+ "device_detect_to_first_send_ms": {
+  "median": 20,
+  "p95": 20,
+  "n": 50
+ },
+ "synthetic_command_wer": 0.0165,
+ "ram_peak_kb_per_run": [
+  197.0,
+  199.0,
+  197.0
+ ]
+}

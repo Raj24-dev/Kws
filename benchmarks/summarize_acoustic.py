@@ -6,6 +6,7 @@ the synthetic latency clips (their command text is known), device-side detection
 import csv
 import json
 import os
+import random
 import re
 import statistics as st
 import sys
@@ -35,6 +36,15 @@ def pct(v, q):
     return v[min(len(v) - 1, int(round(q * (len(v) - 1))))] if v else None
 
 
+def median_ci(v, n=2000, seed=26172):
+    """95 % bootstrap interval of the median: the sampling error of n trials (timing error bars are separate)."""
+    if len(v) < 5:
+        return None
+    rnd = random.Random(seed)
+    meds = sorted(st.median(rnd.choices(v, k=len(v))) for _ in range(n))
+    return [round(meds[int(0.025 * n)], 1), round(meds[int(0.975 * n)], 1)]
+
+
 def main(paths):
     cmd = {r["file"]: r["command"] for r in csv.DictReader(open(os.path.join(HERE, "sets", "synthetic_latency.csv")))}
     lat, pos, det, neg, fa, errs, refw, first, rampk, trials = [], 0, 0, 0, 0, 0, 0, [], [], 0
@@ -59,7 +69,8 @@ def main(paths):
     out = {"files": [os.path.basename(p) for p in paths], "trials": trials,
            "positives": pos, "detected": det, "tpr": round(det / pos, 4) if pos else None,
            "negatives": neg, "false_accepts": fa,
-           "latency_ms": {"n": len(lat), "median": pct(lat, 0.5), "p95": pct(lat, 0.95), "mean": round(st.fmean(lat), 1) if lat else None,
+           "latency_ms": {"n": len(lat), "median": pct(lat, 0.5), "median_ci95": median_ci(lat), "p95": pct(lat, 0.95),
+                          "mean": round(st.fmean(lat), 1) if lat else None,
                           "min": min(lat, default=None), "max": max(lat, default=None)},
            "device_detect_to_first_send_ms": {"median": pct(first, 0.5), "p95": pct(first, 0.95), "n": len(first)},
            "synthetic_command_wer": round(errs / refw, 4) if refw else None,

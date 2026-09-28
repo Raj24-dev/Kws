@@ -1,0 +1,176 @@
+00:11:28.773 ESP-ROM:esp32s3-20210327
+00:11:28.774 Build:Mar 27 2021
+00:11:28.775 rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_BOOT)
+00:11:28.776 SPIWP:0xee
+00:11:28.776 mode:DIO, clock div:1
+00:11:28.776 load:0x3fce2820,len:0x1668
+00:11:28.776 load:0x403c8700,len:0xec0
+00:11:28.777 load:0x403cb700,len:0x3178
+00:11:28.777 entry 0x403c894c
+00:11:28.777 I (24) boot: ESP-IDF v5.5.5 2nd stage bootloader
+00:11:28.777 I (25) boot: compile time Sep 28 2026 21:09:30
+00:11:28.777 I (25) boot: Multicore bootloader
+00:11:28.777 I (25) boot: chip revision: v0.2
+00:11:28.777 I (28) boot: efuse block revision: v1.4
+00:11:28.777 I (31) qio_mode: Enabling default flash chip QIO
+00:11:28.777 I (36) boot.esp32s3: Boot SPI Speed : 80MHz
+00:11:28.781 I (40) boot.esp32s3: SPI Mode       : QIO
+00:11:28.781 I (43) boot.esp32s3: SPI Flash Size : 4MB
+00:11:28.781 I (47) boot: Enabling RNG early entropy source...
+00:11:28.781 I (52) boot: Partition Table:
+00:11:28.781 I (54) boot: ## Label            Usage          Type ST Offset   Length
+00:11:28.781 I (60) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+00:11:28.781 I (67) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+00:11:28.781 I (73) boot:  2 factory          factory app      00 00 00010000 00177000
+00:11:28.781 I (80) boot: End of partition table
+00:11:28.781 I (83) esp_image: segment 0: paddr=00010020 vaddr=3c0d0020 size=359c0h (219584) map
+00:11:28.781 I (125) esp_image: segment 1: paddr=000459e8 vaddr=3fc98400 size=04c28h ( 19496) load
+00:11:28.781 I (129) esp_image: segment 2: paddr=0004a618 vaddr=40378000 size=05a00h ( 23040) load
+00:11:28.781 I (134) esp_image: segment 3: paddr=00050020 vaddr=42000020 size=ca70ch (829196) map
+00:11:28.781 I (264) esp_image: segment 4: paddr=0011a734 vaddr=4037da00 size=0a9d0h ( 43472) load
+00:11:28.782 I (273) esp_image: segment 5: paddr=0012510c vaddr=50000000 size=00020h (    32) load
+00:11:28.782 I (280) boot: Loaded app from partition at offset 0x10000
+00:11:28.782 I (280) boot: Disabling RNG early entropy source...
+00:11:28.782 I (291) cpu_start: Multicore app
+00:11:28.782 I (299) cpu_start: GPIO 44 and 43 are used as console UART I/O pins
+00:11:28.782 I (300) cpu_start: Pro cpu start user code
+00:11:28.782 I (300) cpu_start: cpu freq: 240000000 Hz
+00:11:28.782 I (302) app_init: Application information:
+00:11:28.782 I (305) app_init: Project name:     kws_s3
+00:11:28.782 I (309) app_init: App version:      d22d07e-dirty
+00:11:28.782 I (314) app_init: Compile time:     Sep 29 2026 00:08:32
+00:11:28.782 I (319) app_init: ELF file SHA256:  9916f86e5...
+00:11:28.782 I (323) app_init: ESP-IDF:          v5.5.5
+00:11:28.782 I (327) efuse_init: Min chip rev:     v0.0
+00:11:28.782 I (331) efuse_init: Max chip rev:     v0.99
+00:11:28.782 I (335) efuse_init: Chip rev:         v0.2
+00:11:28.782 I (339) heap_init: Initializing. RAM available for dynamic allocation:
+00:11:28.782 I (345) heap_init: At 3FCA2AE8 len 00046C28 (283 KiB): RAM
+00:11:28.782 I (350) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM
+00:11:28.782 I (355) heap_init: At 600FE000 len 00001FE8 (7 KiB): RTCRAM
+00:11:28.782 I (361) spi_flash: detected chip: boya
+00:11:28.782 I (364) spi_flash: flash io: qio
+00:11:28.782 W (367) spi_flash: Detected size(16384k) larger than the size in the binary image header(4096k). Using the size in the binary image header.
+00:11:28.782 I (379) sleep_gpio: Configure to isolate all GPIO pins in sleep state
+00:11:28.782 I (385) sleep_gpio: Enable automatic switching of GPIO sleep configuration
+00:11:28.782 I (392) main_task: Started on CPU0
+00:11:28.782 I (410) main_task: Calling app_main()
+00:11:28.782 
+00:11:28.783 ==================== SIH KWS firmware ====================
+00:11:28.783  chip      : esp32s3 rev v0.2, 2 cores, flash 4 MB
+00:11:28.783  ESP-IDF   : v5.5.5
+00:11:28.784  RAM       : 41 KB static data, 287 KB heap free (code in IRAM: 65 KB, not counted)
+00:11:28.784  model     : marvin.tflite (60896 bytes, stored in flash)
+00:11:28.784 ===========================================================
+00:11:28.784 
+00:11:28.784 [heap] start of app_main            294744 B free (of 320308 B)
+00:11:28.784 I (465) kws: model ready: wake word "marvin", threshold 0.60 (json), window 5, input 3x40 int8
+00:11:28.784 I (470) kws: model RAM: tensor arena 25964 of 26624 bytes used; engine total 38 KB of heap
+00:11:28.784 
+00:11:28.784 ------------------------ SELF-TEST ------------------------
+00:11:28.784  noise only (3 s)   : PASS - stayed quiet  (highest score 0.01, threshold 0.60)
+00:11:28.784  wake word recording: skipped - no WAV file in the model folder (optional)
+00:11:28.784 -----------------------------------------------------------
+00:11:28.784 
+00:11:28.784 [heap] model + features + self-test took  40720 B, 254024 B free
+00:11:28.784 I (709) audio: I2S running: 16 kHz, 32-bit slots, both channels, SCK=16 WS=15 SD=17, gain x1
+00:11:29.570 I (1211) kws: microphones: left (L/R to GND) -20.6 dBFS, right (L/R to 3V3) -18.1 dBFS, similarity 0.14 -> using both (average)
+00:11:29.570 [heap] I2S + ring + audio task      took  20772 B, 233252 B free
+00:11:29.570 I (1224) kws: listening for "marvin" ...
+00:11:29.570 I (1230) pp: pp rom version: e7ae62f
+00:11:29.570 I (1232) net80211: net80211 rom version: e7ae62f
+00:11:29.570 I (1236) wifi:wifi driver task: 3fcb6fa8, prio:23, stack:6656, core=0
+00:11:29.570 I (1244) wifi:wifi firmware version: b9f67df
+00:11:29.570 I (1246) wifi:wifi certification version: v7.0
+00:11:29.570 I (1249) wifi:config NVS flash: disabled
+00:11:29.570 I (1254) wifi:config nano formatting: disabled
+00:11:29.570 I (1257) wifi:Init data frame dynamic rx buffer num: 16
+00:11:29.570 I (1263) wifi:Init static rx mgmt buffer num: 5
+00:11:29.570 I (1268) wifi:Init management short buffer num: 10
+00:11:29.570 I (1271) wifi:Init dynamic tx buffer num: 16
+00:11:29.570 I (1276) wifi:Init static tx FG buffer num: 2
+00:11:29.570 I (1279) wifi:Init static rx buffer size: 1600
+00:11:29.570 I (1285) wifi:Init static rx buffer num: 6
+00:11:29.570 I (1288) wifi:Init dynamic rx buffer num: 16
+00:11:29.570 I (1291) wifi_init: accept mbox: 6
+00:11:29.570 I (1296) wifi_init: tcpip mbox: 32
+00:11:29.570 I (1299) wifi_init: udp mbox: 6
+00:11:29.570 I (1301) wifi_init: tcp mbox: 6
+00:11:29.570 I (1304) wifi_init: tcp tx win: 5760
+00:11:29.570 I (1307) wifi_init: tcp rx win: 5760
+00:11:29.570 I (1310) wifi_init: tcp mss: 1440
+00:11:29.570 I (1313) phy_init: phy_version 712,87e8c20e,Apr 13 2026,18:51:10
+00:11:29.570 I (1349) wifi:mode : sta (e0:72:a1:d5:32:74)
+00:11:29.570 I (1350) wifi:enable tsf
+00:11:29.570 I (1352) wifi:Set ps type: 0, coexist: 0
+00:11:29.570 
+00:11:29.570 I (1357) wifi: connecting to "ARYA 9252" ...
+00:11:29.571 [heap] Wi-Fi driver + netif         took  41380 B, 191872 B free
+00:11:29.571 W (1367) stream: cannot reach the server ws://192.168.137.1:3000/ws (is it running? same network?) - retrying every second
+00:11:29.571 I (1415) wifi:state: init -> auth (0xb0)
+00:11:29.571 [heap] WebSocket client + streamer  took  12764 B, 179108 B free
+00:11:29.571 I (1427) wifi:state: auth -> assoc (0x0)
+00:11:29.571 I (1433) wifi:state: assoc -> run (0x10)
+00:11:29.571 I (1471) wifi:connected with ARYA 9252, aid = 10, channel 1, BW20, bssid = 9a:5f:41:45:73:c9
+00:11:29.571 I (1475) wifi:security: WPA2-PSK, phy: bgn, rssi: -25, cipher(pairwise:0x3, group:0x3), pmf:0
+00:11:29.571 I (1484) wifi:pm start, type: 0
+00:11:29.571 
+00:11:29.571 I (1486) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us
+00:11:29.571 I (1495) wifi:set rx beacon pti, rx_bcn_pti: 0, bcn_timeout: 25000, mt_pti: 0, mt_time: 10000
+00:11:29.572 I (1504) wifi:AP's beacon interval = 102400 us, DTIM period = 3
+00:11:30.635 I (2563) esp_netif_handlers: sta ip: 192.168.137.25, mask: 255.255.255.0, gw: 192.168.137.1
+00:11:30.635 I (2567) wifi: connected, IP address 192.168.137.25
+00:11:31.460 I (3393) stream: connected to the server ws://192.168.137.1:3000/ws
+00:11:35.153 I (7089) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+00:11:39.550 [status] up 11s | mic -38.3 dBFS (peak -32.5) | score max 0.05 | detections 0 | inferences 231 (23.1/s; model 0.91 ms each, paused in quiet 35%; features 1.32 ms per 30 ms) | CPU core0 -1.0% core1 -1.0% (wake word pipeline 7.52% of one core) | RAM used 180 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:11:39.551 [tasks] % of one core (free stack): main@0=-1.00(928) IDLE1@1=-1.00(816) IDLE0@0=-1.00(728) audio_kws@1=-1.00(832) tiT@*=-1.00(1452) websocket_task@*=-1.00(956) Tmr Svc@*=-1.00(856) streamer@0=-1.00(2436) sys_evt@0=-1.00(480) esp_timer@0=-1.00(1600) wifi@0=-1.00(3356) ipc0@0=-1.00(272) ipc1@1=-1.00(280)
+00:11:49.539 [status] up 21s | mic -39.5 dBFS (peak -32.5) | score max 0.00 | detections 0 | inferences 196 (19.6/s; model 0.88 ms each, paused in quiet 44%; features 1.31 ms per 30 ms) | CPU core0  1.1% core1  7.2% (wake word pipeline 6.98% of one core) | RAM used 180 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:11:59.537 [status] up 31s | mic -39.3 dBFS (peak -34.0) | score max 0.00 | detections 0 | inferences 227 (22.7/s; model 0.87 ms each, paused in quiet 37%; features 1.28 ms per 30 ms) | CPU core0  0.8% core1  7.4% (wake word pipeline 7.26% of one core) | RAM used 180 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:12:09.546 [status] up 41s | mic -38.9 dBFS (peak -33.1) | score max 0.01 | detections 0 | inferences 271 (27.1/s; model 0.88 ms each, paused in quiet 25%; features 1.28 ms per 30 ms) | CPU core0  0.8% core1  7.9% (wake word pipeline 7.69% of one core) | RAM used 180 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:12:19.554 [status] up 51s | mic -38.9 dBFS (peak -33.6) | score max 0.00 | detections 0 | inferences 236 (23.6/s; model 0.89 ms each, paused in quiet 34%; features 1.28 ms per 30 ms) | CPU core0  0.8% core1  7.6% (wake word pipeline 7.38% of one core) | RAM used 180 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:12:29.556 [status] up 61s | mic -39.8 dBFS (peak -32.6) | score max 0.00 | detections 0 | inferences 82 (8.2/s; model 0.89 ms each, paused in quiet 76%; features 1.34 ms per 30 ms) | CPU core0  0.8% core1  6.1% (wake word pipeline 5.97% of one core) | RAM used 180 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:12:39.591 [status] up 71s | mic -38.0 dBFS (peak -27.9) | score max 0.00 | detections 0 | inferences 289 (28.9/s; model 0.88 ms each, paused in quiet 16%; features 1.35 ms per 30 ms) | CPU core0  0.8% core1  8.0% (wake word pipeline 7.85% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:12:39.592 [tasks] % of one core (free stack): main@0=0.38(928) IDLE1@1=92.62(816) IDLE0@0=99.15(728) audio_kws@1=7.32(832) tiT@*=0.11(1452) websocket_task@*=0.18(956) sys_evt@0=0.00(480) ipc0@0=0.00(272) esp_timer@0=0.01(1600) wifi@0=0.22(3356) ipc1@1=0.00(280) Tmr Svc@*=0.00(856) streamer@0=0.00(2436)
+00:12:49.578 [status] up 81s | mic -39.0 dBFS (peak -31.4) | score max 0.00 | detections 0 | inferences 270 (27.0/s; model 0.87 ms each, paused in quiet 25%; features 1.28 ms per 30 ms) | CPU core0  1.1% core1  7.8% (wake word pipeline 7.65% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:12:59.576 [status] up 91s | mic -38.7 dBFS (peak -32.0) | score max 0.00 | detections 0 | inferences 333 (33.3/s; model 0.88 ms each, paused in quiet 3%; features 1.36 ms per 30 ms) | CPU core0  0.8% core1  8.4% (wake word pipeline 8.26% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:13:09.581 [status] up 101s | mic -38.8 dBFS (peak -29.7) | score max 0.01 | detections 0 | inferences 194 (19.4/s; model 0.90 ms each, paused in quiet 43%; features 1.35 ms per 30 ms) | CPU core0  0.8% core1  7.2% (wake word pipeline 7.03% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:13:19.599 [status] up 111s | mic -38.3 dBFS (peak -32.2) | score max 0.01 | detections 0 | inferences 229 (22.9/s; model 0.88 ms each, paused in quiet 35%; features 1.32 ms per 30 ms) | CPU core0  0.8% core1  7.5% (wake word pipeline 7.31% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:13:29.596 [status] up 121s | mic -39.1 dBFS (peak -30.3) | score max 0.00 | detections 0 | inferences 159 (15.9/s; model 0.89 ms each, paused in quiet 54%; features 1.34 ms per 30 ms) | CPU core0  0.8% core1  6.9% (wake word pipeline 6.68% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:13:39.628 [status] up 131s | mic -38.4 dBFS (peak -29.3) | score max 0.07 | detections 0 | inferences 242 (24.2/s; model 0.87 ms each, paused in quiet 29%; features 1.35 ms per 30 ms) | CPU core0  0.8% core1  7.6% (wake word pipeline 7.39% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:13:39.629 [tasks] % of one core (free stack): audio_kws@1=7.52(832) main@0=0.42(928) IDLE1@1=92.43(720) IDLE0@0=99.15(728) tiT@*=0.11(1452) websocket_task@*=0.18(956) ipc1@1=0.00(280) Tmr Svc@*=0.00(856) esp_timer@0=0.01(1600) streamer@0=0.00(2436) wifi@0=0.22(3356) sys_evt@0=0.00(480) ipc0@0=0.00(272)
+00:13:49.612 [status] up 141s | mic -39.4 dBFS (peak -32.0) | score max 0.00 | detections 0 | inferences 251 (25.1/s; model 0.88 ms each, paused in quiet 32%; features 1.25 ms per 30 ms) | CPU core0  1.1% core1  7.7% (wake word pipeline 7.49% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:13:59.616 [status] up 151s | mic -39.3 dBFS (peak -33.5) | score max 0.01 | detections 0 | inferences 270 (27.0/s; model 0.89 ms each, paused in quiet 23%; features 1.32 ms per 30 ms) | CPU core0  0.8% core1  7.9% (wake word pipeline 7.69% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:14:09.627 [status] up 161s | mic -38.7 dBFS (peak -31.8) | score max 0.00 | detections 0 | inferences 243 (24.3/s; model 0.88 ms each, paused in quiet 31%; features 1.31 ms per 30 ms) | CPU core0  0.8% core1  7.6% (wake word pipeline 7.43% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:14:19.641 [status] up 171s | mic -38.3 dBFS (peak -31.2) | score max 0.00 | detections 0 | inferences 308 (30.8/s; model 0.88 ms each, paused in quiet 10%; features 1.35 ms per 30 ms) | CPU core0  0.8% core1  8.2% (wake word pipeline 8.01% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:14:24.038 I (175982) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+00:14:29.632 [status] up 181s | mic -38.2 dBFS (peak -27.9) | score max 0.00 | detections 0 | inferences 333 (33.3/s; model 0.88 ms each, paused in quiet 0%; features 1.40 ms per 30 ms) | CPU core0  0.9% core1  8.4% (wake word pipeline 8.25% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:14:39.669 [status] up 191s | mic -39.4 dBFS (peak -32.7) | score max 0.00 | detections 0 | inferences 293 (29.3/s; model 0.88 ms each, paused in quiet 14%; features 1.35 ms per 30 ms) | CPU core0  0.8% core1  8.0% (wake word pipeline 7.87% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:14:39.669 [tasks] % of one core (free stack): main@0=0.34(928) IDLE1@1=92.02(720) IDLE0@0=99.13(728) audio_kws@1=7.93(736) tiT@*=0.12(1452) websocket_task@*=0.18(956) streamer@0=0.00(2436) sys_evt@0=0.00(480) esp_timer@0=0.01(1600) ipc0@0=0.00(272) wifi@0=0.24(3356) ipc1@1=0.00(280) Tmr Svc@*=0.00(856)
+00:14:49.651 [status] up 201s | mic -39.4 dBFS (peak -34.6) | score max 0.00 | detections 0 | inferences 189 (18.9/s; model 0.88 ms each, paused in quiet 48%; features 1.28 ms per 30 ms) | CPU core0  1.0% core1  7.1% (wake word pipeline 6.93% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:14:59.668 [status] up 211s | mic -39.2 dBFS (peak -33.9) | score max 0.00 | detections 0 | inferences 184 (18.4/s; model 0.89 ms each, paused in quiet 48%; features 1.31 ms per 30 ms) | CPU core0  0.8% core1  7.1% (wake word pipeline 6.90% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:15:09.666 [status] up 221s | mic -38.3 dBFS (peak -30.3) | score max 0.00 | detections 0 | inferences 317 (31.7/s; model 0.89 ms each, paused in quiet 9%; features 1.34 ms per 30 ms) | CPU core0  0.8% core1  8.3% (wake word pipeline 8.15% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:15:19.676 [status] up 231s | mic -38.1 dBFS (peak -32.5) | score max 0.00 | detections 0 | inferences 284 (28.4/s; model 0.88 ms each, paused in quiet 17%; features 1.35 ms per 30 ms) | CPU core0  0.8% core1  8.0% (wake word pipeline 7.80% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:15:29.687 [status] up 241s | mic -38.7 dBFS (peak -30.5) | score max 0.00 | detections 0 | inferences 281 (28.1/s; model 0.88 ms each, paused in quiet 20%; features 1.32 ms per 30 ms) | CPU core0  0.8% core1  8.0% (wake word pipeline 7.77% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:15:39.714 [status] up 251s | mic -38.7 dBFS (peak -29.2) | score max 0.00 | detections 0 | inferences 239 (23.9/s; model 0.88 ms each, paused in quiet 32%; features 1.32 ms per 30 ms) | CPU core0  0.8% core1  7.6% (wake word pipeline 7.38% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:15:39.714 [tasks] % of one core (free stack): main@0=0.39(928) IDLE1@1=92.31(720) IDLE0@0=99.18(728) websocket_task@*=0.18(956) audio_kws@1=7.64(736) tiT@*=0.11(1452) ipc0@0=0.00(272) ipc1@1=0.00(280) esp_timer@0=0.01(1600) Tmr Svc@*=0.00(856) wifi@0=0.23(3356) streamer@0=0.00(2436) sys_evt@0=0.00(480)
+00:15:49.694 [status] up 261s | mic -38.8 dBFS (peak -33.9) | score max 0.00 | detections 0 | inferences 263 (26.3/s; model 0.89 ms each, paused in quiet 26%; features 1.30 ms per 30 ms) | CPU core0  0.6% core1  7.8% (wake word pipeline 7.64% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:15:59.708 [status] up 271s | mic -38.9 dBFS (peak -29.2) | score max 0.02 | detections 0 | inferences 183 (18.3/s; model 0.88 ms each, paused in quiet 47%; features 1.34 ms per 30 ms) | CPU core0  0.8% core1  7.1% (wake word pipeline 6.88% of one core) | RAM used 181 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:16:09.721 [status] up 281s | mic -39.1 dBFS (peak -32.2) | score max 0.01 | detections 0 | inferences 247 (24.7/s; model 0.88 ms each, paused in quiet 30%; features 1.31 ms per 30 ms) | CPU core0  0.8% core1  7.6% (wake word pipeline 7.45% of one core) | RAM used 181 KB (peak 186 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:16:19.718 [status] up 291s | mic -39.1 dBFS (peak -33.7) | score max 0.00 | detections 0 | inferences 219 (21.9/s; model 0.88 ms each, paused in quiet 37%; features 1.32 ms per 30 ms) | CPU core0  0.8% core1  7.4% (wake word pipeline 7.21% of one core) | RAM used 181 KB (peak 186 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:16:29.733 [status] up 301s | mic -39.2 dBFS (peak -29.9) | score max 0.00 | detections 0 | inferences 137 (13.7/s; model 0.88 ms each, paused in quiet 61%; features 1.30 ms per 30 ms) | CPU core0  0.8% core1  6.6% (wake word pipeline 6.45% of one core) | RAM used 181 KB (peak 186 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:16:39.766 [status] up 311s | mic -38.7 dBFS (peak -30.1) | score max 0.00 | detections 0 | inferences 297 (29.7/s; model 0.89 ms each, paused in quiet 16%; features 1.31 ms per 30 ms) | CPU core0  0.6% core1  8.2% (wake word pipeline 7.97% of one core) | RAM used 181 KB (peak 186 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:16:39.766 [tasks] % of one core (free stack): main@0=0.29(928) IDLE1@1=92.55(720) IDLE0@0=99.23(728) websocket_task@*=0.18(956) audio_kws@1=7.39(736) tiT@*=0.11(1452) Tmr Svc@*=0.00(856) streamer@0=0.00(2436) esp_timer@0=0.01(1600) sys_evt@0=0.00(480) wifi@0=0.22(3356) ipc0@0=0.00(272) ipc1@1=0.00(280)
+00:16:49.748 [status] up 321s | mic -39.1 dBFS (peak -31.8) | score max 0.00 | detections 0 | inferences 277 (27.7/s; model 0.87 ms each, paused in quiet 21%; features 1.32 ms per 30 ms) | CPU core0  1.1% core1  7.9% (wake word pipeline 7.73% of one core) | RAM used 181 KB (peak 186 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:16:59.746 [status] up 331s | mic -38.8 dBFS (peak -33.9) | score max 0.00 | detections 0 | inferences 190 (19.0/s; model 0.89 ms each, paused in quiet 46%; features 1.31 ms per 30 ms) | CPU core0  0.8% core1  7.1% (wake word pipeline 6.95% of one core) | RAM used 181 KB (peak 186 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:17:09.762 [status] up 341s | mic -37.6 dBFS (peak -32.2) | score max 0.01 | detections 0 | inferences 266 (26.6/s; model 0.89 ms each, paused in quiet 24%; features 1.32 ms per 30 ms) | CPU core0  0.8% core1  7.9% (wake word pipeline 7.68% of one core) | RAM used 181 KB (peak 186 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:17:19.769 [status] up 351s | mic -38.4 dBFS (peak -30.6) | score max 0.01 | detections 0 | inferences 250 (25.0/s; model 0.90 ms each, paused in quiet 29%; features 1.32 ms per 30 ms) | CPU core0  0.7% core1  7.7% (wake word pipeline 7.55% of one core) | RAM used 181 KB (peak 186 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:17:29.769 [status] up 361s | mic -38.1 dBFS (peak -31.7) | score max 0.03 | detections 0 | inferences 273 (27.3/s; model 0.89 ms each, paused in quiet 20%; features 1.35 ms per 30 ms) | CPU core0  0.6% core1  7.9% (wake word pipeline 7.72% of one core) | RAM used 181 KB (peak 186 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:17:39.803 [status] up 371s | mic -38.4 dBFS (peak -32.4) | score max 0.00 | detections 0 | inferences 249 (24.9/s; model 0.88 ms each, paused in quiet 29%; features 1.31 ms per 30 ms) | CPU core0  0.8% core1  7.7% (wake word pipeline 7.49% of one core) | RAM used 181 KB (peak 186 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:17:39.803 [tasks] % of one core (free stack): audio_kws@1=7.64(736) main@0=0.29(928) IDLE1@1=92.31(720) IDLE0@0=99.22(728) tiT@*=0.11(1452) websocket_task@*=0.18(956) sys_evt@0=0.00(480) ipc0@0=0.00(272) esp_timer@0=0.01(1600) ipc1@1=0.00(280) wifi@0=0.22(3356) Tmr Svc@*=0.00(856) streamer@0=0.00(2436)
+00:17:49.788 [status] up 381s | mic -38.7 dBFS (peak -32.7) | score max 0.01 | detections 0 | inferences 229 (22.9/s; model 0.89 ms each, paused in quiet 36%; features 1.30 ms per 30 ms) | CPU core0  1.1% core1  7.5% (wake word pipeline 7.33% of one core) | RAM used 181 KB (peak 186 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:17:59.788 [status] up 391s | mic -38.6 dBFS (peak -33.9) | score max 0.00 | detections 0 | inferences 295 (29.5/s; model 0.89 ms each, paused in quiet 16%; features 1.32 ms per 30 ms) | CPU core0  0.8% core1  8.1% (wake word pipeline 7.94% of one core) | RAM used 181 KB (peak 186 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:18:09.806 [status] up 401s | mic -38.7 dBFS (peak -33.1) | score max 0.00 | detections 0 | inferences 254 (25.4/s; model 0.89 ms each, paused in quiet 26%; features 1.35 ms per 30 ms) | CPU core0  0.8% core1  7.7% (wake word pipeline 7.54% of one core) | RAM used 181 KB (peak 186 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:18:19.801 [status] up 411s | mic -38.2 dBFS (peak -31.9) | score max 0.00 | detections 0 | inferences 282 (28.2/s; model 0.88 ms each, paused in quiet 20%; features 1.32 ms per 30 ms) | CPU core0  0.6% core1  8.0% (wake word pipeline 7.80% of one core) | RAM used 181 KB (peak 186 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:18:29.815 [status] up 421s | mic -38.9 dBFS (peak -32.6) | score max 0.03 | detections 0 | inferences 213 (21.3/s; model 0.89 ms each, paused in quiet 39%; features 1.31 ms per 30 ms) | CPU core0  0.8% core1  7.4% (wake word pipeline 7.18% of one core) | RAM used 181 KB (peak 186 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:18:39.842 [status] up 431s | mic -38.2 dBFS (peak -32.0) | score max 0.00 | detections 0 | inferences 293 (29.3/s; model 0.88 ms each, paused in quiet 17%; features 1.32 ms per 30 ms) | CPU core0  0.8% core1  8.1% (wake word pipeline 7.88% of one core) | RAM used 181 KB (peak 186 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+00:18:39.842 [tasks] % of one core (free stack): main@0=0.34(928) IDLE1@1=92.18(720) IDLE0@0=99.18(728) websocket_task@*=0.18(956) audio_kws@1=7.77(736) tiT@*=0.11(1452) ipc1@1=0.00(280) Tmr Svc@*=0.00(856) esp_timer@0=0.01(1600) streamer@0=0.00(2436) wifi@0=0.23(3356) sys_evt@0=0.00(480) ipc0@0=0.00(272)

@@ -1,0 +1,438 @@
+measuring 6.0 min after a 60 s warm-up ...
+{
+ "minutes": 6.0,
+ "cpu_core0": {
+  "mean": 0.82,
+  "p95": 1.1,
+  "max": 1.1,
+  "min": 0.6
+ },
+ "cpu_core1": {
+  "mean": 7.69,
+  "p95": 8.4,
+  "max": 8.4,
+  "min": 6.6
+ },
+ "cpu_sum_both_cores": {
+  "mean": 8.51,
+  "p95": 9.200000000000001,
+  "max": 9.3
+ },
+ "ram_used_kb": {
+  "mean": 181.0,
+  "p95": 181.0,
+  "max": 181.0,
+  "min": 181.0
+ },
+ "ram_peak_since_boot_kb": 186.0,
+ "server_ok_share": 1.0,
+ "detections_during": 0
+}
+measuring 6.0 min after a 60 s warm-up ...
+{
+ "minutes": 6.0,
+ "cpu_core0": {
+  "mean": 0.83,
+  "p95": 1.1,
+  "max": 1.1,
+  "min": 0.6
+ },
+ "cpu_core1": {
+  "mean": 8.36,
+  "p95": 8.4,
+  "max": 8.4,
+  "min": 8.3
+ },
+ "cpu_sum_both_cores": {
+  "mean": 9.2,
+  "p95": 9.5,
+  "max": 9.5
+ },
+ "ram_used_kb": {
+  "mean": 180.92,
+  "p95": 181.0,
+  "max": 181.0,
+  "min": 180.0
+ },
+ "ram_peak_since_boot_kb": 184.0,
+ "server_ok_share": 1.0,
+ "detections_during": 0
+}
+board 192.168.137.25, ping RTT {'median': 2.5, 'min': 1.0, 'max': 81.0, 'n': 20}
+[1/20] lat_00_David_r-2_g150.wav label=1 det=1 lat=45.9 text='Turn on the lights.'
+[2/20] lat_01_David_r-2_g350.wav label=1 det=1 lat=227.1 text='What is the weather today?'
+[3/20] lat_02_David_r0_g150.wav label=1 det=1 lat=313.4 text='Play some music.'
+[4/20] lat_03_David_r0_g350.wav label=1 det=1 lat=194.0 text='Send an alarm for 7.'
+[5/20] lat_04_David_r2_g150.wav label=1 det=1 lat=233.1 text='Call my mother.'
+[6/20] lat_05_David_r2_g350.wav label=1 det=1 lat=282.4 text='Open the door.'
+[7/20] lat_06_Zira_r-2_g150.wav label=1 det=1 lat=-42.7 text='What time is it?'
+[8/20] lat_07_Zira_r-2_g350.wav label=1 det=0 lat=None text=None
+[9/20] lat_08_Zira_r0_g150.wav label=1 det=1 lat=-1.9 text='Increase the volume.'
+[10/20] lat_09_Zira_r0_g350.wav label=1 det=1 lat=67.8 text='Tell me a joke.'
+[11/20] lat_10_Zira_r2_g150.wav label=1 det=0 lat=None text=None
+[12/20] lat_11_Zira_r2_g350.wav label=1 det=1 lat=94.3 text='What is the weather today?'
+[13/20] lat_12_David_r-2_g150.wav label=1 det=1 lat=206.8 text='Play some music.'
+[14/20] lat_13_David_r-2_g350.wav label=1 det=1 lat=217.8 text='Send an alarm for seven...'
+[15/20] lat_14_David_r0_g150.wav label=1 det=1 lat=377.0 text='Call my mother.'
+[16/20] lat_15_David_r0_g350.wav label=1 det=0 lat=None text=None
+[17/20] lat_16_David_r2_g150.wav label=1 det=0 lat=None text=None
+[18/20] lat_17_David_r2_g350.wav label=1 det=0 lat=None text=None
+[19/20] lat_18_Zira_r-2_g150.wav label=1 det=1 lat=52.3 text='Increase the volume.'
+[20/20] lat_19_Zira_r-2_g350.wav label=1 det=1 lat=65.8 text='Tell me a joke.'
+{
+ "evidence": "DEVICE-ACOUSTIC (recordings replayed through PC speakers)",
+ "positives": 20,
+ "detected": 15,
+ "tpr": 0.75,
+ "negatives": 0,
+ "false_accepts": 0,
+ "false_accept_rate": null,
+ "negative_audio_s": 0,
+ "latency_ms": {
+  "n": 15,
+  "median": 194.0,
+  "p95": 313.4,
+  "min": -42.7,
+  "max": 377.0
+ },
+ "decomposition_ms": {
+  "device_detect_to_first_send_median": 20,
+  "network_one_way_est": 1.25,
+  "detection_delay_est_median": 172.8,
+  "serial_detect_after_kw_median(biased +UART)": 409.7
+ },
+ "ping_rtt_ms": {
+  "median": 2.5,
+  "min": 1.0,
+  "max": 81.0,
+  "n": 20
+ },
+ "board_ip": "192.168.137.25",
+ "transcripts_nonempty": 15,
+ "status": {
+  "windows_10s": 13,
+  "minutes": 2.2,
+  "cpu_core0": {
+   "mean": 4.38,
+   "p95": 6.4,
+   "max": 6.4,
+   "min": 1.2
+  },
+  "cpu_core1": {
+   "mean": 8.47,
+   "p95": 9.5,
+   "max": 9.5,
+   "min": 7.6
+  },
+  "cpu_sum_both_cores": {
+   "mean": 11.71,
+   "p95": 15.8,
+   "max": 15.8
+  },
+  "pipeline_pct_one_core": {
+   "mean": 7.79,
+   "p95": 8.72,
+   "max": 8.72,
+   "min": 6.77
+  },
+  "model_ms": {
+   "mean": 1.03,
+   "p95": 1.14,
+   "max": 1.14,
+   "min": 0.89
+  },
+  "features_ms_per_30ms": {
+   "mean": 1.37,
+   "p95": 1.44,
+   "max": 1.44,
+   "min": 1.28
+  },
+  "paused_in_quiet_pct": {
+   "mean": 37.08,
+   "p95": 60.0,
+   "max": 60.0,
+   "min": 15.0
+  },
+  "mic_dbfs": {
+   "mean": -35.75,
+   "p95": -32.6,
+   "max": -32.6,
+   "min": -38.7
+  },
+  "ram_used_kb": {
+   "mean": 180.85,
+   "p95": 181.0,
+   "max": 181.0,
+   "min": 180.0
+  },
+  "ram_peak_since_boot_kb": 197.0,
+  "heap_free_kb_min": 172.0,
+  "wifi_ok_share": 1.0,
+  "server_ok_share": 1.0,
+  "detections_during": 15,
+  "audio_lost_i2s": 0,
+  "audio_lost_net": 0
+ }
+}
+board 192.168.137.25, ping RTT {'median': 2.0, 'min': 1.0, 'max': 6.0, 'n': 20}
+[1/20] lat_00_David_r-2_g150.wav label=1 det=1 lat=21.8 text='Turn on the lights.'
+[2/20] lat_01_David_r-2_g350.wav label=1 det=1 lat=51.7 text='What is the weather today?'
+[3/20] lat_02_David_r0_g150.wav label=1 det=1 lat=95.1 text='Play some music.'
+[4/20] lat_03_David_r0_g350.wav label=1 det=1 lat=174.4 text='Set an alarm for seven.'
+[5/20] lat_04_David_r2_g150.wav label=1 det=0 lat=None text=None
+[6/20] lat_05_David_r2_g350.wav label=1 det=0 lat=None text=None
+[7/20] lat_06_Zira_r-2_g150.wav label=1 det=0 lat=None text=None
+[8/20] lat_07_Zira_r-2_g350.wav label=1 det=1 lat=59.0 text='Stop the music.'
+[9/20] lat_08_Zira_r0_g150.wav label=1 det=1 lat=93.9 text='Increase the volume.'
+[10/20] lat_09_Zira_r0_g350.wav label=1 det=1 lat=5.1 text='Tell me a joke.'
+[11/20] lat_10_Zira_r2_g150.wav label=1 det=1 lat=168.5 text='Turn on the lights.'
+[12/20] lat_11_Zira_r2_g350.wav label=1 det=1 lat=131.6 text='What is the weather today?'
+[13/20] lat_12_David_r-2_g150.wav label=1 det=1 lat=210.6 text='Play some music.'
+[14/20] lat_13_David_r-2_g350.wav label=1 det=1 lat=115.9 text='Set an alarm for 7.'
+[15/20] lat_14_David_r0_g150.wav label=1 det=1 lat=294.4 text='Call my mother.'
+[16/20] lat_15_David_r0_g350.wav label=1 det=1 lat=157.4 text='Open the door.'
+[17/20] lat_16_David_r2_g150.wav label=1 det=1 lat=298.8 text='What time is it?'
+[18/20] lat_17_David_r2_g350.wav label=1 det=1 lat=276.7 text='Stop the music.'
+[19/20] lat_18_Zira_r-2_g150.wav label=1 det=1 lat=-17.7 text='Increase the volume.'
+[20/20] lat_19_Zira_r-2_g350.wav label=1 det=1 lat=-24.3 text='Tell me a joke.'
+{
+ "evidence": "DEVICE-ACOUSTIC (recordings replayed through PC speakers)",
+ "positives": 20,
+ "detected": 17,
+ "tpr": 0.85,
+ "negatives": 0,
+ "false_accepts": 0,
+ "false_accept_rate": null,
+ "negative_audio_s": 0,
+ "latency_ms": {
+  "n": 17,
+  "median": 115.9,
+  "p95": 294.4,
+  "min": -24.3,
+  "max": 298.8
+ },
+ "decomposition_ms": {
+  "device_detect_to_first_send_median": 20,
+  "network_one_way_est": 1.0,
+  "detection_delay_est_median": 94.9,
+  "serial_detect_after_kw_median(biased +UART)": 355.8
+ },
+ "ping_rtt_ms": {
+  "median": 2.0,
+  "min": 1.0,
+  "max": 6.0,
+  "n": 20
+ },
+ "board_ip": "192.168.137.25",
+ "transcripts_nonempty": 17,
+ "status": {
+  "windows_10s": 13,
+  "minutes": 2.2,
+  "cpu_core0": {
+   "mean": 4.95,
+   "p95": 7.3,
+   "max": 7.3,
+   "min": 0.8
+  },
+  "cpu_core1": {
+   "mean": 8.93,
+   "p95": 10.0,
+   "max": 10.0,
+   "min": 7.2
+  },
+  "cpu_sum_both_cores": {
+   "mean": 12.66,
+   "p95": 17.3,
+   "max": 17.3
+  },
+  "pipeline_pct_one_core": {
+   "mean": 8.27,
+   "p95": 9.04,
+   "max": 9.04,
+   "min": 7.0
+  },
+  "model_ms": {
+   "mean": 1.03,
+   "p95": 1.1,
+   "max": 1.1,
+   "min": 0.87
+  },
+  "features_ms_per_30ms": {
+   "mean": 1.4,
+   "p95": 1.45,
+   "max": 1.45,
+   "min": 1.31
+  },
+  "paused_in_quiet_pct": {
+   "mean": 23.54,
+   "p95": 48.0,
+   "max": 48.0,
+   "min": 5.0
+  },
+  "mic_dbfs": {
+   "mean": -35.68,
+   "p95": -33.8,
+   "max": -33.8,
+   "min": -38.3
+  },
+  "ram_used_kb": {
+   "mean": 181.15,
+   "p95": 185.0,
+   "max": 185.0,
+   "min": 180.0
+  },
+  "ram_peak_since_boot_kb": 199.0,
+  "heap_free_kb_min": 165.0,
+  "wifi_ok_share": 1.0,
+  "server_ok_share": 1.0,
+  "detections_during": 17,
+  "audio_lost_i2s": 0,
+  "audio_lost_net": 0
+ }
+}
+board 192.168.137.25, ping RTT {'median': 2.5, 'min': 2.0, 'max': 17.0, 'n': 20}
+[1/50] 20260927_081253_507_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[2/50] 20260927_082056_255_e072a1d53274_marvin.wav label=1 det=1 lat=393.5 text=''
+[3/50] 20260927_083658_499_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[4/50] 20260927_083709_514_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[5/50] 20260927_084202_861_e072a1d53274_marvin.wav label=1 det=1 lat=370.7 text=''
+[6/50] 20260927_084205_045_e072a1d53274_marvin.wav label=1 det=1 lat=366.1 text=''
+[7/50] 20260927_084222_746_e072a1d53274_marvin.wav label=1 det=1 lat=250.1 text=''
+[8/50] 20260927_084225_747_e072a1d53274_marvin.wav label=1 det=1 lat=322.8 text=''
+[9/50] 20260927_084252_601_e072a1d53274_marvin.wav label=1 det=1 lat=258.4 text=''
+[10/50] 20260927_084404_540_e072a1d53274_marvin.wav label=1 det=1 lat=304.1 text=''
+[11/50] 20260927_084417_530_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[12/50] 20260927_084424_301_e072a1d53274_marvin.wav label=1 det=1 lat=340.1 text=''
+[13/50] 20260927_084525_297_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[14/50] 20260927_084535_388_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[15/50] 20260927_084637_556_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[16/50] 20260927_084743_838_e072a1d53274_marvin.wav label=1 det=1 lat=316.8 text=''
+[17/50] 20260927_084753_611_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[18/50] 20260927_085041_612_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[19/50] 20260927_090223_007_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[20/50] 20260927_093215_871_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[21/50] 20260927_093736_188_e072a1d53274_marvin.wav label=1 det=1 lat=346.1 text=''
+[22/50] 20260927_093810_614_e072a1d53274_marvin.wav label=0 det=1 lat=None text='All right.'
+[23/50] 20260927_093827_714_e072a1d53274_marvin.wav label=0 det=1 lat=None text=''
+[24/50] 20260927_094742_216_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[25/50] 20260927_100354_708_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[26/50] 20260927_100401_666_e072a1d53274_marvin.wav label=0 det=1 lat=None text='Okay.'
+[27/50] 20260927_102029_825_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[28/50] 20260927_102639_228_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[29/50] 20260927_103452_485_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[30/50] 20260927_104825_185_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[31/50] 20260928_131648_429_e072a1d53274_marvin.wav label=1 det=1 lat=340.7 text=''
+[32/50] 20260928_131708_386_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[33/50] 20260928_131728_925_e072a1d53274_marvin.wav label=1 det=1 lat=502.1 text=''
+[34/50] 20260928_131750_634_e072a1d53274_marvin.wav label=1 det=1 lat=243.9 text=''
+[35/50] 20260928_131830_208_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[36/50] 20260928_132811_942_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[37/50] 20260928_132813_993_e072a1d53274_marvin.wav label=1 det=1 lat=214.1 text=''
+[38/50] 20260928_133112_489_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[39/50] 20260928_135250_694_e072a1d53274_marvin.wav label=1 det=1 lat=412.3 text=''
+[40/50] 20260928_135324_781_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[41/50] 20260928_135429_832_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[42/50] 20260928_135449_470_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[43/50] 20260928_135855_356_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[44/50] 20260928_141540_674_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[45/50] 20260928_141635_255_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[46/50] 20260928_141723_591_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[47/50] 20260928_141800_990_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[48/50] 20260928_141832_068_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[49/50] 20260928_144459_008_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[50/50] 20260928_145023_271_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+{
+ "evidence": "DEVICE-ACOUSTIC (recordings replayed through PC speakers)",
+ "positives": 33,
+ "detected": 15,
+ "tpr": 0.4545,
+ "negatives": 17,
+ "false_accepts": 3,
+ "false_accept_rate": 0.1765,
+ "negative_audio_s": 56.2,
+ "latency_ms": {
+  "n": 15,
+  "median": 340.1,
+  "p95": 412.3,
+  "min": 214.1,
+  "max": 502.1
+ },
+ "decomposition_ms": {
+  "device_detect_to_first_send_median": 20.0,
+  "network_one_way_est": 1.25,
+  "detection_delay_est_median": 318.9,
+  "serial_detect_after_kw_median(biased +UART)": 555.1
+ },
+ "ping_rtt_ms": {
+  "median": 2.5,
+  "min": 2.0,
+  "max": 17.0,
+  "n": 20
+ },
+ "board_ip": "192.168.137.25",
+ "transcripts_nonempty": 0,
+ "status": {
+  "windows_10s": 30,
+  "minutes": 5.0,
+  "cpu_core0": {
+   "mean": 2.32,
+   "p95": 5.7,
+   "max": 6.0,
+   "min": 0.6
+  },
+  "cpu_core1": {
+   "mean": 7.98,
+   "p95": 9.0,
+   "max": 9.1,
+   "min": 6.7
+  },
+  "cpu_sum_both_cores": {
+   "mean": 9.89,
+   "p95": 14.2,
+   "max": 14.7
+  },
+  "pipeline_pct_one_core": {
+   "mean": 7.57,
+   "p95": 8.56,
+   "max": 8.59,
+   "min": 5.94
+  },
+  "model_ms": {
+   "mean": 0.94,
+   "p95": 1.09,
+   "max": 1.17,
+   "min": 0.87
+  },
+  "features_ms_per_30ms": {
+   "mean": 1.35,
+   "p95": 1.4,
+   "max": 1.45,
+   "min": 1.31
+  },
+  "paused_in_quiet_pct": {
+   "mean": 33.43,
+   "p95": 62.0,
+   "max": 84.0,
+   "min": 0.0
+  },
+  "mic_dbfs": {
+   "mean": -35.16,
+   "p95": -32.8,
+   "max": -32.8,
+   "min": -39.1
+  },
+  "ram_used_kb": {
+   "mean": 180.97,
+   "p95": 181.0,
+   "max": 183.0,
+   "min": 180.0
+  },
+  "ram_peak_since_boot_kb": 197.0,
+  "heap_free_kb_min": 172.0,
+  "wifi_ok_share": 1.0,
+  "server_ok_share": 1.0,
+  "detections_during": 18,
+  "audio_lost_i2s": 0,
+  "audio_lost_net": 0
+ }
+}
