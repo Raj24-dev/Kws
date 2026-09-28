@@ -26,14 +26,13 @@ INMP441 ─I2S/DMA─► filter ─► 0.5 s mu-law ring (8 KB)                �
 | SD | GPIO 17 | |
 
 The pins can be changed in `menuconfig`. Avoid GPIO 0, 3, 45 and 46 (boot pins), 19/20 (USB) and 35–37 (PSRAM on N8R8/N16R8 modules).
-**Two microphones** (this board: 55 mm apart): wire the second INMP441 to the **same** SCK, WS and SD pins, with its
-L/R pin tied to **3V3** (the first one's L/R stays on GND). Each drives SD only in its own slot, so they share the wire.
-At boot the firmware checks both slots and prints e.g.
-`microphones: left (L/R to GND) -38.2 dBFS, right (L/R to 3V3) -37.9 dBFS, similarity 0.71 -> using both (average)`.
-Both are averaged (+3 dB over the microphones' own noise): best for a talker **in front of the pair**, i.e.
-perpendicular to the line between the two microphones, with both sound holes facing the same way. If both L/R pins
-are on the same level the two microphones fight over SD: the check then shows garbage levels or uses only one.
-With a single microphone the firmware simply uses the slot that has it.
+**One microphone is used** (default `KWS_MIC_SELECT = 1`: the left slot, L/R to GND, read as I2S mono).
+A **second microphone** (this board: 55 mm apart) can share the **same** SCK, WS and SD pins with its L/R pin tied to
+**3V3**; each drives SD only in its own slot. `KWS_MIC_SELECT = 0` reads both slots, checks them at boot and averages
+them, e.g. `microphones: left (L/R to GND) -20.8 dBFS, right (L/R to 3V3) -18.5 dBFS, similarity 0.42 -> using both
+(average)`. Measured on this board: averaging detected no more than the left microphone alone (30/40 vs 32/40
+synthetic clips, `../benchmarks/results/micab_*`) and costs 5 KB of RAM, so it is off. If both L/R pins are on the
+same level the two microphones fight over SD: the check then shows garbage levels.
 
 ## 2. Model
 
@@ -64,17 +63,19 @@ On a PC with ~16 GB RAM, `idf.py reconfigure` then `ninja -C build -j 3` avoids 
 ## 4. What a healthy run looks like
 
 ```
-model ready: wake word "marvin", threshold 0.50 (json), window 5, input 3x40 int8
-model RAM: tensor arena 25580 of 30000 bytes used; engine total 41 KB of heap
-microphones: left (L/R to GND) -20.5 dBFS, right (L/R to 3V3) -18.3 dBFS, similarity 0.40 -> using both (average)
+RAM limit test: 163 KB reserved, the firmware has 202 KB (static data + heap) + 54 KB IRAM code = 256 KB to work with
+model ready: wake word "marvin", threshold 0.60 (json), window 5, input 3x40 int8
+model RAM: tensor arena 25964 of 26624 bytes used; engine total 38 KB of heap
+microphones: left (L/R to GND) -21.7 dBFS, right (L/R to 3V3) -120.0 dBFS (not used), similarity 0.00 -> using left
 wifi: connected ... stream: connected to the server ws://<PC-IP>:3000/ws
-[status] up 21s | mic -37.5 dBFS (peak -31.1) | score max 0.00 | detections 0 | inferences 248 (24.8/s; model 0.90 ms
-         each, paused in quiet 30%; features 1.32 ms per 30 ms) | CPU core0  1.2% core1  7.8% (wake word pipeline 7.54% of
-         one core) | RAM used 180 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
-[tasks] % of one core (free stack): main@0=0.39(928) ... audio_kws@1=8.19(736) ...   <- every minute: CPU + stack headroom
-[heap] Wi-Fi driver + netif           took  36252 B, ...                               <- at boot: RAM per start-up stage
+[status] up 21s | mic -30.1 dBFS (peak -26.0) | score max 0.00 | detections 0 | inferences 333 (33.3/s; model 0.87 ms
+         each, paused in quiet 0%; features 1.39 ms per 30 ms) | CPU core0  0.9% core1  8.4% (wake word pipeline 8.16% of
+         one core) | RAM used 173 KB (peak 186 KB; peak + IRAM code 240 KB of the 256 KB limit, 27 KB free) | wifi OK,
+         server OK | audio lost since boot: i2s 0 net 0
+[tasks] % of one core (free stack): main@0=0.31(928) ... audio_kws@1=8.29(736) ...   <- every minute: CPU + stack headroom
+[heap] Wi-Fi driver + netif           took  37892 B, ...                               <- at boot: RAM per start-up stage
 >>> WAKE WORD "marvin" DETECTED  (score 0.64, t = 26.73 s)
-stream: first audio sent 19 ms after the detection          <- the LED blinks green at the detection
+stream: first audio sent 20 ms after the detection          <- the LED blinks green at the detection
 stream: stream finished (silence): 2500 ms of audio sent
 stream: server: {"type":"response","text":"Turn on the lights.","saved":"..."}
 ```
@@ -89,13 +90,15 @@ All numbers below are measured on this board; the scripts and raw logs are in `.
 * Gain x1 + 80 Hz high-pass (the INMP441 picks up large infrasonic drift that otherwise clips speech).
 * **One task** reads the microphone and runs the wake word engine (core 1); the I2S DMA buffer (3 x 20 ms) is the
   queue. Wi-Fi and the streamer run on core 0.
-* **RAM** (no PSRAM): counted strictly = code the chip keeps in internal RAM (IRAM, 65 KB) + static data + peak heap
-  (Wi-Fi, lwIP, buffers, model, stacks). Measured with Wi-Fi up and streaming: 181 KB data in use, 199 KB peak, i.e.
-  264 KB with IRAM (still above 256 KB counted this way; 199 KB counting data only). The mu-law ring holds 0.5 s
+* **RAM** (no PSRAM): counted strictly = code the chip keeps in internal RAM (IRAM, 54 KB) + static data + peak heap
+  (Wi-Fi, lwIP, buffers, model, stacks), in KiB. Measured with Wi-Fi up and streaming: 173 KB data in use, 191 KB
+  peak, **245 KB with the IRAM code**. `KWS_RAM_LIMIT_KB = 256` (on by default) reserves everything above 256 KB at
+  boot, so the firmware cannot use more; the status line shows the strict peak against it. The mu-law ring holds 0.5 s
   (8 KB); it grows to 16/32 KB only for pre-rolls above 250/750 ms. `[heap]` lines at boot show what each start-up
-  stage takes; `KWS_RAM_LIMIT_KB = 256` (menuconfig) reserves everything above 256 KB of data RAM at boot.
+  stage takes. The 96 KB configured as flash cache (32 KB instruction + 64 KB data) is not counted.
 * **CPU**: FreeRTOS idle-task share per core. With continuous speech in the room (model never paused) and Wi-Fi up:
-  core 0 0.9 %, core 1 8.4 %, both cores together 9.2-9.5 %. Per 30 ms of audio: model 0.88 ms + features 1.4 ms.
+  core 0 0.8 %, core 1 8.4 %, both cores together 9.2 % (highest 10 s window 9.6 %). Per 30 ms of audio: model
+  0.88 ms + features 1.4 ms.
   The model's state-update copies use exact fast kernels (`main/fast_ops.cc`). The dashboard telemetry
   (`KWS_TELEMETRY_MS`) is off by default: at 100 ms it cost ~4 % of core 0. The model pauses after 1.6 s of quiet
   (sound 6 dB above the background restarts it, and the paused 300 ms are replayed first, so the start of a word is
@@ -103,9 +106,13 @@ All numbers below are measured on this board; the scripts and raw logs are in `.
   0.26).
 * **Latency**: the WebSocket stays open (ping every 2 s), Nagle is off (`TCP_NODELAY`), audio goes out in 20 ms
   messages, and the server hands every frame to the speech recogniser the moment it arrives. Measured (keyword end ->
-  first audio frame at the server, one PC clock): median ~140-150 ms, p95 ~320 ms; the board sends its first audio
-  19 ms after the detection. Keep the Wi-Fi TX buffers / TCP buffers at their defaults: smaller ones delayed the
-  first audio by 150-400 ms.
+  first audio frame at the server, one PC clock, 35 synthetic trials): median 122 ms (95 % interval 33-187 ms), p95
+  323 ms. Almost all of it is the detection itself (the 5-output average crosses the threshold ~100-130 ms after the
+  word ends); the board sends its first audio 20 ms after the detection and the network adds 1-2 ms. Keep the Wi-Fi
+  TX buffers / TCP buffers at their defaults: smaller ones delayed the first audio by 150-400 ms.
+* **Pre-roll** (`KWS_PREROLL_MS`, default 0): the audio between the end of "Marvin" and the detection (~100 ms) is not
+  streamed, so a command said with no pause can lose its first syllable. 250 ms fixes that on the board, but the
+  server's wake-word removal still leaks a fragment in ~1 of 12 transcripts; see the option's help.
 * **False activations**: the model on the board is the only judge. Cutoff 0.6 (chosen on validation data): on the
   frozen real test set (board injection) 33/33 "Marvin" detected, but 9 of 17 recorded sound-alike false triggers
   still fire, and 45 % of synthetic sound-alikes (Martin, Marvel, Kevin, Melvin, Morgan...). Fewer false activations

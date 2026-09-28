@@ -29,10 +29,15 @@ file in `results/` produced by one of these scripts. Evidence labels:
 | `make_sets.py` | builds the frozen real validation/test sets (`sets/real_*.csv`, SHA-256 per file) | - |
 | `make_tts.py`, `make_latency_clips.py` | SYNTHETIC audio (Windows voices), always labelled synthetic | - |
 | `set_config.py` | edits `kws_s3/sdkconfig` options in place (never touches the Wi-Fi credentials) | - |
+| `run_final.ps1 -Label L -Level -22.7 -SpeechGain 0.58` | the full re-verification: idle CPU quiet + speech, synthetic latency x2, real test replay | DEVICE-ACOUSTIC |
+| `run_trigger.ps1 -Label L -Level -16.7` | streaming path only: 18 loud detections -> board detection -> first send, audio lost, RAM peak | DEVICE-ACOUSTIC |
+| `calibrate_level.py --gain 0.5` | received speech level at the board; keep it equal between runs you compare (the level/gain values above are for the board's current position) | - |
 
 ## Firmware variants (same sources, `kws_s3/sdkconfig` options)
 
-* production: `KWS_PROFILE_OPS=n KWS_INJECT_TEST=n KWS_TELEMETRY_MS=0`
+* production (= `kws_s3/sdkconfig.defaults`): `KWS_PROFILE_OPS=n KWS_INJECT_TEST=n KWS_TELEMETRY_MS=0 KWS_PREROLL_MS=0
+  KWS_MIC_SELECT=1 KWS_RAM_LIMIT_KB=256`. The status line's `peak + IRAM code N KB` is the strict RAM reading
+  (`ram_strict_peak_kb` in the results).
 * profiling: `python set_config.py KWS_PROFILE_OPS=y` -> `[prof]` lines (per-op model time, per-stage feature time)
 * injection: `python set_config.py KWS_INJECT_TEST=y` -> no mics/Wi-Fi, audio from the serial port (921600 baud)
 

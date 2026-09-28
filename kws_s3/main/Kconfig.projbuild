@@ -81,8 +81,9 @@ menu "KWS (wake word) settings"
                 ends, sometimes 300+ ms, so a command that follows "Marvin" without a pause can lose its first word.
                 250 also sends the last 250 ms before the detection; the server drops the wake word from the
                 transcript by Whisper's word timestamps (host test on validation recordings: command WER
-                31.7 % -> 24.4 %) and the first audio leaves at once instead of waiting for a fresh 20 ms block.
-                Not yet verified on the board end to end, hence not the default. 1000 also sends the whole wake word
+                31.7 % -> 24.4 %) and the first audio leaves 6 ms after the detection instead of 20 ms. On the
+                board (benchmarks/results/F10_*) it worked, but 3 of 36 transcripts kept a piece of the wake word
+                ("And ...", "Carmen, ..."), hence not the default. 1000 also sends the whole wake word
                 (to collect training recordings). The audio ring
                 buffer holds 512 ms (8 KB) up to 250 ms of pre-roll, 1 s (16 KB) up to 750 ms and 2 s (32 KB)
                 above that: the pre-roll plus the slack for a slow network.
