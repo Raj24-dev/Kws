@@ -1,0 +1,249 @@
+01:06:20.961 ESP-ROM:esp32s3-20210327
+01:06:20.962 Build:Mar 27 2021
+01:06:20.962 rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_BOOT)
+01:06:20.963 SPIWP:0xee
+01:06:20.963 mode:DIO, clock div:1
+01:06:20.963 load:0x3fce2820,len:0x1668
+01:06:20.963 load:0x403c8700,len:0xec0
+01:06:20.963 load:0x403cb700,len:0x3178
+01:06:20.963 entry 0x403c894c
+01:06:20.963 I (24) boot: ESP-IDF v5.5.5 2nd stage bootloader
+01:06:20.963 I (25) boot: compile time Sep 29 2026 00:37:58
+01:06:20.964 I (25) boot: Multicore bootloader
+01:06:20.964 I (25) boot: chip revision: v0.2
+01:06:20.964 I (28) boot: efuse block revision: v1.4
+01:06:20.964 I (31) qio_mode: Enabling default flash chip QIO
+01:06:20.965 I (36) boot.esp32s3: Boot SPI Speed : 80MHz
+01:06:20.965 I (40) boot.esp32s3: SPI Mode       : QIO
+01:06:20.965 I (43) boot.esp32s3: SPI Flash Size : 4MB
+01:06:20.965 I (47) boot: Enabling RNG early entropy source...
+01:06:20.965 I (52) boot: Partition Table:
+01:06:20.965 I (54) boot: ## Label            Usage          Type ST Offset   Length
+01:06:20.966 I (60) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+01:06:20.966 I (67) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+01:06:20.966 I (73) boot:  2 factory          factory app      00 00 00010000 00177000
+01:06:20.966 I (80) boot: End of partition table
+01:06:20.966 I (83) esp_image: segment 0: paddr=00010020 vaddr=3c0d0020 size=35ae0h (219872) map
+01:06:20.966 I (125) esp_image: segment 1: paddr=00045b08 vaddr=3fc95800 size=04c28h ( 19496) load
+01:06:20.966 I (129) esp_image: segment 2: paddr=0004a738 vaddr=40378000 size=058e0h ( 22752) load
+01:06:20.966 I (134) esp_image: segment 3: paddr=00050020 vaddr=42000020 size=cd594h (841108) map
+01:06:20.966 I (266) esp_image: segment 4: paddr=0011d5bc vaddr=4037d8e0 size=07e18h ( 32280) load
+01:06:20.966 I (273) esp_image: segment 5: paddr=001253dc vaddr=50000000 size=00020h (    32) load
+01:06:20.966 I (279) boot: Loaded app from partition at offset 0x10000
+01:06:20.966 I (279) boot: Disabling RNG early entropy source...
+01:06:20.966 I (291) cpu_start: Multicore app
+01:06:20.966 I (300) cpu_start: GPIO 44 and 43 are used as console UART I/O pins
+01:06:20.966 I (300) cpu_start: Pro cpu start user code
+01:06:20.966 I (300) cpu_start: cpu freq: 240000000 Hz
+01:06:20.966 I (302) app_init: Application information:
+01:06:20.966 I (306) app_init: Project name:     kws_s3
+01:06:20.966 I (310) app_init: App version:      622cba9-dirty
+01:06:20.966 I (314) app_init: Compile time:     Sep 29 2026 00:59:37
+01:06:20.966 I (319) app_init: ELF file SHA256:  89f8bb56f...
+01:06:20.966 I (324) app_init: ESP-IDF:          v5.5.5
+01:06:20.966 I (327) efuse_init: Min chip rev:     v0.0
+01:06:20.966 I (331) efuse_init: Max chip rev:     v0.99
+01:06:20.966 I (335) efuse_init: Chip rev:         v0.2
+01:06:20.966 I (339) heap_init: Initializing. RAM available for dynamic allocation:
+01:06:20.966 I (345) heap_init: At 3FC9F9E8 len 00049D28 (295 KiB): RAM
+01:06:20.966 I (350) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM
+01:06:20.966 I (356) heap_init: At 600FE000 len 00001FE8 (7 KiB): RTCRAM
+01:06:20.966 I (362) spi_flash: detected chip: boya
+01:06:20.966 I (364) spi_flash: flash io: qio
+01:06:20.966 W (367) spi_flash: Detected size(16384k) larger than the size in the binary image header(4096k). Using the size in the binary image header.
+01:06:20.966 I (380) sleep_gpio: Configure to isolate all GPIO pins in sleep state
+01:06:20.966 I (386) sleep_gpio: Enable automatic switching of GPIO sleep configuration
+01:06:20.967 I (393) main_task: Started on CPU0
+01:06:20.967 I (411) main_task: Calling app_main()
+01:06:20.967 W (412) kws: RAM limit test: 163 KB reserved, the firmware has 202 KB (static data + heap) + 54 KB IRAM code = 256 KB to work with
+01:06:20.967 
+01:06:20.967 ==================== SIH KWS firmware ====================
+01:06:20.967  chip      : esp32s3 rev v0.2, 2 cores, flash 4 MB
+01:06:20.967  ESP-IDF   : v5.5.5
+01:06:20.967  RAM       : 40 KB static data, 136 KB heap free (code in IRAM: 54 KB, counted in the SIH total)
+01:06:20.967  model     : marvin.tflite (60896 bytes, stored in flash)
+01:06:20.967 ===========================================================
+01:06:20.967 
+01:06:20.967 [heap] start of app_main            139348 B free (of 332852 B)
+01:06:20.967 I (480) kws: model ready: wake word "marvin", threshold 0.60 (json), window 5, input 3x40 int8
+01:06:20.967 I (486) kws: model RAM: tensor arena 25964 of 26624 bytes used; engine total 38 KB of heap
+01:06:20.967 
+01:06:20.968 ------------------------ SELF-TEST ------------------------
+01:06:20.968  noise only (3 s)   : PASS - stayed quiet  (highest score 0.01, threshold 0.60)
+01:06:20.968  wake word recording: skipped - no WAV file in the model folder (optional)
+01:06:20.968 -----------------------------------------------------------
+01:06:20.968 
+01:06:20.969 [heap] model + features + self-test took  40720 B,  98628 B free
+01:06:21.186 I (721) audio: I2S running: 16 kHz, 32-bit slots, left channel only, SCK=16 WS=15 SD=17, gain x1
+01:06:22.041 I (1222) kws: microphones: left (L/R to GND) -21.9 dBFS, right (L/R to 3V3) -120.0 dBFS (not used), similarity 0.00 -> using left
+01:06:22.041 [heap] I2S + ring + audio task      took  16932 B,  81696 B free
+01:06:22.041 I (1234) kws: listening for "marvin" ...
+01:06:22.041 I (1241) pp: pp rom version: e7ae62f
+01:06:22.041 I (1243) net80211: net80211 rom version: e7ae62f
+01:06:22.041 I (1247) wifi:wifi driver task: 3fcdbfa4, prio:23, stack:6656, core=0
+01:06:22.041 I (1254) wifi:wifi firmware version: b9f67df
+01:06:22.041 I (1257) wifi:wifi certification version: v7.0
+01:06:22.041 I (1262) wifi:config NVS flash: disabled
+01:06:22.041 I (1265) wifi:config nano formatting: disabled
+01:06:22.041 I (1268) wifi:Init data frame dynamic rx buffer num: 16
+01:06:22.041 I (1273) wifi:Init static rx mgmt buffer num: 5
+01:06:22.041 I (1279) wifi:Init management short buffer num: 10
+01:06:22.041 I (1282) wifi:Init dynamic tx buffer num: 16
+01:06:22.041 I (1287) wifi:Init static tx FG buffer num: 2
+01:06:22.041 I (1290) wifi:Init static rx buffer size: 1600
+01:06:22.041 I (1295) wifi:Init static rx buffer num: 4
+01:06:22.042 I (1298) wifi:Init dynamic rx buffer num: 16
+01:06:22.042 I (1304) wifi_init: accept mbox: 6
+01:06:22.042 I (1306) wifi_init: tcpip mbox: 32
+01:06:22.042 I (1309) wifi_init: udp mbox: 6
+01:06:22.042 I (1312) wifi_init: tcp mbox: 6
+01:06:22.042 I (1315) wifi_init: tcp tx win: 5760
+01:06:22.042 I (1318) wifi_init: tcp rx win: 5760
+01:06:22.042 I (1320) wifi_init: tcp mss: 1440
+01:06:22.042 I (1324) phy_init: phy_version 712,87e8c20e,Apr 13 2026,18:51:10
+01:06:22.042 I (1359) wifi:mode : sta (e0:72:a1:d5:32:74)
+01:06:22.042 I (1360) wifi:enable tsf
+01:06:22.042 I (1363) wifi:Set ps type: 0, coexist: 0
+01:06:22.042 
+01:06:22.042 I (1366) wifi: connecting to "ARYA 9252" ...
+01:06:22.042 [heap] Wi-Fi driver + netif         took  37892 B,  43804 B free
+01:06:22.042 I (1418) wifi:state: init -> auth (0xb0)
+01:06:22.043 W (1424) stream: cannot reach the server ws://192.168.137.1:3000/ws (is it running? same network?) - retrying every second
+01:06:22.043 I (1428) wifi:state: auth -> assoc (0x0)
+01:06:22.043 [heap] WebSocket client + streamer  took  13036 B,  30768 B free
+01:06:22.043 I (1443) wifi:state: assoc -> run (0x10)
+01:06:22.043 I (1513) wifi:connected with ARYA 9252, aid = 3, channel 1, BW20, bssid = 9a:5f:41:45:73:c9
+01:06:22.043 I (1518) wifi:security: WPA2-PSK, phy: bgn, rssi: -16, cipher(pairwise:0x3, group:0x3), pmf:0
+01:06:22.043 I (1527) wifi:pm start, type: 0
+01:06:22.043 
+01:06:22.043 I (1529) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us
+01:06:22.043 I (1538) wifi:set rx beacon pti, rx_bcn_pti: 0, bcn_timeout: 25000, mt_pti: 0, mt_time: 10000
+01:06:22.044 I (1593) wifi:AP's beacon interval = 102400 us, DTIM period = 3
+01:06:23.119 I (2666) esp_netif_handlers: sta ip: 192.168.137.25, mask: 255.255.255.0, gw: 192.168.137.1
+01:06:23.120 I (2670) wifi: connected, IP address 192.168.137.25
+01:06:23.886 I (3444) stream: connected to the server ws://192.168.137.1:3000/ws
+01:06:26.071 I (5628) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:06:30.091 I (9637) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:06:31.941 [status] up 11s | mic -37.8 dBFS (peak -28.3) | score max 0.01 | detections 0 | inferences 160 (16.0/s; model 0.96 ms each, paused in quiet 54%; features 1.36 ms per 30 ms) | CPU core0 -1.0% core1 -1.0% (wake word pipeline 6.92% of one core) | RAM used 173 KB (peak 177 KB; peak + IRAM code 231 KB of the 256 KB limit, 28 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+01:06:31.941 [tasks] % of one core (free stack): main@0=-1.00(928) IDLE1@1=-1.00(768) IDLE0@0=-1.00(776) audio_kws@1=-1.00(836) websocket_task@*=-1.00(948) tiT@*=-1.00(1440) Tmr Svc@*=-1.00(856) streamer@0=-1.00(2432) sys_evt@0=-1.00(436) esp_timer@0=-1.00(1600) wifi@0=-1.00(3200) ipc0@0=-1.00(272) ipc1@1=-1.00(280)
+01:06:36.774 I (16324) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:06:41.993 [status] up 21s | mic -36.9 dBFS (peak -26.6) | score max 0.00 | detections 0 | inferences 289 (28.8/s; model 0.91 ms each, paused in quiet 18%; features 1.33 ms per 30 ms) | CPU core0  0.9% core1  8.1% (wake word pipeline 7.88% of one core) | RAM used 173 KB (peak 177 KB; peak + IRAM code 231 KB of the 256 KB limit, 28 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+01:06:41.994 I (21544) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:06:45.129 I (24683) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:06:47.213 I (26764) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.68, t = 26.40 s)
+01:06:47.213 I (26771) stream: first audio sent 5 ms after the detection
+01:06:47.493 I (27051) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:06:48.268 I (27824) wake_word: score event: peak 1.00 over 990 ms -> detected
+01:06:48.721 I (28269) stream: stream finished (silence): 1750 ms of audio sent (27 KB)
+01:06:51.951 [status] up 31s | mic -34.4 dBFS (peak -17.9) | score max 1.00 | detections 1 | inferences 314 (31.4/s; model 1.00 ms each, paused in quiet 8%; features 1.42 ms per 30 ms) | CPU core0  3.8% core1  9.2% (wake word pipeline 8.62% of one core) | RAM used 173 KB (peak 185 KB; peak + IRAM code 239 KB of the 256 KB limit, 28 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+01:06:53.468 I (33021) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:07:00.693 I (40239) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:07:01.453 I (41010) stream: server: {"type":"response","text":"","saved":"20260929_010647_007_e072a1d53274_marvin.wav"}
+01:07:01.952 [status] up 41s | mic -36.9 dBFS (peak -25.6) | score max 0.00 | detections 1 | inferences 259 (25.9/s; model 0.91 ms each, paused in quiet 28%; features 1.28 ms per 30 ms) | CPU core0  0.8% core1  7.8% (wake word pipeline 7.59% of one core) | RAM used 173 KB (peak 185 KB; peak + IRAM code 239 KB of the 256 KB limit, 28 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+01:07:02.499 I (42044) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.61, t = 41.68 s)
+01:07:02.499 I (42052) stream: first audio sent 6 ms after the detection
+01:07:02.794 I (42354) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:07:03.152 I (42704) wake_word: score event: peak 0.96 over 630 ms -> detected
+01:07:03.994 I (43552) stream: stream finished (silence): 1750 ms of audio sent (27 KB)
+01:07:06.155 I (45713) stream: server: {"type":"response","text":"Okay.","saved":"20260929_010702_282_e072a1d53274_marvin.wav"}
+01:07:10.379 I (49924) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.65, t = 49.56 s)
+01:07:10.379 I (49933) stream: first audio sent 7 ms after the detection
+01:07:11.171 I (50724) wake_word: score event: peak 1.00 over 810 ms -> detected
+01:07:11.968 I (51431) stream: stream finished (silence): 1750 ms of audio sent (27 KB)
+01:07:11.968 I (51479) stream: server: {"type":"response","text":"","saved":"20260929_010710_161_e072a1d53274_marvin.wav"}
+01:07:11.969 [status] up 51s | mic -32.1 dBFS (peak -17.5) | score max 1.00 | detections 3 | inferences 274 (27.4/s; model 1.10 ms each, paused in quiet 20%; features 1.45 ms per 30 ms) | CPU core0  6.7% core1  9.6% (wake word pipeline 8.63% of one core) | RAM used 173 KB (peak 185 KB; peak + IRAM code 239 KB of the 256 KB limit, 28 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+01:07:14.545 I (54072) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:07:14.546 I (54084) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.74, t = 53.72 s)
+01:07:14.546 I (54092) stream: first audio sent 6 ms after the detection
+01:07:15.365 I (54924) wake_word: score event: peak 1.00 over 780 ms -> detected
+01:07:16.037 I (55591) stream: stream finished (silence): 1750 ms of audio sent (27 KB)
+01:07:17.709 I (57263) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:07:18.193 I (57746) stream: server: {"type":"response","text":"","saved":"20260929_010714_320_e072a1d53274_marvin.wav"}
+01:07:19.017 I (58564) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.63, t = 58.20 s)
+01:07:19.017 I (58571) stream: first audio sent 5 ms after the detection
+01:07:19.856 I (59403) wake_word: score event: peak 0.84 over 780 ms -> detected
+01:07:20.785 I (60292) stream: stream finished (silence): 1970 ms of audio sent (30 KB)
+01:07:20.785 I (60334) stream: server: {"type":"response","text":"","saved":"20260929_010718_804_e072a1d53274_marvin.wav"}
+01:07:21.986 I (61371) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:07:21.987 [status] up 61s | mic -33.4 dBFS (peak -17.5) | score max 1.00 | detections 5 | inferences 266 (26.6/s; model 1.11 ms each, paused in quiet 25%; features 1.40 ms per 30 ms) | CPU core0  7.5% core1  9.6% (wake word pipeline 8.59% of one core) | RAM used 173 KB (peak 187 KB; peak + IRAM code 241 KB of the 256 KB limit, 28 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+01:07:22.455 I (62004) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.67, t = 61.64 s)
+01:07:22.455 I (62011) stream: first audio sent 5 ms after the detection
+01:07:23.292 I (62844) wake_word: score event: peak 1.00 over 870 ms -> detected
+01:07:23.961 I (63509) stream: stream finished (silence): 1750 ms of audio sent (27 KB)
+01:07:26.115 I (65665) stream: server: {"type":"response","text":"","saved":"20260929_010722_244_e072a1d53274_marvin.wav"}
+01:07:27.042 I (66555) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:07:27.042 I (66584) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.69, t = 66.22 s)
+01:07:27.042 I (66592) stream: first audio sent 6 ms after the detection
+01:07:27.802 I (67363) wake_word: score event: peak 0.99 over 750 ms -> detected
+01:07:28.536 I (68092) stream: stream finished (silence): 1750 ms of audio sent (27 KB)
+01:07:30.473 I (70027) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:07:30.693 I (70250) stream: server: {"type":"response","text":"","saved":"20260929_010726_820_e072a1d53274_marvin.wav"}
+01:07:32.019 I (71483) wake_word: score event: peak 0.41 over 240 ms -> not detected (below threshold or in cool-down)
+01:07:32.020 [status] up 71s | mic -32.7 dBFS (peak -18.2) | score max 1.00 | detections 7 | inferences 247 (24.7/s; model 1.11 ms each, paused in quiet 30%; features 1.40 ms per 30 ms) | CPU core0  6.8% core1  9.2% (wake word pipeline 8.32% of one core) | RAM used 173 KB (peak 187 KB; peak + IRAM code 241 KB of the 256 KB limit, 28 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+01:07:32.021 [tasks] % of one core (free stack): main@0=0.23(928) IDLE1@1=91.06(720) IDLE0@0=95.53(728) audio_kws@1=8.49(836) tiT@*=1.16(1408) websocket_task@*=0.25(948) ipc1@1=0.00(280) streamer@0=1.68(912) esp_timer@0=0.01(1600) Tmr Svc@*=0.00(856) wifi@0=1.57(3200) sys_evt@0=0.00(436) ipc0@0=0.00(272)
+01:07:34.951 I (74504) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.73, t = 74.14 s)
+01:07:34.951 I (74512) stream: first audio sent 6 ms after the detection
+01:07:35.824 I (75384) wake_word: score event: peak 1.00 over 990 ms -> detected
+01:07:36.449 I (76011) stream: stream finished (silence): 1750 ms of audio sent (27 KB)
+01:07:38.355 I (77910) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:07:38.700 I (78253) stream: server: {"type":"response","text":"","saved":"20260929_010734_740_e072a1d53274_marvin.wav"}
+01:07:39.741 I (79284) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.67, t = 78.92 s)
+01:07:39.741 I (79293) stream: first audio sent 6 ms after the detection
+01:07:40.608 I (80164) wake_word: score event: peak 0.99 over 810 ms -> detected
+01:07:41.234 I (80792) stream: stream finished (silence): 1750 ms of audio sent (27 KB)
+01:07:42.025 [status] up 81s | mic -32.3 dBFS (peak -17.6) | score max 1.00 | detections 9 | inferences 333 (33.3/s; model 1.07 ms each, paused in quiet 0%; features 1.50 ms per 30 ms) | CPU core0  7.3% core1 10.2% (wake word pipeline 9.22% of one core) | RAM used 173 KB (peak 187 KB; peak + IRAM code 241 KB of the 256 KB limit, 28 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+01:07:42.025 I (81575) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:07:52.014 [status] up 91s | mic -37.2 dBFS (peak -29.3) | score max 0.00 | detections 9 | inferences 332 (33.2/s; model 0.90 ms each, paused in quiet 4%; features 1.34 ms per 30 ms) | CPU core0  0.7% core1  8.5% (wake word pipeline 8.24% of one core) | RAM used 173 KB (peak 187 KB; peak + IRAM code 241 KB of the 256 KB limit, 28 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+01:07:54.178 I (93731) stream: server: {"type":"response","text":"","saved":"20260929_010739_520_e072a1d53274_marvin.wav"}
+01:07:55.013 I (94564) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.69, t = 94.20 s)
+01:07:55.014 I (94572) stream: first audio sent 6 ms after the detection
+01:07:55.914 I (95464) wake_word: score event: peak 0.99 over 870 ms -> detected
+01:07:56.539 I (96070) stream: stream finished (silence): 1750 ms of audio sent (27 KB)
+01:07:56.539 I (96092) stream: server: {"type":"response","text":"","saved":"20260929_010754_799_e072a1d53274_marvin.wav"}
+01:07:57.104 I (96662) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:07:58.541 I (98084) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.67, t = 97.72 s)
+01:07:58.541 I (98092) stream: first audio sent 6 ms after the detection
+01:07:59.269 I (98824) wake_word: score event: peak 0.97 over 780 ms -> detected
+01:07:59.534 I (99089) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:07:59.535 I (99092) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:08:00.045 I (99592) stream: stream finished (silence): 1750 ms of audio sent (27 KB)
+01:08:02.174 [status] up 101s | mic -33.2 dBFS (peak -17.4) | score max 0.99 | detections 11 | inferences 288 (28.8/s; model 1.07 ms each, paused in quiet 18%; features 1.41 ms per 30 ms) | CPU core0  6.8% core1  9.7% (wake word pipeline 8.68% of one core) | RAM used 173 KB (peak 187 KB; peak + IRAM code 241 KB of the 256 KB limit, 28 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+01:08:02.174 I (101730) stream: server: {"type":"response","text":"","saved":"20260929_010758_319_e072a1d53274_marvin.wav"}
+01:08:03.091 I (102644) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.74, t = 102.28 s)
+01:08:03.091 I (102652) stream: first audio sent 6 ms after the detection
+01:08:03.946 I (103386) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:08:03.946 I (103504) wake_word: score event: peak 1.00 over 930 ms -> detected
+01:08:04.616 I (104150) stream: stream finished (silence): 1750 ms of audio sent (27 KB)
+01:08:04.617 I (104175) stream: server: {"type":"response","text":"","saved":"20260929_010802_879_e072a1d53274_marvin.wav"}
+01:08:06.653 I (106204) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.68, t = 105.84 s)
+01:08:06.653 I (106211) stream: first audio sent 5 ms after the detection
+01:08:06.870 I (106422) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:08:07.107 I (106663) wake_word: score event: peak 0.68 over 390 ms -> detected
+01:08:08.201 I (107712) stream: stream finished (silence): 1750 ms of audio sent (27 KB)
+01:08:08.201 I (107745) stream: server: {"type":"response","text":"","saved":"20260929_010806_441_e072a1d53274_marvin.wav"}
+01:08:09.833 I (109384) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.68, t = 109.02 s)
+01:08:09.833 I (109392) stream: first audio sent 6 ms after the detection
+01:08:10.888 I (110443) wake_word: score event: peak 1.00 over 1020 ms -> detected
+01:08:11.478 I (110889) stream: stream finished (silence): 1750 ms of audio sent (27 KB)
+01:08:11.478 I (111026) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:08:12.043 [status] up 111s | mic -32.1 dBFS (peak -17.7) | score max 1.00 | detections 14 | inferences 333 (33.3/s; model 1.15 ms each, paused in quiet 1%; features 1.54 ms per 30 ms) | CPU core0  9.8% core1 10.9% (wake word pipeline 9.63% of one core) | RAM used 173 KB (peak 187 KB; peak + IRAM code 241 KB of the 256 KB limit, 28 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+01:08:16.204 I (115762) stream: server: {"type":"response","text":"","saved":"20260929_010809_619_e072a1d53274_marvin.wav"}
+01:08:17.094 I (116644) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.62, t = 116.28 s)
+01:08:17.094 I (116652) stream: first audio sent 6 ms after the detection
+01:08:17.806 I (117365) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:08:18.072 I (117624) wake_word: score event: peak 1.00 over 990 ms -> detected
+01:08:18.602 I (118151) stream: stream finished (silence): 1750 ms of audio sent (27 KB)
+01:08:22.064 [status] up 121s | mic -34.8 dBFS (peak -17.9) | score max 1.00 | detections 15 | inferences 296 (29.6/s; model 1.00 ms each, paused in quiet 16%; features 1.37 ms per 30 ms) | CPU core0  3.8% core1  9.0% (wake word pipeline 8.39% of one core) | RAM used 173 KB (peak 187 KB; peak + IRAM code 241 KB of the 256 KB limit, 28 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+01:08:23.952 I (123504) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:08:30.203 I (129762) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:08:31.501 I (131059) stream: server: {"type":"response","text":"","saved":"20260929_010816_879_e072a1d53274_marvin.wav"}
+01:08:32.097 [status] up 131s | mic -36.6 dBFS (peak -27.5) | score max 0.00 | detections 15 | inferences 317 (31.7/s; model 0.90 ms each, paused in quiet 9%; features 1.33 ms per 30 ms) | CPU core0  0.8% core1  8.3% (wake word pipeline 8.10% of one core) | RAM used 173 KB (peak 187 KB; peak + IRAM code 241 KB of the 256 KB limit, 28 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+01:08:32.097 [tasks] % of one core (free stack): main@0=0.23(928) IDLE1@1=90.57(720) IDLE0@0=95.18(728) audio_kws@1=8.93(836) tiT@*=1.28(1408) websocket_task@*=0.25(948) streamer@0=1.88(912) ipc0@0=0.00(272) esp_timer@0=0.01(1600) ipc1@1=0.00(280) wifi@0=1.70(3200) Tmr Svc@*=0.00(856) sys_evt@0=0.00(436)
+01:08:32.439 I (131984) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.70, t = 131.62 s)
+01:08:32.440 I (131992) stream: first audio sent 6 ms after the detection
+01:08:33.309 I (132863) wake_word: score event: peak 0.97 over 840 ms -> detected
+01:08:33.994 I (133490) stream: stream finished (silence): 1750 ms of audio sent (27 KB)
+01:08:33.994 I (133549) stream: server: {"type":"response","text":"","saved":"20260929_010832_219_e072a1d53274_marvin.wav"}
+01:08:35.413 I (134970) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)
+01:08:42.090 [status] up 141s | mic -35.2 dBFS (peak -17.4) | score max 0.97 | detections 16 | inferences 206 (20.6/s; model 1.02 ms each, paused in quiet 41%; features 1.37 ms per 30 ms) | CPU core0  3.8% core1  8.1% (wake word pipeline 7.51% of one core) | RAM used 173 KB (peak 187 KB; peak + IRAM code 241 KB of the 256 KB limit, 28 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+01:08:43.677 I (143233) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)

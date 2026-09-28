@@ -308,3 +308,211 @@ INFO:     127.0.0.1:60833 - "WebSocket /stream" [accepted]
 INFO:     connection open
 INFO:     127.0.0.1:60834 - "WebSocket /stream" [accepted]
 INFO:     connection open
+INFO:     127.0.0.1:58358 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:58359 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:61373 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:61378 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:52516 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:52517 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:52519 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:54793 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:54796 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:57393 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:57395 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:65219 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:65221 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:65227 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:53618 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:58843 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:58844 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:64766 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:50261 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:50263 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:50264 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:50265 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:58456 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:58457 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:58233 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:60962 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:60963 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:60964 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:65277 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:65278 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:65279 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:65280 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:65281 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:61087 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:61088 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51363 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:56627 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:54261 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:54262 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:50261 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:50263 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:50264 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:57909 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:62184 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:62185 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:62186 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:62187 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:62188 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:62189 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:62190 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:62191 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:64760 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:52200 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:54501 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:54505 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:54506 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:54507 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:52636 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:52640 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:64767 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:64768 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:64769 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:64770 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:60365 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51795 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51802 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51806 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51810 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51683 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51684 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:64764 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:64766 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:49873 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:49877 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:49878 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:49879 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:50618 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:50309 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:57300 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:57301 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:57302 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51356 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51357 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51358 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51359 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51360 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51361 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:58171 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:61839 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:64764 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:55482 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:55483 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:55484 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:55485 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:55486 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:64765 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:64766 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:64767 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:64768 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:56422 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:56423 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:56424 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:59320 - "WebSocket /stream" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:61240 - "WebSocket /stream" [accepted]
+INFO:     connection open
