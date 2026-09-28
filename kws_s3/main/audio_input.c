@@ -36,6 +36,7 @@ static float s_peak_ms;  // highest block mean-square
 static uint32_t s_net_drop_samples;
 static uint64_t s_busy_us;
 static float s_noise_floor = 50.0f;
+static int32_t s_raw[AUDIO_BLOCK_SAMPLES * 2];  // one I2S block: left, right, left, right, ... (shared)
 static volatile uint32_t s_dma_overflows;  // written from the I2S interrupt
 
 static bool IRAM_ATTR on_rx_overflow(i2s_chan_handle_t handle, i2s_event_data_t *event, void *ctx) {
@@ -52,9 +53,9 @@ static float ms_to_dbfs(double mean_square) {
 
 static esp_err_t i2s_setup(const audio_input_config_t *cfg) {
     i2s_chan_config_t chan_cfg = I2S_CHANNEL_DEFAULT_CONFIG(I2S_NUM_0, I2S_ROLE_MASTER);
-    // 6 x 20 ms = 120 ms: rides out a flash write (the task stalls while the flash cache is off). Wi-Fi no longer
-    // writes its settings to flash (WIFI_STORAGE_RAM); "audio lost: i2s" in the status line counts any overflow.
-    chan_cfg.dma_desc_num = 6;
+    // 3 x 20 ms = 60 ms. Nothing writes to flash while listening (Wi-Fi settings stay in RAM), and the audio task
+    // is the highest-priority task on its core; "audio lost: i2s" in the status line counts any overflow.
+    chan_cfg.dma_desc_num = 3;
     chan_cfg.dma_frame_num = AUDIO_BLOCK_SAMPLES;
     esp_err_t err = i2s_new_channel(&chan_cfg, NULL, &s_rx);
     if (err != ESP_OK) return err;
@@ -86,7 +87,7 @@ static esp_err_t i2s_setup(const audio_input_config_t *cfg) {
 // its samples vary (not all zeros / all ones / a constant) at a plausible level (an empty slot on a floating SD line
 // reads garbage near full scale). Two working microphones within 10 dB of each other are averaged.
 static void mic_check(audio_mic_check_t *out) {
-    static int32_t raw[AUDIO_BLOCK_SAMPLES * 2];
+    int32_t *raw = s_raw;
     size_t bytes = 0;
     double sum[2] = {0, 0}, sumsq[2] = {0, 0}, cross = 0;
     int32_t prev[2] = {0, 0};  // the similarity uses sample-to-sample differences (a strong high-pass): the power-up
@@ -96,7 +97,7 @@ static void mic_check(audio_mic_check_t *out) {
     int nseen[2] = {0, 0};
     memset(out, 0, sizeof(*out));
     for (int block = 0; block < 25; block++) {  // 25 x 20 ms
-        if (i2s_channel_read(s_rx, raw, sizeof(raw), &bytes, pdMS_TO_TICKS(500)) != ESP_OK) continue;
+        if (i2s_channel_read(s_rx, raw, sizeof(s_raw), &bytes, pdMS_TO_TICKS(500)) != ESP_OK) continue;
         if (block < 10) continue;                   // the INMP441 needs ~85 ms to start; skip 200 ms
         const size_t frames = bytes / (2 * sizeof(int32_t));
         if (block == 10 && frames) {
@@ -142,9 +143,9 @@ static void mic_check(audio_mic_check_t *out) {
 }
 
 size_t audio_input_read(int16_t pcm[AUDIO_BLOCK_SAMPLES]) {
-    static int32_t raw[AUDIO_BLOCK_SAMPLES * 2];  // left, right, left, right, ...
+    const int32_t *raw = s_raw;
     size_t bytes = 0;
-    if (i2s_channel_read(s_rx, raw, sizeof(raw), &bytes, pdMS_TO_TICKS(1000)) != ESP_OK || bytes == 0) {
+    if (i2s_channel_read(s_rx, s_raw, sizeof(s_raw), &bytes, pdMS_TO_TICKS(1000)) != ESP_OK || bytes == 0) {
         ESP_LOGW(TAG, "no data from I2S");
         return 0;
     }
@@ -233,6 +234,10 @@ esp_err_t audio_input_start(const audio_input_config_t *cfg, audio_mic_check_t *
 
     audio_mic_check_t chk;
     mic_check(&chk);
+    if (CONFIG_KWS_MIC_SELECT > 0) {  // A/B test: force one microphone
+        chk.use[0] = CONFIG_KWS_MIC_SELECT == 1;
+        chk.use[1] = CONFIG_KWS_MIC_SELECT == 2;
+    }
     const float share = (chk.use[0] && chk.use[1]) ? 0.5f : 1.0f;
     s_weight[0] = chk.use[0] ? share : 0.0f;
     s_weight[1] = chk.use[1] ? share : 0.0f;

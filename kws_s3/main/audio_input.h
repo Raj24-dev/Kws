@@ -11,6 +11,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include "esp_err.h"
+#include "sdkconfig.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,7 +19,9 @@ extern "C" {
 
 #define AUDIO_SAMPLE_RATE 16000
 #define AUDIO_BLOCK_SAMPLES 320     // 20 ms per block
-#define AUDIO_RING_SAMPLES 32768    // 2.05 s of history = 1 s pre-roll + 1 s of network slack, 32 KB (power of 2)
+// History for the streamer (pre-roll + network slack), 1 byte per sample, power of 2: 8 KB = 512 ms for pre-rolls up to
+// 250 ms; bigger only for long pre-rolls (e.g. KWS_PREROLL_MS=1000 to collect training recordings of the wake word)
+#define AUDIO_RING_SAMPLES (CONFIG_KWS_PREROLL_MS <= 250 ? 8192 : CONFIG_KWS_PREROLL_MS <= 750 ? 16384 : 32768)
 
 typedef struct {
     int sck_gpio;

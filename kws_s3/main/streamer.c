@@ -24,7 +24,7 @@ static const char *TAG = "stream";
 #define CHUNK_SAMPLES (AUDIO_SAMPLE_RATE * CHUNK_MS / 1000)
 #define BURST_SAMPLES 960                                    // catching up (the pre-roll): up to 60 ms per message
 #define SAMPLES_PER_MS (AUDIO_SAMPLE_RATE / 1000)
-#define SEND_TIMEOUT_MS 1000  // the ring holds ~1 s beyond the pre-roll: a longer stall loses audio anyway
+#define SEND_TIMEOUT_MS 1000  // a stall longer than the ring's slack loses audio anyway (counted: "audio lost ... net")
 #define CONNECT_WAIT_MS 1000  // at a detection, how long to wait for a connection that is just coming up
 
 static esp_websocket_client_handle_t s_ws;
@@ -200,7 +200,7 @@ esp_err_t streamer_init(const streamer_config_t *cfg) {
         .uri = cfg->uri,
         .ext_transport = ws,
         .buffer_size = 1024,           // >= BURST_SAMPLES: one audio message = one WebSocket frame
-        .task_stack = 4096,
+        .task_stack = 3584,          // uses ~2.6 KB
         .reconnect_timeout_ms = 1000,
         .network_timeout_ms = 5000,
         .ping_interval_sec = 2,        // a dead connection is noticed within ~20 s, not at the next detection
@@ -216,7 +216,7 @@ esp_err_t streamer_init(const streamer_config_t *cfg) {
     esp_websocket_register_events(s_ws, WEBSOCKET_EVENT_ANY, ws_event, NULL);
     esp_err_t err = esp_websocket_client_start(s_ws);
     if (err != ESP_OK) return err;
-    if (xTaskCreatePinnedToCore(stream_task, "streamer", 4096, NULL, 8, &s_task, 0) != pdPASS) return ESP_ERR_NO_MEM;
+    if (xTaskCreatePinnedToCore(stream_task, "streamer", 3584, NULL, 8, &s_task, 0) != pdPASS) return ESP_ERR_NO_MEM;
     return ESP_OK;
 }
 

@@ -406,7 +406,7 @@ static void inject_loop(void) {
 void app_main(void) {
     // Console through the UART driver: printf copies into a buffer and returns. Without the driver every printf
     // busy-waits on the 128-byte UART FIFO (the 10 Hz telemetry line alone cost ~3% of core 0).
-    if (uart_driver_install(CONFIG_ESP_CONSOLE_UART_NUM, CONFIG_KWS_INJECT_TEST ? 16384 : 256, 2048, 0, NULL, 0) == ESP_OK)
+    if (uart_driver_install(CONFIG_ESP_CONSOLE_UART_NUM, CONFIG_KWS_INJECT_TEST ? 16384 : 256, 1024, 0, NULL, 0) == ESP_OK)
         uart_vfs_dev_use_driver(CONFIG_ESP_CONSOLE_UART_NUM);
 #if CONFIG_KWS_RAM_LIMIT_KB > 0
     apply_ram_limit();
@@ -415,13 +415,18 @@ void app_main(void) {
     heap_mark("start of app_main");
     status_led_init(CONFIG_KWS_LED_GPIO);
 
-    esp_err_t err = nvs_flash_init();
+    esp_err_t err = ESP_OK;
+#if CONFIG_ESP_WIFI_NVS_ENABLED || CONFIG_ESP_PHY_CALIBRATION_AND_DATA_STORAGE
+    // Only Wi-Fi settings / PHY calibration data would live in NVS. The default build keeps neither (RAM limit):
+    // the radio calibrates at every boot and the settings come from menuconfig.
+    err = nvs_flash_init();
     if (err == ESP_ERR_NVS_NO_FREE_PAGES || err == ESP_ERR_NVS_NEW_VERSION_FOUND) {
         nvs_flash_erase();
         err = nvs_flash_init();
     }
     ESP_ERROR_CHECK(err);
     heap_mark("NVS");
+#endif
 
     // 1) Model -----------------------------------------------------------------------------------------------
     load_model_settings(&s_ms);
@@ -484,7 +489,7 @@ void app_main(void) {
         status_led_set(40, 0, 0);
     }
     // Audio + wake word task (core 1, away from Wi-Fi on core 0). Started now so no audio piles up in DMA.
-    xTaskCreatePinnedToCore(audio_task, "audio_kws", 4096, NULL, 10, NULL, 1);  // uses ~2.8 KB
+    xTaskCreatePinnedToCore(audio_task, "audio_kws", 3584, NULL, 10, NULL, 1);  // uses ~2.8 KB
     heap_mark("I2S + ring + audio task");
     if (s_model_ok) ESP_LOGI(TAG, "listening for \"%s\" ...", s_ms.wake_word);
 

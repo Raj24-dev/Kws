@@ -12,6 +12,12 @@ menu "KWS (wake word) settings"
         config KWS_MIC_SD_GPIO
             int "SD (data) GPIO"
             default 17
+        config KWS_MIC_SELECT
+            int "Microphones to use: 0 = auto (both if both work), 1 = left only, 2 = right only"
+            range 0 2
+            default 0
+            help
+                For the dual-microphone A/B test (benchmarks/README.md). Auto averages both when both work.
         config KWS_MIC_GAIN_SHIFT
             int "Digital gain (0=x1, 1=x2, 2=x4, 3=x8, 4=x16)"
             range 0 4
@@ -69,10 +75,15 @@ menu "KWS (wake word) settings"
             range 0 1000
             default 0
             help
-                0 = only what is said after the wake word goes to the server: the model on the board decides,
-                the server only transcribes the command. > 0 also sends the wake word itself (e.g. to collect
-                training recordings); the server's transcript still starts at the detection. The audio ring
-                buffer holds 2 s: this pre-roll plus ~1 s of slack for a slow network.
+                0 (default) = stream from the detection on. The board fires ~90-120 ms (median) after the wake word
+                ends, sometimes 300+ ms, so a command that follows "Marvin" without a pause can lose its first word.
+                250 also sends the last 250 ms before the detection; the server drops the wake word from the
+                transcript by Whisper's word timestamps (host test on validation recordings: command WER
+                31.7 % -> 24.4 %) and the first audio leaves at once instead of waiting for a fresh 20 ms block.
+                Not yet verified on the board end to end, hence not the default. 1000 also sends the whole wake word
+                (to collect training recordings). The audio ring
+                buffer holds 512 ms (8 KB) up to 250 ms of pre-roll, 1 s (16 KB) up to 750 ms and 2 s (32 KB)
+                above that: the pre-roll plus the slack for a slow network.
         config KWS_STREAM_MIN_MS
             int "Always stream at least this long after detection (ms)"
             default 1500
