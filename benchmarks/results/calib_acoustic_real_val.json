@@ -1,0 +1,159 @@
+{
+ "label": "calib",
+ "gain": 1.0,
+ "level_db": -12.0,
+ "offline": true,
+ "summary": {
+  "evidence": "DEVICE-ACOUSTIC (recordings replayed through PC speakers)",
+  "positives": 3,
+  "detected": 0,
+  "tpr": 0.0,
+  "negatives": 1,
+  "false_accepts": 0,
+  "false_accept_rate": 0.0,
+  "negative_audio_s": 2.5,
+  "latency_ms": {
+   "n": 0,
+   "median": null,
+   "p95": null,
+   "min": null,
+   "max": null
+  },
+  "decomposition_ms": {
+   "device_detect_to_first_send_median": null,
+   "network_one_way_est": null,
+   "detection_delay_est_median": null,
+   "serial_detect_after_kw_median(biased +UART)": null
+  },
+  "ping_rtt_ms": null,
+  "board_ip": null,
+  "transcripts_nonempty": 0,
+  "status": {
+   "windows_10s": 3,
+   "minutes": 0.5,
+   "cpu_core0": {
+    "mean": 4.83,
+    "p95": 5.0,
+    "max": 5.0,
+    "min": 4.5
+   },
+   "cpu_core1": {
+    "mean": 8.33,
+    "p95": 9.1,
+    "max": 9.1,
+    "min": 7.2
+   },
+   "cpu_sum_both_cores": {
+    "mean": 13.17,
+    "p95": 14.1,
+    "max": 14.1
+   },
+   "pipeline_pct_one_core": {
+    "mean": 8.13,
+    "p95": 8.97,
+    "max": 8.97,
+    "min": 6.96
+   },
+   "model_ms": {
+    "mean": 1.18,
+    "p95": 1.19,
+    "max": 1.19,
+    "min": 1.16
+   },
+   "features_ms_per_30ms": {
+    "mean": 1.44,
+    "p95": 1.5,
+    "max": 1.5,
+    "min": 1.39
+   },
+   "paused_in_quiet_pct": {
+    "mean": 34.33,
+    "p95": 58.0,
+    "max": 58.0,
+    "min": 18.0
+   },
+   "mic_dbfs": {
+    "mean": -29.33,
+    "p95": -24.2,
+    "max": -24.2,
+    "min": -34.5
+   },
+   "ram_used_kb": {
+    "mean": 227.67,
+    "p95": 228.0,
+    "max": 228.0,
+    "min": 227.0
+   },
+   "ram_peak_since_boot_kb": 228.0,
+   "heap_free_kb_min": 95.0,
+   "wifi_ok_share": 0.0,
+   "server_ok_share": 0.0,
+   "detections_during": 1,
+   "audio_lost_i2s": 0,
+   "audio_lost_net": 0
+  }
+ },
+ "trials": [
+  {
+   "i": 0,
+   "file": "20260927_082237_585_e072a1d53274_marvin.wav",
+   "set": "real_val.csv",
+   "label": 1,
+   "max_event_peak": 0.0,
+   "rx_peak_dbfs": -14.4,
+   "detected": false,
+   "n_detections": 0,
+   "score": null,
+   "kw_end_s": 0.49,
+   "clip_s": 2.5,
+   "transcript": null,
+   "ref_transcript": "Marvin"
+  },
+  {
+   "i": 1,
+   "file": "20260927_082640_280_e072a1d53274_marvin.wav",
+   "set": "real_val.csv",
+   "label": 0,
+   "max_event_peak": 0.0,
+   "rx_peak_dbfs": -12.3,
+   "detected": false,
+   "n_detections": 0,
+   "score": null,
+   "kw_end_s": null,
+   "clip_s": 2.52,
+   "transcript": null,
+   "ref_transcript": "If you're alive, tell me what I am, tell me what I am, tell me what I am."
+  },
+  {
+   "i": 2,
+   "file": "20260927_084228_003_e072a1d53274_marvin.wav",
+   "set": "real_val.csv",
+   "label": 1,
+   "max_event_peak": 0.3,
+   "rx_peak_dbfs": -7.9,
+   "detected": false,
+   "n_detections": 0,
+   "score": null,
+   "kw_end_s": 0.75,
+   "clip_s": 2.52,
+   "transcript": null,
+   "ref_transcript": "Marvin"
+  },
+  {
+   "i": 3,
+   "file": "20260927_084258_086_e072a1d53274_marvin.wav",
+   "set": "real_val.csv",
+   "label": 1,
+   "max_event_peak": 0.0,
+   "rx_peak_dbfs": -7.4,
+   "detected": false,
+   "n_detections": 0,
+   "score": null,
+   "kw_end_s": 0.66,
+   "clip_s": 2.82,
+   "transcript": null,
+   "ref_transcript": "Marvin, can you hear me?"
+  }
+ ],
+ "device_first_audio_ms": []
+}

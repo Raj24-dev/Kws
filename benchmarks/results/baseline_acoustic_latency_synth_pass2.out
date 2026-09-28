@@ -1,0 +1,117 @@
+WARNING: board did not report a server connection
+board 192.168.137.145, ping RTT {'median': 1.5, 'min': 1.0, 'max': 9.0, 'n': 20}
+[1/20] lat_00_David_r-2_g150.wav label=1 det=1 lat=140.7 text='Turn on the lights.'
+[2/20] lat_01_David_r-2_g350.wav label=1 det=1 lat=136.0 text='What is the weather today?'
+[3/20] lat_02_David_r0_g150.wav label=1 det=1 lat=253.7 text="Let's play some music."
+[4/20] lat_03_David_r0_g350.wav label=1 det=1 lat=305.8 text='Send an alarm for 7.'
+[5/20] lat_04_David_r2_g150.wav label=1 det=1 lat=193.0 text='Call my mother.'
+[6/20] lat_05_David_r2_g350.wav label=1 det=1 lat=318.2 text='Open the door.'
+[7/20] lat_06_Zira_r-2_g150.wav label=1 det=1 lat=50.2 text='What time is it?'
+[8/20] lat_07_Zira_r-2_g350.wav label=1 det=1 lat=-222.2 text='Stop the music.'
+[9/20] lat_08_Zira_r0_g150.wav label=1 det=1 lat=9.9 text='Increase the volume.'
+[10/20] lat_09_Zira_r0_g350.wav label=1 det=1 lat=197.2 text='Tell me a joke.'
+[11/20] lat_10_Zira_r2_g150.wav label=1 det=0 lat=None text=None
+[12/20] lat_11_Zira_r2_g350.wav label=1 det=1 lat=197.7 text='What is the weather today?'
+[13/20] lat_12_David_r-2_g150.wav label=1 det=1 lat=200.9 text="Let's play some music."
+[14/20] lat_13_David_r-2_g350.wav label=1 det=1 lat=149.2 text='Set an alarm for seven.'
+[15/20] lat_14_David_r0_g150.wav label=1 det=1 lat=176.5 text='Call my mother.'
+[16/20] lat_15_David_r0_g350.wav label=1 det=1 lat=8.6 text='Open the door.'
+[17/20] lat_16_David_r2_g150.wav label=1 det=0 lat=None text=None
+[18/20] lat_17_David_r2_g350.wav label=1 det=1 lat=345.4 text='Stop the music.'
+[19/20] lat_18_Zira_r-2_g150.wav label=1 det=1 lat=52.7 text='Increase the volume.'
+[20/20] lat_19_Zira_r-2_g350.wav label=1 det=1 lat=126.9 text='Tell me a joke.'
+{
+ "evidence": "DEVICE-ACOUSTIC (recordings replayed through PC speakers)",
+ "positives": 20,
+ "detected": 18,
+ "tpr": 0.9,
+ "negatives": 0,
+ "false_accepts": 0,
+ "false_accept_rate": null,
+ "negative_audio_s": 0,
+ "latency_ms": {
+  "n": 18,
+  "median": 149.2,
+  "p95": 318.2,
+  "min": -222.2,
+  "max": 345.4
+ },
+ "decomposition_ms": {
+  "device_detect_to_first_send_median": 19.0,
+  "network_one_way_est": 0.75,
+  "detection_delay_est_median": 129.4,
+  "serial_detect_after_kw_median(biased +UART)": 1193.9
+ },
+ "ping_rtt_ms": {
+  "median": 1.5,
+  "min": 1.0,
+  "max": 9.0,
+  "n": 20
+ },
+ "board_ip": "192.168.137.145",
+ "transcripts_nonempty": 18,
+ "status": {
+  "windows_10s": 19,
+  "minutes": 3.2,
+  "cpu_core0": {
+   "mean": 6.75,
+   "p95": 9.7,
+   "max": 9.7,
+   "min": 4.5
+  },
+  "cpu_core1": {
+   "mean": 7.97,
+   "p95": 10.0,
+   "max": 10.0,
+   "min": 5.4
+  },
+  "cpu_sum_both_cores": {
+   "mean": 14.72,
+   "p95": 19.5,
+   "max": 19.5
+  },
+  "pipeline_pct_one_core": {
+   "mean": 7.54,
+   "p95": 9.23,
+   "max": 9.23,
+   "min": 5.27
+  },
+  "model_ms": {
+   "mean": 1.14,
+   "p95": 1.37,
+   "max": 1.37,
+   "min": 0.0
+  },
+  "features_ms_per_30ms": {
+   "mean": 1.47,
+   "p95": 1.53,
+   "max": 1.53,
+   "min": 1.36
+  },
+  "paused_in_quiet_pct": {
+   "mean": 53.95,
+   "p95": 100.0,
+   "max": 100.0,
+   "min": 24.0
+  },
+  "mic_dbfs": {
+   "mean": -36.1,
+   "p95": -31.9,
+   "max": -31.9,
+   "min": -40.8
+  },
+  "ram_used_kb": {
+   "mean": 229.58,
+   "p95": 230.0,
+   "max": 230.0,
+   "min": 229.0
+  },
+  "ram_peak_since_boot_kb": 246.0,
+  "heap_free_kb_min": 93.0,
+  "wifi_ok_share": 1.0,
+  "server_ok_share": 1.0,
+  "detections_during": 18,
+  "audio_lost_i2s": 0,
+  "audio_lost_net": 0
+ }
+}

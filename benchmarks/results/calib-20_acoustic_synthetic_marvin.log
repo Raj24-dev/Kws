@@ -1,0 +1,576 @@
+18:07:45.707 ESP-ROM:esp32s3-20210327
+18:07:45.708 Build:Mar 27 2021
+18:07:45.708 rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_BOOT)
+18:07:45.708 SPIWP:0xee
+18:07:45.708 mode:DIO, clock div:1
+18:07:45.708 load:0x3fce2820,len:0x1668
+18:07:45.708 load:0x403c8700,len:0xec0
+18:07:45.708 load:0x403cb700,len:0x3178
+18:07:45.708 entry 0x403c894c
+18:07:45.708 I (24) boot: ESP-IDF v5.5.5 2nd stage bootloader
+18:07:45.708 I (25) boot: compile time Sep 27 2026 18:23:27
+18:07:45.708 I (25) boot: Multicore bootloader
+18:07:45.708 I (25) boot: chip revision: v0.2
+18:07:45.708 I (28) boot: efuse block revision: v1.4
+18:07:45.708 I (31) qio_mode: Enabling default flash chip QIO
+18:07:45.712 I (36) boot.esp32s3: Boot SPI Speed : 80MHz
+18:07:45.712 I (40) boot.esp32s3: SPI Mode       : QIO
+18:07:45.712 I (43) boot.esp32s3: SPI Flash Size : 4MB
+18:07:45.712 I (47) boot: Enabling RNG early entropy source...
+18:07:45.712 I (52) boot: Partition Table:
+18:07:45.712 I (54) boot: ## Label            Usage          Type ST Offset   Length
+18:07:45.712 I (60) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+18:07:45.712 I (67) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+18:07:45.712 I (73) boot:  2 factory          factory app      00 00 00010000 00177000
+18:07:45.712 I (80) boot: End of partition table
+18:07:45.712 I (83) esp_image: segment 0: paddr=00010020 vaddr=3c0e0020 size=36e30h (224816) map
+18:07:45.712 I (125) esp_image: segment 1: paddr=00046e58 vaddr=3fc9ff00 size=050cch ( 20684) load
+18:07:45.712 I (130) esp_image: segment 2: paddr=0004bf2c vaddr=40378000 size=040ech ( 16620) load
+18:07:45.712 I (133) esp_image: segment 3: paddr=00050020 vaddr=42000020 size=dbf84h (900996) map
+18:07:45.712 I (276) esp_image: segment 4: paddr=0012bfac vaddr=4037c0ec size=13d10h ( 81168) load
+18:07:45.712 I (293) esp_image: segment 5: paddr=0013fcc4 vaddr=50000000 size=00020h (    32) load
+18:07:45.712 I (302) boot: Loaded app from partition at offset 0x10000
+18:07:45.712 I (302) boot: Disabling RNG early entropy source...
+18:07:45.712 I (312) cpu_start: Multicore app
+18:07:45.712 I (321) cpu_start: GPIO 44 and 43 are used as console UART I/O pins
+18:07:45.712 I (321) cpu_start: Pro cpu start user code
+18:07:45.712 I (321) cpu_start: cpu freq: 240000000 Hz
+18:07:45.712 I (323) app_init: Application information:
+18:07:45.712 I (327) app_init: Project name:     kws_s3
+18:07:45.712 I (331) app_init: App version:      1
+18:07:45.712 I (334) app_init: Compile time:     Sep 28 2026 15:07:03
+18:07:45.712 I (339) app_init: ELF file SHA256:  debcb2ac6...
+18:07:45.712 I (344) app_init: ESP-IDF:          v5.5.5
+18:07:45.712 I (347) efuse_init: Min chip rev:     v0.0
+18:07:45.712 I (351) efuse_init: Max chip rev:     v0.99
+18:07:45.712 I (355) efuse_init: Chip rev:         v0.2
+18:07:45.712 I (359) heap_init: Initializing. RAM available for dynamic allocation:
+18:07:45.712 I (365) heap_init: At 3FCABAF8 len 0003DC18 (247 KiB): RAM
+18:07:45.712 I (370) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM
+18:07:45.712 I (376) heap_init: At 600FE000 len 00001FE8 (7 KiB): RTCRAM
+18:07:45.712 I (382) spi_flash: detected chip: boya
+18:07:45.712 I (384) spi_flash: flash io: qio
+18:07:45.712 W (387) spi_flash: Detected size(16384k) larger than the size in the binary image header(4096k). Using the size in the binary image header.
+18:07:45.712 I (400) sleep_gpio: Configure to isolate all GPIO pins in sleep state
+18:07:45.712 I (406) sleep_gpio: Enable automatic switching of GPIO sleep configuration
+18:07:45.712 I (413) main_task: Started on CPU0
+18:07:45.712 I (431) main_task: Calling app_main()
+18:07:45.712 
+18:07:45.713 ==================== SIH KWS firmware ====================
+18:07:45.713  chip      : esp32s3 rev v0.2, 2 cores, flash 4 MB
+18:07:45.713  ESP-IDF   : v5.5.5
+18:07:45.713  RAM       : 46 KB static data, 248 KB heap free (code in IRAM: 95 KB, not counted)
+18:07:45.713  model     : marvin.tflite (60896 bytes, stored in flash)
+18:07:45.713 ===========================================================
+18:07:45.713 
+18:07:45.713 I (489) kws: model ready: wake word "marvin", threshold 0.50 (json), window 5, input 3x40 int8
+18:07:45.713 I (491) kws: model RAM: tensor arena 25580 of 30000 bytes used; engine total 41 KB of heap
+18:07:45.939 
+18:07:45.940 ------------------------ SELF-TEST ------------------------
+18:07:45.940  noise only (3 s)   : PASS - stayed quiet  (highest score 0.01, threshold 0.50)
+18:07:45.940  wake word recording: skipped - no WAV file in the model folder (optional)
+18:07:45.940 -----------------------------------------------------------
+18:07:45.940 
+18:07:45.940 I (725) audio: I2S running: 16 kHz, 32-bit slots, both channels, SCK=16 WS=15 SD=17, gain x1
+18:07:47.996 I (1227) kws: microphones: left (L/R to GND) -23.1 dBFS, right (L/R to 3V3) -20.4 dBFS, similarity 0.21 -> using both (average)
+18:07:47.996 I (1233) kws: listening for "marvin" ...
+18:07:47.996 I (1235) pp: pp rom version: e7ae62f
+18:07:47.996 I (1239) net80211: net80211 rom version: e7ae62f
+18:07:47.996 I (1245) wifi:wifi driver task: 3fcca69c, prio:23, stack:6656, core=0
+18:07:47.996 I (1256) wifi:wifi firmware version: b9f67df
+18:07:47.996 I (1257) wifi:wifi certification version: v7.0
+18:07:47.996 I (1258) wifi:config NVS flash: enabled
+18:07:47.996 I (1262) wifi:config nano formatting: disabled
+18:07:47.996 I (1262) wifi:Init data frame dynamic rx buffer num: 16
+18:07:47.996 I (1268) wifi:Init static rx mgmt buffer num: 5
+18:07:47.997 I (1273) wifi:Init management short buffer num: 32
+18:07:47.997 I (1279) wifi:Init dynamic tx buffer num: 16
+18:07:47.997 I (1284) wifi:Init static tx FG buffer num: 2
+18:07:47.997 I (1285) wifi:Init static rx buffer size: 1600
+18:07:47.997 I (1290) wifi:Init static rx buffer num: 6
+18:07:47.997 I (1295) wifi:Init dynamic rx buffer num: 16
+18:07:47.997 I (1301) wifi_init: accept mbox: 6
+18:07:47.997 I (1301) wifi_init: tcpip mbox: 32
+18:07:47.997 I (1306) wifi_init: udp mbox: 6
+18:07:47.997 I (1307) wifi_init: tcp mbox: 6
+18:07:47.997 I (1312) wifi_init: tcp tx win: 5760
+18:07:47.997 I (1312) wifi_init: tcp rx win: 5760
+18:07:47.997 I (1317) wifi_init: tcp mss: 1440
+18:07:47.997 I (1318) wifi_init: WiFi IRAM OP enabled
+18:07:47.997 I (1323) wifi_init: WiFi RX IRAM OP enabled
+18:07:47.997 I (1329) phy_init: phy_version 712,87e8c20e,Apr 13 2026,18:51:10
+18:07:47.997 I (1366) wifi:mode : sta (e0:72:a1:d5:32:74)
+18:07:47.997 I (1367) wifi:enable tsf
+18:07:47.997 I (1369) wifi:Set ps type: 0, coexist: 0
+18:07:47.997 
+18:07:47.997 I (1371) wifi: connecting to "ARYA 9252" ...
+18:07:47.997 W (1375) stream: cannot reach the server ws://192.168.137.1:3000/ws (is it running? same network?) - retrying every second
+18:07:47.997 @T t=1114 s=0.016 lv=-37.7 pk=-34.4 c0=-1.0 c1=-1.0 kw=21.47 inf=2.95 iv=1.39 n=8 d=0 sk=0 hf=98372 hm=97728 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233820
+18:07:47.997 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:07:47.997 @T t=1206 s=0.016 lv=-39.0 pk=-38.4 c0=4.8 c1=9.1 kw=7.83 inf=2.16 iv=0.86 n=3 d=0 sk=0 hf=98372 hm=97728 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233820
+18:07:47.997 @T t=1312 s=0.005 lv=-39.6 pk=-38.1 c0=4.1 c1=10.5 kw=11.17 inf=3.70 iv=1.62 n=3 d=0 sk=0 hf=98372 hm=97728 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233820
+18:07:47.997 @T t=1398 s=0.002 lv=-38.7 pk=-37.2 c0=5.2 c1=10.1 kw=9.87 inf=2.63 iv=1.30 n=3 d=0 sk=0 hf=98372 hm=97728 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233820
+18:07:47.997 @T t=1504 s=0.002 lv=-37.9 pk=-36.4 c0=4.2 c1=9.0 kw=8.77 inf=2.85 iv=1.20 n=3 d=0 sk=0 hf=98372 hm=97728 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233820
+18:07:47.997 @T t=1612 s=0.000 lv=-39.1 pk=-37.1 c0=4.0 c1=10.8 kw=10.59 inf=2.64 iv=1.18 n=4 d=0 sk=0 hf=98372 hm=97728 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233820
+18:07:47.997 @T t=1698 s=0.000 lv=-38.2 pk=-37.3 c0=4.1 c1=9.6 kw=9.39 inf=2.50 iv=1.21 n=3 d=0 sk=0 hf=98372 hm=97728 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233820
+18:07:47.997 @T t=1804 s=0.000 lv=-39.8 pk=-38.8 c0=4.1 c1=9.1 kw=8.88 inf=2.89 iv=1.27 n=3 d=0 sk=0 hf=98372 hm=97728 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233820
+18:07:47.997 @T t=1913 s=0.000 lv=-38.1 pk=-37.3 c0=4.4 c1=11.2 kw=10.97 inf=2.76 iv=1.27 n=4 d=0 sk=0 hf=98372 hm=97728 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233820
+18:07:47.997 @T t=2002 s=0.002 lv=-38.1 pk=-37.1 c0=4.9 c1=9.7 kw=9.48 inf=2.61 iv=1.30 n=3 d=0 sk=0 hf=98372 hm=97728 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233820
+18:07:47.997 @T t=2107 s=0.003 lv=-38.5 pk=-36.1 c0=6.3 c1=11.4 kw=11.58 inf=2.81 iv=1.31 n=4 d=0 sk=0 hf=98372 hm=97640 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233908
+18:07:47.997 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:07:47.997 @T t=2198 s=0.001 lv=-39.5 pk=-37.8 c0=5.8 c1=9.5 kw=8.80 inf=2.47 iv=1.19 n=3 d=0 sk=0 hf=98372 hm=97640 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233908
+18:07:47.997 @T t=2304 s=0.000 lv=-39.8 pk=-38.6 c0=4.2 c1=8.9 kw=8.75 inf=2.85 iv=1.24 n=3 d=0 sk=0 hf=98372 hm=97640 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233908
+18:07:47.997 @T t=2413 s=0.000 lv=-39.1 pk=-37.6 c0=9.2 c1=10.8 kw=10.60 inf=2.66 iv=1.20 n=4 d=0 sk=0 hf=98372 hm=97640 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233908
+18:07:47.997 @T t=2502 s=0.000 lv=-39.5 pk=-38.6 c0=3.8 c1=8.0 kw=7.85 inf=3.20 iv=1.27 n=2 d=0 sk=0 hf=98372 hm=97640 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233908
+18:07:50.486 @T t=2608 s=0.000 lv=-40.7 pk=-40.4 c0=6.5 c1=6.1 kw=5.94 inf=1.37 iv=0.00 n=0 d=0 sk=4 hf=98372 hm=97640 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233908
+18:07:50.486 @T t=2714 s=0.000 lv=-39.3 pk=-38.2 c0=3.4 c1=5.1 kw=4.94 inf=1.51 iv=0.00 n=0 d=0 sk=3 hf=98372 hm=97640 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233908
+18:07:50.486 @T t=2800 s=0.000 lv=-40.3 pk=-38.3 c0=3.8 c1=5.0 kw=4.90 inf=1.83 iv=0.00 n=0 d=0 sk=2 hf=98372 hm=97640 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233908
+18:07:50.486 @T t=2906 s=0.000 lv=-38.0 pk=-36.7 c0=6.4 c1=6.1 kw=5.94 inf=1.37 iv=0.00 n=0 d=0 sk=4 hf=98372 hm=97640 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233908
+18:07:50.486 @T t=3012 s=0.000 lv=-37.6 pk=-37.1 c0=7.7 c1=5.2 kw=5.01 inf=1.54 iv=0.00 n=0 d=0 sk=3 hf=98372 hm=97640 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233908
+18:07:50.486 @T t=3098 s=0.000 lv=-38.8 pk=-37.6 c0=4.6 c1=5.1 kw=4.98 inf=1.86 iv=0.00 n=0 d=0 sk=2 hf=98372 hm=97640 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233908
+18:07:50.486 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:07:50.486 @T t=3210 s=0.000 lv=-38.0 pk=-36.6 c0=3.7 c1=5.8 kw=5.62 inf=1.37 iv=0.00 n=0 d=0 sk=4 hf=98372 hm=97640 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233908
+18:07:50.486 @T t=3296 s=0.000 lv=-38.3 pk=-37.8 c0=7.7 c1=5.0 kw=4.88 inf=1.82 iv=0.00 n=0 d=0 sk=2 hf=98372 hm=97640 ht=283428 pf=0 pm=0 pt=0 ru=233176 rp=233908
+18:07:50.486 W (3779) wifi: cannot connect (reason 201). Check the name/password in menuconfig; the ESP32 needs a 2.4 GHz network (201 = network not found, 15/204 = wrong password)
+18:07:50.486 @T t=3405 s=0.000 lv=-38.8 pk=-37.8 c0=5.5 c1=5.2 kw=4.87 inf=1.51 iv=0.00 n=0 d=0 sk=3 hf=98164 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233384 rp=234112
+18:07:50.486 @T t=3500 s=0.000 lv=-39.4 pk=-37.7 c0=5.3 c1=5.9 kw=5.71 inf=1.61 iv=0.00 n=0 d=0 sk=3 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:50.486 @T t=3606 s=0.000 lv=-38.0 pk=-36.0 c0=3.7 c1=6.1 kw=5.93 inf=1.36 iv=0.00 n=0 d=0 sk=4 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:50.486 @T t=3712 s=0.000 lv=-37.8 pk=-36.9 c0=3.8 c1=5.2 kw=5.03 inf=1.54 iv=0.00 n=0 d=0 sk=3 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:50.486 @T t=3798 s=0.000 lv=-39.9 pk=-37.9 c0=4.6 c1=5.1 kw=4.97 inf=1.85 iv=0.00 n=0 d=0 sk=2 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:50.487 @T t=3904 s=0.000 lv=-38.7 pk=-37.3 c0=3.9 c1=5.1 kw=4.93 inf=1.51 iv=0.00 n=0 d=0 sk=3 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:50.487 @T t=4010 s=0.000 lv=-39.2 pk=-38.4 c0=7.1 c1=7.0 kw=6.06 inf=1.39 iv=0.00 n=0 d=0 sk=4 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:50.487 @T t=4096 s=0.000 lv=-38.4 pk=-37.0 c0=4.0 c1=5.1 kw=4.99 inf=1.86 iv=0.00 n=0 d=0 sk=2 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:50.487 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:07:50.487 @T t=4208 s=0.000 lv=-39.7 pk=-38.5 c0=4.3 c1=5.8 kw=5.61 inf=1.36 iv=0.00 n=0 d=0 sk=4 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:50.487 @T t=4314 s=0.000 lv=-39.6 pk=-38.6 c0=3.9 c1=5.2 kw=5.02 inf=1.54 iv=0.00 n=0 d=0 sk=3 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:50.487 @T t=4400 s=0.000 lv=-39.2 pk=-38.2 c0=4.8 c1=5.2 kw=5.01 inf=1.87 iv=0.00 n=0 d=0 sk=2 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:50.487 @T t=4506 s=0.000 lv=-37.6 pk=-36.1 c0=4.0 c1=6.2 kw=6.02 inf=1.38 iv=0.00 n=0 d=0 sk=4 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:50.487 @T t=4612 s=0.000 lv=-38.0 pk=-36.9 c0=3.9 c1=5.1 kw=4.98 inf=1.53 iv=0.00 n=0 d=0 sk=3 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:50.487 @T t=4698 s=0.000 lv=-38.5 pk=-37.9 c0=8.4 c1=5.1 kw=4.99 inf=1.86 iv=0.00 n=0 d=0 sk=2 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:50.487 @T t=4804 s=0.000 lv=-38.0 pk=-36.5 c0=3.5 c1=5.1 kw=4.96 inf=1.52 iv=0.00 n=0 d=0 sk=3 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:50.487 @T t=4910 s=0.000 lv=-37.5 pk=-35.7 c0=3.3 c1=6.1 kw=5.97 inf=1.37 iv=0.00 n=0 d=0 sk=4 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:50.487 @T t=4997 s=0.000 lv=-37.2 pk=-35.9 c0=3.7 c1=4.9 kw=4.80 inf=1.81 iv=0.00 n=0 d=0 sk=2 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:52.836 @T t=5103 s=0.000 lv=-38.3 pk=-37.2 c0=8.1 c1=5.2 kw=4.96 inf=1.52 iv=0.00 n=0 d=0 sk=3 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:52.836 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:07:52.836 @T t=5214 s=0.000 lv=-38.6 pk=-37.0 c0=10.6 c1=5.8 kw=5.72 inf=1.37 iv=0.00 n=0 d=0 sk=4 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:52.836 @T t=5300 s=0.000 lv=-39.6 pk=-38.6 c0=7.6 c1=5.0 kw=4.88 inf=1.82 iv=0.00 n=0 d=0 sk=2 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:52.836 @T t=5406 s=0.000 lv=-39.9 pk=-39.0 c0=6.3 c1=6.0 kw=5.89 inf=1.35 iv=0.00 n=0 d=0 sk=4 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:52.836 @T t=5512 s=0.000 lv=-38.5 pk=-37.7 c0=3.3 c1=5.1 kw=4.93 inf=1.51 iv=0.00 n=0 d=0 sk=3 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:52.836 @T t=5598 s=0.000 lv=-39.7 pk=-37.5 c0=3.8 c1=5.0 kw=4.88 inf=1.82 iv=0.00 n=0 d=0 sk=2 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:52.836 @T t=5704 s=0.000 lv=-38.0 pk=-36.4 c0=2.9 c1=5.1 kw=4.92 inf=1.51 iv=0.00 n=0 d=0 sk=3 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:52.836 @T t=5810 s=0.000 lv=-39.8 pk=-39.4 c0=3.0 c1=6.1 kw=5.91 inf=1.36 iv=0.00 n=0 d=0 sk=4 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:52.836 @T t=5896 s=0.000 lv=-37.9 pk=-36.1 c0=6.1 c1=5.3 kw=5.00 inf=1.86 iv=0.00 n=0 d=0 sk=2 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:52.836 @T t=6002 s=0.000 lv=-39.9 pk=-39.0 c0=7.8 c1=5.2 kw=5.05 inf=1.55 iv=0.00 n=0 d=0 sk=3 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:52.836 @T t=6110 s=0.000 lv=-29.1 pk=-25.3 c0=5.3 c1=18.8 kw=18.50 inf=1.47 iv=1.01 n=13 d=0 sk=0 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:52.836 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:07:52.836 @T t=6201 s=0.000 lv=-22.1 pk=-20.7 c0=5.8 c1=8.0 kw=7.76 inf=3.23 iv=1.26 n=2 d=0 sk=0 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:52.836 @T t=6307 s=0.017 lv=-27.7 pk=-23.4 c0=4.2 c1=11.0 kw=10.72 inf=2.62 iv=1.17 n=4 d=0 sk=0 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:52.836 @T t=6396 s=0.335 lv=-37.3 pk=-34.2 c0=3.8 c1=9.2 kw=9.01 inf=2.48 iv=1.20 n=3 d=0 sk=0 hf=98352 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233196 rp=234112
+18:07:52.836 I (6828) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.60, t = 6.45 s)
+18:07:52.836 @T t=6502 s=0.601 lv=-35.1 pk=-32.6 c0=4.2 c1=10.8 kw=9.29 inf=3.03 iv=1.39 n=3 d=1 sk=0 hf=98132 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234112
+18:07:52.836 @T t=6608 s=0.794 lv=-39.3 pk=-37.2 c0=7.4 c1=11.4 kw=11.12 inf=2.72 iv=1.26 n=4 d=1 sk=0 hf=98132 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234112
+18:07:52.836 @T t=6714 s=0.902 lv=-37.8 pk=-35.8 c0=4.3 c1=9.6 kw=9.98 inf=2.46 iv=1.24 n=4 d=1 sk=0 hf=98132 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234112
+18:07:52.836 @T t=6800 s=0.936 lv=-39.7 pk=-39.0 c0=8.5 c1=9.1 kw=8.19 inf=3.22 iv=1.25 n=2 d=1 sk=0 hf=98132 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234112
+18:07:52.837 @T t=6906 s=0.954 lv=-39.2 pk=-37.9 c0=4.4 c1=11.0 kw=10.84 inf=2.65 iv=1.20 n=4 d=1 sk=0 hf=98132 hm=97436 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234112
+18:07:52.837 @T t=7011 s=0.924 lv=-37.9 pk=-36.5 c0=3.9 c1=10.1 kw=9.78 inf=2.38 iv=1.18 n=4 d=1 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:52.837 @T t=7097 s=0.864 lv=-38.1 pk=-37.1 c0=5.6 c1=10.2 kw=8.31 inf=3.28 iv=1.31 n=2 d=1 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:52.837 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:07:52.837 @T t=7212 s=0.794 lv=-38.4 pk=-37.1 c0=4.5 c1=10.6 kw=10.37 inf=2.76 iv=1.27 n=4 d=1 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:52.837 @T t=7298 s=0.282 lv=-37.7 pk=-36.1 c0=4.1 c1=9.5 kw=9.34 inf=2.48 iv=1.19 n=3 d=1 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:52.837 @T t=7404 s=0.023 lv=-39.1 pk=-37.6 c0=3.3 c1=8.6 kw=8.47 inf=2.75 iv=1.16 n=3 d=1 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:52.837 I (7787) wake_word: score event: peak 0.95 over 900 ms -> detected
+18:07:52.837 W (7829) stream: no server connection: detection not streamed
+18:07:55.402 I (7830) stream: stream finished (no_server): 0 ms of audio sent (0 KB)
+18:07:55.402 @T t=7510 s=0.000 lv=-38.9 pk=-37.4 c0=5.8 c1=11.9 kw=18.85 inf=4.77 iv=1.16 n=4 d=1 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=7596 s=0.000 lv=-39.5 pk=-38.4 c0=4.0 c1=9.3 kw=9.07 inf=2.41 iv=1.14 n=3 d=1 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=7702 s=0.000 lv=-39.3 pk=-38.5 c0=3.2 c1=8.5 kw=8.28 inf=2.68 iv=1.10 n=3 d=1 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=7808 s=0.000 lv=-39.2 pk=-37.3 c0=3.2 c1=10.5 kw=10.29 inf=2.51 iv=1.09 n=4 d=1 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=7914 s=0.000 lv=-38.7 pk=-36.8 c0=3.9 c1=9.7 kw=9.50 inf=2.33 iv=1.13 n=4 d=1 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=8000 s=0.000 lv=-39.6 pk=-38.6 c0=4.0 c1=8.0 kw=7.83 inf=3.08 iv=1.18 n=2 d=1 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=8106 s=0.000 lv=-39.7 pk=-37.6 c0=3.8 c1=8.3 kw=7.37 inf=1.74 iv=1.33 n=1 d=1 sk=3 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:07:55.402 @T t=8198 s=0.000 lv=-40.6 pk=-39.7 c0=13.5 c1=4.7 kw=4.58 inf=1.83 iv=0.00 n=0 d=1 sk=2 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=8304 s=0.000 lv=-38.8 pk=-37.5 c0=5.2 c1=5.4 kw=5.08 inf=1.56 iv=0.00 n=0 d=1 sk=3 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=8410 s=0.000 lv=-39.2 pk=-37.5 c0=4.0 c1=6.3 kw=6.09 inf=1.40 iv=0.00 n=0 d=1 sk=4 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=8496 s=0.000 lv=-39.3 pk=-38.0 c0=4.7 c1=5.2 kw=5.00 inf=1.86 iv=0.00 n=0 d=1 sk=2 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=8602 s=0.000 lv=-38.5 pk=-36.5 c0=3.8 c1=5.2 kw=5.02 inf=1.53 iv=0.00 n=0 d=1 sk=3 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=8708 s=0.000 lv=-37.9 pk=-35.4 c0=3.9 c1=6.2 kw=6.02 inf=1.39 iv=0.00 n=0 d=1 sk=4 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=8814 s=0.000 lv=-37.3 pk=-36.0 c0=3.1 c1=5.1 kw=4.96 inf=1.52 iv=0.00 n=0 d=1 sk=3 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=8900 s=0.000 lv=-39.4 pk=-38.0 c0=4.7 c1=5.2 kw=5.02 inf=1.87 iv=0.00 n=0 d=1 sk=2 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=9006 s=0.000 lv=-40.2 pk=-39.4 c0=3.9 c1=6.2 kw=6.04 inf=1.39 iv=0.00 n=0 d=1 sk=4 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=9112 s=0.000 lv=-39.7 pk=-37.8 c0=4.5 c1=6.0 kw=5.08 inf=1.56 iv=0.00 n=0 d=1 sk=3 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:07:55.402 @T t=9203 s=0.000 lv=-39.0 pk=-38.8 c0=5.5 c1=4.8 kw=4.66 inf=1.84 iv=0.00 n=0 d=1 sk=2 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=9309 s=0.000 lv=-38.6 pk=-37.3 c0=3.9 c1=6.2 kw=5.99 inf=1.38 iv=0.00 n=0 d=1 sk=4 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=9395 s=0.000 lv=-38.8 pk=-38.3 c0=3.9 c1=5.1 kw=4.96 inf=1.85 iv=0.00 n=0 d=1 sk=2 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=9501 s=0.000 lv=-39.7 pk=-38.0 c0=4.2 c1=5.2 kw=5.00 inf=1.53 iv=0.00 n=0 d=1 sk=3 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=9607 s=0.000 lv=-40.2 pk=-39.1 c0=3.6 c1=6.1 kw=5.96 inf=1.37 iv=0.00 n=0 d=1 sk=4 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=9713 s=0.000 lv=-41.5 pk=-40.6 c0=3.0 c1=5.0 kw=4.93 inf=1.51 iv=0.00 n=0 d=1 sk=3 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=9799 s=0.000 lv=-40.0 pk=-38.9 c0=3.6 c1=5.0 kw=4.84 inf=1.81 iv=0.00 n=0 d=1 sk=2 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:55.402 @T t=9905 s=0.000 lv=-40.1 pk=-39.1 c0=3.3 c1=5.2 kw=5.09 inf=1.52 iv=0.00 n=0 d=1 sk=3 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:57.487 @T t=10011 s=0.000 lv=-36.3 pk=-31.0 c0=3.6 c1=11.0 kw=4.97 inf=0.51 iv=0.00 n=6 d=1 sk=3 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:57.487 @T t=10100 s=0.000 lv=-23.8 pk=-21.5 c0=6.3 c1=15.6 kw=22.10 inf=2.73 iv=2.03 n=7 d=1 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:57.487 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:07:57.487 @T t=10212 s=0.000 lv=-27.4 pk=-24.4 c0=11.1 c1=9.9 kw=9.74 inf=2.51 iv=1.10 n=4 d=1 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:57.487 @T t=10298 s=0.016 lv=-36.1 pk=-33.7 c0=4.6 c1=8.2 kw=7.95 inf=3.12 iv=1.19 n=2 d=1 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:57.487 @T t=10404 s=0.056 lv=-38.0 pk=-34.6 c0=3.3 c1=9.8 kw=9.59 inf=2.36 iv=1.16 n=4 d=1 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:57.487 @T t=10513 s=0.393 lv=-40.8 pk=-39.6 c0=3.1 c1=10.5 kw=10.29 inf=2.58 iv=1.13 n=4 d=1 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:57.487 I (10928) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.57, t = 10.55 s)
+18:07:57.487 @T t=10599 s=0.566 lv=-40.4 pk=-39.5 c0=4.1 c1=10.0 kw=8.35 inf=3.29 iv=1.34 n=2 d=2 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:57.487 @T t=10705 s=0.994 lv=-39.7 pk=-38.0 c0=5.1 c1=10.7 kw=10.32 inf=2.51 iv=1.28 n=4 d=2 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:57.487 @T t=10811 s=0.993 lv=-39.8 pk=-38.8 c0=4.8 c1=10.8 kw=11.15 inf=2.77 iv=1.25 n=4 d=2 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:57.487 @T t=10897 s=0.962 lv=-40.0 pk=-37.6 c0=5.3 c1=9.2 kw=8.23 inf=3.23 iv=1.27 n=2 d=2 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:57.487 @T t=11003 s=0.948 lv=-39.1 pk=-38.2 c0=4.1 c1=9.9 kw=9.68 inf=2.38 iv=1.18 n=4 d=2 sk=0 hf=98132 hm=97308 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234240
+18:07:57.487 [status] up 11s | mic -35.6 dBFS (peak -20.7) | score max 0.99 | detections 2 | inferences 172 (17.2/s; model 1.20 ms each, paused in quiet 49%; features 1.45 ms per 30 ms) | CPU core0  4.9% core1  7.6% (wake word pipeline 7.66% of one core) | RAM used 227 KB (peak 228 KB, 95 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+18:07:57.487 [stacks] unused bytes: main=1936 IDLE1=720 IDLE0=728 tiT=2452 websocket_task=1456 audio_kws=1344 streamer=1424 Tmr Svc=1368 wifi=4152 esp_timer=3136 ipc1=536 sys_evt=428 ipc0=528
+18:07:57.487 @T t=11113 s=0.780 lv=-39.9 pk=-38.7 c0=47.0 c1=11.7 kw=10.70 inf=2.71 iv=1.23 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:07:57.487 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:07:57.487 @T t=11204 s=0.266 lv=-38.5 pk=-37.8 c0=4.9 c1=7.9 kw=7.77 inf=3.24 iv=1.29 n=2 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:07:57.487 @T t=11313 s=0.092 lv=-37.8 pk=-36.4 c0=9.5 c1=10.8 kw=10.54 inf=2.65 iv=1.18 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:07:57.487 I (11707) wake_word: score event: peak 0.99 over 720 ms -> detected
+18:07:57.487 @T t=11399 s=0.000 lv=-40.0 pk=-38.6 c0=5.1 c1=11.1 kw=11.30 inf=3.04 iv=1.28 n=3 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:07:57.487 @T t=11505 s=0.000 lv=-39.2 pk=-38.0 c0=4.2 c1=8.8 kw=8.61 inf=2.75 iv=1.13 n=3 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:07:57.487 W (11929) stream: no server connection: detection not streamed
+18:07:57.488 I (11930) stream: stream finished (no_server): 0 ms of audio sent (0 KB)
+18:07:57.488 @T t=11614 s=0.000 lv=-39.6 pk=-37.9 c0=11.6 c1=11.1 kw=10.91 inf=2.79 iv=1.33 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:07:57.488 @T t=11700 s=0.000 lv=-39.6 pk=-39.4 c0=7.5 c1=9.4 kw=9.17 inf=2.44 iv=1.16 n=3 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:07:57.488 @T t=11806 s=0.000 lv=-40.1 pk=-38.1 c0=4.1 c1=9.9 kw=8.81 inf=2.12 iv=0.91 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:07:57.488 @T t=11912 s=0.000 lv=-40.6 pk=-39.5 c0=4.7 c1=7.8 kw=8.30 inf=2.69 iv=2.37 n=1 d=2 sk=2 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:07:57.488 @T t=11998 s=0.000 lv=-39.9 pk=-38.9 c0=8.6 c1=5.1 kw=4.95 inf=1.84 iv=0.00 n=0 d=2 sk=2 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=12104 s=0.000 lv=-39.4 pk=-38.7 c0=3.6 c1=5.9 kw=5.03 inf=1.54 iv=0.00 n=0 d=2 sk=3 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:00.001 @T t=12199 s=0.000 lv=-40.6 pk=-39.6 c0=15.8 c1=5.7 kw=5.62 inf=1.54 iv=0.00 n=0 d=2 sk=3 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=12305 s=0.000 lv=-40.5 pk=-39.1 c0=2.9 c1=5.2 kw=5.04 inf=1.51 iv=0.00 n=0 d=2 sk=3 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=12411 s=0.000 lv=-39.8 pk=-38.9 c0=3.4 c1=6.2 kw=5.77 inf=1.81 iv=0.00 n=0 d=2 sk=3 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=12497 s=0.000 lv=-40.5 pk=-40.2 c0=3.7 c1=5.0 kw=4.86 inf=1.81 iv=0.00 n=0 d=2 sk=2 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=12603 s=0.000 lv=-39.1 pk=-38.3 c0=2.9 c1=5.1 kw=4.92 inf=1.51 iv=0.00 n=0 d=2 sk=3 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=12709 s=0.000 lv=-38.5 pk=-37.2 c0=3.3 c1=6.1 kw=5.93 inf=1.36 iv=0.00 n=0 d=2 sk=4 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=12795 s=0.000 lv=-39.8 pk=-38.9 c0=3.7 c1=5.0 kw=4.90 inf=1.83 iv=0.00 n=0 d=2 sk=2 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=12901 s=0.000 lv=-39.4 pk=-37.4 c0=3.0 c1=5.0 kw=4.91 inf=1.50 iv=0.00 n=0 d=2 sk=3 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=13007 s=0.000 lv=-40.0 pk=-38.7 c0=6.2 c1=6.1 kw=5.90 inf=1.36 iv=0.00 n=0 d=2 sk=4 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=13113 s=0.000 lv=-40.7 pk=-39.4 c0=6.6 c1=5.4 kw=5.14 inf=1.57 iv=0.00 n=0 d=2 sk=3 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:00.001 @T t=13204 s=0.000 lv=-40.0 pk=-38.8 c0=5.6 c1=4.9 kw=4.74 inf=1.87 iv=0.00 n=0 d=2 sk=2 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=13310 s=0.000 lv=-40.9 pk=-39.2 c0=3.8 c1=6.3 kw=6.07 inf=1.39 iv=0.00 n=0 d=2 sk=4 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=13396 s=0.000 lv=-39.5 pk=-38.1 c0=3.8 c1=5.0 kw=4.89 inf=1.82 iv=0.00 n=0 d=2 sk=2 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=13502 s=0.000 lv=-38.8 pk=-38.2 c0=3.7 c1=5.2 kw=4.98 inf=1.53 iv=0.00 n=0 d=2 sk=3 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=13608 s=0.000 lv=-39.4 pk=-38.1 c0=3.8 c1=6.2 kw=6.02 inf=1.38 iv=0.00 n=0 d=2 sk=4 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=13714 s=0.000 lv=-38.3 pk=-36.8 c0=3.9 c1=5.2 kw=5.04 inf=1.55 iv=0.00 n=0 d=2 sk=3 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=13800 s=0.000 lv=-39.9 pk=-39.1 c0=4.7 c1=5.1 kw=4.98 inf=1.86 iv=0.00 n=0 d=2 sk=2 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=13906 s=0.000 lv=-39.6 pk=-38.0 c0=4.0 c1=6.2 kw=6.01 inf=1.38 iv=0.00 n=0 d=2 sk=4 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=14012 s=0.000 lv=-39.8 pk=-37.7 c0=3.9 c1=5.1 kw=4.99 inf=1.53 iv=0.00 n=0 d=2 sk=3 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=14098 s=0.000 lv=-31.7 pk=-27.9 c0=4.6 c1=18.6 kw=17.52 inf=1.21 iv=0.97 n=11 d=2 sk=1 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:00.001 @T t=14209 s=0.000 lv=-26.3 pk=-22.7 c0=4.8 c1=10.2 kw=9.98 inf=2.55 iv=1.11 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=14295 s=0.000 lv=-35.6 pk=-33.2 c0=5.5 c1=8.6 kw=8.34 inf=3.29 iv=1.33 n=2 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=14401 s=0.000 lv=-39.4 pk=-37.0 c0=3.9 c1=10.1 kw=9.88 inf=2.43 iv=1.22 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:00.001 @T t=14507 s=0.015 lv=-39.5 pk=-37.8 c0=3.3 c1=10.7 kw=10.46 inf=2.56 iv=1.14 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=14613 s=0.020 lv=-39.5 pk=-38.7 c0=3.3 c1=8.6 kw=8.46 inf=2.75 iv=1.16 n=3 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=14699 s=0.017 lv=-38.9 pk=-38.4 c0=4.0 c1=9.4 kw=9.22 inf=2.45 iv=1.17 n=3 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=14805 s=0.002 lv=-40.4 pk=-39.2 c0=3.7 c1=8.9 kw=8.75 inf=2.80 iv=1.19 n=3 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=14913 s=0.000 lv=-38.1 pk=-36.6 c0=3.3 c1=10.8 kw=10.56 inf=2.67 iv=1.25 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=14999 s=0.000 lv=-36.2 pk=-36.0 c0=4.0 c1=9.1 kw=8.97 inf=2.38 iv=1.11 n=3 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=15105 s=0.000 lv=-36.9 pk=-35.2 c0=4.3 c1=9.9 kw=8.95 inf=2.87 iv=1.22 n=3 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:02.491 @T t=15200 s=0.000 lv=-37.3 pk=-36.4 c0=4.6 c1=10.1 kw=9.83 inf=2.92 iv=1.35 n=3 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=15306 s=0.000 lv=-28.8 pk=-24.6 c0=3.2 c1=10.5 kw=10.32 inf=2.52 iv=1.09 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=15412 s=0.000 lv=-38.3 pk=-36.8 c0=3.2 c1=9.3 kw=9.15 inf=2.24 iv=1.07 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=15498 s=0.000 lv=-38.2 pk=-37.5 c0=6.5 c1=9.4 kw=9.20 inf=3.66 iv=1.66 n=2 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=15604 s=0.000 lv=-38.1 pk=-37.6 c0=4.7 c1=10.1 kw=9.86 inf=2.43 iv=1.20 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=15713 s=0.000 lv=-30.2 pk=-26.6 c0=3.9 c1=10.7 kw=10.46 inf=2.62 iv=1.16 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=15799 s=0.000 lv=-24.8 pk=-23.4 c0=4.0 c1=8.0 kw=7.86 inf=3.09 iv=1.18 n=2 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=15905 s=0.000 lv=-28.7 pk=-25.8 c0=4.2 c1=10.3 kw=10.07 inf=2.45 iv=1.22 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=16011 s=0.003 lv=-31.8 pk=-30.8 c0=4.1 c1=11.3 kw=11.06 inf=2.75 iv=1.22 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=16097 s=0.009 lv=-37.6 pk=-34.9 c0=9.0 c1=9.8 kw=8.66 inf=3.42 iv=1.46 n=2 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:02.491 @T t=16209 s=0.081 lv=-38.5 pk=-37.3 c0=4.7 c1=10.7 kw=10.50 inf=2.72 iv=1.25 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=16295 s=0.308 lv=-38.8 pk=-38.0 c0=8.4 c1=9.5 kw=9.34 inf=2.48 iv=1.19 n=3 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=16401 s=0.369 lv=-39.5 pk=-39.0 c0=3.3 c1=8.9 kw=8.70 inf=2.83 iv=1.22 n=3 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=16507 s=0.234 lv=-39.7 pk=-38.9 c0=4.2 c1=11.4 kw=11.07 inf=2.71 iv=1.24 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 I (16967) wake_word: score event: peak 0.37 over 210 ms -> not detected (below threshold or in cool-down)
+18:08:02.491 @T t=16613 s=0.014 lv=-40.4 pk=-39.7 c0=4.2 c1=12.0 kw=12.06 inf=3.01 iv=1.31 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=16699 s=0.004 lv=-39.4 pk=-39.3 c0=5.6 c1=8.9 kw=8.65 inf=3.42 iv=1.44 n=2 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=16805 s=0.004 lv=-40.0 pk=-38.1 c0=4.3 c1=10.4 kw=10.16 inf=2.47 iv=1.24 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=16911 s=0.002 lv=-39.8 pk=-38.6 c0=3.4 c1=10.7 kw=10.49 inf=2.60 iv=1.11 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:02.491 @T t=16997 s=0.000 lv=-37.8 pk=-37.0 c0=4.0 c1=8.0 kw=7.79 inf=3.06 iv=1.16 n=2 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.885 @T t=17103 s=0.000 lv=-39.4 pk=-38.0 c0=3.7 c1=10.7 kw=9.71 inf=2.39 iv=1.18 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.885 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:04.885 @T t=17214 s=0.000 lv=-39.0 pk=-38.2 c0=11.1 c1=10.3 kw=10.04 inf=2.56 iv=1.12 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.885 @T t=17300 s=0.000 lv=-29.2 pk=-24.5 c0=4.0 c1=8.0 kw=7.84 inf=3.08 iv=1.16 n=2 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.885 @T t=17406 s=0.000 lv=-22.7 pk=-21.9 c0=3.3 c1=10.6 kw=10.37 inf=2.53 iv=1.09 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.885 @T t=17512 s=0.000 lv=-27.0 pk=-24.3 c0=3.7 c1=9.8 kw=9.53 inf=2.34 iv=1.14 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.885 @T t=17598 s=0.003 lv=-38.0 pk=-35.6 c0=4.0 c1=8.2 kw=8.02 inf=3.16 iv=1.25 n=2 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.885 @T t=17704 s=0.015 lv=-30.7 pk=-29.9 c0=3.2 c1=9.7 kw=9.51 inf=2.34 iv=1.14 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.885 @T t=17810 s=0.073 lv=-33.7 pk=-32.6 c0=3.3 c1=10.8 kw=10.57 inf=2.58 iv=1.13 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.885 @T t=17896 s=0.094 lv=-29.2 pk=-27.7 c0=7.0 c1=9.1 kw=8.78 inf=3.47 iv=1.47 n=2 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.885 @T t=18002 s=0.492 lv=-23.0 pk=-20.4 c0=6.8 c1=10.3 kw=10.07 inf=2.48 iv=1.25 n=4 d=2 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.885 I (18408) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.55, t = 18.03 s)
+18:08:04.885 @T t=18108 s=0.550 lv=-26.0 pk=-22.9 c0=4.7 c1=13.8 kw=11.57 inf=2.84 iv=1.34 n=4 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.885 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:04.885 @T t=18199 s=0.295 lv=-28.3 pk=-26.2 c0=13.1 c1=7.8 kw=7.66 inf=3.19 iv=1.26 n=2 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.885 @T t=18305 s=0.356 lv=-33.5 pk=-30.3 c0=4.2 c1=10.3 kw=10.10 inf=2.45 iv=1.24 n=4 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.885 @T t=18411 s=0.800 lv=-39.7 pk=-38.5 c0=4.2 c1=11.4 kw=11.16 inf=2.77 iv=1.24 n=4 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.885 @T t=18497 s=0.966 lv=-40.4 pk=-39.7 c0=5.1 c1=8.8 kw=8.57 inf=3.38 iv=1.42 n=2 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.885 @T t=18603 s=0.952 lv=-39.0 pk=-37.5 c0=4.1 c1=10.3 kw=10.02 inf=2.47 iv=1.25 n=4 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.886 @T t=18709 s=0.615 lv=-40.1 pk=-38.0 c0=6.8 c1=11.3 kw=11.01 inf=2.69 iv=1.24 n=4 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.886 @T t=18795 s=0.131 lv=-40.0 pk=-39.1 c0=4.1 c1=8.2 kw=8.06 inf=3.17 iv=1.25 n=2 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.886 I (19267) wake_word: score event: peak 0.97 over 840 ms -> detected
+18:08:04.886 @T t=18901 s=0.034 lv=-40.0 pk=-38.7 c0=4.3 c1=11.4 kw=11.18 inf=2.78 iv=1.26 n=4 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.886 @T t=19008 s=0.030 lv=-39.4 pk=-37.8 c0=7.8 c1=11.1 kw=10.88 inf=2.69 iv=1.24 n=4 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.886 W (19409) stream: no server connection: detection not streamed
+18:08:04.886 I (19410) stream: stream finished (no_server): 0 ms of audio sent (0 KB)
+18:08:04.886 @T t=19114 s=0.017 lv=-39.8 pk=-39.3 c0=7.7 c1=9.5 kw=9.24 inf=3.01 iv=1.33 n=3 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.886 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:04.886 @T t=19205 s=0.000 lv=-39.8 pk=-38.8 c0=5.5 c1=9.4 kw=9.17 inf=2.53 iv=1.23 n=3 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.886 @T t=19311 s=0.000 lv=-41.1 pk=-40.6 c0=5.9 c1=10.6 kw=10.39 inf=2.57 iv=1.09 n=4 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:04.886 @T t=19397 s=0.000 lv=-40.0 pk=-38.0 c0=3.9 c1=7.9 kw=7.73 inf=3.03 iv=1.15 n=2 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:07.184 @T t=19503 s=0.000 lv=-40.6 pk=-40.0 c0=3.2 c1=9.4 kw=9.22 inf=2.26 iv=1.08 n=4 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:07.184 @T t=19609 s=0.000 lv=-40.2 pk=-39.1 c0=3.6 c1=10.7 kw=10.41 inf=2.54 iv=1.11 n=4 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:07.184 @T t=19695 s=0.000 lv=-40.2 pk=-39.3 c0=4.0 c1=8.0 kw=7.83 inf=3.07 iv=1.17 n=2 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:07.184 @T t=19801 s=0.000 lv=-40.0 pk=-38.9 c0=3.2 c1=9.4 kw=9.23 inf=2.26 iv=1.08 n=4 d=3 sk=0 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:07.184 @T t=19907 s=0.000 lv=-39.5 pk=-37.4 c0=3.8 c1=7.6 kw=7.37 inf=2.32 iv=1.33 n=1 d=3 sk=2 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:07.184 @T t=20013 s=0.000 lv=-40.4 pk=-39.1 c0=3.2 c1=5.1 kw=4.97 inf=1.52 iv=0.00 n=0 d=3 sk=3 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:07.184 @T t=20099 s=0.000 lv=-40.8 pk=-39.5 c0=5.2 c1=5.2 kw=4.97 inf=1.86 iv=0.00 n=0 d=3 sk=2 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:07.184 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:07.184 @T t=20211 s=0.000 lv=-40.3 pk=-39.2 c0=3.8 c1=5.8 kw=5.65 inf=1.38 iv=0.00 n=0 d=3 sk=4 hf=98132 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233416 rp=234252
+18:08:07.184 @T t=20297 s=0.000 lv=-39.6 pk=-37.4 c0=5.9 c1=5.5 kw=5.14 inf=1.92 iv=0.00 n=0 d=3 sk=2 hf=98064 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234252
+18:08:07.184 @T t=20403 s=0.000 lv=-40.7 pk=-39.4 c0=4.6 c1=5.2 kw=5.02 inf=1.54 iv=0.00 n=0 d=3 sk=3 hf=98064 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234252
+18:08:07.184 @T t=20509 s=0.000 lv=-39.8 pk=-38.3 c0=3.8 c1=6.1 kw=5.97 inf=1.37 iv=0.00 n=0 d=3 sk=4 hf=98064 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234252
+18:08:07.184 @T t=20595 s=0.000 lv=-40.8 pk=-39.7 c0=3.8 c1=5.0 kw=4.95 inf=1.85 iv=0.00 n=0 d=3 sk=2 hf=98064 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234252
+18:08:07.184 @T t=20701 s=0.000 lv=-40.3 pk=-39.1 c0=3.6 c1=5.1 kw=4.96 inf=1.52 iv=0.00 n=0 d=3 sk=3 hf=98064 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234252
+18:08:07.184 @T t=20807 s=0.000 lv=-39.1 pk=-38.4 c0=3.8 c1=6.2 kw=5.99 inf=1.38 iv=0.00 n=0 d=3 sk=4 hf=98064 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234252
+18:08:07.184 @T t=20913 s=0.000 lv=-39.0 pk=-38.0 c0=4.0 c1=5.2 kw=5.04 inf=1.54 iv=0.00 n=0 d=3 sk=3 hf=98064 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234252
+18:08:07.184 @T t=20999 s=0.000 lv=-39.9 pk=-38.7 c0=4.8 c1=5.1 kw=4.90 inf=1.83 iv=0.00 n=0 d=3 sk=2 hf=98064 hm=97296 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234252
+18:08:07.184 [status] up 21s | mic -33.9 dBFS (peak -20.4) | score max 0.97 | detections 3 | inferences 230 (23.0/s; model 1.20 ms each, paused in quiet 30%; features 1.46 ms per 30 ms) | CPU core0  5.3% core1  8.5% (wake word pipeline 8.30% of one core) | RAM used 228 KB (peak 228 KB, 95 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+18:08:07.184 @T t=21108 s=0.000 lv=-39.5 pk=-38.3 c0=9.2 c1=5.8 kw=5.94 inf=1.41 iv=0.00 n=0 d=3 sk=4 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:07.184 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:07.184 @T t=21200 s=0.000 lv=-41.0 pk=-40.3 c0=12.9 c1=5.2 kw=4.66 inf=1.85 iv=0.00 n=0 d=3 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:07.184 @T t=21306 s=0.000 lv=-40.7 pk=-39.0 c0=3.7 c1=6.1 kw=5.93 inf=1.36 iv=0.00 n=0 d=3 sk=4 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:07.184 @T t=21412 s=0.000 lv=-37.4 pk=-32.9 c0=3.9 c1=10.9 kw=4.17 inf=0.41 iv=0.00 n=7 d=3 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:07.184 @T t=21498 s=0.000 lv=-22.7 pk=-21.7 c0=8.8 c1=14.6 kw=22.43 inf=3.12 iv=2.30 n=6 d=3 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:07.184 @T t=21604 s=0.000 lv=-26.6 pk=-23.5 c0=4.3 c1=8.6 kw=8.44 inf=2.74 iv=1.14 n=3 d=3 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:07.184 @T t=21710 s=0.000 lv=-32.7 pk=-29.6 c0=6.0 c1=11.0 kw=10.78 inf=2.63 iv=1.16 n=4 d=3 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=21796 s=0.001 lv=-34.1 pk=-33.4 c0=4.0 c1=9.4 kw=9.17 inf=2.43 iv=1.16 n=3 d=3 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=21902 s=0.220 lv=-34.8 pk=-31.1 c0=3.4 c1=8.7 kw=8.51 inf=2.77 iv=1.18 n=3 d=3 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 I (22327) kws: >>> WAKE WORD "marvin" DETECTED  (score 0.59, t = 21.95 s)
+18:08:09.583 @T t=22008 s=0.585 lv=-40.9 pk=-39.8 c0=3.8 c1=12.5 kw=11.05 inf=2.71 iv=1.24 n=4 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=22114 s=0.991 lv=-39.4 pk=-38.7 c0=4.6 c1=9.3 kw=9.09 inf=2.96 iv=1.34 n=3 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:09.583 @T t=22205 s=0.996 lv=-40.2 pk=-37.6 c0=4.9 c1=9.6 kw=9.03 inf=2.50 iv=1.20 n=3 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=22311 s=0.989 lv=-40.8 pk=-40.3 c0=6.5 c1=10.0 kw=10.59 inf=2.64 iv=1.20 n=4 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=22398 s=0.994 lv=-41.2 pk=-39.5 c0=8.0 c1=10.2 kw=9.33 inf=2.50 iv=1.21 n=3 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=22504 s=0.994 lv=-40.0 pk=-39.0 c0=5.9 c1=8.7 kw=8.54 inf=2.78 iv=1.18 n=3 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=22610 s=0.958 lv=-39.3 pk=-35.7 c0=3.3 c1=11.0 kw=10.72 inf=2.62 iv=1.15 n=4 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=22696 s=0.212 lv=-38.9 pk=-37.5 c0=6.1 c1=10.3 kw=9.90 inf=2.64 iv=1.30 n=3 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 I (23167) wake_word: score event: peak 1.00 over 780 ms -> detected
+18:08:09.583 @T t=22802 s=0.000 lv=-39.4 pk=-38.1 c0=7.4 c1=9.6 kw=9.40 inf=3.08 iv=1.13 n=3 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=22908 s=0.000 lv=-40.1 pk=-39.1 c0=3.5 c1=10.7 kw=10.53 inf=2.57 iv=1.14 n=4 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 W (23329) stream: no server connection: detection not streamed
+18:08:09.583 I (23330) stream: stream finished (no_server): 0 ms of audio sent (0 KB)
+18:08:09.583 @T t=22995 s=0.000 lv=-40.2 pk=-39.7 c0=8.1 c1=9.4 kw=9.21 inf=2.47 iv=1.18 n=3 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=23102 s=0.000 lv=-40.2 pk=-37.4 c0=4.6 c1=9.8 kw=8.82 inf=2.90 iv=1.28 n=3 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:09.583 @T t=23213 s=0.000 lv=-40.4 pk=-38.7 c0=4.8 c1=10.6 kw=10.39 inf=2.66 iv=1.21 n=4 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=23299 s=0.000 lv=-40.5 pk=-39.6 c0=5.1 c1=9.7 kw=9.53 inf=2.53 iv=1.23 n=3 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=23405 s=0.000 lv=-40.3 pk=-38.9 c0=4.1 c1=8.5 kw=8.37 inf=2.67 iv=1.10 n=3 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=23514 s=0.000 lv=-40.9 pk=-39.5 c0=3.2 c1=7.8 kw=7.62 inf=1.90 iv=1.70 n=1 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=23600 s=0.000 lv=-39.2 pk=-38.1 c0=4.9 c1=5.1 kw=4.97 inf=1.86 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=23706 s=0.000 lv=-38.9 pk=-37.2 c0=7.2 c1=6.2 kw=6.00 inf=1.38 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=23812 s=0.000 lv=-39.3 pk=-37.5 c0=6.5 c1=5.2 kw=5.01 inf=1.54 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=23898 s=0.000 lv=-37.4 pk=-37.0 c0=4.9 c1=5.2 kw=5.03 inf=1.87 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=24004 s=0.000 lv=-37.8 pk=-36.2 c0=4.1 c1=5.1 kw=4.99 inf=1.53 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @T t=24110 s=0.000 lv=-38.5 pk=-36.8 c0=3.6 c1=7.1 kw=6.12 inf=1.41 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:09.583 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:12.094 @T t=24201 s=0.000 lv=-40.4 pk=-40.2 c0=4.6 c1=4.7 kw=4.62 inf=1.82 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.094 @T t=24307 s=0.000 lv=-41.8 pk=-40.8 c0=2.9 c1=6.0 kw=5.86 inf=1.35 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.094 @T t=24413 s=0.000 lv=-40.6 pk=-38.7 c0=3.4 c1=5.1 kw=4.93 inf=1.51 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.094 @T t=24499 s=0.000 lv=-42.2 pk=-41.5 c0=3.7 c1=5.0 kw=4.85 inf=1.81 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.094 @T t=24605 s=0.000 lv=-41.1 pk=-40.5 c0=2.9 c1=5.1 kw=5.03 inf=1.50 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.094 @T t=24711 s=0.000 lv=-41.7 pk=-40.5 c0=3.0 c1=6.1 kw=5.74 inf=1.80 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.094 @T t=24797 s=0.000 lv=-40.7 pk=-39.6 c0=4.0 c1=5.1 kw=4.89 inf=1.82 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.094 @T t=24903 s=0.000 lv=-41.0 pk=-39.8 c0=6.4 c1=5.1 kw=4.94 inf=1.51 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.094 @T t=25009 s=0.000 lv=-39.6 pk=-38.6 c0=6.2 c1=6.1 kw=5.94 inf=1.37 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.094 @T t=25095 s=0.000 lv=-40.1 pk=-39.8 c0=7.1 c1=5.6 kw=5.20 inf=1.94 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.094 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:12.095 @T t=25206 s=0.000 lv=-40.1 pk=-37.6 c0=5.1 c1=5.9 kw=5.75 inf=1.38 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.095 @T t=25312 s=0.000 lv=-40.7 pk=-39.7 c0=3.2 c1=5.1 kw=4.94 inf=1.51 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.095 @T t=25398 s=0.000 lv=-41.1 pk=-40.2 c0=4.5 c1=5.1 kw=4.93 inf=1.84 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.095 @T t=25504 s=0.000 lv=-40.2 pk=-39.4 c0=3.9 c1=5.2 kw=5.04 inf=1.54 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.095 @T t=25610 s=0.000 lv=-41.0 pk=-40.1 c0=3.9 c1=6.3 kw=6.07 inf=1.39 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.095 @T t=25696 s=0.000 lv=-41.9 pk=-40.9 c0=4.8 c1=5.1 kw=4.97 inf=1.85 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.095 @T t=25802 s=0.000 lv=-40.1 pk=-39.2 c0=3.1 c1=5.1 kw=4.96 inf=1.52 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.095 @T t=25908 s=0.000 lv=-40.9 pk=-39.1 c0=3.9 c1=6.3 kw=6.05 inf=1.39 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.095 @T t=26014 s=0.000 lv=-34.6 pk=-28.4 c0=3.9 c1=12.8 kw=4.20 inf=0.34 iv=0.00 n=9 d=4 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.095 @T t=26103 s=0.000 lv=-22.2 pk=-21.2 c0=5.5 c1=13.0 kw=21.96 inf=4.73 iv=3.44 n=4 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.095 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:12.095 @T t=26214 s=0.000 lv=-30.9 pk=-26.5 c0=11.5 c1=10.6 kw=10.33 inf=2.64 iv=1.20 n=4 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.095 @T t=26300 s=0.002 lv=-32.6 pk=-32.1 c0=8.4 c1=8.2 kw=8.02 inf=3.16 iv=1.23 n=2 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.095 @T t=26406 s=0.002 lv=-38.4 pk=-34.6 c0=4.0 c1=11.1 kw=10.88 inf=2.66 iv=1.21 n=4 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.095 @T t=26512 s=0.318 lv=-40.5 pk=-39.9 c0=6.4 c1=9.8 kw=9.61 inf=2.36 iv=1.16 n=4 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:12.095 @T t=26598 s=0.386 lv=-40.6 pk=-39.6 c0=4.0 c1=8.2 kw=8.03 inf=3.16 iv=1.24 n=2 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=26704 s=0.338 lv=-40.4 pk=-39.6 c0=3.2 c1=9.8 kw=9.55 inf=2.35 iv=1.15 n=4 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=26810 s=0.105 lv=-40.2 pk=-38.9 c0=3.7 c1=11.1 kw=10.87 inf=2.66 iv=1.19 n=4 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 I (27247) wake_word: score event: peak 0.39 over 270 ms -> not detected (below threshold or in cool-down)
+18:08:14.498 @T t=26896 s=0.021 lv=-42.0 pk=-41.5 c0=4.2 c1=10.0 kw=10.17 inf=4.08 iv=1.26 n=2 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=27002 s=0.026 lv=-40.3 pk=-39.6 c0=3.1 c1=9.7 kw=9.51 inf=2.34 iv=1.15 n=4 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=27108 s=0.008 lv=-40.6 pk=-39.0 c0=3.9 c1=12.0 kw=11.02 inf=2.70 iv=1.25 n=4 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:14.498 @T t=27199 s=0.002 lv=-41.0 pk=-40.1 c0=13.6 c1=7.7 kw=7.55 inf=3.14 iv=1.22 n=2 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=27305 s=0.001 lv=-41.8 pk=-41.2 c0=5.9 c1=9.5 kw=9.30 inf=2.25 iv=1.08 n=4 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=27411 s=0.000 lv=-41.6 pk=-41.2 c0=3.2 c1=10.5 kw=10.05 inf=2.48 iv=1.07 n=4 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 W (27870) wifi: cannot connect (reason 201). Check the name/password in menuconfig; the ESP32 needs a 2.4 GHz network (201 = network not found, 15/204 = wrong password)
+18:08:14.498 @T t=27497 s=0.000 lv=-41.7 pk=-40.6 c0=8.9 c1=8.1 kw=7.76 inf=3.05 iv=1.15 n=2 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=27611 s=0.000 lv=-41.0 pk=-39.8 c0=3.4 c1=10.1 kw=9.89 inf=2.60 iv=1.16 n=4 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=27698 s=0.000 lv=-42.0 pk=-41.0 c0=5.0 c1=9.2 kw=8.98 inf=2.41 iv=1.14 n=3 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=27804 s=0.000 lv=-40.7 pk=-40.0 c0=7.3 c1=9.0 kw=8.75 inf=2.84 iv=1.23 n=3 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=27913 s=0.000 lv=-40.5 pk=-39.3 c0=4.1 c1=10.9 kw=10.60 inf=2.66 iv=1.19 n=4 d=4 sk=0 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=27999 s=0.000 lv=-41.1 pk=-40.1 c0=8.3 c1=5.1 kw=5.00 inf=1.87 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=28105 s=0.000 lv=-41.9 pk=-41.5 c0=4.5 c1=6.1 kw=5.15 inf=1.54 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:14.498 @T t=28196 s=0.000 lv=-40.9 pk=-39.9 c0=4.7 c1=6.2 kw=6.02 inf=1.64 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=28302 s=0.000 lv=-40.3 pk=-38.1 c0=3.7 c1=5.2 kw=4.97 inf=1.52 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=28408 s=0.000 lv=-39.5 pk=-38.3 c0=3.9 c1=6.2 kw=6.02 inf=1.38 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=28514 s=0.000 lv=-40.1 pk=-39.5 c0=3.9 c1=5.2 kw=5.06 inf=1.55 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=28600 s=0.000 lv=-39.7 pk=-38.5 c0=8.7 c1=5.2 kw=4.99 inf=1.86 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=28706 s=0.000 lv=-40.8 pk=-39.9 c0=3.9 c1=6.1 kw=5.96 inf=1.37 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=28812 s=0.000 lv=-40.5 pk=-39.6 c0=3.7 c1=5.1 kw=4.94 inf=1.51 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=28898 s=0.000 lv=-39.8 pk=-38.4 c0=4.3 c1=5.1 kw=4.93 inf=1.84 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:14.498 @T t=29004 s=0.000 lv=-41.2 pk=-40.1 c0=3.1 c1=5.0 kw=4.92 inf=1.51 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:16.785 @T t=29110 s=0.000 lv=-39.8 pk=-39.0 c0=6.6 c1=7.0 kw=6.03 inf=1.39 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:16.785 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:16.785 @T t=29201 s=0.000 lv=-40.4 pk=-39.4 c0=5.2 c1=4.8 kw=4.65 inf=1.83 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:16.785 @T t=29307 s=0.000 lv=-40.4 pk=-36.2 c0=3.0 c1=6.0 kw=5.87 inf=1.35 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:16.785 @T t=29413 s=0.000 lv=-41.2 pk=-40.5 c0=2.9 c1=5.0 kw=4.89 inf=1.50 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:16.785 @T t=29499 s=0.000 lv=-40.3 pk=-38.7 c0=7.7 c1=5.0 kw=4.83 inf=1.80 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:16.785 @T t=29605 s=0.000 lv=-41.3 pk=-40.3 c0=3.3 c1=5.2 kw=5.10 inf=1.53 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:16.785 @T t=29711 s=0.000 lv=-41.2 pk=-40.4 c0=3.0 c1=6.2 kw=5.75 inf=1.80 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:16.785 @T t=29797 s=0.000 lv=-41.7 pk=-41.1 c0=3.6 c1=5.0 kw=4.83 inf=1.80 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:16.785 @T t=29904 s=0.000 lv=-41.0 pk=-39.3 c0=4.5 c1=5.3 kw=4.86 inf=1.49 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:16.785 @T t=30011 s=0.000 lv=-40.8 pk=-39.7 c0=4.2 c1=6.2 kw=6.11 inf=1.43 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:16.786 @T t=30097 s=0.000 lv=-41.3 pk=-39.8 c0=9.3 c1=6.2 kw=5.11 inf=1.90 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:16.786 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:16.786 @T t=30208 s=0.000 lv=-40.5 pk=-39.3 c0=11.5 c1=5.9 kw=5.79 inf=1.39 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:16.786 @T t=30314 s=0.000 lv=-41.1 pk=-40.9 c0=3.9 c1=5.2 kw=5.02 inf=1.54 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:16.786 @T t=30400 s=0.000 lv=-42.5 pk=-41.5 c0=4.7 c1=5.0 kw=4.88 inf=1.82 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97232 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234316
+18:08:16.786 @T t=30506 s=0.000 lv=-40.9 pk=-39.4 c0=3.1 c1=6.1 kw=5.95 inf=1.37 iv=0.00 n=0 d=4 sk=4 hf=97876 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233672 rp=234332
+18:08:16.786 @T t=30612 s=0.000 lv=-40.9 pk=-40.4 c0=6.2 c1=5.1 kw=4.96 inf=1.52 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:16.786 @T t=30698 s=0.000 lv=-41.2 pk=-40.1 c0=8.6 c1=5.1 kw=4.93 inf=1.84 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:16.786 @T t=30804 s=0.000 lv=-41.2 pk=-40.5 c0=3.9 c1=5.2 kw=5.01 inf=1.53 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:16.786 @T t=30913 s=0.000 lv=-41.4 pk=-39.4 c0=9.4 c1=6.1 kw=5.89 inf=1.39 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:16.786 @T t=30999 s=0.000 lv=-39.2 pk=-38.0 c0=4.9 c1=5.1 kw=4.91 inf=1.83 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:16.786 [status] up 31s | mic -36.0 dBFS (peak -21.2) | score max 1.00 | detections 4 | inferences 150 (15.0/s; model 1.17 ms each, paused in quiet 54%; features 1.44 ms per 30 ms) | CPU core0  5.2% core1  7.4% (wake word pipeline 7.19% of one core) | RAM used 228 KB (peak 228 KB, 95 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+18:08:16.786 @T t=31108 s=0.000 lv=-41.3 pk=-39.7 c0=8.9 c1=6.2 kw=5.93 inf=1.40 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:16.786 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:16.786 @T t=31200 s=0.000 lv=-39.4 pk=-39.0 c0=13.7 c1=4.8 kw=4.63 inf=1.85 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:16.786 @T t=31306 s=0.000 lv=-37.4 pk=-35.4 c0=3.7 c1=6.2 kw=5.07 inf=1.51 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.397 @T t=31395 s=0.000 lv=-39.8 pk=-39.0 c0=10.6 c1=20.2 kw=21.14 inf=1.40 iv=1.02 n=13 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.397 @T t=31501 s=0.000 lv=-40.9 pk=-39.6 c0=3.2 c1=8.4 kw=8.19 inf=2.65 iv=1.10 n=3 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.397 @T t=31607 s=0.000 lv=-40.7 pk=-37.9 c0=3.7 c1=10.5 kw=10.52 inf=2.57 iv=1.14 n=4 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.397 @T t=31713 s=0.000 lv=-41.5 pk=-40.0 c0=3.2 c1=8.7 kw=8.25 inf=2.67 iv=1.10 n=3 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.397 @T t=31799 s=0.000 lv=-40.7 pk=-39.6 c0=3.9 c1=9.2 kw=8.97 inf=2.38 iv=1.11 n=3 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.397 @T t=31905 s=0.000 lv=-40.1 pk=-38.8 c0=3.4 c1=8.7 kw=8.52 inf=2.72 iv=1.13 n=3 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.397 @T t=32014 s=0.000 lv=-38.2 pk=-35.6 c0=9.1 c1=10.8 kw=10.56 inf=2.69 iv=1.26 n=4 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.397 @T t=32100 s=0.000 lv=-41.4 pk=-40.9 c0=4.7 c1=10.7 kw=9.61 inf=2.56 iv=1.26 n=3 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.397 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:19.397 @T t=32211 s=0.000 lv=-39.8 pk=-39.3 c0=4.0 c1=10.2 kw=9.96 inf=2.55 iv=1.12 n=4 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.397 @T t=32297 s=0.000 lv=-39.5 pk=-38.2 c0=3.9 c1=9.4 kw=9.24 inf=2.45 iv=1.17 n=3 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.397 @T t=32403 s=0.000 lv=-40.8 pk=-40.0 c0=5.5 c1=9.0 kw=8.68 inf=2.82 iv=1.20 n=3 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.397 @T t=32509 s=0.000 lv=-40.1 pk=-37.7 c0=7.4 c1=11.3 kw=11.04 inf=2.70 iv=1.24 n=4 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.397 @T t=32595 s=0.000 lv=-40.3 pk=-39.4 c0=8.4 c1=10.0 kw=9.79 inf=2.60 iv=1.30 n=3 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.397 @T t=32701 s=0.000 lv=-40.4 pk=-39.3 c0=4.1 c1=9.2 kw=8.94 inf=2.91 iv=1.29 n=3 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.397 @T t=32807 s=0.000 lv=-42.2 pk=-41.7 c0=6.9 c1=10.8 kw=11.08 inf=2.71 iv=1.25 n=4 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.398 @T t=32896 s=0.000 lv=-41.0 pk=-39.9 c0=3.9 c1=9.8 kw=8.96 inf=2.46 iv=1.18 n=3 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.398 @T t=33002 s=0.000 lv=-40.6 pk=-39.2 c0=4.1 c1=8.9 kw=8.70 inf=2.83 iv=1.21 n=3 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.398 @T t=33108 s=0.000 lv=-40.9 pk=-38.7 c0=5.4 c1=11.4 kw=11.14 inf=2.73 iv=1.26 n=4 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.398 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:19.398 @T t=33199 s=0.000 lv=-40.1 pk=-39.0 c0=5.7 c1=9.5 kw=9.30 inf=2.62 iv=1.30 n=3 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.398 @T t=33305 s=0.000 lv=-41.0 pk=-40.1 c0=4.1 c1=9.3 kw=9.09 inf=2.92 iv=1.29 n=3 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.398 @T t=33411 s=0.000 lv=-41.2 pk=-39.2 c0=7.0 c1=11.6 kw=11.30 inf=2.81 iv=1.37 n=4 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.398 @T t=33497 s=0.000 lv=-41.1 pk=-40.1 c0=4.0 c1=9.1 kw=8.99 inf=2.38 iv=1.12 n=3 d=4 sk=0 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.398 @T t=33603 s=0.000 lv=-41.6 pk=-40.6 c0=4.4 c1=6.7 kw=6.51 inf=2.06 iv=1.42 n=1 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.398 @T t=33712 s=0.000 lv=-40.6 pk=-38.6 c0=3.6 c1=6.0 kw=5.84 inf=1.38 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.398 @T t=33798 s=0.000 lv=-40.3 pk=-39.3 c0=3.7 c1=5.0 kw=4.90 inf=1.83 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:19.398 @T t=33904 s=0.000 lv=-39.9 pk=-39.0 c0=3.0 c1=5.1 kw=4.93 inf=1.51 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=34010 s=0.000 lv=-40.9 pk=-39.2 c0=3.4 c1=6.1 kw=5.94 inf=1.37 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=34096 s=0.000 lv=-40.2 pk=-39.1 c0=4.4 c1=6.1 kw=4.97 inf=1.85 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:21.990 @T t=34207 s=0.000 lv=-39.9 pk=-38.9 c0=3.8 c1=5.8 kw=5.66 inf=1.36 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=34313 s=0.000 lv=-41.3 pk=-40.3 c0=3.0 c1=5.0 kw=4.88 inf=1.50 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=34399 s=0.000 lv=-40.7 pk=-39.8 c0=4.2 c1=5.1 kw=4.89 inf=1.83 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=34505 s=0.000 lv=-41.6 pk=-40.2 c0=3.0 c1=5.1 kw=5.05 inf=1.51 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=34611 s=0.000 lv=-41.7 pk=-40.6 c0=2.9 c1=6.1 kw=5.71 inf=1.79 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=34697 s=0.000 lv=-42.0 pk=-41.4 c0=7.6 c1=5.0 kw=4.82 inf=1.80 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=34803 s=0.000 lv=-41.0 pk=-40.1 c0=4.5 c1=5.4 kw=5.07 inf=1.55 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=34912 s=0.000 lv=-40.9 pk=-39.7 c0=3.9 c1=6.0 kw=5.85 inf=1.38 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=34998 s=0.000 lv=-40.9 pk=-40.6 c0=4.7 c1=5.2 kw=5.00 inf=1.86 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=35104 s=0.000 lv=-39.6 pk=-38.9 c0=4.5 c1=6.1 kw=5.15 inf=1.58 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:21.990 @T t=35199 s=0.000 lv=-39.3 pk=-37.9 c0=15.8 c1=5.7 kw=5.61 inf=1.54 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=35305 s=0.000 lv=-41.8 pk=-40.5 c0=3.8 c1=5.3 kw=5.10 inf=1.52 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=35411 s=0.000 lv=-42.2 pk=-41.2 c0=3.8 c1=6.3 kw=5.85 inf=1.83 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=35497 s=0.000 lv=-41.8 pk=-41.3 c0=4.7 c1=5.1 kw=4.94 inf=1.84 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=35603 s=0.000 lv=-41.0 pk=-39.8 c0=3.9 c1=5.2 kw=5.03 inf=1.54 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=35709 s=0.000 lv=-41.7 pk=-39.5 c0=3.9 c1=6.2 kw=6.06 inf=1.39 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=35795 s=0.000 lv=-41.4 pk=-40.4 c0=4.0 c1=5.0 kw=4.92 inf=1.83 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=35901 s=0.000 lv=-42.7 pk=-41.7 c0=3.8 c1=5.2 kw=5.02 inf=1.54 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=36007 s=0.000 lv=-41.6 pk=-40.4 c0=4.4 c1=6.2 kw=6.00 inf=1.38 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=36113 s=0.000 lv=-41.8 pk=-40.4 c0=4.2 c1=6.0 kw=5.09 inf=1.56 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:21.990 @T t=36204 s=0.000 lv=-41.6 pk=-41.2 c0=4.6 c1=4.7 kw=4.61 inf=1.82 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=36310 s=0.000 lv=-40.5 pk=-39.2 c0=6.1 c1=6.1 kw=5.91 inf=1.36 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=36396 s=0.000 lv=-40.9 pk=-39.9 c0=3.6 c1=5.0 kw=4.85 inf=1.81 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:21.990 @T t=36502 s=0.000 lv=-40.6 pk=-38.6 c0=3.3 c1=5.1 kw=4.93 inf=1.51 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.488 @T t=36608 s=0.000 lv=-40.7 pk=-39.7 c0=3.0 c1=6.1 kw=5.92 inf=1.36 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.488 @T t=36714 s=0.000 lv=-40.4 pk=-39.6 c0=2.9 c1=5.1 kw=4.92 inf=1.51 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.488 @T t=36800 s=0.000 lv=-41.5 pk=-40.6 c0=8.1 c1=5.0 kw=4.87 inf=1.82 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @T t=36906 s=0.000 lv=-40.4 pk=-39.7 c0=3.2 c1=6.1 kw=5.95 inf=1.37 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @T t=37012 s=0.000 lv=-40.2 pk=-38.5 c0=2.9 c1=5.0 kw=4.90 inf=1.50 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @T t=37098 s=0.000 lv=-40.8 pk=-40.1 c0=5.1 c1=5.2 kw=4.97 inf=1.86 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:24.489 @T t=37209 s=0.000 lv=-40.9 pk=-40.2 c0=5.5 c1=6.1 kw=5.80 inf=1.39 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @T t=37295 s=0.000 lv=-41.0 pk=-40.0 c0=4.9 c1=5.1 kw=4.97 inf=1.85 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @T t=37401 s=0.000 lv=-41.7 pk=-39.7 c0=3.8 c1=5.2 kw=5.00 inf=1.53 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @T t=37507 s=0.000 lv=-40.4 pk=-38.2 c0=3.9 c1=6.1 kw=5.96 inf=1.37 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @T t=37613 s=0.000 lv=-40.7 pk=-39.7 c0=3.8 c1=5.0 kw=4.91 inf=1.50 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @T t=37699 s=0.000 lv=-39.5 pk=-38.0 c0=3.8 c1=5.1 kw=4.96 inf=1.85 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @T t=37805 s=0.000 lv=-38.9 pk=-37.3 c0=3.7 c1=5.3 kw=5.13 inf=1.53 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @T t=37911 s=0.000 lv=-39.1 pk=-38.5 c0=3.9 c1=6.3 kw=5.89 inf=1.84 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @T t=37997 s=0.000 lv=-38.9 pk=-38.5 c0=4.8 c1=5.2 kw=5.01 inf=1.87 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @T t=38103 s=0.000 lv=-37.8 pk=-37.2 c0=4.5 c1=5.9 kw=5.06 inf=1.55 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:24.489 @T t=38198 s=0.000 lv=-39.0 pk=-38.1 c0=15.9 c1=5.7 kw=5.62 inf=1.54 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @T t=38304 s=0.000 lv=-37.8 pk=-36.8 c0=3.7 c1=5.2 kw=5.01 inf=1.53 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @T t=38413 s=0.000 lv=-39.2 pk=-38.2 c0=4.4 c1=6.1 kw=5.95 inf=1.41 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @T t=38499 s=0.000 lv=-38.4 pk=-38.0 c0=4.5 c1=5.1 kw=4.97 inf=1.85 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.489 @T t=38605 s=0.000 lv=-38.1 pk=-36.7 c0=3.0 c1=5.2 kw=5.11 inf=1.53 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.490 @T t=38711 s=0.000 lv=-39.7 pk=-38.3 c0=2.9 c1=6.1 kw=5.76 inf=1.80 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.490 @T t=38797 s=0.000 lv=-39.4 pk=-38.4 c0=7.6 c1=4.9 kw=4.81 inf=1.79 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.490 @T t=38903 s=0.000 lv=-38.8 pk=-37.7 c0=3.4 c1=5.1 kw=4.96 inf=1.52 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:24.490 @T t=39009 s=0.000 lv=-39.3 pk=-38.0 c0=3.1 c1=6.1 kw=5.91 inf=1.36 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.784 @T t=39095 s=0.000 lv=-38.7 pk=-37.8 c0=5.2 c1=5.2 kw=5.03 inf=1.88 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.784 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:26.784 @T t=39207 s=0.000 lv=-38.3 pk=-37.3 c0=4.3 c1=5.8 kw=5.64 inf=1.37 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.784 @T t=39313 s=0.000 lv=-39.2 pk=-38.8 c0=3.1 c1=5.1 kw=4.97 inf=1.52 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.784 @T t=39399 s=0.000 lv=-38.5 pk=-37.3 c0=3.6 c1=5.0 kw=4.87 inf=1.82 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.784 @T t=39505 s=0.000 lv=-39.4 pk=-38.3 c0=2.9 c1=5.2 kw=5.06 inf=1.51 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.784 @T t=39611 s=0.000 lv=-39.9 pk=-38.7 c0=4.9 c1=6.5 kw=5.90 inf=1.85 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.784 @T t=39697 s=0.000 lv=-39.5 pk=-38.7 c0=4.9 c1=5.2 kw=5.01 inf=1.87 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.784 @T t=39803 s=0.000 lv=-39.7 pk=-38.6 c0=3.8 c1=5.2 kw=5.03 inf=1.54 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.784 @T t=39909 s=0.000 lv=-39.2 pk=-38.0 c0=4.0 c1=6.2 kw=6.05 inf=1.39 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.785 @T t=39995 s=0.000 lv=-40.5 pk=-39.7 c0=3.9 c1=5.0 kw=4.88 inf=1.82 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.785 @T t=40101 s=0.000 lv=-40.0 pk=-39.3 c0=4.2 c1=6.0 kw=5.10 inf=1.56 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.785 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:26.785 @T t=40212 s=0.000 lv=-40.3 pk=-39.9 c0=4.6 c1=5.9 kw=5.77 inf=1.39 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.785 @T t=40298 s=0.000 lv=-39.7 pk=-38.5 c0=4.8 c1=5.1 kw=4.99 inf=1.86 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.785 @T t=40404 s=0.000 lv=-39.7 pk=-38.8 c0=3.9 c1=5.2 kw=5.01 inf=1.53 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.785 @T t=40510 s=0.000 lv=-39.7 pk=-37.9 c0=3.9 c1=6.3 kw=6.06 inf=1.40 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.785 @T t=40596 s=0.000 lv=-39.6 pk=-39.1 c0=4.0 c1=5.0 kw=4.94 inf=1.84 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.785 @T t=40702 s=0.000 lv=-40.8 pk=-39.9 c0=3.7 c1=5.2 kw=4.99 inf=1.53 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.785 @T t=40808 s=0.000 lv=-39.3 pk=-38.6 c0=4.0 c1=6.2 kw=6.02 inf=1.39 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.785 @T t=40914 s=0.000 lv=-39.1 pk=-37.9 c0=4.0 c1=5.1 kw=5.00 inf=1.53 iv=0.00 n=0 d=4 sk=3 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.785 @T t=41000 s=0.000 lv=-40.5 pk=-38.5 c0=3.8 c1=5.0 kw=4.87 inf=1.81 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.785 [status] up 41s | mic -40.1 dBFS (peak -35.4) | score max 0.00 | detections 4 | inferences 84 (8.4/s; model 1.18 ms each, paused in quiet 73%; features 1.49 ms per 30 ms) | CPU core0  4.7% core1  6.6% (wake word pipeline 6.35% of one core) | RAM used 228 KB (peak 228 KB, 95 KB free) | wifi --, server -- | audio lost since boot: i2s 0 net 0
+18:08:26.785 @T t=41109 s=0.000 lv=-39.7 pk=-38.5 c0=7.5 c1=6.8 kw=5.85 inf=1.38 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.785 @I ww=marvin cut=0.50 win=5 cool=1000 tick=100 wifi=0 srv=0 li=0 ln=0
+18:08:26.785 @T t=41204 s=0.000 lv=-41.7 pk=-40.8 c0=4.2 c1=4.5 kw=4.40 inf=1.81 iv=0.00 n=0 d=4 sk=2 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332
+18:08:26.785 @T t=41309 s=0.000 lv=-41.3 pk=-40.1 c0=3.4 c1=6.2 kw=5.98 inf=1.36 iv=0.00 n=0 d=4 sk=4 hf=98064 hm=97216 ht=283428 pf=0 pm=0 pt=0 ru=233484 rp=234332

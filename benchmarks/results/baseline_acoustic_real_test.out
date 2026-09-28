@@ -1,0 +1,147 @@
+WARNING: board did not report a server connection
+board 192.168.137.145, ping RTT {'median': 1.0, 'min': 1.0, 'max': 16.0, 'n': 20}
+[1/50] 20260927_081253_507_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[2/50] 20260927_082056_255_e072a1d53274_marvin.wav label=1 det=1 lat=434.8 text=''
+[3/50] 20260927_083658_499_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[4/50] 20260927_083709_514_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[5/50] 20260927_084202_861_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[6/50] 20260927_084205_045_e072a1d53274_marvin.wav label=1 det=1 lat=310.4 text=''
+[7/50] 20260927_084222_746_e072a1d53274_marvin.wav label=1 det=1 lat=119.3 text=''
+[8/50] 20260927_084225_747_e072a1d53274_marvin.wav label=1 det=1 lat=277.8 text=''
+[9/50] 20260927_084252_601_e072a1d53274_marvin.wav label=1 det=2 lat=134.5 text=''
+[10/50] 20260927_084404_540_e072a1d53274_marvin.wav label=1 det=1 lat=290.6 text=''
+[11/50] 20260927_084417_530_e072a1d53274_marvin.wav label=1 det=1 lat=260.5 text=''
+[12/50] 20260927_084424_301_e072a1d53274_marvin.wav label=1 det=1 lat=365.2 text=''
+[13/50] 20260927_084525_297_e072a1d53274_marvin.wav label=1 det=1 lat=285.4 text=''
+[14/50] 20260927_084535_388_e072a1d53274_marvin.wav label=1 det=1 lat=321.0 text=''
+[15/50] 20260927_084637_556_e072a1d53274_marvin.wav label=0 det=1 lat=None text=''
+[16/50] 20260927_084743_838_e072a1d53274_marvin.wav label=1 det=1 lat=257.3 text=''
+[17/50] 20260927_084753_611_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[18/50] 20260927_085041_612_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[19/50] 20260927_090223_007_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[20/50] 20260927_093215_871_e072a1d53274_marvin.wav label=1 det=1 lat=403.8 text=''
+[21/50] 20260927_093736_188_e072a1d53274_marvin.wav label=1 det=1 lat=248.8 text='Okay. Okay. All right.'
+[22/50] 20260927_093810_614_e072a1d53274_marvin.wav label=0 det=1 lat=None text='Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay.'
+[23/50] 20260927_093827_714_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[24/50] 20260927_094742_216_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[25/50] 20260927_100354_708_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[26/50] 20260927_100401_666_e072a1d53274_marvin.wav label=0 det=1 lat=None text='Whatever, you know.'
+[27/50] 20260927_102029_825_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[28/50] 20260927_102639_228_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[29/50] 20260927_103452_485_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[30/50] 20260927_104825_185_e072a1d53274_marvin.wav label=1 det=1 lat=356.5 text=''
+[31/50] 20260928_131648_429_e072a1d53274_marvin.wav label=1 det=1 lat=340.1 text=''
+[32/50] 20260928_131708_386_e072a1d53274_marvin.wav label=1 det=1 lat=315.8 text="I'm getting happy."
+[33/50] 20260928_131728_925_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[34/50] 20260928_131750_634_e072a1d53274_marvin.wav label=1 det=1 lat=264.8 text=''
+[35/50] 20260928_131830_208_e072a1d53274_marvin.wav label=1 det=1 lat=254.8 text=''
+[36/50] 20260928_132811_942_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[37/50] 20260928_132813_993_e072a1d53274_marvin.wav label=1 det=1 lat=377.0 text=''
+[38/50] 20260928_133112_489_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[39/50] 20260928_135250_694_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[40/50] 20260928_135324_781_e072a1d53274_marvin.wav label=1 det=1 lat=368.7 text="I'll see you in the bedroom."
+[41/50] 20260928_135429_832_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[42/50] 20260928_135449_470_e072a1d53274_marvin.wav label=1 det=1 lat=404.8 text='Can I listen?'
+[43/50] 20260928_135855_356_e072a1d53274_marvin.wav label=0 det=1 lat=None text=''
+[44/50] 20260928_141540_674_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[45/50] 20260928_141635_255_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[46/50] 20260928_141723_591_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[47/50] 20260928_141800_990_e072a1d53274_marvin.wav label=0 det=0 lat=None text=None
+[48/50] 20260928_141832_068_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[49/50] 20260928_144459_008_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+[50/50] 20260928_145023_271_e072a1d53274_marvin.wav label=1 det=0 lat=None text=None
+{
+ "evidence": "DEVICE-ACOUSTIC (recordings replayed through PC speakers)",
+ "positives": 33,
+ "detected": 21,
+ "tpr": 0.6364,
+ "negatives": 17,
+ "false_accepts": 4,
+ "false_accept_rate": 0.2353,
+ "negative_audio_s": 56.2,
+ "latency_ms": {
+  "n": 21,
+  "median": 310.4,
+  "p95": 404.8,
+  "min": 119.3,
+  "max": 434.8
+ },
+ "decomposition_ms": {
+  "device_detect_to_first_send_median": 19.0,
+  "network_one_way_est": 0.5,
+  "detection_delay_est_median": 290.9,
+  "serial_detect_after_kw_median(biased +UART)": 1662.4
+ },
+ "ping_rtt_ms": {
+  "median": 1.0,
+  "min": 1.0,
+  "max": 16.0,
+  "n": 20
+ },
+ "board_ip": "192.168.137.145",
+ "transcripts_nonempty": 4,
+ "status": {
+  "windows_10s": 37,
+  "minutes": 6.2,
+  "cpu_core0": {
+   "mean": 6.14,
+   "p95": 9.8,
+   "max": 9.9,
+   "min": 4.2
+  },
+  "cpu_core1": {
+   "mean": 8.28,
+   "p95": 10.2,
+   "max": 10.3,
+   "min": 5.5
+  },
+  "cpu_sum_both_cores": {
+   "mean": 14.42,
+   "p95": 19.6,
+   "max": 20.200000000000003
+  },
+  "pipeline_pct_one_core": {
+   "mean": 7.89,
+   "p95": 9.47,
+   "max": 9.72,
+   "min": 5.26
+  },
+  "model_ms": {
+   "mean": 1.19,
+   "p95": 1.39,
+   "max": 1.4,
+   "min": 0.0
+  },
+  "features_ms_per_30ms": {
+   "mean": 1.44,
+   "p95": 1.52,
+   "max": 1.53,
+   "min": 1.36
+  },
+  "paused_in_quiet_pct": {
+   "mean": 42.35,
+   "p95": 95.0,
+   "max": 100.0,
+   "min": 4.0
+  },
+  "mic_dbfs": {
+   "mean": -34.49,
+   "p95": -29.8,
+   "max": -29.3,
+   "min": -40.3
+  },
+  "ram_used_kb": {
+   "mean": 230.03,
+   "p95": 233.0,
+   "max": 234.0,
+   "min": 229.0
+  },
+  "ram_peak_since_boot_kb": 247.0,
+  "heap_free_kb_min": 88.0,
+  "wifi_ok_share": 1.0,
+  "server_ok_share": 1.0,
+  "detections_during": 26,
+  "audio_lost_i2s": 0,
+  "audio_lost_net": 0
+ }
+}

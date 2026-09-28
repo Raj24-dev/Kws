@@ -1,0 +1,381 @@
+[10:45:40 PM] Server running on port 3000: device URI ws://<this PC's IP>:3000/ws, recordings in D:\Personal Projects\SIH\TinyML on Edge devices\kws_s3_firmware\cloudServer\server\recordings
+[10:45:42 PM] client connected from 192.168.137.250
+[10:46:18 PM] client connected from 192.168.137.250
+[10:47:11 PM] registered: e072a1d53274
+[10:47:11 PM] e072a1d53274: wake word "marvin" (score 0.776)
+[10:47:12 PM] heartbeat timeout: 192.168.137.250
+[10:47:12 PM] disconnected: 192.168.137.250
+[10:47:14 PM] e072a1d53274: connection lost mid-utterance, waiting 30 s for a resume
+[10:47:14 PM] disconnected: e072a1d53274
+[10:47:15 PM] client connected from 192.168.137.250
+[10:47:45 PM] e072a1d53274: "" (294 ms after the end)
+[10:47:45 PM] e072a1d53274: saved 20260928_224711_088_e072a1d53274_marvin.wav (0.72 s, connection_lost, rms -34.7 dBFS)
+[10:47:46 PM] registered: e072a1d53274
+[10:47:46 PM] e072a1d53274: wake word "marvin" (score 0.66)
+[10:47:54 PM] e072a1d53274: "What?" (1998 ms after the end)
+[10:47:54 PM] e072a1d53274: saved 20260928_224746_817_e072a1d53274_marvin.wav (1.74 s, silence, rms -26.4 dBFS)
+[10:50:18 PM] client connected from 192.168.137.250
+[10:50:45 PM] heartbeat timeout: e072a1d53274
+[10:50:45 PM] disconnected: e072a1d53274
+[10:51:25 PM] registered: e072a1d53274
+[10:51:25 PM] e072a1d53274: wake word "marvin" (score 0.655)
+[10:51:27 PM] disconnected: e072a1d53274
+[10:51:27 PM] client connected from 192.168.137.250
+[10:52:44 PM] registered: e072a1d53274
+[10:52:44 PM] e072a1d53274: wake word "marvin" (score 0.7)
+[10:52:49 PM] e072a1d53274: "Turn on the light." (1916 ms after the end)
+[10:52:49 PM] e072a1d53274: saved 20260928_225244_649_e072a1d53274_marvin.wav (1.5 s, silence, rms -33.6 dBFS)
+[10:53:46 PM] e072a1d53274: wake word "marvin" (score 0.648)
+[10:53:50 PM] e072a1d53274: "Play some music." (1943 ms after the end)
+[10:53:50 PM] e072a1d53274: saved 20260928_225346_231_e072a1d53274_marvin.wav (1.54 s, silence, rms -33.9 dBFS)
+[10:54:48 PM] e072a1d53274: wake word "marvin" (score 0.694)
+[10:54:53 PM] e072a1d53274: "Call my mother." (1894 ms after the end)
+[10:54:53 PM] e072a1d53274: saved 20260928_225448_311_e072a1d53274_marvin.wav (1.54 s, silence, rms -28.6 dBFS)
+[11:04:15 PM] client connected from 192.168.137.250
+[11:05:27 PM] heartbeat timeout: e072a1d53274
+[11:05:27 PM] disconnected: e072a1d53274
+[11:06:08 PM] client connected from 192.168.137.250
+[11:06:10 PM] registered: e072a1d53274
+[11:06:10 PM] e072a1d53274: wake word "marvin" (score 0.604)
+[11:06:29 PM] e072a1d53274: "More. More. Okay." (3824 ms after the end)
+[11:06:29 PM] e072a1d53274: saved 20260928_230610_796_e072a1d53274_marvin.wav (8.02 s, max_length, rms -39.1 dBFS)
+[11:07:02 PM] e072a1d53274: wake word "marvin" (score 0.645)
+[11:07:05 PM] e072a1d53274: "" (36 ms after the end)
+[11:07:05 PM] e072a1d53274: saved 20260928_230702_958_e072a1d53274_marvin.wav (1.5 s, silence, rms -39.2 dBFS)
+[11:07:15 PM] heartbeat timeout: 192.168.137.250
+[11:07:15 PM] disconnected: 192.168.137.250
+[11:07:59 PM] client connected from 192.168.137.250
+[11:08:02 PM] registered: e072a1d53274
+[11:08:02 PM] e072a1d53274: wake word "marvin" (score 0.667)
+[11:08:36 PM] e072a1d53274: utterance longer than 20 s, keeping the first part
+[11:09:08 PM] heartbeat timeout: e072a1d53274
+[11:09:08 PM] disconnected: e072a1d53274
+[11:09:10 PM] e072a1d53274: connection lost mid-utterance, waiting 30 s for a resume
+[11:09:10 PM] disconnected: e072a1d53274
+[11:09:15 PM] client connected from 192.168.137.250
+[11:09:16 PM] registered: e072a1d53274
+[11:09:16 PM] e072a1d53274: wake word "marvin" (score 0.723)
+[11:09:19 PM] e072a1d53274: connection lost mid-utterance, waiting 30 s for a resume
+[11:09:19 PM] disconnected: e072a1d53274
+[11:09:20 PM] client connected from 192.168.137.250
+[11:09:25 PM] registered: e072a1d53274
+[11:09:25 PM] e072a1d53274: wake word "marvin" (score 0.688)
+[11:09:27 PM] e072a1d53274: connection lost mid-utterance, waiting 30 s for a resume
+[11:09:27 PM] disconnected: e072a1d53274
+[11:09:28 PM] client connected from 192.168.137.250
+[11:09:30 PM] registered: e072a1d53274
+[11:09:30 PM] e072a1d53274: wake word "marvin" (score 0.61)
+[11:09:38 PM] e072a1d53274: "He's in a lot of work." (4141 ms after the end)
+[11:09:38 PM] e072a1d53274: saved 20260928_230930_924_e072a1d53274_marvin.wav (1.5 s, silence, rms -37.3 dBFS)
+[11:09:57 PM] e072a1d53274: "" (12 ms after the end)
+[11:09:57 PM] e072a1d53274: saved 20260928_230925_855_e072a1d53274_marvin.wav (0.18 s, connection_lost, rms -35.5 dBFS)
+[11:10:01 PM] speech-to-text unavailable (ws://127.0.0.1:8000/stream); saving audio only. Start stt-services/main.py.
+[11:10:01 PM] e072a1d53274: saved 20260928_230802_944_e072a1d53274_marvin.wav (19.96 s, connection_lost, rms -37.7 dBFS)
+[11:10:03 PM] e072a1d53274: "You're on." (14336 ms after the end)
+[11:10:03 PM] e072a1d53274: saved 20260928_230916_073_e072a1d53274_marvin.wav (0.66 s, connection_lost, rms -34.3 dBFS)
+[11:10:50 PM] client connected from 192.168.137.250
+[11:11:28 PM] heartbeat timeout: e072a1d53274
+[11:11:28 PM] disconnected: e072a1d53274
+[11:12:15 PM] registered: e072a1d53274
+[11:12:15 PM] e072a1d53274: wake word "marvin" (score 0.686)
+[11:12:22 PM] e072a1d53274: "Turn on the lights." (4121 ms after the end)
+[11:12:22 PM] e072a1d53274: saved 20260928_231215_354_e072a1d53274_marvin.wav (1.68 s, silence, rms -34.9 dBFS)
+[11:12:24 PM] e072a1d53274: wake word "marvin" (score 0.672)
+[11:12:32 PM] e072a1d53274: "One. We better check." (4309 ms after the end)
+[11:12:32 PM] e072a1d53274: saved 20260928_231224_040_e072a1d53274_marvin.wav (1.5 s, silence, rms -35.6 dBFS)
+[11:12:33 PM] e072a1d53274: wake word "marvin" (score 0.615)
+[11:12:41 PM] e072a1d53274: "Please." (4157 ms after the end)
+[11:12:41 PM] e072a1d53274: saved 20260928_231233_930_e072a1d53274_marvin.wav (1.5 s, silence, rms -37.3 dBFS)
+[11:12:42 PM] e072a1d53274: wake word "marvin" (score 0.622)
+[11:12:49 PM] e072a1d53274: "Send an alarm for 7." (4192 ms after the end)
+[11:12:49 PM] e072a1d53274: saved 20260928_231242_698_e072a1d53274_marvin.wav (1.54 s, silence, rms -34.9 dBFS)
+[11:12:51 PM] e072a1d53274: wake word "marvin" (score 0.605)
+[11:12:58 PM] e072a1d53274: "Call my mother." (4127 ms after the end)
+[11:12:58 PM] e072a1d53274: saved 20260928_231251_257_e072a1d53274_marvin.wav (1.54 s, silence, rms -32.4 dBFS)
+[11:13:00 PM] e072a1d53274: wake word "marvin" (score 0.686)
+[11:13:07 PM] e072a1d53274: "Okay, Jordan." (4093 ms after the end)
+[11:13:07 PM] e072a1d53274: saved 20260928_231300_322_e072a1d53274_marvin.wav (1.5 s, silence, rms -36.5 dBFS)
+[11:13:08 PM] e072a1d53274: wake word "marvin" (score 0.713)
+[11:13:17 PM] e072a1d53274: "Okay, time's up." (3644 ms after the end)
+[11:13:17 PM] e072a1d53274: saved 20260928_231308_943_e072a1d53274_marvin.wav (1.5 s, silence, rms -38.7 dBFS)
+[11:13:24 PM] e072a1d53274: wake word "marvin" (score 0.62)
+[11:13:34 PM] e072a1d53274: "Okay. Great. All right." (4578 ms after the end)
+[11:13:34 PM] e072a1d53274: saved 20260928_231324_449_e072a1d53274_marvin.wav (1.5 s, silence, rms -34.9 dBFS)
+[11:13:35 PM] e072a1d53274: wake word "marvin" (score 0.741)
+[11:13:40 PM] e072a1d53274: "" (32 ms after the end)
+[11:13:40 PM] e072a1d53274: saved 20260928_231335_620_e072a1d53274_marvin.wav (1.5 s, silence, rms -33.5 dBFS)
+[11:13:41 PM] e072a1d53274: wake word "marvin" (score 0.77)
+[11:13:53 PM] e072a1d53274: "Journaled." (6613 ms after the end)
+[11:13:53 PM] e072a1d53274: saved 20260928_231341_944_e072a1d53274_marvin.wav (1.5 s, silence, rms -37.9 dBFS)
+[11:13:54 PM] e072a1d53274: wake word "marvin" (score 0.623)
+[11:14:02 PM] e072a1d53274: "" (10 ms after the end)
+[11:14:02 PM] e072a1d53274: saved 20260928_231354_749_e072a1d53274_marvin.wav (1.5 s, silence, rms -36.8 dBFS)
+[11:14:04 PM] e072a1d53274: wake word "marvin" (score 0.646)
+[11:14:14 PM] e072a1d53274: "Excuse me." (4945 ms after the end)
+[11:14:14 PM] e072a1d53274: saved 20260928_231404_026_e072a1d53274_marvin.wav (1.5 s, silence, rms -33.3 dBFS)
+[11:14:16 PM] e072a1d53274: wake word "marvin" (score 0.692)
+[11:14:25 PM] e072a1d53274: "7-1-4-7." (5149 ms after the end)
+[11:14:25 PM] e072a1d53274: saved 20260928_231416_101_e072a1d53274_marvin.wav (1.54 s, silence, rms -36.6 dBFS)
+[11:14:26 PM] e072a1d53274: wake word "marvin" (score 0.68)
+[11:14:35 PM] e072a1d53274: "Call my mother." (5143 ms after the end)
+[11:14:35 PM] e072a1d53274: saved 20260928_231426_640_e072a1d53274_marvin.wav (1.54 s, silence, rms -31.1 dBFS)
+[11:14:37 PM] e072a1d53274: wake word "marvin" (score 0.7)
+[11:14:41 PM] e072a1d53274: "" (16 ms after the end)
+[11:14:41 PM] e072a1d53274: saved 20260928_231437_185_e072a1d53274_marvin.wav (1.54 s, silence, rms -36.8 dBFS)
+[11:14:52 PM] e072a1d53274: wake word "marvin" (score 0.61)
+[11:15:00 PM] e072a1d53274: "Increase the volume." (4842 ms after the end)
+[11:15:00 PM] e072a1d53274: saved 20260928_231452_581_e072a1d53274_marvin.wav (1.68 s, silence, rms -33 dBFS)
+[11:15:02 PM] e072a1d53274: wake word "marvin" (score 0.631)
+[11:15:11 PM] e072a1d53274: "Tell me a joke." (5788 ms after the end)
+[11:15:11 PM] e072a1d53274: saved 20260928_231502_275_e072a1d53274_marvin.wav (1.62 s, silence, rms -32.6 dBFS)
+[11:15:27 PM] client connected from 192.168.137.250
+[11:15:53 PM] registered: e072a1d53274
+[11:15:53 PM] e072a1d53274: wake word "marvin" (score 0.62)
+[11:15:57 PM] e072a1d53274: "Turn on the lights." (1959 ms after the end)
+[11:15:57 PM] e072a1d53274: saved 20260928_231553_002_e072a1d53274_marvin.wav (1.5 s, silence, rms -34.8 dBFS)
+[11:15:59 PM] e072a1d53274: wake word "marvin" (score 0.61)
+[11:16:04 PM] e072a1d53274: "What is the letter 10?" (2119 ms after the end)
+[11:16:04 PM] e072a1d53274: saved 20260928_231559_366_e072a1d53274_marvin.wav (1.54 s, silence, rms -35.7 dBFS)
+[11:16:05 PM] e072a1d53274: wake word "marvin" (score 0.659)
+[11:16:10 PM] e072a1d53274: "Play some music." (1935 ms after the end)
+[11:16:10 PM] e072a1d53274: saved 20260928_231605_818_e072a1d53274_marvin.wav (1.5 s, silence, rms -36 dBFS)
+[11:16:50 PM] heartbeat timeout: e072a1d53274
+[11:16:50 PM] disconnected: e072a1d53274
+[11:16:56 PM] e072a1d53274: wake word "marvin" (score 0.715)
+[11:17:01 PM] e072a1d53274: "Please, I'll use it." (1947 ms after the end)
+[11:17:01 PM] e072a1d53274: saved 20260928_231656_675_e072a1d53274_marvin.wav (1.5 s, silence, rms -36.5 dBFS)
+[11:17:03 PM] e072a1d53274: wake word "marvin" (score 0.667)
+[11:17:08 PM] e072a1d53274: "Set alarm for study." (2002 ms after the end)
+[11:17:08 PM] e072a1d53274: saved 20260928_231703_202_e072a1d53274_marvin.wav (1.56 s, silence, rms -35.4 dBFS)
+[11:17:09 PM] e072a1d53274: wake word "marvin" (score 0.684)
+[11:17:14 PM] e072a1d53274: "Call my mother." (1880 ms after the end)
+[11:17:14 PM] e072a1d53274: saved 20260928_231709_837_e072a1d53274_marvin.wav (1.5 s, silence, rms -31.9 dBFS)
+[11:17:16 PM] e072a1d53274: wake word "marvin" (score 0.612)
+[11:17:21 PM] e072a1d53274: "Open the door." (1808 ms after the end)
+[11:17:21 PM] e072a1d53274: saved 20260928_231716_404_e072a1d53274_marvin.wav (1.5 s, silence, rms -35.4 dBFS)
+[11:19:27 PM] client connected from 192.168.137.250
+[11:20:27 PM] heartbeat timeout: e072a1d53274
+[11:20:27 PM] disconnected: e072a1d53274
+[11:20:52 PM] registered: e072a1d53274
+[11:20:52 PM] e072a1d53274: wake word "marvin" (score 0.551)
+[11:20:56 PM] e072a1d53274: "Turn on the lights." (2131 ms after the end)
+[11:20:56 PM] e072a1d53274: saved 20260928_232052_706_e072a1d53274_marvin.wav (1.66 s, silence, rms -33.6 dBFS)
+[11:20:58 PM] e072a1d53274: wake word "marvin" (score 0.517)
+[11:21:01 PM] e072a1d53274: "What is the weather today?" (2103 ms after the end)
+[11:21:01 PM] e072a1d53274: saved 20260928_232058_014_e072a1d53274_marvin.wav (1.68 s, silence, rms -35.4 dBFS)
+[11:21:03 PM] e072a1d53274: wake word "marvin" (score 0.533)
+[11:21:06 PM] e072a1d53274: "Play some music." (2099 ms after the end)
+[11:21:06 PM] e072a1d53274: saved 20260928_232103_276_e072a1d53274_marvin.wav (1.5 s, silence, rms -36.2 dBFS)
+[11:21:08 PM] e072a1d53274: wake word "marvin" (score 0.607)
+[11:21:12 PM] e072a1d53274: "Send an alarm for 7." (2136 ms after the end)
+[11:21:12 PM] e072a1d53274: saved 20260928_232108_418_e072a1d53274_marvin.wav (1.5 s, silence, rms -33.6 dBFS)
+[11:21:17 PM] e072a1d53274: wake word "marvin" (score 0.52)
+[11:21:21 PM] e072a1d53274: "Open the door." (2060 ms after the end)
+[11:21:21 PM] e072a1d53274: saved 20260928_232117_834_e072a1d53274_marvin.wav (1.5 s, silence, rms -36 dBFS)
+[11:21:22 PM] e072a1d53274: wake word "marvin" (score 0.57)
+[11:21:26 PM] e072a1d53274: "What time is it?" (2234 ms after the end)
+[11:21:26 PM] e072a1d53274: saved 20260928_232122_947_e072a1d53274_marvin.wav (1.5 s, silence, rms -35.6 dBFS)
+[11:21:28 PM] e072a1d53274: wake word "marvin" (score 0.592)
+[11:21:31 PM] e072a1d53274: "Stop the music." (2093 ms after the end)
+[11:21:31 PM] e072a1d53274: saved 20260928_232128_140_e072a1d53274_marvin.wav (1.64 s, silence, rms -30.9 dBFS)
+[11:21:33 PM] e072a1d53274: wake word "marvin" (score 0.548)
+[11:21:37 PM] e072a1d53274: "Increase the volume." (2050 ms after the end)
+[11:21:37 PM] e072a1d53274: saved 20260928_232133_663_e072a1d53274_marvin.wav (1.7 s, silence, rms -32.7 dBFS)
+[11:21:38 PM] e072a1d53274: wake word "marvin" (score 0.67)
+[11:21:42 PM] e072a1d53274: "Tell me a joke." (2102 ms after the end)
+[11:21:42 PM] e072a1d53274: saved 20260928_232138_807_e072a1d53274_marvin.wav (1.78 s, silence, rms -31.9 dBFS)
+[11:21:48 PM] e072a1d53274: wake word "marvin" (score 0.534)
+[11:21:52 PM] e072a1d53274: "What is the weather today?" (2070 ms after the end)
+[11:21:52 PM] e072a1d53274: saved 20260928_232148_749_e072a1d53274_marvin.wav (1.66 s, silence, rms -35.8 dBFS)
+[11:21:53 PM] e072a1d53274: wake word "marvin" (score 0.512)
+[11:21:57 PM] e072a1d53274: "Play some music." (2074 ms after the end)
+[11:21:57 PM] e072a1d53274: saved 20260928_232153_911_e072a1d53274_marvin.wav (1.5 s, silence, rms -35.6 dBFS)
+[11:21:58 PM] e072a1d53274: wake word "marvin" (score 0.523)
+[11:22:02 PM] e072a1d53274: "Send an alarm for 7." (2067 ms after the end)
+[11:22:02 PM] e072a1d53274: saved 20260928_232158_899_e072a1d53274_marvin.wav (1.78 s, silence, rms -33.4 dBFS)
+[11:22:04 PM] e072a1d53274: wake word "marvin" (score 0.593)
+[11:22:08 PM] e072a1d53274: "Call my mother." (2131 ms after the end)
+[11:22:08 PM] e072a1d53274: saved 20260928_232204_653_e072a1d53274_marvin.wav (1.5 s, silence, rms -31.6 dBFS)
+[11:22:09 PM] e072a1d53274: wake word "marvin" (score 0.555)
+[11:22:13 PM] e072a1d53274: "Open the door." (2048 ms after the end)
+[11:22:13 PM] e072a1d53274: saved 20260928_232209_579_e072a1d53274_marvin.wav (1.68 s, silence, rms -35.9 dBFS)
+[11:22:14 PM] e072a1d53274: wake word "marvin" (score 0.526)
+[11:22:18 PM] e072a1d53274: "What time is it?" (2145 ms after the end)
+[11:22:18 PM] e072a1d53274: saved 20260928_232214_500_e072a1d53274_marvin.wav (1.5 s, silence, rms -35.1 dBFS)
+[11:22:19 PM] e072a1d53274: wake word "marvin" (score 0.684)
+[11:22:23 PM] e072a1d53274: "Stop the music." (2189 ms after the end)
+[11:22:23 PM] e072a1d53274: saved 20260928_232219_476_e072a1d53274_marvin.wav (1.5 s, silence, rms -34.7 dBFS)
+[11:22:24 PM] e072a1d53274: wake word "marvin" (score 0.543)
+[11:22:28 PM] e072a1d53274: "Increase the volume." (2077 ms after the end)
+[11:22:28 PM] e072a1d53274: saved 20260928_232224_672_e072a1d53274_marvin.wav (1.88 s, silence, rms -31.3 dBFS)
+[11:22:52 PM] client connected from 192.168.137.250
+[11:23:57 PM] heartbeat timeout: e072a1d53274
+[11:23:57 PM] disconnected: e072a1d53274
+[11:24:17 PM] registered: e072a1d53274
+[11:24:17 PM] e072a1d53274: wake word "marvin" (score 0.517)
+[11:24:21 PM] e072a1d53274: "Turn on the lights." (1928 ms after the end)
+[11:24:21 PM] e072a1d53274: saved 20260928_232417_549_e072a1d53274_marvin.wav (2.16 s, silence, rms -34.5 dBFS)
+[11:24:23 PM] e072a1d53274: wake word "marvin" (score 0.532)
+[11:24:26 PM] e072a1d53274: "What is the weather today?" (1889 ms after the end)
+[11:24:26 PM] e072a1d53274: saved 20260928_232423_036_e072a1d53274_marvin.wav (1.74 s, silence, rms -35.7 dBFS)
+[11:24:33 PM] e072a1d53274: wake word "marvin" (score 0.571)
+[11:24:38 PM] e072a1d53274: "I'll send an alarm for 7." (2327 ms after the end)
+[11:24:38 PM] e072a1d53274: saved 20260928_232433_095_e072a1d53274_marvin.wav (2.82 s, silence, rms -33.6 dBFS)
+[11:24:39 PM] e072a1d53274: wake word "marvin" (score 0.56)
+[11:24:43 PM] e072a1d53274: "Call my mother." (2050 ms after the end)
+[11:24:43 PM] e072a1d53274: saved 20260928_232439_699_e072a1d53274_marvin.wav (1.5 s, silence, rms -32.4 dBFS)
+[11:24:44 PM] e072a1d53274: wake word "marvin" (score 0.595)
+[11:24:47 PM] e072a1d53274: "Open the door." (1922 ms after the end)
+[11:24:47 PM] e072a1d53274: saved 20260928_232444_454_e072a1d53274_marvin.wav (1.5 s, silence, rms -34.9 dBFS)
+[11:24:49 PM] e072a1d53274: wake word "marvin" (score 0.58)
+[11:24:52 PM] e072a1d53274: "What time is it?" (1881 ms after the end)
+[11:24:52 PM] e072a1d53274: saved 20260928_232449_434_e072a1d53274_marvin.wav (1.5 s, silence, rms -33.8 dBFS)
+[11:25:00 PM] e072a1d53274: wake word "marvin" (score 0.615)
+[11:25:03 PM] e072a1d53274: "Increase the volume." (1892 ms after the end)
+[11:25:03 PM] e072a1d53274: saved 20260928_232500_004_e072a1d53274_marvin.wav (1.68 s, silence, rms -32 dBFS)
+[11:25:04 PM] e072a1d53274: wake word "marvin" (score 0.585)
+[11:25:09 PM] e072a1d53274: "Tell me a joke." (1937 ms after the end)
+[11:25:09 PM] e072a1d53274: saved 20260928_232504_934_e072a1d53274_marvin.wav (2.58 s, silence, rms -32.8 dBFS)
+[11:25:15 PM] e072a1d53274: wake word "marvin" (score 0.632)
+[11:25:19 PM] e072a1d53274: "What is the weather today?" (1951 ms after the end)
+[11:25:19 PM] e072a1d53274: saved 20260928_232515_350_e072a1d53274_marvin.wav (1.78 s, silence, rms -35.8 dBFS)
+[11:25:20 PM] e072a1d53274: wake word "marvin" (score 0.545)
+[11:25:23 PM] e072a1d53274: "Play some music." (1891 ms after the end)
+[11:25:23 PM] e072a1d53274: saved 20260928_232520_433_e072a1d53274_marvin.wav (1.5 s, silence, rms -35.2 dBFS)
+[11:25:25 PM] e072a1d53274: wake word "marvin" (score 0.509)
+[11:25:29 PM] e072a1d53274: "Set an alarm for 7." (1892 ms after the end)
+[11:25:29 PM] e072a1d53274: saved 20260928_232525_455_e072a1d53274_marvin.wav (2.4 s, silence, rms -34 dBFS)
+[11:25:31 PM] e072a1d53274: wake word "marvin" (score 0.517)
+[11:25:34 PM] e072a1d53274: "All my mother." (2006 ms after the end)
+[11:25:34 PM] e072a1d53274: saved 20260928_232531_253_e072a1d53274_marvin.wav (1.5 s, silence, rms -31.1 dBFS)
+[11:25:36 PM] e072a1d53274: wake word "marvin" (score 0.57)
+[11:25:37 PM] e072a1d53274: "" (4 ms after the end)
+[11:25:37 PM] e072a1d53274: saved 20260928_232536_313_e072a1d53274_marvin.wav (1.5 s, silence, rms -34.8 dBFS)
+[11:25:40 PM] e072a1d53274: wake word "marvin" (score 0.512)
+[11:25:44 PM] e072a1d53274: "What time is it?" (2057 ms after the end)
+[11:25:44 PM] e072a1d53274: saved 20260928_232540_833_e072a1d53274_marvin.wav (1.5 s, silence, rms -35.1 dBFS)
+[11:25:50 PM] e072a1d53274: wake word "marvin" (score 0.587)
+[11:25:54 PM] e072a1d53274: "Increase the volume." (1844 ms after the end)
+[11:25:54 PM] e072a1d53274: saved 20260928_232550_396_e072a1d53274_marvin.wav (1.94 s, silence, rms -31.6 dBFS)
+[11:25:55 PM] e072a1d53274: wake word "marvin" (score 0.508)
+[11:25:59 PM] e072a1d53274: "Tell me a joke." (1997 ms after the end)
+[11:25:59 PM] e072a1d53274: saved 20260928_232555_836_e072a1d53274_marvin.wav (2.08 s, silence, rms -31.5 dBFS)
+[11:27:57 PM] e072a1d53274: wake word "marvin" (score 0.587)
+[11:28:02 PM] e072a1d53274: "Wake me up." (2586 ms after the end)
+[11:28:02 PM] e072a1d53274: saved 20260928_232757_370_e072a1d53274_marvin.wav (2.16 s, silence, rms -34.4 dBFS)
+[11:28:04 PM] e072a1d53274: wake word "marvin" (score 0.523)
+[11:28:09 PM] e072a1d53274: "Can you hear me clearly?" (2486 ms after the end)
+[11:28:09 PM] e072a1d53274: saved 20260928_232804_730_e072a1d53274_marvin.wav (2.26 s, silence, rms -30.8 dBFS)
+[11:28:12 PM] e072a1d53274: wake word "marvin" (score 0.572)
+[11:28:15 PM] e072a1d53274: "Okay." (2473 ms after the end)
+[11:28:15 PM] e072a1d53274: saved 20260928_232812_007_e072a1d53274_marvin.wav (1.5 s, silence, rms -36.6 dBFS)
+[11:28:25 PM] e072a1d53274: wake word "marvin" (score 0.53)
+[11:28:34 PM] e072a1d53274: "Write those things clearly without any mistake that I'm saying right now." (3733 ms after the end)
+[11:28:34 PM] e072a1d53274: saved 20260928_232825_861_e072a1d53274_marvin.wav (4.48 s, silence, rms -30.6 dBFS)
+[11:34:48 PM] e072a1d53274: wake word "marvin" (score 0.552)
+[11:34:50 PM] e072a1d53274: "" (9 ms after the end)
+[11:34:50 PM] e072a1d53274: saved 20260928_233448_736_e072a1d53274_marvin.wav (1.5 s, silence, rms -38.2 dBFS)
+[11:34:51 PM] e072a1d53274: wake word "marvin" (score 0.556)
+[11:34:57 PM] e072a1d53274: "Hey, Marvin. Hey, Marvin." (2206 ms after the end)
+[11:34:57 PM] e072a1d53274: saved 20260928_233451_996_e072a1d53274_marvin.wav (2.82 s, silence, rms -30.1 dBFS)
+[11:34:59 PM] e072a1d53274: wake word "marvin" (score 0.52)
+[11:35:01 PM] e072a1d53274: "" (13 ms after the end)
+[11:35:01 PM] e072a1d53274: saved 20260928_233459_698_e072a1d53274_marvin.wav (1.5 s, silence, rms -37.9 dBFS)
+[11:35:08 PM] e072a1d53274: wake word "marvin" (score 0.57)
+[11:35:10 PM] e072a1d53274: "" (6 ms after the end)
+[11:35:10 PM] e072a1d53274: saved 20260928_233508_637_e072a1d53274_marvin.wav (1.5 s, silence, rms -38.6 dBFS)
+[11:35:11 PM] e072a1d53274: wake word "marvin" (score 0.629)
+[11:35:12 PM] e072a1d53274: "" (10 ms after the end)
+[11:35:12 PM] e072a1d53274: saved 20260928_233511_016_e072a1d53274_marvin.wav (1.5 s, silence, rms -38.5 dBFS)
+[11:35:13 PM] e072a1d53274: wake word "marvin" (score 0.577)
+[11:35:19 PM] e072a1d53274: "Marvin? Okay, Marvin." (2165 ms after the end)
+[11:35:19 PM] e072a1d53274: saved 20260928_233513_019_e072a1d53274_marvin.wav (4.38 s, silence, rms -29.6 dBFS)
+[11:35:19 PM] e072a1d53274: wake word "marvin" (score 0.603)
+[11:35:21 PM] e072a1d53274: "" (15 ms after the end)
+[11:35:21 PM] e072a1d53274: saved 20260928_233519_568_e072a1d53274_marvin.wav (1.5 s, silence, rms -38.7 dBFS)
+[11:35:23 PM] e072a1d53274: wake word "marvin" (score 0.605)
+[11:35:25 PM] e072a1d53274: "" (11 ms after the end)
+[11:35:25 PM] e072a1d53274: saved 20260928_233523_516_e072a1d53274_marvin.wav (1.5 s, silence, rms -38.7 dBFS)
+[11:35:26 PM] e072a1d53274: wake word "marvin" (score 0.545)
+[11:35:27 PM] e072a1d53274: "" (10 ms after the end)
+[11:35:27 PM] e072a1d53274: saved 20260928_233526_229_e072a1d53274_marvin.wav (1.5 s, silence, rms -39 dBFS)
+[11:35:28 PM] e072a1d53274: wake word "marvin" (score 0.581)
+[11:35:30 PM] e072a1d53274: "" (8 ms after the end)
+[11:35:30 PM] e072a1d53274: saved 20260928_233528_816_e072a1d53274_marvin.wav (1.5 s, silence, rms -38.5 dBFS)
+[11:35:31 PM] e072a1d53274: wake word "marvin" (score 0.505)
+[11:35:33 PM] e072a1d53274: "" (6 ms after the end)
+[11:35:33 PM] e072a1d53274: saved 20260928_233531_635_e072a1d53274_marvin.wav (1.5 s, silence, rms -37.4 dBFS)
+[11:35:34 PM] e072a1d53274: wake word "marvin" (score 0.582)
+[11:35:36 PM] e072a1d53274: "" (13 ms after the end)
+[11:35:36 PM] e072a1d53274: saved 20260928_233534_735_e072a1d53274_marvin.wav (1.5 s, silence, rms -38.9 dBFS)
+[11:39:14 PM] client connected from 192.168.137.250
+[11:39:38 PM] registered: e072a1d53274
+[11:39:38 PM] e072a1d53274: wake word "marvin" (score 0.677)
+[11:39:42 PM] e072a1d53274: "Turn on the lights." (2130 ms after the end)
+[11:39:42 PM] e072a1d53274: saved 20260928_233938_625_e072a1d53274_marvin.wav (1.6 s, silence, rms -33.5 dBFS)
+[11:40:22 PM] heartbeat timeout: e072a1d53274
+[11:40:22 PM] disconnected: e072a1d53274
+[11:42:38 PM] client connected from 192.168.137.250
+[11:43:02 PM] registered: e072a1d53274
+[11:43:02 PM] e072a1d53274: wake word "marvin" (score 0.641)
+[11:43:03 PM] e072a1d53274: "" (11 ms after the end)
+[11:43:03 PM] e072a1d53274: saved 20260928_234302_036_e072a1d53274_marvin.wav (1.5 s, silence, rms -38.9 dBFS)
+[11:43:05 PM] e072a1d53274: wake word "marvin" (score 0.675)
+[11:43:07 PM] e072a1d53274: "" (9 ms after the end)
+[11:43:07 PM] e072a1d53274: saved 20260928_234305_674_e072a1d53274_marvin.wav (1.5 s, silence, rms -39.4 dBFS)
+[11:43:12 PM] e072a1d53274: wake word "marvin" (score 0.684)
+[11:43:14 PM] e072a1d53274: "" (12 ms after the end)
+[11:43:14 PM] e072a1d53274: saved 20260928_234312_837_e072a1d53274_marvin.wav (1.5 s, silence, rms -37.9 dBFS)
+[11:43:16 PM] e072a1d53274: wake word "marvin" (score 0.714)
+[11:43:18 PM] e072a1d53274: "" (17 ms after the end)
+[11:43:18 PM] e072a1d53274: saved 20260928_234316_854_e072a1d53274_marvin.wav (1.5 s, silence, rms -38.4 dBFS)
+[11:43:20 PM] e072a1d53274: wake word "marvin" (score 0.622)
+[11:43:22 PM] e072a1d53274: "" (12 ms after the end)
+[11:43:22 PM] e072a1d53274: saved 20260928_234320_601_e072a1d53274_marvin.wav (1.5 s, silence, rms -39.1 dBFS)
+[11:43:38 PM] e072a1d53274: wake word "marvin" (score 0.701)
+[11:43:40 PM] e072a1d53274: "" (16 ms after the end)
+[11:43:40 PM] e072a1d53274: saved 20260928_234338_674_e072a1d53274_marvin.wav (1.5 s, silence, rms -37.9 dBFS)
+[11:43:44 PM] heartbeat timeout: e072a1d53274
+[11:43:44 PM] disconnected: e072a1d53274
+[11:44:00 PM] e072a1d53274: wake word "marvin" (score 0.712)
+[11:44:07 PM] e072a1d53274: "" (2275 ms after the end)
+[11:44:07 PM] e072a1d53274: saved 20260928_234400_413_e072a1d53274_marvin.wav (4.8 s, silence, rms -30 dBFS)
+[11:47:36 PM] client connected from 192.168.137.250
+[11:47:59 PM] registered: e072a1d53274
+[11:47:59 PM] e072a1d53274: wake word "marvin" (score 0.663)
+[11:48:02 PM] e072a1d53274: "" (4 ms after the end)
+[11:48:02 PM] e072a1d53274: saved 20260928_234759_767_e072a1d53274_marvin.wav (1.5 s, silence, rms -37.8 dBFS)
+[11:48:04 PM] e072a1d53274: wake word "marvin" (score 0.631)
+[11:48:09 PM] e072a1d53274: "Ready? Sound back?" (2053 ms after the end)
+[11:48:09 PM] e072a1d53274: saved 20260928_234804_110_e072a1d53274_marvin.wav (1.96 s, silence, rms -33.1 dBFS)
+[11:48:10 PM] e072a1d53274: wake word "marvin" (score 0.645)
+[11:48:16 PM] e072a1d53274: "Okay, go ahead." (2053 ms after the end)
+[11:48:16 PM] e072a1d53274: saved 20260928_234810_745_e072a1d53274_marvin.wav (1.86 s, silence, rms -34.5 dBFS)
+[11:48:17 PM] e072a1d53274: wake word "marvin" (score 0.755)
+[11:48:22 PM] e072a1d53274: "Yeah." (1801 ms after the end)
+[11:48:22 PM] e072a1d53274: saved 20260928_234817_578_e072a1d53274_marvin.wav (1.5 s, silence, rms -32.7 dBFS)
+[11:48:23 PM] e072a1d53274: wake word "marvin" (score 0.602)
+[11:48:30 PM] e072a1d53274: "Okay, go ahead." (1860 ms after the end)
+[11:48:30 PM] e072a1d53274: saved 20260928_234823_668_e072a1d53274_marvin.wav (2.7 s, silence, rms -31.5 dBFS)
+[11:48:38 PM] heartbeat timeout: e072a1d53274
+[11:48:38 PM] disconnected: e072a1d53274
+[11:48:39 PM] e072a1d53274: wake word "marvin" (score 0.626)
+[11:48:44 PM] e072a1d53274: "Ah, why do you do that, huh?" (2199 ms after the end)
+[11:48:44 PM] e072a1d53274: saved 20260928_234839_179_e072a1d53274_marvin.wav (1.56 s, silence, rms -25.8 dBFS)
+[11:48:48 PM] e072a1d53274: wake word "marvin" (score 0.734)
+[11:48:51 PM] e072a1d53274: "" (8 ms after the end)
+[11:48:51 PM] e072a1d53274: saved 20260928_234848_712_e072a1d53274_marvin.wav (1.54 s, silence, rms -38.2 dBFS)
+[11:48:52 PM] e072a1d53274: wake word "marvin" (score 0.67)
+[11:48:55 PM] e072a1d53274: "" (4 ms after the end)
+[11:48:55 PM] e072a1d53274: saved 20260928_234852_745_e072a1d53274_marvin.wav (1.5 s, silence, rms -38.7 dBFS)
+[11:48:56 PM] e072a1d53274: wake word "marvin" (score 0.628)
+[11:49:00 PM] e072a1d53274: "" (4 ms after the end)
+[11:49:00 PM] e072a1d53274: saved 20260928_234856_826_e072a1d53274_marvin.wav (1.5 s, silence, rms -37.9 dBFS)
+[11:49:01 PM] e072a1d53274: wake word "marvin" (score 0.656)
+[11:49:04 PM] e072a1d53274: "" (18 ms after the end)
+[11:49:04 PM] e072a1d53274: saved 20260928_234901_212_e072a1d53274_marvin.wav (1.54 s, silence, rms -37.9 dBFS)
+[11:49:48 PM] disconnected: e072a1d53274
+[11:51:24 PM] client connected from 192.168.137.250
+[11:54:41 PM] client connected from 192.168.137.250
+[11:55:54 PM] heartbeat timeout: 192.168.137.250
+[11:55:54 PM] disconnected: 192.168.137.250

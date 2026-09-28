@@ -6,7 +6,7 @@ Wi-Fi (WebSocket) to a speech-recognition server, which writes it down ("Hey Mar
 
 ```
                  ┌──────────── audio_kws task (core 1) ─────────────┐
-INMP441 ─I2S/DMA─► filter ─► 2 s mu-law ring (32 KB)                 │
+INMP441 ─I2S/DMA─► filter ─► 0.5 s mu-law ring (8 KB)                │
                  │        └► wake_word: 40 features / 10 ms → int8 → streaming model / 30 ms → average of 5 → threshold
                  └──────────────────────────────────────────────────┘                                 │ detection
                    streamer (core 0) ◄──────────────────────────────────────────────────────────────┘
@@ -54,11 +54,12 @@ With no model, the firmware runs in **microphone-test mode**.
 
 Terminal alternative (in the ESP-IDF PowerShell from the desktop shortcut):
 ```
-cd C:\Users\gamin\SIH_KWS\firmware\kws_s3
-idf.py set-target esp32s3        (only the first time)
-idf.py menuconfig                (KWS (wake word) settings)
-idf.py -p COM7 build flash monitor      (use your port; Ctrl+] quits the monitor)
+cd kws_s3
+idf.py set-target esp32s3        (only the first time; sdkconfig.defaults then gives the audited configuration)
+idf.py menuconfig                (KWS (wake word) settings: Wi-Fi name/password, server URI)
+idf.py -p COM6 build flash monitor      (use your port; Ctrl+] quits the monitor)
 ```
+On a PC with ~16 GB RAM, `idf.py reconfigure` then `ninja -C build -j 3` avoids running out of memory.
 
 ## 4. What a healthy run looks like
 
@@ -67,12 +68,13 @@ model ready: wake word "marvin", threshold 0.50 (json), window 5, input 3x40 int
 model RAM: tensor arena 25580 of 30000 bytes used; engine total 41 KB of heap
 microphones: left (L/R to GND) -20.5 dBFS, right (L/R to 3V3) -18.3 dBFS, similarity 0.40 -> using both (average)
 wifi: connected ... stream: connected to the server ws://<PC-IP>:3000/ws
-[status] up 61s | mic -38.2 dBFS (peak -25.8) | score max 0.00 | detections 0 | inferences 201 (20.1/s; model 1.14 ms
-         each, paused in quiet 42%; features 1.38 ms per 30 ms) | CPU core0 5.0% core1 8.0% (wake word pipeline 7.72% of
-         one core) | RAM used 227 KB (peak 228 KB, 95 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
-[stacks] unused bytes: main=... audio_kws=... streamer=... websocket_task=...      <- every minute: stack headroom
->>> WAKE WORD "marvin" DETECTED  (score 0.53)
-stream: first audio sent 4 ms after the detection           <- the LED blinks green at the detection
+[status] up 21s | mic -37.5 dBFS (peak -31.1) | score max 0.00 | detections 0 | inferences 248 (24.8/s; model 0.90 ms
+         each, paused in quiet 30%; features 1.32 ms per 30 ms) | CPU core0  1.2% core1  7.8% (wake word pipeline 7.54% of
+         one core) | RAM used 180 KB (peak 184 KB, 173 KB free) | wifi OK, server OK | audio lost since boot: i2s 0 net 0
+[tasks] % of one core (free stack): main@0=0.39(928) ... audio_kws@1=8.19(736) ...   <- every minute: CPU + stack headroom
+[heap] Wi-Fi driver + netif           took  36252 B, ...                               <- at boot: RAM per start-up stage
+>>> WAKE WORD "marvin" DETECTED  (score 0.64, t = 26.73 s)
+stream: first audio sent 19 ms after the detection          <- the LED blinks green at the detection
 stream: stream finished (silence): 2500 ms of audio sent
 stream: server: {"type":"response","text":"Turn on the lights.","saved":"..."}
 ```
@@ -82,27 +84,32 @@ stream: server: {"type":"response","text":"Turn on the lights.","saved":"..."}
 
 ## 5. Audio path: SIH limits (CPU < 10 %, RAM < 256 KB, low latency, no false activations)
 
+All numbers below are measured on this board; the scripts and raw logs are in `../benchmarks/` (see its README and
+`../Final Report.md`).
 * Gain x1 + 80 Hz high-pass (the INMP441 picks up large infrasonic drift that otherwise clips speech).
-* **One task** reads the microphone and runs the wake word engine (core 1); the I2S DMA buffer (8 x 20 ms) is the
+* **One task** reads the microphone and runs the wake word engine (core 1); the I2S DMA buffer (3 x 20 ms) is the
   queue. Wi-Fi and the streamer run on core 0.
-* **RAM**: no PSRAM. One 32 KB ring buffer holds the last 2 s as 8-bit mu-law: slack for a slow network, and room
-  for an optional pre-roll (`KWS_PREROLL_MS`, default 0; 1000 sends the wake word too, to collect training data). Wi-Fi buffers sized for one audio stream.
-  The status line prints `RAM used` = static data + heap in use (Wi-Fi included); code copied into IRAM is code, not
-  data, and is listed separately in the boot banner. `KWS_RAM_LIMIT_KB = 256` (menuconfig) proves the limit: it
-  reserves everything above 256 KB at boot, so the firmware has to live within it.
-* **CPU** (measured, one inference = 30 ms of audio): 4.75 ms -> 2.58 ms (model 1.17 + features 1.41) with a
-  32 KB instruction / 64 KB data cache and QIO flash; UART output through the driver (printf no longer busy-waits).
-  The model pauses after 1.6 s of quiet (sound 3 dB above the background restarts it, and the paused 300 ms are
-  replayed first, so the start of a word is kept). The features must stay bit-identical to training: esp-dsp's SIMD
-  FFT was tried (2.5x faster FFT) and rejected because it changed the model's score by up to 0.26.
-* **Latency**: the WebSocket stays open (ping every 2 s, a dead link is replaced within ~20 s), Nagle is off
-  (`TCP_NODELAY`), audio goes out in 20 ms messages, and the server hands every frame to the speech recogniser the
-  moment it arrives. `first audio sent N ms after the detection` is printed for every stream.
-* **False activations**: the model on the board is the only judge (the server does not check the wake word). Measured
-  with `tools/check_model.py` (v2 model): at threshold 0.50 it detects 100 % of the device's "Marvin" recordings but
-  also fires on ~49 % of synthetic sound-alikes (Martin, Marvel, Kevin, Melvin, Morgan...); 0.70: 99 % / 35 %;
-  0.90: 91 % / 26 %. Normal conversation rarely triggers it. Fewer false activations need a retrained model with
-  those words as negatives (`KWS_CUTOFF_PERCENT` trades detections for fewer false ones in the meantime).
+* **RAM** (no PSRAM): counted strictly = code the chip keeps in internal RAM (IRAM, 65 KB) + static data + peak heap
+  (Wi-Fi, lwIP, buffers, model, stacks). Measured with Wi-Fi up and streaming: 181 KB data in use, 199 KB peak, i.e.
+  264 KB with IRAM (still above 256 KB counted this way; 199 KB counting data only). The mu-law ring holds 0.5 s
+  (8 KB); it grows to 16/32 KB only for pre-rolls above 250/750 ms. `[heap]` lines at boot show what each start-up
+  stage takes; `KWS_RAM_LIMIT_KB = 256` (menuconfig) reserves everything above 256 KB of data RAM at boot.
+* **CPU**: FreeRTOS idle-task share per core. With continuous speech in the room (model never paused) and Wi-Fi up:
+  core 0 0.9 %, core 1 8.4 %, both cores together 9.2-9.5 %. Per 30 ms of audio: model 0.88 ms + features 1.4 ms.
+  The model's state-update copies use exact fast kernels (`main/fast_ops.cc`). The dashboard telemetry
+  (`KWS_TELEMETRY_MS`) is off by default: at 100 ms it cost ~4 % of core 0. The model pauses after 1.6 s of quiet
+  (sound 6 dB above the background restarts it, and the paused 300 ms are replayed first, so the start of a word is
+  kept). The features must stay identical to training: esp-dsp's SIMD FFT was tried and rejected (score changes up to
+  0.26).
+* **Latency**: the WebSocket stays open (ping every 2 s), Nagle is off (`TCP_NODELAY`), audio goes out in 20 ms
+  messages, and the server hands every frame to the speech recogniser the moment it arrives. Measured (keyword end ->
+  first audio frame at the server, one PC clock): median ~140-150 ms, p95 ~320 ms; the board sends its first audio
+  19 ms after the detection. Keep the Wi-Fi TX buffers / TCP buffers at their defaults: smaller ones delayed the
+  first audio by 150-400 ms.
+* **False activations**: the model on the board is the only judge. Cutoff 0.6 (chosen on validation data): on the
+  frozen real test set (board injection) 33/33 "Marvin" detected, but 9 of 17 recorded sound-alike false triggers
+  still fire, and 45 % of synthetic sound-alikes (Martin, Marvel, Kevin, Melvin, Morgan...). Fewer false activations
+  need a retrained model with those words as negatives.
 * End of speech = 700 ms of silence (`KWS_STREAM_SILENCE_MS`). A wake word during a stream extends the stream.
 
 ## 6. Tools and server
@@ -112,8 +119,8 @@ stream: server: {"type":"response","text":"Turn on the lights.","saved":"..."}
   USB port by itself and opens a live web page (http://localhost:8090 — not the .html file) with the wake-word
   score, CPU and RAM (lowest/highest), mic level, board health and a tester scorecard: press Space each time you say
   the wake word -> correct / false alarms / missed, precision, detection rate, false alarms per hour, "Export CSV".
-  Saves the same log as `serial_log.py`. Needs `KWS_TELEMETRY_MS` > 0 (default 100 ms: one `@T ...` line per tick;
-  0 = off). It owns the COM port: press "Release port" before flashing. `--selftest` checks the scoring.
+  Saves the same log as `serial_log.py`. Needs `KWS_TELEMETRY_MS` > 0 (e.g. 100 ms: one `@T ...` line per tick;
+  default 0 = off, see CPU above). It owns the COM port: press "Release port" before flashing. `--selftest` checks the scoring.
   The "Transcription" button opens http://localhost:8090/transcription in a new page: "listening" as soon as the
   board detects the wake word, then what was said after it (Whisper small.en, punctuated) when the speaker stops,
   above everything the server has saved (`recordings/index.jsonl` + WAV, last 100 reloaded after a restart).
@@ -126,7 +133,9 @@ stream: server: {"type":"response","text":"Turn on the lights.","saved":"..."}
 * `tools/ws_server.py`: minimal stand-alone test server (saves WAVs, optional Whisper), protocol-compatible.
 * `tools/fake_device.py <wav...>`: plays recordings to the cloud server exactly like the board streams them (mu-law,
   pre-roll burst, real time) and prints the transcript: tests the server without the board. Start the server with `RECORDINGS_DIR=<test folder>` so test runs stay out of the training data.
-* `tools/check_model.py`: runs a model on WAV files with exactly the firmware's pipeline, on a PC or in Colab.
+* `tools/check_model.py`: runs a model on WAV files with the firmware's pipeline on a PC or in Colab. Close to, but
+  not bit-identical with, the board (scores differ by up to ~0.03; decisions agreed on all real test clips). For
+  on-device numbers use `../benchmarks/run_injected.py` with the injection firmware.
 
 ## Credits / licences
 Feature extraction: `components/esp-micro-speech-features` (TensorFlow Lite Micro microfrontend, Apache-2.0,
