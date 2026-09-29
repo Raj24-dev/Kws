@@ -16,22 +16,30 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "lwip/sockets.h"
+#include "status_led.h"
 #include "wake_word.h"
 
 static const char *TAG = "stream";
 
 #define CHUNK_MS 20                                          // live audio: one 320-byte message per 20 ms
 #define CHUNK_SAMPLES (AUDIO_SAMPLE_RATE * CHUNK_MS / 1000)
-#define BURST_SAMPLES 960                                    // catching up (the pre-roll): up to 60 ms per message
+#define BURST_SAMPLES 960                                    // catching up (pre-roll, after a stall): up to 60 ms per message
 #define SAMPLES_PER_MS (AUDIO_SAMPLE_RATE / 1000)
-#define SEND_TIMEOUT_MS 1000  // a stall longer than the ring's slack loses audio anyway (counted: "audio lost ... net")
+// A send that times out makes the client library drop the connection; the stream then resumes on a new one. Kept
+// short on purpose: a send that started just as the connection broke holds the library's lock for this long and
+// delays its reconnect by as much (measured with 4 s: every drop cost 4 s instead of ~1 s).
+#define SEND_TIMEOUT_MS 1000
 #define CONNECT_WAIT_MS 1000  // at a detection, how long to wait for a connection that is just coming up
+#define RESUME_WAIT_MS 5000   // after a drop mid-command, how long to wait for the connection to come back
+#define MAX_RESUMES 3         // per utterance
+#define RECONNECT_MS 1000     // reconnect attempts while idle; every 200 ms while a command waits for the connection
 
 static esp_websocket_client_handle_t s_ws;
 static esp_transport_handle_t s_tcp;
 static streamer_config_t s_cfg;
 static TaskHandle_t s_task;
 static atomic_bool s_active, s_connected, s_retrigger;
+static atomic_uint s_trigger_pos;  // ring position of the latest detection: streams start there even if they start late
 static float s_score;
 static char s_source[16];
 static int64_t s_t_trigger;
@@ -83,55 +91,72 @@ static bool send_text(const char *msg) {
     return esp_websocket_client_send_text(s_ws, msg, (int)strlen(msg), pdMS_TO_TICKS(SEND_TIMEOUT_MS)) >= 0;
 }
 
-// Waits briefly for the WebSocket (e.g. right after boot), then sends the start message.
-static bool open_utterance(char *msg, size_t cap) {
-    for (int waited = 0; !atomic_load(&s_connected); waited += 50) {
-        if (waited >= CONNECT_WAIT_MS) return false;
-        vTaskDelay(pdMS_TO_TICKS(50));
-    }
+// Waits up to wait_ms for the WebSocket (e.g. right after boot, or after a drop), retrying every 200 ms meanwhile:
+// every second of waiting is audio the ring buffer may not be able to keep
+static bool wait_connected(int wait_ms) {
+    if (atomic_load(&s_connected)) return true;
+    esp_websocket_client_set_reconnect_timeout(s_ws, 200);
+    for (int waited = 0; !atomic_load(&s_connected) && waited < wait_ms; waited += 50) vTaskDelay(pdMS_TO_TICKS(50));
+    esp_websocket_client_set_reconnect_timeout(s_ws, RECONNECT_MS);
+    return atomic_load(&s_connected);
+}
+
+// source "resume": the rest of an utterance whose connection dropped (the server appends it to the same recording)
+static bool send_start(char *msg, size_t cap, const char *source) {
     snprintf(msg, cap,
              "{\"type\":\"start\",\"device\":\"%s\",\"wake_word\":\"%s\",\"source\":\"%s\",\"score\":%.3f,"
              "\"sample_rate\":%d,\"format\":\"mulaw\",\"channels\":1,\"preroll_ms\":%d,\"chunk_ms\":%d}",
-             s_device, s_cfg.wake_word, s_source, s_score, AUDIO_SAMPLE_RATE, s_cfg.preroll_ms, CHUNK_MS);
+             s_device, s_cfg.wake_word, source, s_score, AUDIO_SAMPLE_RATE, s_cfg.preroll_ms, CHUNK_MS);
     return send_text(msg);
 }
 
 static void stream_task(void *arg) {
     static uint8_t buf[BURST_SAMPLES];
-    char msg[320];
+    char msg[360];
+    bool again = false;  // a wake word heard while the previous stream was closing: stream again at once
 
     for (;;) {
-        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+        if (!again) ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+        again = false;
         const int64_t t_trigger = s_t_trigger;
         atomic_store(&s_retrigger, false);
 
-        // Start preroll_ms before the detection (the ring buffer holds it; nothing is copied). 0 = at the detection:
+        // From preroll_ms before the detection (the ring buffer holds it; nothing is copied). 0 = at the detection:
         // only what is said after the wake word goes to the server.
-        const uint32_t now = audio_ring_pos();
+        const uint32_t det = atomic_load(&s_trigger_pos);
         uint32_t preroll = (uint32_t)s_cfg.preroll_ms * SAMPLES_PER_MS;
-        if (preroll > now) preroll = now;
-        uint32_t pos = now - preroll;
+        if (preroll > det) preroll = det;
+        const uint32_t start = det - preroll;
+        uint32_t pos = start, live = det;  // live: where the current command starts (after the pre-roll)
         const float threshold = fmaxf(audio_input_noise_floor() * 3.16f, 40.0f);  // background noise + 10 dB
 
-        const bool open = open_utterance(msg, sizeof(msg));
-        if (!open) ESP_LOGW(TAG, "no server connection: detection not streamed");  // the LED already blinked
-        uint32_t sent = 0, live_base = preroll;
-        int silence_ms = 0, first_latency_ms = -1;
+        const bool open = wait_connected(CONNECT_WAIT_MS) && send_start(msg, sizeof(msg), s_source);
+        if (!open) ESP_LOGW(TAG, "no server connection: detection not streamed");
+        uint32_t sent = 0, lost = 0;
+        int silence_ms = 0, first_latency_ms = -1, resumes = 0;
         const char *reason = open ? "max_length" : "no_server";
 
         while (open) {
-            if (!atomic_load(&s_connected)) {
-                reason = "disconnected";
-                break;
+            if (!atomic_load(&s_connected)) {  // dropped mid-command: continue the same utterance when it is back
+                if (resumes >= MAX_RESUMES || !wait_connected(RESUME_WAIT_MS) || !send_start(msg, sizeof(msg), "resume")) {
+                    reason = "disconnected";
+                    break;
+                }
+                resumes++;
+                ESP_LOGI(TAG, "connection back: stream resumed");
+                continue;
             }
             if (audio_ring_pos() - pos < CHUNK_SAMPLES) {  // wait for a full 20 ms of new audio
                 vTaskDelay(pdMS_TO_TICKS(5));
                 continue;
             }
+            const uint32_t from = pos;
             const size_t n = audio_ring_read(&pos, buf, BURST_SAMPLES);
+            lost += pos - (uint32_t)n - from;  // skipped: older than the ring could keep
             if (esp_websocket_client_send_bin(s_ws, (const char *)buf, (int)n, pdMS_TO_TICKS(SEND_TIMEOUT_MS)) < 0) {
-                reason = "send_error";
-                break;
+                pos -= (uint32_t)n;  // not delivered: sent again after the reconnect (while the ring still has it)
+                vTaskDelay(pdMS_TO_TICKS(CHUNK_MS));  // the disconnect event may still be on its way
+                continue;
             }
             if (first_latency_ms < 0) {
                 first_latency_ms = (int)((esp_timer_get_time() - t_trigger) / 1000);
@@ -139,45 +164,49 @@ static void stream_task(void *arg) {
             }
             sent += (uint32_t)n;
             if (atomic_exchange(&s_retrigger, false)) {  // a new command in the same stream: full time again
-                live_base = sent;
+                live = atomic_load(&s_trigger_pos);
                 silence_ms = 0;
             }
 
             // End-of-speech detection on the live part (after the pre-roll)
-            if (sent > live_base) {
+            if ((int32_t)(pos - live) > 0) {
                 int64_t ss = 0;
                 for (size_t i = 0; i < n; i++) {
                     const int32_t v = mulaw_decode(buf[i]);
                     ss += v * v;
                 }
                 const float rms = sqrtf((float)ss / (float)n);
-                const int live_ms = (int)((sent - live_base) / SAMPLES_PER_MS);
+                const int live_ms = (int)((pos - live) / SAMPLES_PER_MS);
                 silence_ms = (rms < threshold) ? silence_ms + (int)(n / SAMPLES_PER_MS) : 0;
                 if (live_ms >= s_cfg.min_ms && silence_ms >= s_cfg.silence_ms) {
                     reason = "silence";
                     break;
                 }
-                if (live_ms >= s_cfg.max_ms) {
+                // Repeated wake words extend a stream, but never past twice the limit
+                if (live_ms >= s_cfg.max_ms || (int)((pos - start) / SAMPLES_PER_MS) >= 2 * s_cfg.max_ms) {
                     reason = "max_length";
                     break;
                 }
             }
         }
 
-        const int duration_ms = (int)(sent / SAMPLES_PER_MS);
+        const int duration_ms = (int)(sent / SAMPLES_PER_MS), lost_ms = (int)(lost / SAMPLES_PER_MS);
         float peak = 0;
         int event_ms = 0;
         ww_last_event(&peak, &event_ms);
         if (open && atomic_load(&s_connected)) {
             snprintf(msg, sizeof(msg),
                      "{\"type\":\"end\",\"reason\":\"%s\",\"duration_ms\":%d,\"first_audio_latency_ms\":%d,"
-                     "\"event_peak\":%.2f,\"event_ms\":%d}",
-                     reason, duration_ms, first_latency_ms, peak, event_ms);
+                     "\"lost_ms\":%d,\"resumes\":%d,\"event_peak\":%.2f,\"event_ms\":%d}",
+                     reason, duration_ms, first_latency_ms, lost_ms, resumes, peak, event_ms);
             send_text(msg);
         }
-        ESP_LOGI(TAG, "stream finished (%s): %d ms of audio sent (%u KB)", reason, duration_ms, (unsigned)(sent / 1024));
+        if (!open || strcmp(reason, "disconnected") == 0) status_led_flash(60, 0, 0, 600);  // red: not delivered
+        ESP_LOGI(TAG, "stream finished (%s): %d ms of audio sent (%u KB), %d ms lost, %d resumes", reason, duration_ms,
+                 (unsigned)(sent / 1024), lost_ms, resumes);
         atomic_store(&s_active, false);
-        if (atomic_exchange(&s_retrigger, false)) streamer_trigger(s_score, "wake_word");  // heard while closing
+        // A wake word heard while closing only set the flag (streamer_trigger saw an active stream): start from it now
+        again = atomic_exchange(&s_retrigger, false) && !atomic_exchange(&s_active, true);
     }
 }
 
@@ -201,9 +230,9 @@ esp_err_t streamer_init(const streamer_config_t *cfg) {
         .ext_transport = ws,
         .buffer_size = 1024,           // >= BURST_SAMPLES: one audio message = one WebSocket frame
         .task_stack = 3584,          // uses ~2.6 KB
-        .reconnect_timeout_ms = 1000,
+        .reconnect_timeout_ms = RECONNECT_MS,
         .network_timeout_ms = 5000,
-        .ping_interval_sec = 2,        // a dead connection is noticed within ~20 s, not at the next detection
+        .ping_interval_sec = 5,        // a dead connection is noticed within ~25 s, not at the next detection
         .pingpong_timeout_sec = 20,    // the phone hotspot stalls for >6 s at times (measured): 6 s dropped live streams
     };
     // The client library logs 4 error lines per failed attempt (every second while the server is down)
@@ -222,14 +251,16 @@ esp_err_t streamer_init(const streamer_config_t *cfg) {
 
 bool streamer_trigger(float score, const char *source) {
     if (!s_task) return false;
+    // Where and when the wake word was detected: the stream starts there even if the stream task gets to it late
+    atomic_store(&s_trigger_pos, audio_ring_pos());
+    s_t_trigger = esp_timer_get_time();
+    s_score = score;
+    strlcpy(s_source, source, sizeof(s_source));
     bool expected = false;
     if (!atomic_compare_exchange_strong(&s_active, &expected, true)) {
         atomic_store(&s_retrigger, true);  // already streaming: the running stream is extended
         return true;
     }
-    s_score = score;
-    strlcpy(s_source, source, sizeof(s_source));
-    s_t_trigger = esp_timer_get_time();
     xTaskNotifyGive(s_task);
     return true;
 }
