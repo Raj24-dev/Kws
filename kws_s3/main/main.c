@@ -218,9 +218,9 @@ static void audio_task(void *arg) {
     static int16_t block[AUDIO_BLOCK_SAMPLES];
     int no_data_s = 0;
     esp_task_wdt_add(NULL);  // a stuck audio task restarts the board (task watchdog, 5 s)
-    for (;;) {
+    for (unsigned blocks = 0;; blocks++) {
         const size_t n = audio_input_read(block);  // waits at most 1 s
-        esp_task_wdt_reset();
+        if (!n || blocks % 25 == 0) esp_task_wdt_reset();  // twice a second: a reset per block cost ~0.15 % CPU
         if (!n) {  // the I2S DMA stopped (a missing microphone still delivers zeros): start over
             if (++no_data_s >= 5) {
                 ESP_LOGE(TAG, "no audio from I2S for 5 s: restarting");
