@@ -1,0 +1,17 @@
+== val: 17 recordings
+  current            WER 0.244  leaks 1  first word cut 2  'Marvin. Marvin.'->'Marvin. Marvin.'; 'Kevin, can you hear me?'->'Can you hear me?'; 'Raj is a good guy.'->'Him. Raj is a good guy.'
+  end+0.00           WER 0.256  leaks 1  first word cut 3  'Marvin. Marvin.'->'Marvin. Marvin.'; 'What time is it?'->'Time is it?'; 'Kevin, can you hear me?'->'Can you hear me?'; 'Raj is a good guy.'->'Him. Raj is a good guy.'
+  end+0.05           WER 0.256  leaks 0  first word cut 4  'Marvin. Marvin.'->'Marvin. Marvin.'; 'What time is it?'->'Time is it?'; 'Kevin, can you hear me?'->'Can you hear me?'; 'Are you listening?'->'You listening?'
+  end+0.10           WER 0.268  leaks 0  first word cut 5  'Marvin. Marvin.'->'Marvin. Marvin.'; 'What time is it?'->'Time is it?'; 'Kevin, can you hear me?'->'Can you hear me?'; 'Please play the music.'->'Play the music.'
+  prob<0.5           WER 0.280  leaks 1  first word cut 5  'Marvin. Marvin.'->'Marvin. Marvin.'; 'Kevin, can you hear me?'->'Can you hear me?'; 'Raj is a good guy.'->'Him. Raj is a good guy.'; 'Are you okay?'->'You okay?'
+  prob<0.7           WER 0.280  leaks 1  first word cut 5  'Marvin. Marvin.'->'Marvin. Marvin.'; 'Kevin, can you hear me?'->'Can you hear me?'; 'Raj is a good guy.'->'Him. Raj is a good guy.'; 'Are you okay?'->'You okay?'
+  prob<0.5|end+0.05  WER 0.280  leaks 0  first word cut 6  'Marvin. Marvin.'->'Marvin. Marvin.'; 'What time is it?'->'Time is it?'; 'Kevin, can you hear me?'->'Can you hear me?'; 'Are you okay?'->'You okay?'
+
+== f10: 52 recordings
+  current            WER 0.066  leaks 3  first word cut 0  'increase the volume'->'And increase the volume.'; 'increase the volume'->'And increase the volume.'; ''->'Okay.'
+  end+0.00           WER 0.053  leaks 2  first word cut 0  'increase the volume'->'And increase the volume.'; ''->'Okay.'
+  end+0.05           WER 0.053  leaks 2  first word cut 0  'increase the volume'->'And increase the volume.'; ''->'Okay.'
+  end+0.10           WER 0.046  leaks 1  first word cut 0  ''->'Okay.'
+  prob<0.5           WER 0.205  leaks 2  first word cut 25  'turn on the lights'->'On the lights.'; 'what is the weather today'->'Is the weather today?'; 'play some music'->'Some music.'; 'set an alarm for seven'->'An alarm for 7.'
+  prob<0.7           WER 0.219  leaks 2  first word cut 27  'turn on the lights'->'On the lights.'; 'what is the weather today'->'Is the weather today?'; 'play some music'->'Some music.'; 'set an alarm for seven'->'An alarm for 7.'
+  prob<0.5|end+0.05  WER 0.199  leaks 1  first word cut 25  'turn on the lights'->'On the lights.'; 'what is the weather today'->'Is the weather today?'; 'play some music'->'Some music.'; 'set an alarm for seven'->'An alarm for 7.'

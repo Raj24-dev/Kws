@@ -1,20 +1,24 @@
-# Benchmarks (SIH PS 26172 audit)
+# Benchmarks
 
-Re-runnable measurements for the kws_s3 firmware + cloudServer. Every number in `../Final Report.md` comes from a
+Re-runnable measurements for the kws_s3 firmware + cloudServer. Every number in [`REPORT.md`](REPORT.md) comes from a
 file in `results/` produced by one of these scripts. Evidence labels:
 
 * **[DEVICE-ACOUSTIC]** real sound through the board's microphones (PC speakers or a person)
 * **[DEVICE-INJECTED]** test audio fed over the serial port into the board's own pipeline (injection firmware)
-* **[HOST-ONLY]** the PC mirror of the firmware pipeline (`kws_s3/tools/check_model.py`)
+* **[HOST-ONLY]** the PC mirror of the firmware pipeline (`training/check_model.py`)
 
-## Setup (Windows, this PC)
+## Setup (Windows)
 
-* Board on `COM6` (CH343). ESP-IDF 5.5.5: `. 'C:\Espressif\tools\Microsoft.v5.5.5.PowerShell_profile.ps1'`
-* Python for the benchmarks: `C:\Python314\python.exe` with `numpy soundfile pymicro-features ai-edge-litert
-  websockets faster-whisper pyserial sounddevice pywin32`
+* Board on a USB serial port (the scripts default to `COM6`; pass `--port`). ESP-IDF 5.5 environment for building.
+* Python 3 with `numpy soundfile pymicro-features ai-edge-litert websockets faster-whisper pyserial sounddevice pywin32`
+  (the PowerShell scripts call `C:\Python314\python.exe`; change it there if yours is elsewhere).
 * Server: `cloudServer/server` (`node server.js`, port 3000) and `stt-services` (`python -m uvicorn main:app --port 8000`)
 * Wi-Fi: the board joins the laptop's Mobile Hotspot (**2.4 GHz band**), server URI `ws://192.168.137.1:3000/ws`
+  (the hotspot's own address). Windows turns the hotspot off after ~5 min without clients, e.g. while the injection
+  firmware runs: turn it back on before the next acoustic run.
 * Speakers: the laptop's own (WASAPI). The DAC time of every played clip is taken from the audio driver.
+* Keep the PC otherwise idle during acoustic runs (a parallel Whisper job starves the STT service and skews timing),
+  and compare firmware versions only at the same speaker level and board position (`calibrate_level.py`).
 
 ## Scripts
 
@@ -25,6 +29,8 @@ file in `results/` produced by one of these scripts. Evidence labels:
 | `run_injected.py --label L --cutoff C <sets>` | TPR / false accepts of the on-device pipeline, and device == mirror check | DEVICE-INJECTED |
 | `run_host.py sweep\|test\|faph` | threshold sweep on validation, frozen test, false accepts per hour | HOST-ONLY |
 | `analyze_preroll.py val` | detection delay after the keyword end; what streaming from the detection point loses | HOST-ONLY |
+| `eval_preroll.py val 0.25` | command WER with and without a pre-roll, with the server's real transcription code | HOST-ONLY |
+| `eval_strip_rules.py` | rules for dropping the wake word from a pre-roll transcript (real validation speech + the board's F10 recordings) | HOST-ONLY |
 | `eval_stt.py`, `eval_stt_filter.py` | server transcripts vs Whisper confidence (hallucination filter check) | HOST-ONLY |
 | `make_sets.py` | builds the frozen real validation/test sets (`sets/real_*.csv`, SHA-256 per file) | - |
 | `make_tts.py`, `make_latency_clips.py` | SYNTHETIC audio (Windows voices), always labelled synthetic | - |
@@ -41,7 +47,7 @@ file in `results/` produced by one of these scripts. Evidence labels:
 * profiling: `python set_config.py KWS_PROFILE_OPS=y` -> `[prof]` lines (per-op model time, per-stage feature time)
 * injection: `python set_config.py KWS_INJECT_TEST=y` -> no mics/Wi-Fi, audio from the serial port (921600 baud)
 
-Build/flash: `idf.py reconfigure; ninja -C build -j 3; idf.py -p COM6 -b 921600 flash` (restore production options after
+Build/flash: `idf.py reconfigure; ninja -C build -j 3; idf.py -p <port> -b 921600 flash` (restore production options after
 a variant).
 
 ## Rules followed
