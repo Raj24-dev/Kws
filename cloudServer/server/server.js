@@ -4,18 +4,18 @@
 //   text   {"type":"start","device":..,"wake_word":..,"score":..,"format":"mulaw","preroll_ms":..}  wake word detected
 //   binary audio, 16 kHz mono: G.711 mu-law (1 byte/sample) with "format":"mulaw", else 16-bit PCM little-endian
 //          (pre-roll first, then live audio in 20 ms messages)
-//   text   {"type":"end","reason":..,"duration_ms":..,"first_audio_latency_ms":..}  end of utterance
+//   text   {"type":"end","reason":..,"duration_ms":..,"first_audio_latency_ms":..,"lost_ms":..,"resumes":..}
 //   A start with "source":"resume" is the rest of an utterance after the connection dropped: it is appended to
-//   the interrupted recording, so the result is one complete file even across a server restart.
+//   the interrupted recording, so the result is one file and one transcript, even across a server restart.
 // Other clients can still use register / heartbeat / trigger / stop.
 //
 // The wake word is detected by the model on the device; the server does not check it again. The device sends what
 // is said after it, every frame goes to the speech-to-text service (stt-services/main.py, WebSocket /stream) the
 // moment it arrives, and after "end" it is transcribed ("Close the door.") and sent back: {"type":"response","text"}.
-// Live view (kws_s3/tools/transcription.html): WebSocket ws://<host>:3000/live gets every utterance as it happens:
+// Live view (tools/transcription.html): WebSocket ws://<host>:3000/live gets every utterance as it happens:
 //   {"type":"start"} (detected on the device: listening), {"type":"final"} (the transcript).
 // Every utterance is saved as recordings/<time>_<device>_<wake word>.wav plus one line in recordings/index.jsonl
-// (same format as kws_s3/tools/ws_server.py, so kws_s3/tools/report.py can show it).
+// (cloudServer/tools/report.py turns them into an HTML page).
 import Fastify from "fastify";
 import websocket from "@fastify/websocket";
 import dotenv from "dotenv";
@@ -121,8 +121,10 @@ function openStt(info) {
   const final = new Promise((resolve) => (resolveFinal = resolve));
   ws.onopen = () => queue.splice(0).forEach((m) => ws.send(m));
   ws.onmessage = (ev) => {
-    const m = JSON.parse(ev.data);
-    if (m.type === "final") resolveFinal(m.text);
+    try {
+      const m = JSON.parse(ev.data);
+      if (m.type === "final") resolveFinal(m.text);
+    } catch {} // not JSON: a throw here would take the whole server down
   };
   ws.onerror = () => resolveFinal(null);
   ws.onclose = () => resolveFinal(null);
@@ -154,17 +156,8 @@ function openUtterance(deviceId, info) {
 
 function loadPart(part) {
   const meta = JSON.parse(fs.readFileSync(`${part}.json`, "utf8"));
-  return { ...meta, base: path.basename(part, ".part"), part, fd: null, bytes: fs.statSync(part).size, truncated: false, resumed: 0 };
-}
-
-// The device's newest interrupted utterance (still a .part file, written to less than RESUME_WINDOW_MS ago)
-function findPart(deviceId) {
-  const now = Date.now();
-  return fs.readdirSync(RECORDINGS_DIR)
-    .filter((f) => f.endsWith(".part") && f.includes(`_${deviceId}_`))
-    .map((f) => path.join(RECORDINGS_DIR, f))
-    .filter((p) => fs.existsSync(`${p}.json`) && now - fs.statSync(p).mtimeMs < RESUME_WINDOW_MS)
-    .sort().pop();
+  return { ...meta, base: path.basename(part, ".part"), part, fd: null, bytes: fs.statSync(part).size, truncated: false,
+           resumed: 0, stt: null };
 }
 
 function discardUtterance(utt) {
@@ -174,13 +167,26 @@ function discardUtterance(utt) {
   fs.rmSync(`${utt.part}.json`, { force: true });
 }
 
-// Interrupted utterances wait for a resume; if none comes they are saved as they are
-const pendingParts = new Map(); // .part path -> timer
+// Interrupted utterances wait for a resume; if none comes they are saved as they are. The utterance keeps its live
+// speech-to-text link while it waits, so a resumed one is transcribed as a whole.
+const pendingParts = new Map(); // .part path -> { utt, timer }
 function awaitResume(utt) {
-  pendingParts.set(utt.part, setTimeout(() => {
+  const timer = setTimeout(() => {
     pendingParts.delete(utt.part);
     finishUtterance(utt, { reason: "connection_lost" }).catch((err) => log(`could not save: ${err.message}`));
-  }, RESUME_WINDOW_MS));
+  }, RESUME_WINDOW_MS);
+  pendingParts.set(utt.part, { utt, timer });
+}
+
+// The device's newest interrupted utterance that is still waiting (part names start with the time)
+function takePending(deviceId) {
+  let newest = null;
+  for (const [part, p] of pendingParts) if (p.utt.deviceId === deviceId && (!newest || part > newest)) newest = part;
+  if (!newest) return null;
+  const { utt, timer } = pendingParts.get(newest);
+  clearTimeout(timer);
+  pendingParts.delete(newest);
+  return utt;
 }
 
 let sttWarned = false;
@@ -209,7 +215,8 @@ async function finishUtterance(utt, end) {
     first_audio_rx_ms: utt.firstAudioMs ?? null, // server: start message -> first audio frame
     start_rx_epoch_ms: utt.startRxEpochMs ?? null, // arrival times on this PC's clock (latency benchmark)
     first_audio_rx_epoch_ms: utt.firstAudioEpochMs ?? null,
-    resumes: end.resumes ?? utt.resumed, // reconnects bridged without losing audio
+    resumes: end.resumes ?? utt.resumed, // reconnects bridged within this utterance
+    lost_ms: end.lost_ms ?? null, // audio the device could not deliver (network too slow for its buffer)
     event_peak: end.event_peak ?? null, // the device's wake word score peak and length
     event_ms: end.event_ms ?? null,
     truncated: utt.truncated,
@@ -218,6 +225,11 @@ async function finishUtterance(utt, end) {
   };
   const t0 = Date.now();
   record.transcript = utt.stt ? await utt.stt.finish() : null;
+  if (record.transcript === null && pcm.length) { // no live link (recovered after a restart) or it broke: send the file
+    const stt = openStt(utt.info);
+    stt.send(pcm);
+    record.transcript = await stt.finish();
+  }
   record.stt_final_ms = Date.now() - t0; // "end" -> transcript
   if (record.transcript !== null) {
     log(`${utt.deviceId}: "${record.transcript}" (${record.stt_final_ms} ms after the end)`);
@@ -253,7 +265,7 @@ app.get("/health", async () => ({ status: "running" }));
 
 const devices = new Map();
 
-// Live view for the dashboard (kws_s3/tools/dashboard.html). Any origin may connect: it only reads.
+// Live view for the dashboard (tools/dashboard.html). Any origin may connect: it only reads.
 app.get("/live", { websocket: true }, (socket) => {
   liveClients.add(socket);
   socket.send(JSON.stringify({ type: "hello", history: liveHistory.map((m) => JSON.parse(m)) }));
@@ -299,12 +311,17 @@ app.get("/ws", { websocket: true }, (socket, req) => {
         return;
       }
       utt.stt?.send(pcm); // to the ASR first: this is the latency that counts
-      if (utt.firstAudioMs == null) {
+      if (utt.firstAudioMs == null && utt.startedAt) { // (an utterance recovered after a restart has no start time)
         utt.firstAudioMs = Date.now() - utt.startedAt;
         utt.firstAudioEpochMs = rxEpochMs;
         live({ type: "first_audio", id: utt.base, rx_epoch_ms: rxEpochMs, bytes: message.length });
       }
-      fs.writeSync(utt.fd, pcm); // ponytail: synchronous 640 B write per 20 ms; fine for a few devices
+      try {
+        fs.writeSync(utt.fd, pcm); // synchronous 640 B write per 20 ms: fine for a few devices
+      } catch (err) { // disk full etc.: keep transcribing (a throw here would stop the whole server)
+        if (!utt.writeFailed) log(`${deviceId}: cannot save audio: ${err.message}`);
+        utt.writeFailed = true;
+      }
       utt.bytes += pcm.length;
       return;
     }
@@ -348,14 +365,12 @@ app.get("/ws", { websocket: true }, (socket, req) => {
             send({ type: "ack", status: "already-streaming" });
             break;
           }
-          const part = data.source === "resume" ? findPart(deviceId) : null;
-          if (part) { // continue the interrupted recording
-            clearTimeout(pendingParts.get(part));
-            pendingParts.delete(part);
-            utt = loadPart(part);
-            utt.fd = fs.openSync(part, "a");
-            utt.resumed = 1;
-            log(`${deviceId}: resumed after a reconnect, appending to ${path.basename(part)}`);
+          const pending = data.source === "resume" ? takePending(deviceId) : null;
+          if (pending) { // continue the interrupted recording and its speech-to-text link
+            utt = pending;
+            utt.fd = fs.openSync(utt.part, "a");
+            utt.resumed++;
+            log(`${deviceId}: resumed after a reconnect, appending to ${path.basename(utt.part)}`);
           } else {
             utt = openUtterance(deviceId, data);
             utt.startRxEpochMs = rxEpochMs;

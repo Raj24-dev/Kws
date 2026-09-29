@@ -17,8 +17,9 @@ Two ways in:
                     binary), with JSON control messages:
                       {"type":"start","preroll_ms":0}
                       {"type":"end"}  -> {"type":"final","text":...}           (the command after the wake word)
-  POST /transcribe  a WAV file -> {"text":...}   (tools/export_training_clips.py; the whole file, no prompt)
+  POST /transcribe  a WAV file -> {"text":...}   (training/export_training_clips.py; the whole file, no prompt)
 """
+import asyncio
 import json
 import os
 import re
@@ -43,6 +44,8 @@ QUESTION_WORDS = {"am", "are", "is", "was", "were", "can", "could", "will", "wou
 
 app = FastAPI()
 model = WhisperModel(MODEL, device="cpu", compute_type="int8", cpu_threads=THREADS)
+# One transcription at a time, in arrival order: each call uses every CPU thread, so two at once would both finish late
+busy = asyncio.Lock()
 
 
 def segments_of(audio, prompt=None, words=False):
@@ -150,7 +153,8 @@ async def stream(ws: WebSocket):
                     detect_s = int(data.get("preroll_ms") or 0) / 1000
                 elif data.get("type") == "end":
                     t0 = time.perf_counter()
-                    text = await run_in_threadpool(transcribe_command, bytes(pcm), detect_s)
+                    async with busy:
+                        text = await run_in_threadpool(transcribe_command, bytes(pcm), detect_s)
                     await ws.send_json({"type": "final", "text": text, "seconds": round(time.perf_counter() - t0, 2)})
                     await ws.close()  # a clean close: an abrupt one can drop the last message on the client
                     return
