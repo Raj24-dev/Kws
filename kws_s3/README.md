@@ -26,13 +26,13 @@ INMP441 ─I2S/DMA─► filter ─► 0.5 s mu-law ring (8 KB)                �
 | SD | GPIO 17 | |
 
 The pins can be changed in `menuconfig`. Avoid GPIO 0, 3, 45 and 46 (boot pins), 19/20 (USB) and 35–37 (PSRAM on N8R8/N16R8 modules).
-**One microphone is used** (default `KWS_MIC_SELECT = 1`: the left slot, L/R to GND, read as I2S mono).
-A **second microphone** (this board: 55 mm apart) can share the **same** SCK, WS and SD pins with its L/R pin tied to
-**3V3**; each drives SD only in its own slot. `KWS_MIC_SELECT = 0` reads both slots, checks them at boot and averages
-them, e.g. `microphones: left (L/R to GND) -20.8 dBFS, right (L/R to 3V3) -18.5 dBFS, similarity 0.42 -> using both
-(average)`. Measured on this board: averaging detected no more than the left microphone alone (30/40 vs 32/40
-synthetic clips, `../benchmarks/results/micab_*`) and costs 5 KB of RAM, so it is off. If both L/R pins are on the
-same level the two microphones fight over SD: the check then shows garbage levels.
+**Two microphones are used** (default `KWS_MIC_SELECT = 0`): both INMP441 share the **same** SCK, WS and SD pins;
+mic 1 has L/R to GND (left slot), mic 2 has L/R to **3V3** (right slot), each drives SD only in its own slot. The
+firmware reads both slots, checks them at boot and averages them, e.g. `microphones: left (L/R to GND) -20.8 dBFS,
+right (L/R to 3V3) -18.5 dBFS, similarity 0.42 -> using both (average)`. `KWS_MIC_SELECT = 1` / `2` reads only that
+slot (I2S mono, -5 KB RAM). Earlier measurements on this board found averaging detected no more than the left
+microphone alone (30/40 vs 32/40 synthetic clips, `../benchmarks/results/micab_*`). If both L/R pins are on the same
+level the two microphones fight over SD: the check then shows garbage levels.
 
 ## 2. Model
 
