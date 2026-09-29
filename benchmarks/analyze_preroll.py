@@ -21,7 +21,7 @@ import soundfile as sf
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-sys.path.insert(0, os.path.join(ROOT, "kws_s3", "tools"))
+sys.path.insert(0, os.path.join(ROOT, "training"))
 sys.path.insert(0, os.path.join(ROOT, "cloudServer", "server", "stt-services"))
 from check_model import Detector, LcgNoise, run  # noqa: E402
 

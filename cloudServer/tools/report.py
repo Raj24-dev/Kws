@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Build an HTML report + spectrograms for recorded wake-word utterances.
 
-Reads recordings/index.jsonl (written by ws_server.py), makes a small PNG
+Reads recordings/index.jsonl (written by the cloud server), makes a small PNG
 spectrogram per WAV, and writes recordings/report.html with one card per
 utterance (audio player + spectrogram) plus a summary at the top.
 
     pip install numpy               (required; no matplotlib/PIL used)
-    python report.py [recordings_dir]     # default: ../recordings next to this script
+    python report.py [recordings_dir]     # default: ../server/recordings
 """
 import html
 import json
@@ -223,7 +223,7 @@ def build_html(recordings_dir, rows):
 
 
 def main():
-    recordings_dir = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, "..", "recordings")
+    recordings_dir = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, "..", "server", "recordings")
     recordings_dir = os.path.abspath(recordings_dir)
     spec_dir = os.path.join(recordings_dir, "spectrograms")
     os.makedirs(spec_dir, exist_ok=True)

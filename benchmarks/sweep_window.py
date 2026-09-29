@@ -14,7 +14,7 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-sys.path.insert(0, os.path.join(ROOT, "kws_s3", "tools"))
+sys.path.insert(0, os.path.join(ROOT, "training"))
 from check_model import LEAD_MS, TAIL_MS, Detector, LcgNoise, load_wav, run  # noqa: E402
 
 MODEL = os.path.join(ROOT, "kws_s3", "model", "marvin.tflite")

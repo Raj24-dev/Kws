@@ -1,4 +1,4 @@
-"""[HOST-ONLY] accuracy with kws_s3/tools/check_model.py, the PC mirror of the firmware pipeline (same features,
+"""[HOST-ONLY] accuracy with training/check_model.py, the PC mirror of the firmware pipeline (same features,
 int8 conversion, 3-frame streaming, sliding-window average, cool-down and quiet-room gate).
 
     python run_host.py sweep  --label baseline          threshold sweep on the VALIDATION sets -> picks a cutoff
@@ -23,7 +23,7 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-sys.path.insert(0, os.path.join(ROOT, "kws_s3", "tools"))
+sys.path.insert(0, os.path.join(ROOT, "training"))
 from check_model import LEAD_MS, TAIL_MS, Detector, LcgNoise, load_wav, run  # noqa: E402
 
 REC = os.path.join(ROOT, "cloudServer", "server", "recordings")
