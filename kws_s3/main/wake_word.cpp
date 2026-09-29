@@ -134,14 +134,17 @@ uint64_t g_stat_invoke_us = 0;
 float g_stat_max_avg = 0;
 float g_last_avg = 0;
 
-// Score events: one log line per rise of the averaged probability (real wake words AND near-misses), so the
-// threshold can be chosen from real data. An event starts above 0.20 and ends after 5 inferences below 0.10.
+// Score events: one per rise of the averaged probability (real wake words AND near-misses), logged by the main task
+// (ww_take_event) so the threshold can be chosen from real data. An event starts above 0.20 and ends after
+// 5 inferences below 0.10.
 constexpr float kEventStart = 0.20f, kEventEnd = 0.10f;
 bool g_evt = false, g_evt_detected = false;
 float g_evt_peak = 0;
 int g_evt_runs = 0, g_evt_quiet = 0;
 float g_last_evt_peak = 0;
 int g_last_evt_ms = 0;
+bool g_last_evt_detected = false;
+uint32_t g_evt_seq = 0, g_evt_seq_taken = 0;  // events ended / events handed out by ww_take_event()
 
 void track_event(float avg, bool detected) {
     if (!g_evt) {
@@ -156,14 +159,12 @@ void track_event(float avg, bool detected) {
     g_evt_runs++;
     g_evt_quiet = avg < kEventEnd ? g_evt_quiet + 1 : 0;
     if (g_evt_quiet >= 5) {
-        const int ms = (g_evt_runs - g_evt_quiet) * g_stride * kFeatureStepMs;
         portENTER_CRITICAL(&g_stats_lock);
         g_last_evt_peak = g_evt_peak;
-        g_last_evt_ms = ms;
+        g_last_evt_ms = (g_evt_runs - g_evt_quiet) * g_stride * kFeatureStepMs;
+        g_last_evt_detected = g_evt_detected;
+        g_evt_seq++;
         portEXIT_CRITICAL(&g_stats_lock);
-        ESP_LOGI(TAG, "score event: peak %.2f over %d ms -> %s", g_evt_peak,
-                 ms,
-                 g_evt_detected ? "detected" : "not detected (below threshold or in cool-down)");
         g_evt = false;
     }
 }
@@ -246,7 +247,9 @@ bool infer(int64_t *invoke_us) {
     const TfLiteStatus st = g_interp->Invoke();
     *invoke_us += esp_timer_get_time() - t0;
     if (st != kTfLiteOk) {
-        ESP_LOGW(TAG, "Invoke failed");
+        static bool warned;  // once: this runs every 30 ms on the audio task
+        if (!warned) ESP_LOGW(TAG, "Invoke failed");
+        warned = true;
         return false;
     }
     portENTER_CRITICAL(&g_stats_lock);
@@ -478,6 +481,9 @@ extern "C" void ww_reset(void) {
     g_step = 0;
     g_last_avg = 0;
     g_evt = false;
+    portENTER_CRITICAL(&g_stats_lock);
+    g_evt_seq_taken = g_evt_seq;  // events from before the reset (the self-test) are not logged later
+    portEXIT_CRITICAL(&g_stats_lock);
     gate_reset();
     clear_probabilities();
 }
@@ -487,6 +493,17 @@ extern "C" void ww_last_event(float *peak, int *ms) {
     *peak = g_last_evt_peak;
     *ms = g_last_evt_ms;
     portEXIT_CRITICAL(&g_stats_lock);
+}
+
+extern "C" bool ww_take_event(float *peak, int *ms, bool *detected) {
+    portENTER_CRITICAL(&g_stats_lock);
+    const bool fresh = g_evt_seq != g_evt_seq_taken;
+    g_evt_seq_taken = g_evt_seq;
+    *peak = g_last_evt_peak;
+    *ms = g_last_evt_ms;
+    *detected = g_last_evt_detected;
+    portEXIT_CRITICAL(&g_stats_lock);
+    return fresh;
 }
 
 extern "C" void ww_take_stats(ww_stats_t *out) {

@@ -19,6 +19,9 @@ CONFIG_ESP32S3_INSTRUCTION_CACHE_32KB=y
 CONFIG_ESP32S3_DATA_CACHE_64KB=y
 CONFIG_ESP32S3_DATA_CACHE_LINE_64B=y
 
+# A task that stops running (the audio task, the main loop, or a starved idle task) restarts the board after 5 s
+CONFIG_ESP_TASK_WDT_PANIC=y
+
 # 1 ms scheduler tick and task statistics (used to measure CPU usage: FreeRTOS idle-task share per core)
 CONFIG_FREERTOS_HZ=1000
 CONFIG_FREERTOS_USE_TRACE_FACILITY=y
@@ -52,6 +55,8 @@ CONFIG_ESP_WIFI_MGMT_SBUF_NUM=10
 # CONFIG_ESP_WIFI_ENABLE_WPA3_OWE_STA is not set
 # CONFIG_ESP_WIFI_GMAC_SUPPORT is not set
 CONFIG_LWIP_MAX_SOCKETS=4
+# The TCP/IP task (priority 18) stays on core 0 with Wi-Fi, so it never preempts the audio task on core 1
+CONFIG_LWIP_TCPIP_TASK_AFFINITY_CPU0=y
 # CONFIG_LWIP_IPV6 is not set
 # CONFIG_LWIP_DHCPS is not set
 # Nothing in NVS: settings come from menuconfig, the radio calibrates at every boot

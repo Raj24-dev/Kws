@@ -52,6 +52,9 @@ void ww_take_stats(ww_stats_t *out);
 // Peak averaged probability and length of the most recent score event (sent to the server with each utterance)
 void ww_last_event(float *peak, int *ms);
 
+// The most recent score event, if it ended since the previous call (for the log); false if there is none new
+bool ww_take_event(float *peak, int *ms, bool *detected);
+
 #ifdef __cplusplus
 }
 #endif

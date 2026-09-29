@@ -205,8 +205,9 @@ uint32_t audio_ring_pos(void) { return atomic_load(&s_wpos); }
 
 size_t audio_ring_read(uint32_t *pos, uint8_t *dst, size_t max) {
     if (!s_ring) return 0;
-    // Keep one block of margin from the oldest sample: the writer overwrites it while filling the next block.
-    const uint32_t keep = AUDIO_RING_SAMPLES - AUDIO_BLOCK_SAMPLES;
+    // Keep two blocks of margin from the oldest sample: the writer overwrites one while filling the next block, the
+    // second covers a reader that is preempted between reading s_wpos and copying.
+    const uint32_t keep = AUDIO_RING_SAMPLES - 2 * AUDIO_BLOCK_SAMPLES;
     uint32_t w = atomic_load(&s_wpos);
     if (w - *pos > keep) {  // too far behind: skip to the oldest audio still in the ring
         const uint32_t skip = (w - keep) - *pos;

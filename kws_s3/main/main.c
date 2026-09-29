@@ -22,6 +22,7 @@
 #include "esp_idf_version.h"
 #include "esp_log.h"
 #include "esp_system.h"
+#include "esp_task_wdt.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -65,7 +66,14 @@ static bool s_model_ok;
 static bool s_streaming_enabled;
 static model_settings_t s_ms;
 static volatile uint32_t s_detections;
+// Detections are logged and blinked by the main task: the audio task never waits on the console or the LED
+static TaskHandle_t s_main_task;
+static volatile float s_det_score;
+static volatile int64_t s_det_us;
+static volatile bool s_det_extended;
 static size_t s_ballast;  // RAM reserved by the KWS_RAM_LIMIT_KB test (not used by the firmware)
+static volatile uint32_t s_alloc_failures;  // heap allocations that failed since boot (e.g. Wi-Fi buffers in a burst)
+static volatile uint32_t s_alloc_fail_bytes;
 static bool s_mics_both, s_mics_aligned;  // two microphones (time-aligned): the status line shows their mix and delay
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -107,6 +115,26 @@ static void apply_ram_limit(void) {
 }
 #endif
 
+static void on_alloc_failed(size_t size, uint32_t caps, const char *function_name) {
+    s_alloc_failures++;  // counted only: this can run in any task, even inside the Wi-Fi driver
+    s_alloc_fail_bytes = size;
+}
+
+static const char *reset_reason(void) {
+    switch (esp_reset_reason()) {
+        case ESP_RST_POWERON: return "power-on";
+        case ESP_RST_EXT: return "reset pin";
+        case ESP_RST_SW: return "software restart";
+        case ESP_RST_PANIC: return "crash (panic)";
+        case ESP_RST_INT_WDT: return "interrupt watchdog";
+        case ESP_RST_TASK_WDT: return "task watchdog (a task stopped running)";
+        case ESP_RST_WDT: return "watchdog";
+        case ESP_RST_BROWNOUT: return "brownout (supply voltage dropped)";
+        case ESP_RST_USB: return "USB";
+        default: return "other";
+    }
+}
+
 static void print_banner(void) {
     esp_chip_info_t chip;
     esp_chip_info(&chip);
@@ -116,6 +144,7 @@ static void print_banner(void) {
     printf(" chip      : %s rev v%d.%d, %d cores, flash %lu MB\n", CONFIG_IDF_TARGET, chip.revision / 100,
            chip.revision % 100, chip.cores, (unsigned long)(flash >> 20));
     printf(" ESP-IDF   : %s\n", esp_get_idf_version());
+    printf(" reset     : %s\n", reset_reason());
     printf(" RAM       : %u KB static data, %u KB heap free (code in IRAM: %u KB, counted in the SIH total)\n",
            (unsigned)(static_ram() / 1024), (unsigned)(heap_caps_get_free_size(MALLOC_CAP_INTERNAL) / 1024),
            (unsigned)(iram_code() / 1024));
@@ -184,18 +213,31 @@ static void run_selftest(void) {
 
 // ---------------------------------------------------------------------------------------------------------------
 // Capture + detection in one task on core 1 (away from Wi-Fi on core 0). It blocks on the I2S DMA buffer.
+// A detection starts the stream first; the main task then logs it and blinks the LED.
 static void audio_task(void *arg) {
     static int16_t block[AUDIO_BLOCK_SAMPLES];
+    int no_data_s = 0;
+    esp_task_wdt_add(NULL);  // a stuck audio task restarts the board (task watchdog, 5 s)
     for (;;) {
-        const size_t n = audio_input_read(block);
+        const size_t n = audio_input_read(block);  // waits at most 1 s
+        esp_task_wdt_reset();
+        if (!n) {  // the I2S DMA stopped (a missing microphone still delivers zeros): start over
+            if (++no_data_s >= 5) {
+                ESP_LOGE(TAG, "no audio from I2S for 5 s: restarting");
+                esp_restart();
+            }
+            continue;
+        }
+        no_data_s = 0;
         float score = 0;
-        if (!n || !s_model_ok || !ww_process(block, n, &score)) continue;
+        if (!s_model_ok || !ww_process(block, n, &score)) continue;
 
-        s_detections++;
-        status_led_flash(0, 60, 0, 250);  // the model on the board decides: one green blink per detection
-        ESP_LOGI(TAG, ">>> WAKE WORD \"%s\" DETECTED  (score %.2f, t = %.2f s)%s", s_ms.wake_word, score,
-                 esp_timer_get_time() / 1e6, streamer_is_active() ? " during a stream -> stream extended" : "");
+        s_det_extended = s_streaming_enabled && streamer_is_active();
         if (s_streaming_enabled) streamer_trigger(score, "wake_word");
+        s_det_score = score;
+        s_det_us = esp_timer_get_time();
+        s_detections++;
+        xTaskNotifyGive(s_main_task);
     }
 }
 
@@ -369,7 +411,10 @@ static void print_status(void) {
         printf(", right %+.0f us after left (talker %.0f deg to the %s), %lu estimates", s->mic_delay_us,
                fabsf(asinf(sine)) * 57.2958f, sine >= 0 ? "left" : "right", (unsigned long)s->mic_delay_updates);
     }
-    printf(" | audio lost since boot: i2s %lu net %lu\n", (unsigned long)s_lost_i2s, (unsigned long)s_lost_net);
+    printf(" | audio lost since boot: i2s %lu net %lu", (unsigned long)s_lost_i2s, (unsigned long)s_lost_net);
+    if (s_alloc_failures)
+        printf(" | failed allocations %lu (last %lu B)", (unsigned long)s_alloc_failures, (unsigned long)s_alloc_fail_bytes);
+    printf("\n");
     if (s->mic_peak_dbfs < -85.0f) ESP_LOGW(TAG, "microphone is silent - check the wiring");
     static bool noise_warned;  // once: a healthy pair is within a few dB
     if (s_mics_both && !noise_warned && fabsf(s->mic_noise_db) > 10.0f) {
@@ -437,6 +482,7 @@ void app_main(void) {
 #if CONFIG_KWS_RAM_LIMIT_KB > 0
     apply_ram_limit();
 #endif
+    heap_caps_register_failed_alloc_callback(on_alloc_failed);
     print_banner();
     heap_mark("start of app_main");
     status_led_init(CONFIG_KWS_LED_GPIO);
@@ -518,6 +564,7 @@ void app_main(void) {
         status_led_set(40, 0, 0);
     }
     // Audio + wake word task (core 1, away from Wi-Fi on core 0). Started now so no audio piles up in DMA.
+    s_main_task = xTaskGetCurrentTaskHandle();
     xTaskCreatePinnedToCore(audio_task, "audio_kws", 3584, NULL, 10, NULL, 1);  // uses ~2.8 KB
     heap_mark("I2S + ring + audio task");
     if (s_model_ok) ESP_LOGI(TAG, "listening for \"%s\" ...", s_ms.wake_word);
@@ -558,13 +605,26 @@ void app_main(void) {
     int64_t last_tick = esp_timer_get_time(), next_tick = last_tick + tick_us, next_status = last_tick + interval_us;
     int pressed_ticks = 0;
     uint32_t n_status = 0;
+    esp_task_wdt_add(NULL);  // (only here: the injection test loop above blocks on the serial port for good)
     for (;;) {
-        vTaskDelay(pdMS_TO_TICKS(20));
+        esp_task_wdt_reset();
+        // Wakes at once for a detection, else every 100 ms (button, LED, statistics)
+        if (ulTaskNotifyTake(pdTRUE, pdMS_TO_TICKS(100))) {
+            status_led_flash(0, 60, 0, 250);  // the model on the board decides: one green blink per detection
+            ESP_LOGI(TAG, ">>> WAKE WORD \"%s\" DETECTED  (score %.2f, t = %.2f s)%s", s_ms.wake_word, s_det_score,
+                     s_det_us / 1e6, s_det_extended ? " during a stream -> stream extended" : "");
+        }
+        float event_peak;
+        int event_ms;
+        bool event_detected;
+        if (s_model_ok && ww_take_event(&event_peak, &event_ms, &event_detected))
+            ESP_LOGI(TAG, "score event: peak %.2f over %d ms -> %s", event_peak, event_ms,
+                     event_detected ? "detected" : "not detected (below threshold or in cool-down)");
         const int64_t now = esp_timer_get_time();
         status_led_poll();
         if (CONFIG_KWS_BUTTON_GPIO >= 0) {
             if (gpio_get_level(CONFIG_KWS_BUTTON_GPIO) == 0) {
-                if (++pressed_ticks == 3) {  // held for ~60 ms
+                if (++pressed_ticks == 2) {  // held for 0.1-0.2 s
                     ESP_LOGI(TAG, "button pressed -> manual trigger");
                     if (s_streaming_enabled) {
                         streamer_trigger(1.0f, "button");
