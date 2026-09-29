@@ -84,7 +84,7 @@ menu "KWS (wake word) settings"
             string "Wi-Fi password"
             default ""
         config KWS_SERVER_URI
-            string "WebSocket server, e.g. ws://192.168.1.50:8765 . Empty = no streaming"
+            string "WebSocket server, e.g. ws://192.168.1.50:3000/ws . Empty = no streaming"
             default ""
         config KWS_PREROLL_MS
             int "Audio sent from before the detection (ms)"

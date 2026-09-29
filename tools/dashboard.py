@@ -14,7 +14,8 @@ the mark counts as correct; a mark without one is a miss; a detection nobody mar
 it to override). The raw serial log and the tester's marks are saved to logs/serial_<date>_<time>.log, the
 scorecard via "Export CSV".
 
-Needs pyserial (in the ESP-IDF Python environment) and firmware with KWS_TELEMETRY_MS > 0 (default 100).
+Needs pyserial (in the ESP-IDF Python environment) and firmware with KWS_TELEMETRY_MS > 0 (e.g. 100; it is 0 = off
+in sdkconfig.defaults).
 While the page runs the dashboard owns the COM port: use "Release port" on the page before flashing.
 """
 import argparse

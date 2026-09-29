@@ -5,7 +5,9 @@ and the same quiet-noise padding as the on-device self-test).
 
 Use it to:
   * check a trained model before flashing it (does it fire on your recordings? does it stay quiet on others?)
-  * compare with the SELF-TEST lines the ESP32 prints at boot. For the same model + WAV the numbers match.
+  * compare with the SELF-TEST lines the ESP32 prints at boot. For the same model + WAV the numbers agree closely
+    (scores within ~0.03; the detections agreed on every real test clip). For exact on-device numbers use
+    benchmarks/run_injected.py, which feeds the audio into the board's own pipeline.
 
 Works in Google Colab right after training (everything is already installed there):
     !python check_model.py /content/drive/MyDrive/microwakeword/marvin/export/marvin.tflite my_recording.wav

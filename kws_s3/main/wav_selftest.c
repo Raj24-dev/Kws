@@ -5,7 +5,7 @@
 
 #include "wake_word.h"
 
-// Must match tools/check_model.py so both give the same numbers.
+// Must match training/check_model.py so both give the same numbers.
 #define ST_RATE 16000
 #define ST_LEAD_MS 1200     // quiet noise before the word (the detector ignores the first second)
 #define ST_TAIL_MS 600      // quiet noise after the word
