@@ -902,3 +902,13 @@
 [1:08:33 AM] e072a1d53274: saved 20260929_010832_219_e072a1d53274_marvin.wav (1.75 s, silence, rms -37.2 dBFS)
 [1:11:43 AM] client connected from 192.168.137.25
 [1:11:44 AM] disconnected: e072a1d53274
+[2:41:44 AM] heartbeat timeout: 192.168.137.25
+[2:42:06 AM] disconnected: 192.168.137.25
+[6:07:42 AM] client connected from 192.168.137.246
+[6:10:05 AM] registered: e072a1d53274
+[6:10:05 AM] e072a1d53274: wake word "marvin" (score 1)
+[6:10:06 AM] e072a1d53274: "" (67 ms after the end)
+[6:10:06 AM] e072a1d53274: saved 20260929_061005_415_e072a1d53274_marvin.wav (1.5 s, silence, rms -120 dBFS)
+[6:11:12 AM] heartbeat timeout: e072a1d53274
+[6:11:42 AM] heartbeat timeout: e072a1d53274
+[6:11:42 AM] disconnected: e072a1d53274
