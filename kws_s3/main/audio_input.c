@@ -36,7 +36,9 @@ static uint32_t s_nsamples;
 static float s_peak_ms;  // highest block mean-square
 static uint32_t s_net_drop_samples;
 static uint64_t s_busy_us;
-static float s_noise_floor = 50.0f;
+// Starts high and falls to the real background within ~0.5 s. (It rises only ~10 % per second: starting low, a room
+// at -40 dBFS took ~20 s to be recognised, and until then streams did not end on silence but ran to their maximum.)
+static float s_noise_floor = 3000.0f;
 // KWS_MIC_SELECT 1/2 reads only that slot (I2S mono): half the DMA buffers and s_raw (-5 KB RAM).
 #define MIC_CHANNELS (CONFIG_KWS_MIC_SELECT ? 1 : 2)
 #define FIRST_SLOT (CONFIG_KWS_MIC_SELECT ? CONFIG_KWS_MIC_SELECT - 1 : 0)  // slot of channel 0: 0 = left, 1 = right
