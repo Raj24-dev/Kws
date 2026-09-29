@@ -10,12 +10,13 @@
 #include "esp_log.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
+#include "mic_align.h"
 
 static const char *TAG = "audio";
 
 static i2s_chan_handle_t s_rx;
 static float s_gain;
-static float s_weight[2];  // share of the left / right microphone in the mix (from the boot check)
+static mic_align_t s_align;  // both microphones: time alignment + mix (shares from the boot check)
 
 // 2nd-order Butterworth high-pass at 80 Hz (RBJ biquad). Removes the DC offset and the large infrasonic drift the
 // INMP441 picks up (it otherwise eats the headroom and clips speech). Voice is not affected.
@@ -39,7 +40,11 @@ static float s_noise_floor = 50.0f;
 // KWS_MIC_SELECT 1/2 reads only that slot (I2S mono): half the DMA buffers and s_raw (-5 KB RAM).
 #define MIC_CHANNELS (CONFIG_KWS_MIC_SELECT ? 1 : 2)
 #define FIRST_SLOT (CONFIG_KWS_MIC_SELECT ? CONFIG_KWS_MIC_SELECT - 1 : 0)  // slot of channel 0: 0 = left, 1 = right
-static int32_t s_raw[AUDIO_BLOCK_SAMPLES * MIC_CHANNELS];  // one I2S block: left, right, left, ... (shared)
+// One I2S block: left, right, left, ... (shared); two microphones: after room for mic_align's history
+#define RAW_ROOM (MIC_CHANNELS == 2 ? 2 * MIC_ALIGN_HIST : 0)
+#define RAW_BYTES (AUDIO_BLOCK_SAMPLES * MIC_CHANNELS * sizeof(int32_t))
+static int32_t s_raw_buf[RAW_ROOM + AUDIO_BLOCK_SAMPLES * MIC_CHANNELS];
+static int32_t *const s_raw = s_raw_buf + RAW_ROOM;
 static volatile uint32_t s_dma_overflows;  // written from the I2S interrupt
 
 static bool IRAM_ATTR on_rx_overflow(i2s_chan_handle_t handle, i2s_event_data_t *event, void *ctx) {
@@ -47,7 +52,10 @@ static bool IRAM_ATTR on_rx_overflow(i2s_chan_handle_t handle, i2s_event_data_t 
     return false;
 }
 
-static inline int16_t sat16(int32_t v) { return v > 32767 ? 32767 : (v < -32768 ? -32768 : (int16_t)v); }
+static inline int16_t sat16(int32_t v) {  // min/max instructions, no branch
+    v = v < 32767 ? v : 32767;
+    return (int16_t)(v > -32768 ? v : -32768);
+}
 
 static float ms_to_dbfs(double mean_square) {
     if (mean_square <= 0) return -120.0f;
@@ -90,7 +98,8 @@ static esp_err_t i2s_setup(const audio_input_config_t *cfg) {
 
 // Reads ~0.3 s from both slots and decides which microphones to use. A slot counts as a working microphone if
 // its samples vary (not all zeros / all ones / a constant) at a plausible level (an empty slot on a floating SD line
-// reads garbage near full scale). Two working microphones within 10 dB of each other are averaged.
+// reads garbage near full scale). Two working microphones are both used; their shares in the mix then follow their
+// noise (mic_align.c), which the levels here cannot judge: they are dominated by the INMP441's power-up drift.
 static void mic_check(audio_mic_check_t *out) {
     int32_t *raw = s_raw;
     size_t bytes = 0;
@@ -102,7 +111,7 @@ static void mic_check(audio_mic_check_t *out) {
     int nseen[2] = {0, 0};
     memset(out, 0, sizeof(*out));
     for (int block = 0; block < 25; block++) {  // 25 x 20 ms
-        if (i2s_channel_read(s_rx, raw, sizeof(s_raw), &bytes, pdMS_TO_TICKS(500)) != ESP_OK) continue;
+        if (i2s_channel_read(s_rx, raw, RAW_BYTES, &bytes, pdMS_TO_TICKS(500)) != ESP_OK) continue;
         if (block < 10) continue;                   // the INMP441 needs ~85 ms to start; skip 200 ms
         const size_t frames = bytes / (MIC_CHANNELS * sizeof(int32_t));
         if (block == 10 && frames) {
@@ -135,39 +144,38 @@ static void mic_check(audio_mic_check_t *out) {
         live[c] = nseen[c] >= 3 && out->level_dbfs[c] > -100.0f && out->level_dbfs[c] < -6.0f;
     }
     out->correlation = (dss[0] > 0 && dss[1] > 0) ? (float)(cross / sqrt(dss[0] * dss[1])) : 0.0f;
-    if (live[0] && live[1] && fabsf(out->level_dbfs[0] - out->level_dbfs[1]) < 10.0f) {
-        out->use[0] = out->use[1] = true;
-    } else if (live[0] || live[1]) {
-        const int c = (live[0] && (!live[1] || out->level_dbfs[0] >= out->level_dbfs[1])) ? 0 : 1;
-        out->use[c] = true;
-    } else {
-        out->use[0] = true;  // nothing works: keep listening on the left slot (the wiring check prints an error)
-    }
+    out->use[0] = live[0] || !live[1];  // nothing works: keep listening on the left slot (the wiring check prints an error)
+    out->use[1] = live[1];
     out->ok = live[0] || live[1];
 }
 
 size_t audio_input_read(int16_t pcm[AUDIO_BLOCK_SAMPLES]) {
-    const int32_t *raw = s_raw;
+    const int32_t *raw = s_raw_buf;  // the block, or (two microphones) their mix, written to the front
     size_t bytes = 0;
-    if (i2s_channel_read(s_rx, s_raw, sizeof(s_raw), &bytes, pdMS_TO_TICKS(1000)) != ESP_OK || bytes == 0) {
+    if (i2s_channel_read(s_rx, s_raw, RAW_BYTES, &bytes, pdMS_TO_TICKS(1000)) != ESP_OK || bytes == 0) {
         ESP_LOGW(TAG, "no data from I2S");
         return 0;
     }
     const int64_t t0 = esp_timer_get_time();
     const size_t n = bytes / (MIC_CHANNELS * sizeof(int32_t));
-    int64_t sumsq = 0;  // integer: the S3 has no double-precision FPU
+    // Both microphones: time-aligned mix, in 24-bit units
+    if (MIC_CHANNELS == 2) mic_align_mix(&s_align, s_raw_buf, n);
+    // No branch in the loop and two samples per pass: the in-order FPU then works on one sample's rounding while the
+    // next one's filter waits for its result (measured: this loop was ~90 CPU cycles per sample with branches)
+    float sumsq = 0.0f;  // only for the level statistics (float: an int64 sum costs a carry branch per sample)
+#pragma GCC unroll 2
     for (size_t i = 0; i < n; i++) {
-        // 24-bit samples, mixed (both microphones: their average) and filtered before the gain so nothing clips
-        const float x = MIC_CHANNELS == 1 ? (float)(raw[i] >> 8)
-                                          : s_weight[0] * (float)(raw[2 * i] >> 8) + s_weight[1] * (float)(raw[2 * i + 1] >> 8);
+        // 24-bit samples, filtered before the gain so nothing clips
+        const float x = MIC_CHANNELS == 1 ? (float)(raw[i] >> 8) : (float)raw[i];
         const float y = s_b0 * x + s_b1 * s_x1 + s_b2 * s_x2 - s_a1 * s_y1 - s_a2 * s_y2;
         s_x2 = s_x1;
         s_x1 = x;
         s_y2 = s_y1;
         s_y1 = y;
         const float v = y * s_gain;
-        pcm[i] = sat16((int32_t)(v >= 0.0f ? v + 0.5f : v - 0.5f));  // one FPU instruction; lrintf is a library call
-        sumsq += (int32_t)pcm[i] * pcm[i];
+        pcm[i] = sat16((int32_t)(v + (v < 0.0f ? -0.5f : 0.5f)));  // half away from zero (a conditional move, no
+                                                                  // branch); lrintf is a library call
+        sumsq += (float)((int32_t)pcm[i] * pcm[i]);
     }
 
     if (s_ring) {
@@ -177,10 +185,13 @@ size_t audio_input_read(int16_t pcm[AUDIO_BLOCK_SAMPLES]) {
     }
 
     // statistics + noise floor (fast down, slow up)
-    const float ms = n ? (float)sumsq / (float)n : 0.0f, rms = sqrtf(ms);
+    const float ms = n ? sumsq / (float)n : 0.0f, rms = sqrtf(ms);
+    // A block 12 dB above the background (someone speaking) refines the microphones' delay. s_noise_floor is only
+    // written by this task, so no lock for reading it here.
+    if (MIC_CHANNELS == 2) mic_align_update(&s_align, rms > 4.0f * s_noise_floor);
     const int64_t busy = esp_timer_get_time() - t0;
     portENTER_CRITICAL(&s_stats_lock);
-    s_sumsq += sumsq;
+    s_sumsq += (int64_t)sumsq;
     s_nsamples += n;
     if (ms > s_peak_ms) s_peak_ms = ms;
     s_busy_us += (uint64_t)busy;
@@ -245,8 +256,9 @@ esp_err_t audio_input_start(const audio_input_config_t *cfg, audio_mic_check_t *
         chk.use[1] = CONFIG_KWS_MIC_SELECT == 2;
     }
     const float share = (chk.use[0] && chk.use[1]) ? 0.5f : 1.0f;
-    s_weight[0] = chk.use[0] ? share : 0.0f;
-    s_weight[1] = chk.use[1] ? share : 0.0f;
+    mic_align_init(&s_align, CONFIG_KWS_MIC_SPACING_MM, AUDIO_SAMPLE_RATE, chk.use[0] ? share : 0.0f,
+                   chk.use[1] ? share : 0.0f);
+    chk.aligned = s_align.estimate;
     if (check_out) *check_out = chk;
     return ESP_OK;
 }
@@ -268,6 +280,11 @@ void audio_input_take_stats(audio_stats_t *out) {
     portEXIT_CRITICAL(&s_stats_lock);
     out->level_dbfs = n ? ms_to_dbfs((double)sumsq / n) : -120.0f;
     out->peak_dbfs = ms_to_dbfs(peak_ms);
+    // written by the audio task once per block; a float and a counter, each read in one access
+    out->mic_delay_us = s_align.lag * (1e6f / AUDIO_SAMPLE_RATE);
+    out->mic_delay_updates = s_align.updates;
+    out->mic_left_share = s_align.w[0];
+    out->mic_noise_db = (s_align.nf[0] > 0.0f && s_align.nf[1] > 0.0f) ? 10.0f * log10f(s_align.nf[1] / s_align.nf[0]) : 0.0f;
 }
 
 float audio_input_noise_floor(void) {

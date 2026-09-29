@@ -34,9 +34,11 @@ CONFIG_ESP_CONSOLE_SECONDARY_USB_SERIAL_JTAG=y
 # "peak + IRAM code ... of the 256 KB limit").
 # CONFIG_SPIRAM is not set
 CONFIG_KWS_RAM_LIMIT_KB=256
-# Two microphones (left slot L/R to GND, right slot L/R to 3V3, shared SCK/WS/SD), both read and averaged.
-# 1 / 2 would read only the left / right slot and save 5 KB of DMA/sample buffers (benchmarks: micab_*)
+# Two microphones (left slot L/R to GND, right slot L/R to 3V3, shared SCK/WS/SD), 55 mm apart: both read,
+# time-aligned to the talker and averaged. 1 / 2 would read only the left / right slot and save 5 KB of DMA/sample
+# buffers; spacing 0 = plain average (benchmarks: micab_*)
 CONFIG_KWS_MIC_SELECT=0
+CONFIG_KWS_MIC_SPACING_MM=55
 # Wi-Fi/lwIP: station only. Keep the default TX side (16 dynamic TX buffers, A-MPDU TX, 5760-byte TCP buffers):
 # with 8 TX buffers / 2880-byte TCP buffers the first audio left 144-424 ms after the detection instead of 19 ms and
 # audio was lost (benchmarks/results/trig_expB_*, posB_F3c_*).

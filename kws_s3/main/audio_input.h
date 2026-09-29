@@ -1,8 +1,8 @@
 // Microphone input: reads one or two INMP441 over I2S (hardware + DMA), mixes them to 16 kHz 16-bit mono PCM and
 // keeps the last ~2 s in a small ring buffer (8-bit mu-law) that the network streamer reads from.
-// Two microphones (e.g. 55 mm apart) are averaged: a talker in front of the pair (perpendicular to the line between
-// the microphones) reaches both at the same time, so speech adds up while each microphone's own noise does not
-// (+3 dB SNR). A talker along that line loses a little around 3 kHz (the 0.16 ms path difference).
+// Two microphones (e.g. 55 mm apart, same SCK/WS so sampled at the same instants) are time-aligned to the talker
+// (mic_align.h: the earlier microphone is delayed by the measured 0..160 us path difference) and mixed by their noise,
+// so speech adds up in phase from any direction while each microphone's own noise does not (+3 dB SNR).
 //
 // There is no capture task: the wake word task calls audio_input_read() in a loop, so capture and detection run
 // in one task (the I2S DMA buffer is the queue between the hardware and the task).
@@ -33,12 +33,13 @@ typedef struct {
 
 typedef struct {           // [0] = left slot (L/R pin to GND), [1] = right slot (L/R pin to 3V3)
     bool ok;                  // false = no data from any microphone (wiring problem)
-    bool use[2];              // microphones in use (both = averaged)
+    bool use[2];              // microphones in use (both = mixed by their noise, time-aligned if `aligned`)
     float level_dbfs[2];      // loudness during the check
     uint32_t raw_first[2];    // first raw 32-bit word (helps diagnose wiring)
     int distinct_values[2];   // how many different sample values were seen
     float correlation;        // similarity of the two slots (-1..1); ~1 for two microphones side by side at low
                               // frequencies, ~0 if one slot is noise
+    bool aligned;             // both in use and time-aligned (KWS_MIC_SPACING_MM > 0)
 } audio_mic_check_t;
 
 // Sets up I2S and runs a short microphone check (which slots have a working microphone).
@@ -61,6 +62,10 @@ typedef struct {
     uint32_t net_drops;     // 20 ms blocks the streamer lost because the network was too slow
     uint64_t busy_us;       // time spent capturing and filtering audio
     uint32_t dma_overflows; // I2S buffers lost because the task did not read them in time
+    float mic_delay_us;     // two microphones: how much later the right one hears the talker (< 0: earlier)
+    uint32_t mic_delay_updates;  // delay estimates since boot (at most one per 80 ms of clear speech)
+    float mic_left_share;   // two microphones: left one's share of the mix (0..1, 0.5 = equal)
+    float mic_noise_db;     // right microphone's background noise minus the left one's (dB)
 } audio_stats_t;
 void audio_input_take_stats(audio_stats_t *out);
 

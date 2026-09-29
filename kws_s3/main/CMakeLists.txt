@@ -1,6 +1,7 @@
 set(srcs
     "main.c"
     "audio_input.c"
+    "mic_align.c"
     "wake_word.cpp"
     "streamer.c"
     "wifi.c"

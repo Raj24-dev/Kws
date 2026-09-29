@@ -516,3 +516,5 @@ INFO:     127.0.0.1:59320 - "WebSocket /stream" [accepted]
 INFO:     connection open
 INFO:     127.0.0.1:61240 - "WebSocket /stream" [accepted]
 INFO:     connection open
+INFO:     127.0.0.1:58277 - "WebSocket /stream" [accepted]
+INFO:     connection open

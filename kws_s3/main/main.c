@@ -66,6 +66,7 @@ static bool s_streaming_enabled;
 static model_settings_t s_ms;
 static volatile uint32_t s_detections;
 static size_t s_ballast;  // RAM reserved by the KWS_RAM_LIMIT_KB test (not used by the firmware)
+static bool s_mics_both, s_mics_aligned;  // two microphones (time-aligned): the status line shows their mix and delay
 
 // ---------------------------------------------------------------------------------------------------------------
 static size_t static_ram(void) { return (size_t)(&_bss_end - &_data_start); }
@@ -275,8 +276,8 @@ typedef struct {
     int64_t us;                       // time covered
     int ticks, load_n;
     double mic_pow;                   // sum of the ticks' mean-square levels (linear), for the average dBFS
-    float mic_peak_dbfs, score_max, load_sum[2];
-    uint32_t inferences, skipped;
+    float mic_peak_dbfs, score_max, load_sum[2], mic_delay_us, mic_left_share, mic_noise_db;
+    uint32_t inferences, skipped, mic_delay_updates;
     uint64_t ww_busy_us, ww_invoke_us, audio_busy_us;
 } status_acc_t;
 
@@ -303,6 +304,10 @@ static void stats_tick(int64_t dt_us) {
     s_acc.ww_busy_us += w.busy_us;
     s_acc.ww_invoke_us += w.invoke_us;
     s_acc.audio_busy_us += a.busy_us;
+    s_acc.mic_delay_us = a.mic_delay_us;
+    s_acc.mic_delay_updates = a.mic_delay_updates;
+    s_acc.mic_left_share = a.mic_left_share;
+    s_acc.mic_noise_db = a.mic_noise_db;
     if (load[0] >= 0) {  // -1 on the very first call (no previous counters yet)
         s_acc.load_sum[0] += load[0];
         s_acc.load_sum[1] += load[1];
@@ -356,8 +361,25 @@ static void print_status(void) {
     printf(", %u KB free)", (unsigned)(heap_caps_get_free_size(MALLOC_CAP_INTERNAL) / 1024));
     if (s_streaming_enabled)
         printf(" | wifi %s, server %s", wifi_is_connected() ? "OK" : "--", streamer_is_connected() ? "OK" : "--");
+    if (s_mics_both)
+        printf(" | mics: mix left %.0f%% right %.0f%% (right noise %+.1f dB)", 100.0f * s->mic_left_share,
+               100.0f * (1.0f - s->mic_left_share), s->mic_noise_db);
+    if (s_mics_aligned) {  // path difference (0.343 mm per us) / spacing = sine of the talker's angle off the front
+        const float sine = fmaxf(-1.0f, fminf(1.0f, s->mic_delay_us * 0.343f / CONFIG_KWS_MIC_SPACING_MM));
+        printf(", right %+.0f us after left (talker %.0f deg to the %s), %lu estimates", s->mic_delay_us,
+               fabsf(asinf(sine)) * 57.2958f, sine >= 0 ? "left" : "right", (unsigned long)s->mic_delay_updates);
+    }
     printf(" | audio lost since boot: i2s %lu net %lu\n", (unsigned long)s_lost_i2s, (unsigned long)s_lost_net);
     if (s->mic_peak_dbfs < -85.0f) ESP_LOGW(TAG, "microphone is silent - check the wiring");
+    static bool noise_warned;  // once: a healthy pair is within a few dB
+    if (s_mics_both && !noise_warned && fabsf(s->mic_noise_db) > 10.0f) {
+        const bool right = s->mic_noise_db > 0;
+        ESP_LOGW(TAG, "the %s microphone is %.0f dB noisier than the %s one (electrical, not sound), so it gets only "
+                      "%.0f%% of the mix. Check its VDD/GND/SD wires and that its L/R pin is firmly on %s",
+                 right ? "right" : "left", fabsf(s->mic_noise_db), right ? "left" : "right",
+                 100.0f * (right ? 1.0f - s->mic_left_share : s->mic_left_share), right ? "3V3" : "GND");
+        noise_warned = true;
+    }
     s_acc = (status_acc_t){.mic_peak_dbfs = -120.0f};
 }
 
@@ -484,7 +506,10 @@ void app_main(void) {
     }
     ESP_LOGI(TAG, "microphones: left (L/R to GND) %.1f dBFS%s, right (L/R to 3V3) %.1f dBFS%s, similarity %.2f -> %s",
              chk.level_dbfs[0], chk.use[0] ? "" : " (not used)", chk.level_dbfs[1], chk.use[1] ? "" : " (not used)",
-             chk.correlation, chk.use[0] && chk.use[1] ? "using both (average)" : chk.use[1] ? "using right" : "using left");
+             chk.correlation, chk.aligned ? "using both (time-aligned, mixed by their noise)"
+                              : chk.use[0] && chk.use[1] ? "using both (mixed by their noise)" : chk.use[1] ? "using right" : "using left");
+    s_mics_both = chk.use[0] && chk.use[1];
+    s_mics_aligned = chk.aligned;
     if (!chk.ok) {
         ESP_LOGE(TAG, "NO DATA FROM THE MICROPHONES (raw 0x%08lx / 0x%08lx, %d / %d distinct values). Check: VDD->3V3, "
                       "GND->GND, L/R->GND (2nd mic: L/R->3V3), SCK->GPIO%d, WS->GPIO%d, SD->GPIO%d",

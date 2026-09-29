@@ -28,11 +28,32 @@ INMP441 ─I2S/DMA─► filter ─► 0.5 s mu-law ring (8 KB)                �
 The pins can be changed in `menuconfig`. Avoid GPIO 0, 3, 45 and 46 (boot pins), 19/20 (USB) and 35–37 (PSRAM on N8R8/N16R8 modules).
 **Two microphones are used** (default `KWS_MIC_SELECT = 0`): both INMP441 share the **same** SCK, WS and SD pins;
 mic 1 has L/R to GND (left slot), mic 2 has L/R to **3V3** (right slot), each drives SD only in its own slot. The
-firmware reads both slots, checks them at boot and averages them, e.g. `microphones: left (L/R to GND) -20.8 dBFS,
-right (L/R to 3V3) -18.5 dBFS, similarity 0.42 -> using both (average)`. `KWS_MIC_SELECT = 1` / `2` reads only that
-slot (I2S mono, -5 KB RAM). Earlier measurements on this board found averaging detected no more than the left
-microphone alone (30/40 vs 32/40 synthetic clips, `../benchmarks/results/micab_*`). If both L/R pins are on the same
-level the two microphones fight over SD: the check then shows garbage levels.
+firmware reads both slots, checks at boot that each one carries a microphone, and uses both, e.g. `microphones: left
+(L/R to GND) -19.3 dBFS, right (L/R to 3V3) -11.4 dBFS, similarity -0.00 -> using both (time-aligned, mixed by their
+noise)`. (The boot levels are mostly the INMP441's power-up drift; they only tell a microphone from an empty slot.) If
+both L/R pins are on the same level the two microphones fight over SD: the check then shows garbage levels.
+
+**Synchronisation.** Sharing SCK and WS means both microphones sample at the same instants: every I2S frame holds one
+left and one right sample taken together, so the two channels cannot drift or slip against each other. What is not
+the same is when the voice arrives: with the microphones **55 mm** apart (`KWS_MIC_SPACING_MM`) a talker off to one
+side reaches the nearer one up to 160 us (2.6 samples) earlier, and a plain average then cancels part of the voice
+(in line with the pair: a notch at 3.1 kHz). So while someone speaks (20 ms blocks 12 dB above the background, one estimate
+per 80 ms of speech) the firmware cross-correlates the two microphones, finds that delay to a fraction of a sample, and delays the earlier
+microphone by it (4-tap fractional-delay filter) before mixing (`main/mic_align.c`). The voice then adds up in
+phase from any direction. Sounds the two do not hear alike (wind, touching one microphone) do not move the delay. The
+mix trails the later microphone by one sample (0.06 ms).
+
+**Mix.** Each microphone's share follows its own background noise (inverse noise power): a healthy pair is mixed
+50/50 and gains 3 dB of SNR; a microphone with a wiring or supply fault that adds noise is faded out instead of
+drowning the good one (20 dB noisier: 1 %; a fault that starts later is followed within ~25 s), and the log says so
+once: `the right microphone is 31 dB noisier than the left one (electrical, not sound), so it gets only 0% of the mix.
+Check its VDD/GND/SD wires and that its L/R pin is firmly on 3V3`. The status line shows both, e.g.
+`mics: mix left 50% right 50% (right noise +0.4 dB), right +46 us after left (talker 17 deg to the left), 212
+estimates`: walk around the board and the angle follows you. PC test (no board): `test/test_mic_align.c`, build line
+in its first comment. `KWS_MIC_SPACING_MM = 0` turns the time alignment off, `KWS_MIC_SELECT = 1` / `2` reads only
+that slot (I2S mono, -5 KB RAM). The earlier A/B on this board (plain average, before the alignment) detected no
+more than the left microphone alone (30/40 vs 32/40 synthetic clips, `../benchmarks/results/micab_*`);
+`../benchmarks/run_micab.ps1` now compares aligned, unaligned and left only.
 
 ## 2. Model
 
@@ -87,18 +108,21 @@ stream: server: {"type":"response","text":"Turn on the lights.","saved":"..."}
 
 All numbers below are measured on this board; the scripts and raw logs are in `../benchmarks/` (see its README and
 `../Final Report.md`).
-* Gain x1 + 80 Hz high-pass (the INMP441 picks up large infrasonic drift that otherwise clips speech).
+* Two microphones time-aligned to the talker and averaged (section 1), then gain x1 + 80 Hz high-pass (the INMP441
+  picks up large infrasonic drift that otherwise clips speech).
 * **One task** reads the microphone and runs the wake word engine (core 1); the I2S DMA buffer (3 x 20 ms) is the
   queue. Wi-Fi and the streamer run on core 0.
 * **RAM** (no PSRAM): counted strictly = code the chip keeps in internal RAM (IRAM, 54 KB) + static data + peak heap
-  (Wi-Fi, lwIP, buffers, model, stacks), in KiB. Measured with Wi-Fi up and streaming: 173 KB data in use, 191 KB
-  peak, **245 KB with the IRAM code**. `KWS_RAM_LIMIT_KB = 256` (on by default) reserves everything above 256 KB at
+  (Wi-Fi, lwIP, buffers, model, stacks), in KiB. Measured with Wi-Fi up and streaming, two microphones: 197 KB data
+  peak, **251 KB with the IRAM code** (one microphone, `KWS_MIC_SELECT = 1`: 191 / 245 KB). `KWS_RAM_LIMIT_KB = 256` (on by default) reserves everything above 256 KB at
   boot, so the firmware cannot use more; the status line shows the strict peak against it. The mu-law ring holds 0.5 s
   (8 KB); it grows to 16/32 KB only for pre-rolls above 250/750 ms. `[heap]` lines at boot show what each start-up
   stage takes. The 96 KB configured as flash cache (32 KB instruction + 64 KB data) is not counted.
-* **CPU**: FreeRTOS idle-task share per core. With continuous speech in the room (model never paused) and Wi-Fi up:
-  core 0 0.8 %, core 1 8.4 %, both cores together 9.2 % (highest 10 s window 9.6 %). Per 30 ms of audio: model
-  0.88 ms + features 1.4 ms.
+* **CPU**: FreeRTOS idle-task share per core. With continuous speech in the room (model never paused) and Wi-Fi up,
+  two microphones: core 0 0.8 %, core 1 8.5 %, both cores together **9.3 % (highest 10 s window 9.9 %)** (one
+  microphone: 9.2 %, highest 9.6 %). Per 30 ms of audio: model 0.88 ms + features 1.4 ms; the audio stage (both
+  microphones, alignment, filter) takes 0.85 % of a core. Its loops have no branches and do two samples per pass:
+  the FPU waits for each result, so overlapping two samples is what makes two microphones affordable.
   The model's state-update copies use exact fast kernels (`main/fast_ops.cc`). The dashboard telemetry
   (`KWS_TELEMETRY_MS`) is off by default: at 100 ms it cost ~4 % of core 0. The model pauses after 1.6 s of quiet
   (sound 6 dB above the background restarts it, and the paused 300 ms are replayed first, so the start of a word is

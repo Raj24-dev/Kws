@@ -2,7 +2,7 @@ menu "KWS (wake word) settings"
 
     menu "Microphones (one or two INMP441)"
         comment "Two microphones: same SCK/WS/SD pins; mic 1 L/R->GND (left), mic 2 L/R->3V3 (right)"
-        comment "Both are found at boot and averaged (e.g. 55 mm apart, talker in front of the pair)"
+        comment "Both are found at boot, time-aligned to the talker and mixed by their noise"
         config KWS_MIC_SCK_GPIO
             int "SCK (bit clock) GPIO"
             default 16
@@ -17,9 +17,23 @@ menu "KWS (wake word) settings"
             range 0 2
             default 0
             help
-                Auto reads both I2S slots and averages both microphones when both work. 1/2 read only that slot
-                (I2S mono): half the DMA buffers, ~5 KB less RAM. Measured (benchmarks/README.md, dual-mic A/B):
-                averaging both did not detect more than the left microphone alone.
+                Auto reads both I2S slots and, when both carry a microphone, time-aligns them (KWS_MIC_SPACING_MM)
+                and mixes them by their background noise (50/50 for a healthy pair; a faulty, noisy one fades out).
+                1/2 read only that slot (I2S mono): half the DMA buffers, ~5 KB less RAM. Measured before the time
+                alignment existed (benchmarks/README.md, dual-mic A/B): the plain average did not detect more than
+                the left microphone alone.
+        config KWS_MIC_SPACING_MM
+            int "Distance between the two microphones (mm), 0 = no time alignment"
+            range 0 120
+            default 55
+            help
+                Both microphones are sampled at the same instants (shared SCK/WS), but the talker's voice reaches the
+                nearer one up to spacing / 343 m/s earlier (55 mm: 160 us, 2.6 samples). While someone speaks the
+                firmware measures that delay (cross-correlation, to a fraction of a sample) and delays the earlier
+                microphone by it before mixing; an unaligned mix of a talker in line with the pair loses the voice
+                around 3 kHz. The spacing bounds the delays searched (+ half a sample of slack); measure it centre to
+                centre of the sound ports. The status line prints the delay found and the talker's angle. Only used
+                with KWS_MIC_SELECT = 0.
         config KWS_MIC_GAIN_SHIFT
             int "Digital gain (0=x1, 1=x2, 2=x4, 3=x8, 4=x16)"
             range 0 4

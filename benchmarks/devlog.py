@@ -21,6 +21,8 @@ STATUS = re.compile(
     r" \(wake word pipeline\s+(?P<pipe>[\d.]+)% of one core\) \| RAM used (?P<ram>\d+) KB \(peak (?P<ram_pk>\d+) KB"
     r"(?:; peak \+ IRAM code (?P<strict_pk>\d+) KB)?(?: of the \d+ KB limit)?, (?P<free>\d+) KB free\)"
     r"(?: \| wifi (?P<wifi>\S+), server (?P<srv>\S+))?"
+    r"(?: \| mics: mix left (?P<mix_left>\d+)% right \d+% \(right noise (?P<mic_noise_db>[+-]?[\d.]+) dB\)"
+    r"(?:, right (?P<mic_delay_us>[+-]?\d+) us after left[^|]*)?)?"
     r" \| audio lost since boot: i2s (?P<li2s>\d+) net (?P<lnet>\d+)")
 DETECT = re.compile(r">>> WAKE WORD \"(?P<ww>[^\"]+)\" DETECTED\s+\(score (?P<score>[\d.]+), t = (?P<t>[\d.]+) s\)")
 FIRST = re.compile(r"first audio sent (?P<ms>-?\d+) ms after the detection")
@@ -173,4 +175,7 @@ if __name__ == "__main__":  # self-check of the parser on real lines from the fi
     assert d.status[0]["c1"] == 9.5 and d.status[0]["ram_pk"] == 245 and d.status[0]["srv"] == "OK"
     assert d.status[1]["strict_pk"] == 230 and d.status[1]["free"] == 28 and d.status[0]["strict_pk"] is None
     assert d.detections[0]["score"] == 0.58 and d.banner["iram"] == 95
+    d._parse(7.0, datetime.now(), "[status] up 21s | mic -31.8 dBFS (peak -25.4) | score max 0.00 | detections 0 | inferences 0 (0.0/s; model 0.00 ms each, paused in quiet 100%; features 1.35 ms per 30 ms) | CPU core0  1.4% core1  6.1% (wake word pipeline 5.93% of one core) | RAM used 178 KB (peak 182 KB; peak + IRAM code 236 KB of the 256 KB limit, 23 KB free) | wifi OK, server OK | mics: mix left 100% right 0% (right noise +30.5 dB), right +46 us after left (talker 17 deg to the left), 2 estimates | audio lost since boot: i2s 0 net 0")
+    assert d.status[2]["srv"] == "OK" and d.status[2]["mix_left"] == 100 and d.status[2]["mic_delay_us"] == 46
+    assert d.status[0]["mix_left"] is None
     print("devlog parser OK")

@@ -36,7 +36,7 @@ file in `results/` produced by one of these scripts. Evidence labels:
 ## Firmware variants (same sources, `kws_s3/sdkconfig` options)
 
 * production (= `kws_s3/sdkconfig.defaults`): `KWS_PROFILE_OPS=n KWS_INJECT_TEST=n KWS_TELEMETRY_MS=0 KWS_PREROLL_MS=0
-  KWS_MIC_SELECT=0 KWS_RAM_LIMIT_KB=256`. The status line's `peak + IRAM code N KB` is the strict RAM reading
+  KWS_MIC_SELECT=0 KWS_MIC_SPACING_MM=55 KWS_RAM_LIMIT_KB=256`. The status line's `peak + IRAM code N KB` is the strict RAM reading
   (`ram_strict_peak_kb` in the results).
 * profiling: `python set_config.py KWS_PROFILE_OPS=y` -> `[prof]` lines (per-op model time, per-stage feature time)
 * injection: `python set_config.py KWS_INJECT_TEST=y` -> no mics/Wi-Fi, audio from the serial port (921600 baud)

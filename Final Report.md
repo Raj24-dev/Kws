@@ -25,6 +25,8 @@ was used for training during this audit (the model's own training used Piper TTS
 * **Before -> after:** score **30 (capped; 54 uncapped) -> 68**, remaining potential **~82** (blocked on your
   recordings + a Colab retrain).
 * Margins are thin: RAM 245/256 KiB, CPU 9.2-9.6/10 %. Any feature added later must be re-measured.
+* **Two microphones (F11, the default since `e10f1ee`)**, re-measured: strict RAM **251 KiB** while streaming, CPU
+  **9.34 %** (max **9.9 %**). Both still pass, with less margin; `KWS_MIC_SELECT=1` gives the one-microphone figures.
 
 ---
 
@@ -135,7 +137,8 @@ speaker (the model never pauses), Wi-Fi + server up unless marked "no Wi-Fi". La
 | F8 | **Strict RAM under 256 KiB**: one microphone read as I2S mono (-5 KB; averaging both detected no more: 30/40 vs 32/40), FreeRTOS task functions in flash (IRAM 65.0 -> 54.0 KiB), Wi-Fi static RX 6 -> 4 (-3.5 KB); `KWS_RAM_LIMIT_KB` now counts IRAM code and is on by default (256), status line prints the strict peak | pass G3 | strict 264 -> **245 KiB**, enforced; CPU 9.20 -> 9.18 % (max 9.5 -> 9.6); first send 20 ms, 0 lost; detected 32 -> 35 of 40; latency 131.6 -> 122 ms; WER 1.7 -> 5.3 % (one empty transcript + the recurring "set"->"send", both also in the baseline) [DEVICE-ACOUSTIC] | yes | `622cba9` |
 | F10 | 250 ms pre-roll on the board | no lost audio after the keyword | first send 20 -> 6 ms; keyword end inside the stream in 29/36 (without: ~100 ms lost in 25/35); strict RAM unchanged (244 KiB); **but** 3/36 transcripts kept a wake-word fragment ("And increase...", "Carmen, send..."), WER 5.3 -> 6.7 %; the benefit (no-pause commands) is only host-verified | **reverted** (rule: no regressions) | `4ba5ff1` |
 | D2 | README / Kconfig / benchmarks README match F8 | - | - | yes | `20779ec` |
-| X | Dual-mic beamforming / noise rejection | - | not attempted: plain averaging gave no gain, a 55 mm pair helps little below ~1 kHz, and CPU has 0.4 % left | - | - |
+| F11 | **Two microphones, time-aligned** (hardware: 2 x INMP441, 55 mm apart, shared SCK/WS/SD): the delay between them is measured on speech (cross-correlation of sample differences, cosine-fitted peak; < 0.1 sample in the PC test `kws_s3/test/test_mic_align.c`) and the earlier one is delayed by it (4-tap fractional delay); each microphone is mixed by its own background noise (inverse noise power); the boot rule "within 10 dB, else the louder one" is gone (it picked a faulty, noisy microphone); the audio loop is branch-free and unrolled | no comb filter for off-axis talkers (plain average: notch at 3.1 kHz); a faulty microphone cannot drown the good one; stay under G3/G4 | CPU speech 9.86 % (max 10.6, first version) -> **9.34 % (max 9.9)**, audio stage 0.61 % of a core with one microphone, 0.85 % with two; strict RAM **251 KiB** while streaming (8 streams), first send 19-20 ms, 0 lost [DEVICE-ACOUSTIC] (`F11*_idle_speech`, `F11_micalign_stream_ram.log`). This board's right microphone is 22-31 dB noisier than the left (electrical fault), so it is faded to 0-1 % and the detection A/B (`run_micab.ps1`) waits for a working pair | yes | - |
+| X | Adaptive beamforming / noise rejection | - | not attempted (F11 does delay-and-sum only): a 55 mm pair helps little below ~1 kHz, and CPU has ~0.1 % left in the worst 10 s window | - | - |
 
 ---
 
