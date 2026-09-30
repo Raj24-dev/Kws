@@ -56,7 +56,7 @@ static double tone3k(double t) { return sqrt(2.0) * sin(2 * PI * 3000 * t / FS);
 int main(void) {
     srand(1);
     for (int j = 0; j < TONES; j++) {
-        f_[j] = 150 + 6350 * rand() / (double)RAND_MAX;
+        f_[j] = 150 + 6350.0 * rand() / (double)RAND_MAX;
         ph_[j] = 2 * PI * rand() / (double)RAND_MAX;
     }
     mic_align_t a;
