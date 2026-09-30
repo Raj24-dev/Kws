@@ -1,0 +1,34 @@
+# --- Secrets and per-machine config: never commit ---
+# firmware/sdkconfig holds the Wi-Fi password; set it with `idf.py menuconfig`.
+sdkconfig
+sdkconfig.*
+!sdkconfig.defaults
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+
+# --- Build output and downloaded dependencies ---
+build/
+build_*/
+managed_components/
+node_modules/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# --- Personal voice recordings and raw captures stay local ---
+*.wav
+*.pcm
+recordings/
+logs/
+training/clips/
+benchmarks/audio/
+# Raw serial output of benchmark runs; the summaries are the *.json next to them.
+benchmarks/**/*.out
+benchmarks/results/*.log
+
+# --- OS / editor noise ---
+.DS_Store
+Thumbs.db

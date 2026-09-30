@@ -1,0 +1,20 @@
+Total sizes:
+
+Used stat D/IRAM:  112979 bytes ( 228781 remain, 33.1% used)
+
+      .data size:   19744 bytes
+
+      .bss  size:   24832 bytes
+
+      .text size:   67375 bytes
+
+   .vectors size:    1028 bytes
+
+Used Flash size : 1143368 bytes
+
+           .text:  917612 bytes
+
+         .rodata:  225500 bytes
+
+Total image size: 1231515 bytes (.bin may be padded larger)
+

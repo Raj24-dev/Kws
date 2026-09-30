@@ -1,0 +1,9 @@
+## Components downloaded automatically from the Espressif Component Registry on the first build
+dependencies:
+  idf: '>=5.1'
+  # TensorFlow Lite Micro for ESP32 (+ ESP-NN, which uses the ESP32-S3 vector instructions)
+  espressif/esp-tflite-micro: ~1.4.1
+  # WebSocket client for streaming audio to the speech-recognition server
+  espressif/esp_websocket_client: ^1.5.0
+  # Driver for the RGB status LED on the DevKit board
+  espressif/led_strip: ^3.0.0

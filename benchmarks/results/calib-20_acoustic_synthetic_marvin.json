@@ -1,0 +1,189 @@
+{
+ "label": "calib-20",
+ "gain": 1.0,
+ "level_db": -20.0,
+ "offline": true,
+ "summary": {
+  "evidence": "DEVICE-ACOUSTIC (recordings replayed through PC speakers)",
+  "positives": 6,
+  "detected": 4,
+  "tpr": 0.6667,
+  "negatives": 0,
+  "false_accepts": 0,
+  "false_accept_rate": null,
+  "negative_audio_s": 0,
+  "latency_ms": {
+   "n": 0,
+   "median": null,
+   "p95": null,
+   "min": null,
+   "max": null
+  },
+  "decomposition_ms": {
+   "device_detect_to_first_send_median": null,
+   "network_one_way_est": null,
+   "detection_delay_est_median": null,
+   "serial_detect_after_kw_median(biased +UART)": null
+  },
+  "ping_rtt_ms": null,
+  "board_ip": null,
+  "transcripts_nonempty": 0,
+  "status": {
+   "windows_10s": 3,
+   "minutes": 0.5,
+   "cpu_core0": {
+    "mean": 5.13,
+    "p95": 5.3,
+    "max": 5.3,
+    "min": 4.9
+   },
+   "cpu_core1": {
+    "mean": 7.83,
+    "p95": 8.5,
+    "max": 8.5,
+    "min": 7.4
+   },
+   "cpu_sum_both_cores": {
+    "mean": 12.97,
+    "p95": 13.8,
+    "max": 13.8
+   },
+   "pipeline_pct_one_core": {
+    "mean": 7.72,
+    "p95": 8.3,
+    "max": 8.3,
+    "min": 7.19
+   },
+   "model_ms": {
+    "mean": 1.19,
+    "p95": 1.2,
+    "max": 1.2,
+    "min": 1.17
+   },
+   "features_ms_per_30ms": {
+    "mean": 1.45,
+    "p95": 1.46,
+    "max": 1.46,
+    "min": 1.44
+   },
+   "paused_in_quiet_pct": {
+    "mean": 44.33,
+    "p95": 54.0,
+    "max": 54.0,
+    "min": 30.0
+   },
+   "mic_dbfs": {
+    "mean": -35.17,
+    "p95": -33.9,
+    "max": -33.9,
+    "min": -36.0
+   },
+   "ram_used_kb": {
+    "mean": 227.67,
+    "p95": 228.0,
+    "max": 228.0,
+    "min": 227.0
+   },
+   "ram_peak_since_boot_kb": 228.0,
+   "heap_free_kb_min": 95.0,
+   "wifi_ok_share": 0.0,
+   "server_ok_share": 0.0,
+   "detections_during": 2,
+   "audio_lost_i2s": 0,
+   "audio_lost_net": 0
+  }
+ },
+ "trials": [
+  {
+   "i": 0,
+   "file": "David_r-3_Marvin.wav",
+   "set": "synthetic_marvin",
+   "label": 1,
+   "max_event_peak": 0.95,
+   "rx_peak_dbfs": -20.7,
+   "detected": true,
+   "n_detections": 1,
+   "score": 0.6,
+   "kw_end_s": null,
+   "clip_s": 1.87,
+   "transcript": null,
+   "ref_transcript": ""
+  },
+  {
+   "i": 1,
+   "file": "David_r0_Marvin.wav",
+   "set": "synthetic_marvin",
+   "label": 1,
+   "max_event_peak": 0.99,
+   "rx_peak_dbfs": -35.4,
+   "detected": true,
+   "n_detections": 1,
+   "score": 0.57,
+   "kw_end_s": null,
+   "clip_s": 1.35,
+   "transcript": null,
+   "ref_transcript": ""
+  },
+  {
+   "i": 2,
+   "file": "David_r3_Marvin.wav",
+   "set": "synthetic_marvin",
+   "label": 1,
+   "max_event_peak": 0.0,
+   "rx_peak_dbfs": -22.7,
+   "detected": false,
+   "n_detections": 0,
+   "score": null,
+   "kw_end_s": null,
+   "clip_s": 0.95,
+   "transcript": null,
+   "ref_transcript": ""
+  },
+  {
+   "i": 3,
+   "file": "Zira_r-3_Marvin.wav",
+   "set": "synthetic_marvin",
+   "label": 1,
+   "max_event_peak": 0.97,
+   "rx_peak_dbfs": -23.4,
+   "detected": true,
+   "n_detections": 1,
+   "score": 0.55,
+   "kw_end_s": null,
+   "clip_s": 2.06,
+   "transcript": null,
+   "ref_transcript": ""
+  },
+  {
+   "i": 4,
+   "file": "Zira_r0_Marvin.wav",
+   "set": "synthetic_marvin",
+   "label": 1,
+   "max_event_peak": 1.0,
+   "rx_peak_dbfs": -21.7,
+   "detected": true,
+   "n_detections": 1,
+   "score": 0.59,
+   "kw_end_s": null,
+   "clip_s": 1.5,
+   "transcript": null,
+   "ref_transcript": ""
+  },
+  {
+   "i": 5,
+   "file": "Zira_r3_Marvin.wav",
+   "set": "synthetic_marvin",
+   "label": 1,
+   "max_event_peak": 0.0,
+   "rx_peak_dbfs": -21.2,
+   "detected": false,
+   "n_detections": 0,
+   "score": null,
+   "kw_end_s": null,
+   "clip_s": 1.05,
+   "transcript": null,
+   "ref_transcript": ""
+  }
+ ],
+ "device_first_audio_ms": []
+}
