@@ -1,0 +1,30 @@
+{
+ "files": [
+  "baseline_acoustic_latency_synth_pass1.json",
+  "baseline_acoustic_latency_synth_pass2.json"
+ ],
+ "trials": 40,
+ "positives": 40,
+ "detected": 35,
+ "tpr": 0.875,
+ "negatives": 0,
+ "false_accepts": 0,
+ "latency_ms": {
+  "n": 35,
+  "median": 149.2,
+  "p95": 327.8,
+  "mean": 125.2,
+  "min": -222.2,
+  "max": 358.1
+ },
+ "device_detect_to_first_send_ms": {
+  "median": 19,
+  "p95": 20,
+  "n": 35
+ },
+ "synthetic_command_wer": 0.1085,
+ "ram_peak_kb_per_run": [
+  246.0,
+  246.0
+ ]
+}

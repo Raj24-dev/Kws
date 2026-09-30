@@ -1,0 +1,89 @@
+# Defaults for the SIH KWS firmware. They are applied the first time the project is configured.
+# If you change this file later, delete "sdkconfig" (and the build folder) so it is applied again.
+
+CONFIG_IDF_TARGET="esp32s3"
+
+# 240 MHz, and optimise for speed (makes the neural network faster)
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+CONFIG_COMPILER_OPTIMIZATION_PERF=y
+
+# 4 MB flash layout with one big app partition (works on 4/8/16 MB ESP32-S3 boards).
+# QIO reads the flash twice as fast as DIO: code and model weights are fetched from flash through the caches.
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+CONFIG_ESPTOOLPY_FLASHMODE_QIO=y
+CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y
+
+# Bigger caches: with 16 KB/32 KB the CPU spent most of each inference waiting for flash (4.9 ms per inference).
+# 32 KB instruction cache holds TFLite + ESP-NN, 64 KB data cache holds the whole model. Costs 48 KB of SRAM.
+CONFIG_ESP32S3_INSTRUCTION_CACHE_32KB=y
+CONFIG_ESP32S3_DATA_CACHE_64KB=y
+CONFIG_ESP32S3_DATA_CACHE_LINE_64B=y
+
+# A task that stops running (the audio task, the main loop, or a starved idle task) restarts the board after 5 s
+CONFIG_ESP_TASK_WDT_PANIC=y
+
+# 1 ms scheduler tick and task statistics (used to measure CPU usage: FreeRTOS idle-task share per core)
+CONFIG_FREERTOS_HZ=1000
+CONFIG_FREERTOS_USE_TRACE_FACILITY=y
+CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS=y
+
+# Logs on the UART ("COM") port and also on the native USB port
+CONFIG_ESP_CONSOLE_UART_DEFAULT=y
+CONFIG_ESP_CONSOLE_SECONDARY_USB_SERIAL_JTAG=y
+
+# SIH limit: the whole firmware must fit in 256 KB of RAM, counted strictly: code the chip keeps in internal RAM
+# (IRAM) + static data + peak heap (Wi-Fi, buffers, model, stacks). No PSRAM (the board's 8 MB stays unused).
+# KWS_RAM_LIMIT_KB reserves everything above 256 KB at boot, so the firmware cannot use more (the status line shows
+# "peak + IRAM code ... of the 256 KB limit").
+# CONFIG_SPIRAM is not set
+CONFIG_KWS_RAM_LIMIT_KB=256
+# Two microphones (left slot L/R to GND, right slot L/R to 3V3, shared SCK/WS/SD), 55 mm apart: both read,
+# time-aligned to the talker and averaged. 1 / 2 would read only the left / right slot and save 5 KB of DMA/sample
+# buffers; spacing 0 = plain average (benchmarks: micab_*)
+CONFIG_KWS_MIC_SELECT=0
+CONFIG_KWS_MIC_SPACING_MM=55
+# Wi-Fi/lwIP: station only. Keep the default TX side (16 dynamic TX buffers, A-MPDU TX, 5760-byte TCP buffers):
+# with 8 TX buffers / 2880-byte TCP buffers the first audio left 144-424 ms after the detection instead of 19 ms and
+# audio was lost (benchmarks/results/trig_expB_*, posB_F3c_*).
+CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM=4
+CONFIG_ESP_WIFI_DYNAMIC_RX_BUFFER_NUM=16
+CONFIG_ESP_WIFI_DYNAMIC_TX_BUFFER_NUM=16
+CONFIG_ESP_WIFI_MGMT_SBUF_NUM=10
+# CONFIG_ESP_WIFI_AMPDU_RX_ENABLED is not set
+# CONFIG_ESP_WIFI_SOFTAP_SUPPORT is not set
+# CONFIG_ESP_WIFI_ENTERPRISE_SUPPORT is not set
+# CONFIG_ESP_WIFI_ENABLE_WPA3_OWE_STA is not set
+# CONFIG_ESP_WIFI_GMAC_SUPPORT is not set
+CONFIG_LWIP_MAX_SOCKETS=4
+# The TCP/IP task (priority 18) stays on core 0 with Wi-Fi, so it never preempts the audio task on core 1
+CONFIG_LWIP_TCPIP_TASK_AFFINITY_CPU0=y
+# CONFIG_LWIP_IPV6 is not set
+# CONFIG_LWIP_DHCPS is not set
+# Nothing in NVS: settings come from menuconfig, the radio calibrates at every boot
+# CONFIG_ESP_WIFI_NVS_ENABLED is not set
+# CONFIG_ESP_PHY_CALIBRATION_AND_DATA_STORAGE is not set
+# Code that does not have to run with the flash cache off lives in flash, not IRAM (IRAM 95.5 -> 54 KB; FreeRTOS
+# task functions in flash measured no CPU change)
+CONFIG_FREERTOS_PLACE_FUNCTIONS_INTO_FLASH=y
+# CONFIG_ESP_WIFI_IRAM_OPT is not set
+# CONFIG_ESP_WIFI_RX_IRAM_OPT is not set
+CONFIG_HEAP_PLACE_FUNCTION_INTO_FLASH=y
+CONFIG_RINGBUF_PLACE_FUNCTIONS_INTO_FLASH=y
+# CONFIG_RMT_ENCODER_FUNC_IN_IRAM is not set
+# CONFIG_RMT_TX_ISR_HANDLER_IN_IRAM is not set
+# CONFIG_RMT_RX_ISR_HANDLER_IN_IRAM is not set
+# CONFIG_ESP_EVENT_POST_FROM_IRAM_ISR is not set
+# Stacks sized from the measured high-water marks ([tasks] line), each keeps >= 250 B spare
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=5120
+CONFIG_ESP_TIMER_TASK_STACK_SIZE=2048
+CONFIG_FREERTOS_TIMER_TASK_STACK_DEPTH=1536
+CONFIG_LWIP_TCPIP_TASK_STACK_SIZE=2560
+CONFIG_ESP_IPC_TASK_STACK_SIZE=1024
+# Tensor arena: the model uses 25964 bytes
+CONFIG_KWS_TENSOR_ARENA_KB=26
+
+CONFIG_KWS_PREROLL_MS=0
+CONFIG_KWS_MIC_GAIN_SHIFT=0
+
+# Dashboard telemetry off: at 100 ms it cost ~4 % of core 0 (benchmarks/results/*_idle_*.json)
+CONFIG_KWS_TELEMETRY_MS=0

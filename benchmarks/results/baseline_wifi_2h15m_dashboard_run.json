@@ -1,0 +1,88 @@
+{
+ "label": "baseline",
+ "condition": "room ambient, Wi-Fi + server connected, 12 streams; log recorded 15:09-17:24 by tools/dashboard.py (previous session), re-parsed",
+ "evidence": "DEVICE-ACOUSTIC",
+ "boot": {
+  "static": 46,
+  "heapfree": 248,
+  "iram": 95
+ },
+ "summary": {
+  "windows_10s": 825,
+  "minutes": 137.5,
+  "cpu_core0": {
+   "mean": 4.87,
+   "p95": 5.4,
+   "max": 8.5,
+   "min": 3.8
+  },
+  "cpu_core1": {
+   "mean": 7.77,
+   "p95": 9.5,
+   "max": 10.6,
+   "min": 5.4
+  },
+  "cpu_sum_both_cores": {
+   "mean": 12.65,
+   "p95": 14.799999999999999,
+   "max": 19.1
+  },
+  "pipeline_pct_one_core": {
+   "mean": 7.58,
+   "p95": 9.31,
+   "max": 10.1,
+   "min": 5.24
+  },
+  "model_ms": {
+   "mean": 1.1,
+   "p95": 1.19,
+   "max": 1.38,
+   "min": 0.0
+  },
+  "features_ms_per_30ms": {
+   "mean": 1.43,
+   "p95": 1.53,
+   "max": 1.57,
+   "min": 1.32
+  },
+  "paused_in_quiet_pct": {
+   "mean": 44.43,
+   "p95": 100.0,
+   "max": 100.0,
+   "min": 0.0
+  },
+  "mic_dbfs": {
+   "mean": -39.52,
+   "p95": -35.6,
+   "max": -24.8,
+   "min": -41.4
+  },
+  "ram_used_kb": {
+   "mean": 229.8,
+   "p95": 230.0,
+   "max": 231.0,
+   "min": 229.0
+  },
+  "ram_peak_since_boot_kb": 245.0,
+  "heap_free_kb_min": 90.0,
+  "wifi_ok_share": 1.0,
+  "server_ok_share": 1.0,
+  "detections_during": 12,
+  "audio_lost_i2s": 0,
+  "audio_lost_net": 0
+ },
+ "first_audio_ms": [
+  18,
+  19,
+  9,
+  19,
+  19,
+  19,
+  19,
+  19,
+  19,
+  19,
+  18,
+  19
+ ]
+}

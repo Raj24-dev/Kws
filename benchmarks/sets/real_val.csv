@@ -1,0 +1,51 @@
+file,split,label,label_index,label_whisper,kw_start,kw_end,kw_end_method,duration_s,orig_score,text_whisper,ref_transcript,sha256
+20260927_082237_585_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.49,energy,2.5,0.669,Marvin.,Marvin,20cbdecd9c9cc2f31f191bd08cfa285e1395622f2037f882e9615dd913c31989
+20260927_082640_280_e072a1d53274_marvin.wav,val,0,0,0,,,,2.52,0.587,"because life dies more, death dies more","If you're alive, tell me what I am, tell me what I am, tell me what I am.",c5271c15cc26bb412065f071b971b525c207f0648f0543bf196748467ac9b786
+20260927_084228_003_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.75,energy,2.52,0.602,Marvin,Marvin,026c7d57b3d2c77bd7fe448a207e53517394fced63aced978090efa297ef15f4
+20260927_084258_086_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.66,whisper,2.82,0.52,"Marvin, can you hear me?","Marvin, can you hear me?",cbe7b1378cb20368adecce445cdeb408e0e05a79507dfb57f71b7b0d949991bf
+20260927_084310_960_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.88,energy,3.44,0.563,"Marvin, can you hear me?","Marvin, can you hear me?",7415ec6c3fcfd53dcf08476bc8fa98ee54e24a6dfb92289b67466df741e43041
+20260927_084333_998_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.85,energy,2.5,0.606,Marvin,Marvin,136db2671ac44ced6306f2ed01ad1587d268e05774de2def28016a8be20cd43c
+20260927_084401_417_e072a1d53274_marvin.wav,val,0,0,0,,,,3.3,0.611,"Marion, can you hear me?","Marion, can you hear me?",7d47600fea1ea01b76aafec781608d4c46d7c4d62b55c5effb7349054b748452
+20260927_084432_400_e072a1d53274_marvin.wav,val,0,0,0,,,,2.9,0.54,Mariam,Mārin.,fbc43840d36a2108983a007839b2ec9db544fa993048a484606bfb2eb82056e3
+20260927_084537_739_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.83,energy,3.14,0.671,Marvin. Marvin,Marvin Marvin,cf6067342c6819929b899d7d800d803b0d31037688a7d3e8e7d852b09847cdb3
+20260927_084542_094_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.99,energy,6.9,0.677,Marvin. Marvin. Marvin.,Marvin. Marvin. Marvin.,2e341b51ea073a5e19db57ff16a58f6f305d6a716680ceb9e91c10b22a36c175
+20260927_084708_098_e072a1d53274_marvin.wav,val,0,0,0,,,,2.74,0.55,"Martin, can you hear me?","Arden, can you help me?",ac25aa74adb19c47d6e5c2b7e59379c25af6006c7fe031ec94abd4aa80722079
+20260927_084713_495_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.76,whisper,2.5,0.565,Marvin,Marvin,abe0b475d6fa75d372fed816741965642b1390f830251f9bc3a62cb59531bc92
+20260927_084720_817_e072a1d53274_marvin.wav,val,1,1,1,1.32,1.68,whisper,3.56,0.588,"Marvin, can you hear me, Marvin?","Marvin, can you hear me Marvin?",a6fea47dee8aa394cf0297c26a8260293e50c0c1f5c6f4a0b51c670b5bdb893d
+20260927_084955_181_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.75,energy,2.52,0.684,Marvin,Marvin,6f0728ab124f7890dcd1336201be56abcbdbe6332d716c523be132e287fb7e5f
+20260927_085002_571_e072a1d53274_marvin.wav,val,0,0,0,,,,2.52,0.56,More than,Modern.,8cd608c2acfc2005cc51c2c02081b89267d37d880c623c9eb2705c9ce14e27a3
+20260927_085010_466_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.8,whisper,2.7,0.601,Marvin,Marvin,b2ce4ce26fa88a9f92838fd2f8bc8b3ca5dd7fab1b8092a186f70e1a2382a3fe
+20260927_085017_869_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.74,energy,2.52,0.534,Marvin.,Marvin.,bbe6405c9b3eb98681be9396c7d37a51e86daace2de513b38347763cf1868bad
+20260927_090300_902_e072a1d53274_marvin.wav,val,0,0,0,,,,2.5,0.657,Not bad.,Harder.,6fd19400d3004c9ae10266293f8c353feae706f8c67d091022bd033e5c1f1c55
+20260927_093211_492_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.96,energy,2.52,0.559,Marvin,Marvin,c7839505e86b5648832b18ad4900f791772163c337068c8c420dfa40102d0dd6
+20260927_093221_387_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.8,energy,2.92,0.566,Marvin,Marvin,4f0a3d30d4c515c57ce8d057bdb968044d78fd03efa79767c2cb61d8e95f3c18
+20260927_093315_209_e072a1d53274_marvin.wav,val,0,0,0,,,,2.56,0.518,a lot of it,A lot of it.,e08a100978acb64bb9cbb92eb67081194eef3dbc801541280e5679d1183260a6
+20260927_093742_561_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.87,energy,2.54,0.663,Marvin,Marvin,df204065848f28bbcac1e0bf2ca23bd6aff623a256b12c0e3c6e68f4bd419527
+20260927_093758_042_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.85,energy,2.52,0.602,Marvin,Marvin,cc825090cbb6d3a767aa351766c77b132c0cac4cbd251c7f44f3e4d4c038b5fc
+20260927_093803_418_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.9,whisper,2.56,0.672,Marvin,Marvin,66fe218528e586f6d011136c4cd5eca26afcbc680f8464ff9c9c057e040448a3
+20260927_093813_633_e072a1d53274_marvin.wav,val,0,0,0,,,,6.02,0.529,Martin,Martin,2807f73959193c6202911c0ec351908b6c69254a04de85ee4dc444757d376b20
+20260927_093846_914_e072a1d53274_marvin.wav,val,0,0,0,,,,2.5,0.577,Martin,Martin,9f1fb7419cf9338df9202c80a3c4ba310943372782e29ef30ee212027b711507
+20260927_094746_973_e072a1d53274_marvin.wav,val,0,0,0,,,,3.82,0.594,Martin. Martin.,Martin,5e15a451b76ef23f66b886974a35ace9c20118d36818cfa8e9a8fe8f43396ed6
+20260927_094751_399_e072a1d53274_marvin.wav,val,0,0,0,,,,2.52,0.645,Martin,Martin,1f7dee4ba6d2c3e877113ade2adb51596cf5982acb2d8fb49e892d53cc991435
+20260927_100342_907_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.98,energy,7.42,0.666,Marvin,Marvin,93f9db59df735372b5d62042dbf43a0ac25bdb8730f083f072dd85974b3b8c78
+20260927_103656_705_e072a1d53274_marvin.wav,val,0,0,0,,,,2.52,0.688,Hooray!,Yeah. Yeah. Yeah. Yeah.,9efa8892723b6fca92300b8ce566d593c8e9235426d72bd984ce3ac6c8cc4757
+20260927_103913_200_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.74,energy,3.52,0.673,Marvin.,Marvin,8486459066441d9ed18143aef2341b57366404a166ca58466c417d28f686fd41
+20260927_105522_177_e072a1d53274_marvin.wav,val,0,0,0,,,,6.22,0.576,Model page. Model page. Model page. Model page. Model page.,We are going to take a little bit of water and we are going to take a little bit of water and we are going to take a little bit of water and we are going to take a little bit of water,9073f0e4dda5e8bdf6f548bac260ebc68a6532e609f497d5475c8d538b5aff78
+20260928_130920_371_e072a1d53274_marvin.wav,val,0,0,0,,,,1.34,0.564,Orban.,Orban.,7e3fa9d451f0aa07d344d937f704faf5c6ec88c5ae7ccae0ffe251baba9b451b
+20260928_130927_582_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.43,energy,2.24,0.56,"Marvin, what time is it?","Marvin, what time is it?",1fd6c72dae6c6760716146627474767418cfb50e92b6969f4d9ea3664476c651
+20260928_130935_588_e072a1d53274_marvin.wav,val,0,0,0,,,,0.18,0.61,,,de0c873fda35b7f3da6738363037c324df3da513059260df1404b80f0aef4627
+20260928_131632_649_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.92,whisper,2.5,0.675,Marvin.,Marvin.,17c294f1ba713f8c8df9a3140ec79513c82a2059cc49445607b5381555ffe07c
+20260928_131637_158_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.84,energy,4.48,0.579,Marvin? Marvin?,Marvin? Marvin?,84846c88a9b0698d3b2dea786a427435fca124580236fd07e13541b2a6b777a0
+20260928_131720_369_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.97,energy,2.5,0.631,Marvin.,Marvin.,f38e89fc71253f3354e72bd4043c0ee2ffae3de806e5207686c2e81165e25e1f
+20260928_133135_422_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.84,whisper,2.94,0.64,"Marvin, can you hear me?","Marvin, can you hear me?",68586ad7a18e1e89731b469c20e116448de3bfb66d4cb2e148a648093683510c
+20260928_133123_448_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.72,whisper,0.84,0.507,Marvin.,Marvin.,9777051119909c002845d19ccac05d041d7a6059e87ad92b9f5f61f5c03b7cdc
+20260928_135257_178_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.72,whisper,2.9,0.659,"Marvin, can you hear me?","Marvin, can you hear me?",d90945d6ac50f2cb644034ec5f4e5460f2b9e77ef7a44a769fba04fb18541fb4
+20260928_135307_684_e072a1d53274_marvin.wav,val,1,1,1,0.0,1.09,energy,3.48,0.566,"Marvin, Raj is a good guy.","Marvin, Raj is a good guy.",4d629d7c361aec5cc0be377614b1ab091bc4f7590da2cce30df502b8e33cac72
+20260928_135426_632_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.52,whisper,2.5,0.559,Marvin,Marvin,73f98399ffd417e70b0e49d2453bc7cc1176a2dcff47a647e128ca7f23ba27a1
+20260928_141517_354_e072a1d53274_marvin.wav,val,0,0,0,,,,4.08,0.582,Madeline? Madeline?,Madeline? Madeline?,34a5808676af3833dbfe347aa39e54c64b4747d0953fe9cd226a8c707dde2741
+20260928_141602_262_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.66,energy,2.56,0.505,"Marvin, please play the music.","Marvin, please play the music.",f439b445fd9596e58f15b1f6541ff76b2f1127a9ed156ceb4af1b23ffbbeaa1a
+20260928_141910_288_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.74,whisper,3.38,0.645,"Marvin, are you okay?","Marvin, are you okay?",ce662fbd00ac4ed3c5f32e283774762b2e609e8e0c82f896bea935b2ac72b19c
+20260928_144053_709_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.8,energy,2.5,0.632,"Marvin, are you listening?","Marvin, are you listening?",8295ddbad8f165e49227f0071ba8738daad4ac1d50df99bf4fd48213fcba7cee
+20260928_144239_086_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.89,energy,9.0,0.605,Marvin are you listening to my word what I am saying right now and can you also detect that what I am saying actually being transcribed like,Marvin are you listening to my word what I am saying right now and can you also detect that what I am saying actually being transcribed like,5507d960cbde037ca03116fe4e82f26074f29da42075d4146eafd4ffbd00f33f
+20260928_144519_400_e072a1d53274_marvin.wav,val,0,0,0,,,,8.8,0.584,can you see what I am asking and also can respond about that question.,can you see what I am asking and also can respond about that question.,2961682204243e3aed07cac5748d935d50b962768f8d2160c6d77b6bec9fe3a6
+20260928_150502_284_e072a1d53274_marvin.wav,val,1,1,1,0.0,0.74,whisper,2.78,0.517,Marvin?,Marvin?,9b49aba2bb44f733fd398a8cf19c9424aa141cf8b53b3378dfc7babbb51a338b

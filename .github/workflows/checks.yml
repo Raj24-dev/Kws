@@ -1,0 +1,53 @@
+name: checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: No secrets, recordings or local config tracked
+        run: |
+          bad=$(git ls-files | grep -Ei '\.(wav|pcm)$|(^|/)sdkconfig(\.old)?$|(^|/)\.env$|\.(log|out)$' || true)
+          if [ -n "$bad" ]; then echo "Tracked files that must stay local:"; echo "$bad"; exit 1; fi
+
+      - name: Python syntax
+        run: python -m compileall -q benchmarks tools training server/stt-services
+
+      - name: Node syntax
+        run: node --check server/server.js
+
+      - name: JSON and notebook parse
+        run: |
+          python - <<'PY'
+          import glob, json
+          files = glob.glob("benchmarks/results/*.json") + ["server/package.json", "firmware/model/marvin.json", "training/SIH_marvin_retrain_v2.ipynb"]
+          for f in files:
+              json.load(open(f, encoding="utf-8"))
+          print(len(files), "files parsed")
+          PY
+
+      - name: PowerShell syntax
+        shell: pwsh
+        run: |
+          foreach ($f in Get-ChildItem benchmarks -Filter *.ps1) {
+            $errs = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($f.FullName, [ref]$null, [ref]$errs) | Out-Null
+            if ($errs) { $errs; exit 1 }
+          }
+
+      - name: Host test (two-microphone alignment)
+        run: |
+          gcc -O2 -std=c99 -Ifirmware/main firmware/test/test_mic_align.c firmware/main/mic_align.c -lm -o /tmp/test_mic_align
+          /tmp/test_mic_align

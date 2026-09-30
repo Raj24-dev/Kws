@@ -1,0 +1,18 @@
+{
+  "name": "cloud-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "WebSocket gateway for the KWS wake-word device: saves each command and forwards it to speech-to-text",
+  "type": "module",
+  "main": "server.js",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@fastify/websocket": "^11.3.1",
+    "dotenv": "^18.0.3",
+    "fastify": "^5.12.5"
+  }
+}
