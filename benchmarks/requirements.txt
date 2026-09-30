@@ -1,0 +1,11 @@
+numpy
+soundfile
+pymicro-features
+ai-edge-litert
+websockets
+pyserial
+sounddevice
+pywin32; sys_platform == "win32"
+faster-whisper
+fastapi
+python-multipart

@@ -1,10 +1,10 @@
 """Builds the frozen evaluation sets from REAL recordings made by the board's microphones (2026-09-27/28).
 
-Source: cloudServer/server/recordings/*.wav whose index.jsonl entry has preroll_ms == 1000, i.e. the audio starts 1 s
+Source: server/recordings/*.wav whose index.jsonl entry has preroll_ms == 1000, i.e. the audio starts 1 s
 before the board's detection and contains the word that triggered it, followed by what was said next.
 Labels: index.jsonl "verified" (the server's former Whisper check) AND a fresh Whisper small.en pass here
 (temperature 0, word timestamps). Clips where the two disagree are dropped as doubtful.
-Anything used to train/validate the model (kws_s3/training_clips/*.zip) is excluded.
+Anything used to train/validate the model (training/clips/*.zip) is excluded.
 
 Keyword end (for the latency test) = end of the "Marvin" word: Whisper's word timing, refined to the last 10 ms
 frame above (noise floor + 10 dB) within that word (+150 ms).
@@ -28,7 +28,7 @@ import soundfile as sf
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-REC = os.path.join(ROOT, "cloudServer", "server", "recordings")
+REC = os.path.join(ROOT, "server", "recordings")
 SEED = 26172
 
 
@@ -68,7 +68,7 @@ def main():
     from faster_whisper import WhisperModel
     model = WhisperModel("small.en", device="cpu", compute_type="int8")
     trained = set()
-    for z in glob.glob(os.path.join(ROOT, "kws_s3", "training_clips", "*.zip")):
+    for z in glob.glob(os.path.join(ROOT, "training", "clips", "*.zip")):
         trained |= {os.path.basename(n) for n in zipfile.ZipFile(z).namelist()}
     rows = [json.loads(l) for l in open(os.path.join(REC, "index.jsonl"), encoding="utf-8") if l.strip()]
     out = []

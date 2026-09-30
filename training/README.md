@@ -8,7 +8,7 @@
 
 ## The deployed model (v2)
 
-`kws_s3/model/marvin.tflite` (60,896 bytes, sha256 `62eef78f56a92dcf3048...`) came from this notebook.
+`firmware/model/marvin.tflite` (60,896 bytes, sha256 `62eef78f56a92dcf3048...`) came from this notebook.
 
 * Framework: microWakeWord @ `4665173c` (Apache-2.0), MixedNet streaming model trained **from scratch**, int8 export.
   Piper sample generator @ `2971426a` (MIT) for synthetic voices.
@@ -34,7 +34,7 @@ old checkpoint).
 
 ```
 pip install numpy pymicro-features ai-edge-litert soundfile
-python check_model.py ../kws_s3/model/marvin.tflite recording.wav [more.wav ...]
+python check_model.py ../firmware/model/marvin.tflite recording.wav [more.wav ...]
 ```
 It prints the highest averaged score and when a detection fired, as the board's boot self-test does. The scores
 agree with the board within ~0.03; for exact on-device numbers use `benchmarks/run_injected.py`.

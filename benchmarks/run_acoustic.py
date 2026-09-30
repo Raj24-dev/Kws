@@ -33,7 +33,7 @@ from devlog import DeviceLog, summarize_status
 from playback import load16k, play
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-REC = os.path.join(os.path.dirname(HERE), "cloudServer", "server", "recordings")
+REC = os.path.join(os.path.dirname(HERE), "server", "recordings")
 ACOUSTIC_S = 0.0015
 TARGET_DBFS = -20.0  # speech level of every clip before --gain (95th percentile of 10 ms frame RMS)
 

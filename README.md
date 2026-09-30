@@ -43,36 +43,37 @@ flowchart LR
 
 | folder | module | what is inside |
 |---|---|---|
-| [`kws_s3/`](kws_s3) | Edge firmware | ESP-IDF project for the ESP32-S3: microphones, feature frontend, model runtime, detector, streamer, the deployed model |
+| [`firmware/`](firmware) | Edge firmware | ESP-IDF project for the ESP32-S3: microphones, feature frontend, model runtime, detector, streamer, the deployed model |
 | [`training/`](training) | Wake word model | training notebook (microWakeWord, Colab) and the PC mirror of the on-device pipeline used to test models |
-| [`cloudServer/`](cloudServer) | Server and speech recognition | WebSocket gateway (Node), Whisper speech-to-text service (Python), a board simulator for tests |
+| [`server/`](server) | Server and speech recognition | WebSocket gateway (Node), Whisper speech-to-text service (Python), a board simulator for tests |
 | [`benchmarks/`](benchmarks) | Evaluation | measurement scripts, frozen test sets, raw results and the evaluation report ([`REPORT.md`](benchmarks/REPORT.md)) |
-| [`tools/`](tools) | Developer tools | live dashboard, serial logger, live transcription page |
+| [`tools/`](tools) | Developer tools | live dashboard, serial logger, live transcription page, board simulator, recordings report |
+| [`docs/`](docs) | Documentation | the team's full system design write-up ([`SYSTEM_DESIGN.md`](docs/SYSTEM_DESIGN.md)) |
 
 ## Getting started
 
 1. **Hardware.** ESP32-S3 DevKit + one or two INMP441 microphones on GPIO 15 (WS), 16 (SCK), 17 (SD); wiring and
-   the two-microphone setup are in [`kws_s3/README.md`](kws_s3/README.md).
+   the two-microphone setup are in [`firmware/README.md`](firmware/README.md).
 2. **Server** (on a PC in the same 2.4 GHz network), in two terminals from the repository root:
    ```
-   cd cloudServer/server/stt-services
+   cd server/stt-services
    pip install -r requirements.txt
    uvicorn main:app --port 8000
    ```
    ```
-   cd cloudServer/server
+   cd server
    npm install
    npm start
    ```
 3. **Firmware** (ESP-IDF 5.5):
    ```
-   cd kws_s3
+   cd firmware
    idf.py set-target esp32s3
    idf.py menuconfig          # KWS settings: Wi-Fi name and password, server ws://<PC-IP>:3000/ws
    idf.py -p <port> build flash monitor
    ```
 4. Say "Marvin", then a command. The LED blinks green at the detection and the transcript appears in the serial
-   monitor and in `cloudServer/server/recordings/index.jsonl`.
+   monitor and in `server/recordings/index.jsonl`.
 
 ## Measured results
 
@@ -95,6 +96,6 @@ the retraining with those words as negatives is prepared in [`training/`](traini
 ## Credits and licences
 
 Model training: [microWakeWord](https://github.com/kahrendt/microWakeWord) (Apache-2.0). Feature frontend:
-TensorFlow Lite Micro microfrontend (Apache-2.0, `kws_s3/components/esp-micro-speech-features`). Runtime:
+TensorFlow Lite Micro microfrontend (Apache-2.0, `firmware/components/esp-micro-speech-features`). Runtime:
 `espressif/esp-tflite-micro` and `esp-nn` (Apache-2.0). Speech-to-text: faster-whisper (MIT) with Whisper
 small.en (MIT). Datasets and their licences are listed in [`training/README.md`](training/README.md).

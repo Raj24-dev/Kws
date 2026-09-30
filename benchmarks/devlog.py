@@ -1,4 +1,4 @@
-"""Serial capture + parser for the kws_s3 firmware's log (shared by the benchmark scripts).
+"""Serial capture + parser for the ESP32-S3 firmware's log (shared by the benchmark scripts).
 
 DeviceLog opens the board's serial port in a background thread, stamps every line with time.perf_counter()
 and the wall clock, writes the raw log to a file, and parses the lines the benchmarks need:

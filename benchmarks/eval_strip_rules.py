@@ -17,11 +17,11 @@ import soundfile as sf
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BENCH = os.path.join(ROOT, "benchmarks")
-for p in (os.path.join(ROOT, "training"), os.path.join(ROOT, "cloudServer", "server", "stt-services"), BENCH):
+for p in (os.path.join(ROOT, "training"), os.path.join(ROOT, "server", "stt-services"), BENCH):
     sys.path.insert(0, p)
 from summarize_acoustic import wer, words  # noqa: E402
 
-REC = os.path.join(ROOT, "cloudServer", "server", "recordings")
+REC = os.path.join(ROOT, "server", "recordings")
 CACHE = os.path.join(tempfile.gettempdir(), "kws_strip_rules_cache.pkl")  # Whisper words, reused between runs
 P = 0.25
 stt = None
@@ -38,7 +38,7 @@ def whisper_words(pcm: bytes):
 
 def build_val():
     from check_model import Detector, LcgNoise, run
-    model = os.path.join(ROOT, "kws_s3", "model", "marvin.tflite")
+    model = os.path.join(ROOT, "firmware", "model", "marvin.tflite")
     det = Detector(model, json.load(open(model.replace(".tflite", ".json")))["micro"]["probability_cutoff"], 5)
     items = []
     for r in csv.DictReader(open(os.path.join(BENCH, "sets", "real_val.csv"), encoding="utf-8")):

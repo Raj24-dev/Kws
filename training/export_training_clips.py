@@ -7,7 +7,7 @@ word), labels each true/false (already-verified records, or by asking a speech-t
 service whether the wake word appears in the first few words), cuts the pre-roll +
 tail_ms out of the WAV, and zips the results for the training notebook.
 
-    python export_training_clips.py <recordings_dir> [<recordings_dir> ...] [--out DIR]
+    python export_training_clips.py <recordings_dir> [<recordings_dir> ...] [--out DIR]   (default: training/clips/)
                                      [--stt http://127.0.0.1:8000/transcribe] [--tail-ms 250]
 """
 import argparse
@@ -107,7 +107,7 @@ def zip_dir(zip_path, src_dir):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("recordings_dirs", nargs="+")
-    ap.add_argument("--out", default=os.path.join(HERE, "..", "training_clips"))
+    ap.add_argument("--out", default=os.path.join(HERE, "clips"))
     ap.add_argument("--stt", default=None, help="speech-to-text URL, e.g. http://127.0.0.1:8000/transcribe")
     ap.add_argument("--tail-ms", type=int, default=250)
     ap.add_argument("--relabel", action="store_true",

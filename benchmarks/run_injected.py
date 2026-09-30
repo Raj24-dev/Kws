@@ -23,7 +23,7 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(ROOT, "training"))
 from check_model import LEAD_MS, TAIL_MS, Detector, LcgNoise, load_wav, run  # noqa: E402
 
-REC = os.path.join(ROOT, "cloudServer", "server", "recordings")
+REC = os.path.join(ROOT, "server", "recordings")
 ANS = re.compile(r"INJ (\d+) det=(\d+) first=(-?\d+) max=([\d.]+)")
 
 
@@ -40,7 +40,7 @@ def main():
     ap.add_argument("--label", required=True)
     ap.add_argument("--port", default="COM6")
     ap.add_argument("--cutoff", type=float, default=0.5, help="the cutoff the firmware was built with (for the mirror)")
-    ap.add_argument("--model", default=os.path.join(ROOT, "kws_s3", "model", "marvin.tflite"))
+    ap.add_argument("--model", default=os.path.join(ROOT, "firmware", "model", "marvin.tflite"))
     a = ap.parse_args()
 
     ser = serial.Serial()

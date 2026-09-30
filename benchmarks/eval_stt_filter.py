@@ -12,8 +12,8 @@ import soundfile as sf
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-REC = os.path.join(ROOT, "cloudServer", "server", "recordings")
-sys.path.insert(0, os.path.join(ROOT, "cloudServer", "server", "stt-services"))
+REC = os.path.join(ROOT, "server", "recordings")
+sys.path.insert(0, os.path.join(ROOT, "server", "stt-services"))
 
 
 def main():

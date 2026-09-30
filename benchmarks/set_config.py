@@ -1,4 +1,4 @@
-"""Sets CONFIG_ options in kws_s3/sdkconfig in place (the file also holds the Wi-Fi credentials, which are never
+"""Sets CONFIG_ options in firmware/sdkconfig in place (the file also holds the Wi-Fi credentials, which are never
 read or printed here). Then run `idf.py reconfigure` and `ninja -C build -j 3`.
 
     python set_config.py KWS_PROFILE_OPS=y KWS_TELEMETRY_MS=0 ESP_WIFI_IRAM_OPT=n
@@ -8,7 +8,7 @@ import os
 import re
 import sys
 
-SDK = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "kws_s3", "sdkconfig")
+SDK = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "firmware", "sdkconfig")
 SECRET = re.compile(r"PASSWORD|PASS\b|PSK", re.I)
 
 

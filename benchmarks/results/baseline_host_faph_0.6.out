@@ -1,4 +1,0 @@
-INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
-{'file': 'synthetic_longspeech_00_David_r-3.wav', 'hours': 1.605, 'false_accepts': 2, 'at_s': [2198.5, 2661.7]}
-{'file': 'synthetic_longspeech_01_Zira_r-3.wav', 'hours': 1.502, 'false_accepts': 0, 'at_s': []}
-{"hours": 3.107, "false_accepts": 2, "faph": 0.64}

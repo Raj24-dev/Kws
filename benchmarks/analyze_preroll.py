@@ -22,10 +22,10 @@ import soundfile as sf
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(ROOT, "training"))
-sys.path.insert(0, os.path.join(ROOT, "cloudServer", "server", "stt-services"))
+sys.path.insert(0, os.path.join(ROOT, "server", "stt-services"))
 from check_model import Detector, LcgNoise, run  # noqa: E402
 
-REC = os.path.join(ROOT, "cloudServer", "server", "recordings")
+REC = os.path.join(ROOT, "server", "recordings")
 LEAD = 1200 * 16
 
 
@@ -35,7 +35,7 @@ def words(t):
 
 def main(split, cutoff=0.5):
     import main as stt  # loads Whisper small.en (the server's code, unchanged)
-    det = Detector(os.path.join(ROOT, "kws_s3", "model", "marvin.tflite"), cutoff, 5)
+    det = Detector(os.path.join(ROOT, "firmware", "model", "marvin.tflite"), cutoff, 5)
     rows = [r for r in csv.DictReader(open(os.path.join(HERE, "sets", f"real_{split}.csv"), encoding="utf-8"))
             if r["label"] == "1" and r["kw_end"]]
     out = []

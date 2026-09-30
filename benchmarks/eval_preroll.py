@@ -19,12 +19,12 @@ import soundfile as sf
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(ROOT, "training"))
-sys.path.insert(0, os.path.join(ROOT, "cloudServer", "server", "stt-services"))
+sys.path.insert(0, os.path.join(ROOT, "server", "stt-services"))
 from check_model import Detector, LcgNoise, run  # noqa: E402
 from summarize_acoustic import wer  # noqa: E402
 
-REC = os.path.join(ROOT, "cloudServer", "server", "recordings")
-MODEL = os.path.join(ROOT, "kws_s3", "model", "marvin.tflite")
+REC = os.path.join(ROOT, "server", "recordings")
+MODEL = os.path.join(ROOT, "firmware", "model", "marvin.tflite")
 LEAD = 1200 * 16
 
 

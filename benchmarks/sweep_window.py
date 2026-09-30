@@ -17,8 +17,8 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(ROOT, "training"))
 from check_model import LEAD_MS, TAIL_MS, Detector, LcgNoise, load_wav, run  # noqa: E402
 
-MODEL = os.path.join(ROOT, "kws_s3", "model", "marvin.tflite")
-REC = os.path.join(ROOT, "cloudServer", "server", "recordings")
+MODEL = os.path.join(ROOT, "firmware", "model", "marvin.tflite")
+REC = os.path.join(ROOT, "server", "recordings")
 VAL_SPEECH = os.path.join(HERE, "audio", "synthetic_longspeech_00_David_r-3.wav")
 
 

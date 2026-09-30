@@ -26,9 +26,9 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(ROOT, "training"))
 from check_model import LEAD_MS, TAIL_MS, Detector, LcgNoise, load_wav, run  # noqa: E402
 
-REC = os.path.join(ROOT, "cloudServer", "server", "recordings")
+REC = os.path.join(ROOT, "server", "recordings")
 OLD_TTS = os.path.join(HERE, "audio", "synthetic_tts_2026-09-27")  # previous session's TTS set (validation only)
-MODEL = os.path.join(ROOT, "kws_s3", "model", "marvin.tflite")
+MODEL = os.path.join(ROOT, "firmware", "model", "marvin.tflite")
 CUTS = [round(c, 2) for c in np.arange(0.30, 0.99, 0.05)]
 
 
