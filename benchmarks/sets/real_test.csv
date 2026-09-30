@@ -1,0 +1,51 @@
+file,split,label,label_index,label_whisper,kw_start,kw_end,kw_end_method,duration_s,orig_score,text_whisper,ref_transcript,sha256
+20260927_081253_507_e072a1d53274_marvin.wav,test,0,0,0,,,,2.92,0.516,Michael. Barney.,Michael. Armin.,046ea756105a902b5ee3e367dddad9b6272e9f50ef6342ea7bac80b00bc637f3
+20260927_082056_255_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.66,energy,2.52,0.652,Marvin,Marvin,b9ab1a28aadee0a0c6755097415260387ce620319396c15912d33ddece256740
+20260927_083658_499_e072a1d53274_marvin.wav,test,0,0,0,,,,2.52,0.596,All right.,How are we?,dcac43b2f49b81c439fe6e4cf69f648e9b0b5436574e7597ccd618bfac5eafbb
+20260927_083709_514_e072a1d53274_marvin.wav,test,0,0,0,,,,2.5,0.617,Marvel,Good morning.,4e8289e425c2c0ae2f883cc2d2f3d2b6862a66d627c2fff68ddb41044ffa5183
+20260927_084202_861_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.88,whisper,2.5,0.591,Marvin,Marvin,5b0800c96a8ae7902904d3065cad660e6dafcf747b4f75e2bb6a66b1e3495e11
+20260927_084205_045_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.76,energy,3.72,0.521,Marvin,Marvin,cb1e272fbfd195b0b18caeada9f6991aa293de5c79d25ed35579f84feb9818c8
+20260927_084222_746_e072a1d53274_marvin.wav,test,1,1,1,0.0,1.09,energy,2.76,0.696,"Marvin, here they come.","Marvin, here they are.",5037da652e6287596c4abccb345bc82edf8b643ca5d0b3b75daf52007e63ff0e
+20260927_084225_747_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.92,energy,2.5,0.584,Marvin,Marvin,e526e6c1472fd9427b73b20456cc06b3b226fdfffe2797d11e5799bfbdb25217
+20260927_084252_601_e072a1d53274_marvin.wav,test,1,1,1,0.0,1.09,energy,5.32,0.63,Marvin. Marvin.,Marvin. Marvin.,264c59a7518ab9397419bac26c9b029b5418288183ba841b28be41967b9dbcb4
+20260927_084404_540_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.73,energy,2.52,0.626,Marvin,Marvin,47bd4e4945df3ca93bd87ecfe2757adcfc88dc458267df7290e2e08121ae47f2
+20260927_084417_530_e072a1d53274_marvin.wav,test,1,1,1,0.0,1.01,energy,5.88,0.638,Marvin Can you hear me Marvin?,"Marvin, can you hear me, Marvin?",bd6d4fea62ce27369e0a36266d4c1771fc6587536c1b4e2af09911c8cad207ef
+20260927_084424_301_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.7,energy,3.36,0.646,Marvin,Marvin,ac52dbe38de406af26a35a6aaae631230c0654b314117946d18ba18a36c78ece
+20260927_084525_297_e072a1d53274_marvin.wav,test,1,1,1,0.0,1.0,energy,2.52,0.592,Marvin.,Marvin.,1788247f17f514d2ffc8effef265a9c8b0ff94ce9298555a8bed0ae8896a085e
+20260927_084535_388_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.7,energy,2.52,0.638,Marvin.,Marvin,909e0983a6172a22389f3230919e79afd403bae9c10d32dc296e2d26685c62a7
+20260927_084637_556_e072a1d53274_marvin.wav,test,0,0,0,,,,3.0,0.566,Morgan,Morgan.,35eabc39b4772db42c338163b6f2f318f99382d77723b95738563b9e196af728
+20260927_084743_838_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.72,energy,2.52,0.639,Marvin.,Marvin,663dc433ffa64943f0f024b4fd250effe1e50897812bd5cdc4d67e84abefe2d5
+20260927_084753_611_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.88,whisper,2.5,0.644,Marvin,Marvin,2575d659073be47546c23f1dda3b65b1886455daf804f7cd7270a704a6828cbb
+20260927_085041_612_e072a1d53274_marvin.wav,test,0,0,0,,,,2.5,0.657,Thank you.,Marconico,8f89720ef3ff8dd75b630b53db5592f84e53b5da5a7d46a11b6cb8d32387211f
+20260927_090223_007_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.78,energy,5.36,0.566,Marvin. Marvin.,Marvin. Marvin.,a778ea8c920e6b3bce19bfc00e4c4fa4a5d1a98ad18c287dd45cf73256d2233a
+20260927_093215_871_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.7,energy,2.5,0.555,Marvin,Marvin,30564ed029ebc5b09c22191a244778d48e9e979219e2ff035814a18193193105
+20260927_093736_188_e072a1d53274_marvin.wav,test,1,1,1,0.0,1.05,energy,3.24,0.626,Marvin? Marvin?,Marvin? Marvin?,2a31f08ee2e4566acdc7d9a775da7db51fa0244c7e45fd048b42b780fc7b075f
+20260927_093810_614_e072a1d53274_marvin.wav,test,0,0,0,,,,3.06,0.622,Martin. Martin.,Martin Martin,15f002f3a02810f53879b6d8b40a25fb1163b3ac86f85d7eb4a34355842c76a6
+20260927_093827_714_e072a1d53274_marvin.wav,test,0,0,0,,,,4.22,0.675,Martin,Martin,80fb31331ffdb3e08bd57f3c99980b0e95fa6b1e9f6d124e77f9a7fc52d4f08b
+20260927_094742_216_e072a1d53274_marvin.wav,test,0,0,0,,,,2.5,0.56,"No, I didn't.",I'm going to go by now.,61d4d657e259fd0951f3df36fb75b9136ddca45479eb7287f41e7688e1db0c8b
+20260927_100354_708_e072a1d53274_marvin.wav,test,0,0,0,,,,6.18,0.666,,"So, we are going to take a look at the car and we are going to take a look at the car",5a9332d95a3b52363cbc958e11a55ee100a0971461fa13fe3f8faacef1b7572a
+20260927_100401_666_e072a1d53274_marvin.wav,test,0,0,0,,,,5.78,0.666,Martin,Martin,0eeacb2c6c1ff5a4e123ef148b0658a90b9c296fc40bfbe46e8051adc276bdcc
+20260927_102029_825_e072a1d53274_marvin.wav,test,0,0,0,,,,2.5,0.531,Well...,uh-huh,467a4166379acad43eb5d49fe0b64f1564f9c2ea955c5bbcfc8785c45366bc87
+20260927_102639_228_e072a1d53274_marvin.wav,test,0,0,0,,,,5.68,0.562,how to terminate other processes while using the,how to terminate other processes while using the,1676d88948f5f492a7bb35e03daaa7232aa7fb46f543790f8f0225c9e1f5eee3
+20260927_103452_485_e072a1d53274_marvin.wav,test,0,0,0,,,,5.14,0.504,"Model, let's go to the framework, let's go to the model, let's go to the scratch","model, what's the more frame work, model manneh is crazy when I have an angel.",7ad39c766517305a730f31711e670d63c3c71aabe10aa14f15213d694ca17f9d
+20260927_104825_185_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.58,energy,2.5,0.587,Marvin?,Marvin?,9576f4daa9a16758fcecaee79c50b9805279fdd0d0c66e27b797a0e6a46493dd
+20260928_131648_429_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.98,energy,2.5,0.566,Marvin,Marvin,5544040efbdf99856f815a1515e530780a186212d06d27d9ef7a51827e56ba88
+20260928_131708_386_e072a1d53274_marvin.wav,test,1,1,1,0.52,1.03,energy,2.5,0.64,"Marvin, can you hear me?","Marvin, can you hear me?",8872e0833224deb11610e64400c74820d06b54765fd9d50f2e44dce1a6795a23
+20260928_131728_925_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.8,energy,2.5,0.653,Marvin.,Marvin.,896294646efe1e6971375e6afe582c13ce16a445b5858504a649ac841786f90d
+20260928_131750_634_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.99,energy,2.5,0.609,Marvin,Marvin,27a355ed638ca7b983c949c734f4d97efda4dd0f95f3bb9709d6a6073ad1134f
+20260928_131830_208_e072a1d53274_marvin.wav,test,1,1,1,0.0,1.01,energy,2.5,0.501,Marvin,Marvin,0b5be24b16880fb33ea7a77eb0b1d080ee6b74366a1ef7baf62715cb4a58d5a3
+20260928_132811_942_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.87,energy,2.5,0.644,Marvin?,Marvin?,3d3e567286fee483a7d0f1ea051faaf3da73d581394f0470269d2c3d242763b9
+20260928_132813_993_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.92,energy,2.5,0.555,Marvin,Marvin,28835e84f799d91e848e6f4dc1ec4ee1dc108e40edfcc5d5364bc92a824d9b02
+20260928_133112_489_e072a1d53274_marvin.wav,test,0,0,0,,,,0.24,0.633,,,6b3c2b6b5bf9b82d6b378dcb7684dd605192b7485f6f559b9fe7989c2711e8eb
+20260928_135250_694_e072a1d53274_marvin.wav,test,1,1,1,0.72,1.06,energy,2.5,0.629,Hey Marvin,Hey Marvin,231decb6ccfe25bd742b2a275ea59384f7d17bc3d8f57c19054f70a1519e4d0e
+20260928_135324_781_e072a1d53274_marvin.wav,test,1,1,1,0.48,0.94,whisper,2.72,0.579,"Marvin, Raj is a bad girl.","Marvin, Raj is a bad girl.",7d08cd14f71c2b7f44f53cfdfa0a9b279c824edcba273296d87f01c1fd771cb8
+20260928_135429_832_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.86,whisper,2.5,0.606,Marvin,Marvin,19146159b40f28c08439295ce52df072d165cde63572db8ae398c56d07ec3e93
+20260928_135449_470_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.76,whisper,3.26,0.619,"Marvin, can you listen to me?","Marvin, can you listen to me?",b706f04ff74f81748ea9f6784230243760eb7b9af66db34e9171d385e0d9257c
+20260928_135855_356_e072a1d53274_marvin.wav,test,0,0,0,,,,2.5,0.534,"Well, I've been.","Well, I've been.",abdae4080f38a52ea4da19c0c859d52c269c7f4223bd177e4f18bea8ba13ec5b
+20260928_141540_674_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.7,whisper,2.6,0.649,Marvin,Marvin,e70ce02ed527f6fb01c329269b5c6952843411fd95f18fc8c9c5aad64d55c5b8
+20260928_141635_255_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.84,energy,2.5,0.655,Marvin,Marvin,299684c5963d37a0e14de2dc641173c98a6d2b5302f676f31b03a8678a03a474
+20260928_141723_591_e072a1d53274_marvin.wav,test,0,0,0,,,,2.5,0.565,Narveen,Narveen,5fe5430742b3ce530ded2635cb920634951e0a56e92c5bb5dda836ba64b71f64
+20260928_141800_990_e072a1d53274_marvin.wav,test,0,0,0,,,,2.5,0.516,Madeline,Madeline,954011e64e9afb8c1bedbec4c2bbd2c66d9912f2765f4c7e5bc9b1b3c9b7d721
+20260928_141832_068_e072a1d53274_marvin.wav,test,1,1,1,0.0,0.78,whisper,3.52,0.562,"Marvin, can you hear me?","Marvin, can you hear me?",08864c16159e69ab63517bd93d29f82b72892654a327de653da5b8beb9c58b23
+20260928_144459_008_e072a1d53274_marvin.wav,test,1,1,1,0.5,0.82,energy,3.24,0.563,"Hey, Marvin, are you listening to me?","Hey, Marvin, are you listening to me?",25eec1aa8037a8d05ddd006eafea4ebb017ab6faedfa1ea3f8ef4d084b56935a
+20260928_145023_271_e072a1d53274_marvin.wav,test,1,1,1,0.68,1.02,energy,5.9,0.509,"Hey, Marvin, close the door. It is showing, Hey, Marvin, close the door.","Hey, Marvin, close the door. It is showing, Hey, Marvin, close the door.",8e84c029ca698f297ceea9f869090c99c239f22d1b84dbf18ddc4a6e1295c24b

@@ -1,0 +1,1221 @@
+{
+ "label": "baseline_cut0.5",
+ "evidence": "HOST-ONLY",
+ "model": "marvin.tflite",
+ "window": 5,
+ "sets": {
+  "real_test": {
+   "scores": [
+    [
+     "20260927_081253_507_e072a1d53274_marvin.wav",
+     0,
+     0.3555
+    ],
+    [
+     "20260927_082056_255_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260927_083658_499_e072a1d53274_marvin.wav",
+     0,
+     0.3641
+    ],
+    [
+     "20260927_083709_514_e072a1d53274_marvin.wav",
+     0,
+     0.5992
+    ],
+    [
+     "20260927_084202_861_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260927_084205_045_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260927_084222_746_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260927_084225_747_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260927_084252_601_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260927_084404_540_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260927_084417_530_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260927_084424_301_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260927_084525_297_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260927_084535_388_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260927_084637_556_e072a1d53274_marvin.wav",
+     0,
+     0.9938
+    ],
+    [
+     "20260927_084743_838_e072a1d53274_marvin.wav",
+     1,
+     0.9711
+    ],
+    [
+     "20260927_084753_611_e072a1d53274_marvin.wav",
+     1,
+     0.9953
+    ],
+    [
+     "20260927_085041_612_e072a1d53274_marvin.wav",
+     0,
+     0.9352
+    ],
+    [
+     "20260927_090223_007_e072a1d53274_marvin.wav",
+     1,
+     0.9852
+    ],
+    [
+     "20260927_093215_871_e072a1d53274_marvin.wav",
+     1,
+     0.993
+    ],
+    [
+     "20260927_093736_188_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260927_093810_614_e072a1d53274_marvin.wav",
+     0,
+     0.9961
+    ],
+    [
+     "20260927_093827_714_e072a1d53274_marvin.wav",
+     0,
+     0.9961
+    ],
+    [
+     "20260927_094742_216_e072a1d53274_marvin.wav",
+     0,
+     0.2273
+    ],
+    [
+     "20260927_100354_708_e072a1d53274_marvin.wav",
+     0,
+     0.1266
+    ],
+    [
+     "20260927_100401_666_e072a1d53274_marvin.wav",
+     0,
+     0.9961
+    ],
+    [
+     "20260927_102029_825_e072a1d53274_marvin.wav",
+     0,
+     0.2164
+    ],
+    [
+     "20260927_102639_228_e072a1d53274_marvin.wav",
+     0,
+     0.8172
+    ],
+    [
+     "20260927_103452_485_e072a1d53274_marvin.wav",
+     0,
+     0.8883
+    ],
+    [
+     "20260927_104825_185_e072a1d53274_marvin.wav",
+     1,
+     0.7359
+    ],
+    [
+     "20260928_131648_429_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260928_131708_386_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260928_131728_925_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260928_131750_634_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260928_131830_208_e072a1d53274_marvin.wav",
+     1,
+     0.9922
+    ],
+    [
+     "20260928_132811_942_e072a1d53274_marvin.wav",
+     1,
+     0.9875
+    ],
+    [
+     "20260928_132813_993_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260928_133112_489_e072a1d53274_marvin.wav",
+     0,
+     0.0234
+    ],
+    [
+     "20260928_135250_694_e072a1d53274_marvin.wav",
+     1,
+     0.9953
+    ],
+    [
+     "20260928_135324_781_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260928_135429_832_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260928_135449_470_e072a1d53274_marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "20260928_135855_356_e072a1d53274_marvin.wav",
+     0,
+     0.9883
+    ],
+    [
+     "20260928_141540_674_e072a1d53274_marvin.wav",
+     1,
+     0.9031
+    ],
+    [
+     "20260928_141635_255_e072a1d53274_marvin.wav",
+     1,
+     0.9023
+    ],
+    [
+     "20260928_141723_591_e072a1d53274_marvin.wav",
+     0,
+     0.9961
+    ],
+    [
+     "20260928_141800_990_e072a1d53274_marvin.wav",
+     0,
+     0.3453
+    ],
+    [
+     "20260928_141832_068_e072a1d53274_marvin.wav",
+     1,
+     0.9633
+    ],
+    [
+     "20260928_144459_008_e072a1d53274_marvin.wav",
+     1,
+     0.6836
+    ],
+    [
+     "20260928_145023_271_e072a1d53274_marvin.wav",
+     1,
+     0.9898
+    ]
+   ],
+   "sweep": [
+    {
+     "cutoff": 0.3,
+     "tpr": 1.0,
+     "far": 0.7647,
+     "n_pos": 33,
+     "n_neg": 17
+    },
+    {
+     "cutoff": 0.35,
+     "tpr": 1.0,
+     "far": 0.7059,
+     "n_pos": 33,
+     "n_neg": 17
+    },
+    {
+     "cutoff": 0.4,
+     "tpr": 1.0,
+     "far": 0.5882,
+     "n_pos": 33,
+     "n_neg": 17
+    },
+    {
+     "cutoff": 0.45,
+     "tpr": 1.0,
+     "far": 0.5882,
+     "n_pos": 33,
+     "n_neg": 17
+    },
+    {
+     "cutoff": 0.5,
+     "tpr": 1.0,
+     "far": 0.5882,
+     "n_pos": 33,
+     "n_neg": 17
+    },
+    {
+     "cutoff": 0.55,
+     "tpr": 1.0,
+     "far": 0.5882,
+     "n_pos": 33,
+     "n_neg": 17
+    },
+    {
+     "cutoff": 0.6,
+     "tpr": 1.0,
+     "far": 0.5294,
+     "n_pos": 33,
+     "n_neg": 17
+    },
+    {
+     "cutoff": 0.65,
+     "tpr": 1.0,
+     "far": 0.5294,
+     "n_pos": 33,
+     "n_neg": 17
+    },
+    {
+     "cutoff": 0.7,
+     "tpr": 0.9697,
+     "far": 0.5294,
+     "n_pos": 33,
+     "n_neg": 17
+    },
+    {
+     "cutoff": 0.75,
+     "tpr": 0.9394,
+     "far": 0.5294,
+     "n_pos": 33,
+     "n_neg": 17
+    },
+    {
+     "cutoff": 0.8,
+     "tpr": 0.9394,
+     "far": 0.5294,
+     "n_pos": 33,
+     "n_neg": 17
+    },
+    {
+     "cutoff": 0.85,
+     "tpr": 0.9394,
+     "far": 0.4706,
+     "n_pos": 33,
+     "n_neg": 17
+    },
+    {
+     "cutoff": 0.9,
+     "tpr": 0.9394,
+     "far": 0.4118,
+     "n_pos": 33,
+     "n_neg": 17
+    },
+    {
+     "cutoff": 0.95,
+     "tpr": 0.8788,
+     "far": 0.3529,
+     "n_pos": 33,
+     "n_neg": 17
+    }
+   ],
+   "at_cutoff": {
+    "cutoff": 0.5,
+    "tpr": 1.0,
+    "far": 0.5882,
+    "n_pos": 33,
+    "n_neg": 17
+   }
+  },
+  "synthetic_confusable": {
+   "scores": [
+    [
+     "David_r-3_Arvind.wav",
+     0,
+     0.9812
+    ],
+    [
+     "David_r-3_Carbon.wav",
+     0,
+     0.9867
+    ],
+    [
+     "David_r-3_Garvin.wav",
+     0,
+     0.9883
+    ],
+    [
+     "David_r-3_Harvard.wav",
+     0,
+     0.3734
+    ],
+    [
+     "David_r-3_Kevin.wav",
+     0,
+     0.0328
+    ],
+    [
+     "David_r-3_Marble.wav",
+     0,
+     0.9781
+    ],
+    [
+     "David_r-3_Margin.wav",
+     0,
+     0.4477
+    ],
+    [
+     "David_r-3_Marion.wav",
+     0,
+     0.1898
+    ],
+    [
+     "David_r-3_Mark.wav",
+     0,
+     0.8953
+    ],
+    [
+     "David_r-3_Marlin.wav",
+     0,
+     0.8648
+    ],
+    [
+     "David_r-3_Martian.wav",
+     0,
+     0.4039
+    ],
+    [
+     "David_r-3_Martin.wav",
+     0,
+     0.9672
+    ],
+    [
+     "David_r-3_Marvel.wav",
+     0,
+     0.9406
+    ],
+    [
+     "David_r-3_Marvelous.wav",
+     0,
+     0.993
+    ],
+    [
+     "David_r-3_Melvin.wav",
+     0,
+     0.0609
+    ],
+    [
+     "David_r-3_Mervyn.wav",
+     0,
+     0.943
+    ],
+    [
+     "David_r-3_Morgan.wav",
+     0,
+     0.0563
+    ],
+    [
+     "David_r-3_Navin.wav",
+     0,
+     0.8664
+    ],
+    [
+     "David_r-3_Pravin.wav",
+     0,
+     0.0742
+    ],
+    [
+     "David_r-3_Starving.wav",
+     0,
+     0.0063
+    ],
+    [
+     "David_r0_Arvind.wav",
+     0,
+     0.6328
+    ],
+    [
+     "David_r0_Carbon.wav",
+     0,
+     0.3023
+    ],
+    [
+     "David_r0_Garvin.wav",
+     0,
+     0.568
+    ],
+    [
+     "David_r0_Harvard.wav",
+     0,
+     0.2359
+    ],
+    [
+     "David_r0_Kevin.wav",
+     0,
+     0.0094
+    ],
+    [
+     "David_r0_Marble.wav",
+     0,
+     0.8617
+    ],
+    [
+     "David_r0_Margin.wav",
+     0,
+     0.6086
+    ],
+    [
+     "David_r0_Marion.wav",
+     0,
+     0.4562
+    ],
+    [
+     "David_r0_Mark.wav",
+     0,
+     0.8438
+    ],
+    [
+     "David_r0_Marlin.wav",
+     0,
+     0.8477
+    ],
+    [
+     "David_r0_Martian.wav",
+     0,
+     0.725
+    ],
+    [
+     "David_r0_Martin.wav",
+     0,
+     0.9938
+    ],
+    [
+     "David_r0_Marvel.wav",
+     0,
+     0.8914
+    ],
+    [
+     "David_r0_Marvelous.wav",
+     0,
+     0.9109
+    ],
+    [
+     "David_r0_Melvin.wav",
+     0,
+     0.0742
+    ],
+    [
+     "David_r0_Mervyn.wav",
+     0,
+     0.6305
+    ],
+    [
+     "David_r0_Morgan.wav",
+     0,
+     0.9789
+    ],
+    [
+     "David_r0_Navin.wav",
+     0,
+     0.432
+    ],
+    [
+     "David_r0_Pravin.wav",
+     0,
+     0.0227
+    ],
+    [
+     "David_r0_Starving.wav",
+     0,
+     0.0063
+    ],
+    [
+     "David_r3_Arvind.wav",
+     0,
+     0.1086
+    ],
+    [
+     "David_r3_Carbon.wav",
+     0,
+     0.0133
+    ],
+    [
+     "David_r3_Garvin.wav",
+     0,
+     0.0758
+    ],
+    [
+     "David_r3_Harvard.wav",
+     0,
+     0.0141
+    ],
+    [
+     "David_r3_Kevin.wav",
+     0,
+     0.0109
+    ],
+    [
+     "David_r3_Marble.wav",
+     0,
+     0.1953
+    ],
+    [
+     "David_r3_Margin.wav",
+     0,
+     0.8883
+    ],
+    [
+     "David_r3_Marion.wav",
+     0,
+     0.2086
+    ],
+    [
+     "David_r3_Mark.wav",
+     0,
+     0.4602
+    ],
+    [
+     "David_r3_Marlin.wav",
+     0,
+     0.318
+    ],
+    [
+     "David_r3_Martian.wav",
+     0,
+     0.6062
+    ],
+    [
+     "David_r3_Martin.wav",
+     0,
+     0.9219
+    ],
+    [
+     "David_r3_Marvel.wav",
+     0,
+     0.2789
+    ],
+    [
+     "David_r3_Marvelous.wav",
+     0,
+     0.6031
+    ],
+    [
+     "David_r3_Melvin.wav",
+     0,
+     0.075
+    ],
+    [
+     "David_r3_Mervyn.wav",
+     0,
+     0.3945
+    ],
+    [
+     "David_r3_Morgan.wav",
+     0,
+     0.5609
+    ],
+    [
+     "David_r3_Navin.wav",
+     0,
+     0.0859
+    ],
+    [
+     "David_r3_Pravin.wav",
+     0,
+     0.0227
+    ],
+    [
+     "David_r3_Starving.wav",
+     0,
+     0.007
+    ],
+    [
+     "Zira_r-3_Arvind.wav",
+     0,
+     0.8219
+    ],
+    [
+     "Zira_r-3_Carbon.wav",
+     0,
+     0.9961
+    ],
+    [
+     "Zira_r-3_Garvin.wav",
+     0,
+     0.8883
+    ],
+    [
+     "Zira_r-3_Harvard.wav",
+     0,
+     0.907
+    ],
+    [
+     "Zira_r-3_Kevin.wav",
+     0,
+     0.1227
+    ],
+    [
+     "Zira_r-3_Marble.wav",
+     0,
+     0.868
+    ],
+    [
+     "Zira_r-3_Margin.wav",
+     0,
+     0.7695
+    ],
+    [
+     "Zira_r-3_Marion.wav",
+     0,
+     0.9187
+    ],
+    [
+     "Zira_r-3_Mark.wav",
+     0,
+     0.6945
+    ],
+    [
+     "Zira_r-3_Marlin.wav",
+     0,
+     0.9328
+    ],
+    [
+     "Zira_r-3_Martian.wav",
+     0,
+     0.8297
+    ],
+    [
+     "Zira_r-3_Martin.wav",
+     0,
+     0.9961
+    ],
+    [
+     "Zira_r-3_Marvel.wav",
+     0,
+     0.8648
+    ],
+    [
+     "Zira_r-3_Marvelous.wav",
+     0,
+     0.9039
+    ],
+    [
+     "Zira_r-3_Melvin.wav",
+     0,
+     0.0961
+    ],
+    [
+     "Zira_r-3_Mervyn.wav",
+     0,
+     0.6195
+    ],
+    [
+     "Zira_r-3_Morgan.wav",
+     0,
+     0.5531
+    ],
+    [
+     "Zira_r-3_Navin.wav",
+     0,
+     0.9898
+    ],
+    [
+     "Zira_r-3_Pravin.wav",
+     0,
+     0.0469
+    ],
+    [
+     "Zira_r-3_Starving.wav",
+     0,
+     0.0461
+    ],
+    [
+     "Zira_r0_Arvind.wav",
+     0,
+     0.5891
+    ],
+    [
+     "Zira_r0_Carbon.wav",
+     0,
+     0.9766
+    ],
+    [
+     "Zira_r0_Garvin.wav",
+     0,
+     0.8953
+    ],
+    [
+     "Zira_r0_Harvard.wav",
+     0,
+     0.4414
+    ],
+    [
+     "Zira_r0_Kevin.wav",
+     0,
+     0.2586
+    ],
+    [
+     "Zira_r0_Marble.wav",
+     0,
+     0.8562
+    ],
+    [
+     "Zira_r0_Margin.wav",
+     0,
+     0.5906
+    ],
+    [
+     "Zira_r0_Marion.wav",
+     0,
+     0.4109
+    ],
+    [
+     "Zira_r0_Mark.wav",
+     0,
+     0.7156
+    ],
+    [
+     "Zira_r0_Marlin.wav",
+     0,
+     0.832
+    ],
+    [
+     "Zira_r0_Martian.wav",
+     0,
+     0.6922
+    ],
+    [
+     "Zira_r0_Martin.wav",
+     0,
+     0.9961
+    ],
+    [
+     "Zira_r0_Marvel.wav",
+     0,
+     0.8156
+    ],
+    [
+     "Zira_r0_Marvelous.wav",
+     0,
+     0.8219
+    ],
+    [
+     "Zira_r0_Melvin.wav",
+     0,
+     0.1172
+    ],
+    [
+     "Zira_r0_Mervyn.wav",
+     0,
+     0.4141
+    ],
+    [
+     "Zira_r0_Morgan.wav",
+     0,
+     0.843
+    ],
+    [
+     "Zira_r0_Navin.wav",
+     0,
+     0.9961
+    ],
+    [
+     "Zira_r0_Pravin.wav",
+     0,
+     0.0656
+    ],
+    [
+     "Zira_r0_Starving.wav",
+     0,
+     0.0344
+    ],
+    [
+     "Zira_r3_Arvind.wav",
+     0,
+     0.0664
+    ],
+    [
+     "Zira_r3_Carbon.wav",
+     0,
+     0.0844
+    ],
+    [
+     "Zira_r3_Garvin.wav",
+     0,
+     0.0633
+    ],
+    [
+     "Zira_r3_Harvard.wav",
+     0,
+     0.1672
+    ],
+    [
+     "Zira_r3_Kevin.wav",
+     0,
+     0.0148
+    ],
+    [
+     "Zira_r3_Marble.wav",
+     0,
+     0.3406
+    ],
+    [
+     "Zira_r3_Margin.wav",
+     0,
+     0.507
+    ],
+    [
+     "Zira_r3_Marion.wav",
+     0,
+     0.075
+    ],
+    [
+     "Zira_r3_Mark.wav",
+     0,
+     0.5742
+    ],
+    [
+     "Zira_r3_Marlin.wav",
+     0,
+     0.0992
+    ],
+    [
+     "Zira_r3_Martian.wav",
+     0,
+     0.1164
+    ],
+    [
+     "Zira_r3_Martin.wav",
+     0,
+     0.825
+    ],
+    [
+     "Zira_r3_Marvel.wav",
+     0,
+     0.5031
+    ],
+    [
+     "Zira_r3_Marvelous.wav",
+     0,
+     0.0617
+    ],
+    [
+     "Zira_r3_Melvin.wav",
+     0,
+     0.0578
+    ],
+    [
+     "Zira_r3_Mervyn.wav",
+     0,
+     0.0352
+    ],
+    [
+     "Zira_r3_Morgan.wav",
+     0,
+     0.3781
+    ],
+    [
+     "Zira_r3_Navin.wav",
+     0,
+     0.857
+    ],
+    [
+     "Zira_r3_Pravin.wav",
+     0,
+     0.0125
+    ],
+    [
+     "Zira_r3_Starving.wav",
+     0,
+     0.0578
+    ]
+   ],
+   "sweep": [
+    {
+     "cutoff": 0.3,
+     "tpr": null,
+     "far": 0.6333,
+     "n_pos": 0,
+     "n_neg": 120
+    },
+    {
+     "cutoff": 0.35,
+     "tpr": null,
+     "far": 0.6083,
+     "n_pos": 0,
+     "n_neg": 120
+    },
+    {
+     "cutoff": 0.4,
+     "tpr": null,
+     "far": 0.5833,
+     "n_pos": 0,
+     "n_neg": 120
+    },
+    {
+     "cutoff": 0.45,
+     "tpr": null,
+     "far": 0.5333,
+     "n_pos": 0,
+     "n_neg": 120
+    },
+    {
+     "cutoff": 0.5,
+     "tpr": null,
+     "far": 0.5167,
+     "n_pos": 0,
+     "n_neg": 120
+    },
+    {
+     "cutoff": 0.55,
+     "tpr": null,
+     "far": 0.5,
+     "n_pos": 0,
+     "n_neg": 120
+    },
+    {
+     "cutoff": 0.6,
+     "tpr": null,
+     "far": 0.45,
+     "n_pos": 0,
+     "n_neg": 120
+    },
+    {
+     "cutoff": 0.65,
+     "tpr": null,
+     "far": 0.4,
+     "n_pos": 0,
+     "n_neg": 120
+    },
+    {
+     "cutoff": 0.7,
+     "tpr": null,
+     "far": 0.3833,
+     "n_pos": 0,
+     "n_neg": 120
+    },
+    {
+     "cutoff": 0.75,
+     "tpr": null,
+     "far": 0.3667,
+     "n_pos": 0,
+     "n_neg": 120
+    },
+    {
+     "cutoff": 0.8,
+     "tpr": null,
+     "far": 0.3583,
+     "n_pos": 0,
+     "n_neg": 120
+    },
+    {
+     "cutoff": 0.85,
+     "tpr": null,
+     "far": 0.2833,
+     "n_pos": 0,
+     "n_neg": 120
+    },
+    {
+     "cutoff": 0.9,
+     "tpr": null,
+     "far": 0.1833,
+     "n_pos": 0,
+     "n_neg": 120
+    },
+    {
+     "cutoff": 0.95,
+     "tpr": null,
+     "far": 0.1167,
+     "n_pos": 0,
+     "n_neg": 120
+    }
+   ],
+   "at_cutoff": {
+    "cutoff": 0.5,
+    "tpr": null,
+    "far": 0.5167,
+    "n_pos": 0,
+    "n_neg": 120
+   }
+  },
+  "synthetic_marvin": {
+   "scores": [
+    [
+     "David_r-3_Marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "David_r0_Marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "David_r3_Marvin.wav",
+     1,
+     0.8672
+    ],
+    [
+     "Zira_r-3_Marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "Zira_r0_Marvin.wav",
+     1,
+     0.9961
+    ],
+    [
+     "Zira_r3_Marvin.wav",
+     1,
+     0.9328
+    ]
+   ],
+   "sweep": [
+    {
+     "cutoff": 0.3,
+     "tpr": 1.0,
+     "far": null,
+     "n_pos": 6,
+     "n_neg": 0
+    },
+    {
+     "cutoff": 0.35,
+     "tpr": 1.0,
+     "far": null,
+     "n_pos": 6,
+     "n_neg": 0
+    },
+    {
+     "cutoff": 0.4,
+     "tpr": 1.0,
+     "far": null,
+     "n_pos": 6,
+     "n_neg": 0
+    },
+    {
+     "cutoff": 0.45,
+     "tpr": 1.0,
+     "far": null,
+     "n_pos": 6,
+     "n_neg": 0
+    },
+    {
+     "cutoff": 0.5,
+     "tpr": 1.0,
+     "far": null,
+     "n_pos": 6,
+     "n_neg": 0
+    },
+    {
+     "cutoff": 0.55,
+     "tpr": 1.0,
+     "far": null,
+     "n_pos": 6,
+     "n_neg": 0
+    },
+    {
+     "cutoff": 0.6,
+     "tpr": 1.0,
+     "far": null,
+     "n_pos": 6,
+     "n_neg": 0
+    },
+    {
+     "cutoff": 0.65,
+     "tpr": 1.0,
+     "far": null,
+     "n_pos": 6,
+     "n_neg": 0
+    },
+    {
+     "cutoff": 0.7,
+     "tpr": 1.0,
+     "far": null,
+     "n_pos": 6,
+     "n_neg": 0
+    },
+    {
+     "cutoff": 0.75,
+     "tpr": 1.0,
+     "far": null,
+     "n_pos": 6,
+     "n_neg": 0
+    },
+    {
+     "cutoff": 0.8,
+     "tpr": 1.0,
+     "far": null,
+     "n_pos": 6,
+     "n_neg": 0
+    },
+    {
+     "cutoff": 0.85,
+     "tpr": 1.0,
+     "far": null,
+     "n_pos": 6,
+     "n_neg": 0
+    },
+    {
+     "cutoff": 0.9,
+     "tpr": 0.8333,
+     "far": null,
+     "n_pos": 6,
+     "n_neg": 0
+    },
+    {
+     "cutoff": 0.95,
+     "tpr": 0.6667,
+     "far": null,
+     "n_pos": 6,
+     "n_neg": 0
+    }
+   ],
+   "at_cutoff": {
+    "cutoff": 0.5,
+    "tpr": 1.0,
+    "far": null,
+    "n_pos": 6,
+    "n_neg": 0
+   }
+  }
+ }
+}

@@ -1,0 +1,163 @@
+menu "KWS (wake word) settings"
+
+    menu "Microphones (one or two INMP441)"
+        comment "Two microphones: same SCK/WS/SD pins; mic 1 L/R->GND (left), mic 2 L/R->3V3 (right)"
+        comment "Both are found at boot, time-aligned to the talker and mixed by their noise"
+        config KWS_MIC_SCK_GPIO
+            int "SCK (bit clock) GPIO"
+            default 16
+        config KWS_MIC_WS_GPIO
+            int "WS (word select / LRCLK) GPIO"
+            default 15
+        config KWS_MIC_SD_GPIO
+            int "SD (data) GPIO"
+            default 17
+        config KWS_MIC_SELECT
+            int "Microphones to use: 0 = auto (both if both work), 1 = left only, 2 = right only"
+            range 0 2
+            default 0
+            help
+                Auto reads both I2S slots and, when both carry a microphone, time-aligns them (KWS_MIC_SPACING_MM)
+                and mixes them by their background noise (50/50 for a healthy pair; a faulty, noisy one fades out).
+                1/2 read only that slot (I2S mono): half the DMA buffers, ~5 KB less RAM. Measured before the time
+                alignment existed (benchmarks/README.md, dual-mic A/B): the plain average did not detect more than
+                the left microphone alone.
+        config KWS_MIC_SPACING_MM
+            int "Distance between the two microphones (mm), 0 = no time alignment"
+            range 0 120
+            default 55
+            help
+                Both microphones are sampled at the same instants (shared SCK/WS), but the talker's voice reaches the
+                nearer one up to spacing / 343 m/s earlier (55 mm: 160 us, 2.6 samples). While someone speaks the
+                firmware measures that delay (cross-correlation, to a fraction of a sample) and delays the earlier
+                microphone by it before mixing; an unaligned mix of a talker in line with the pair loses the voice
+                around 3 kHz. The spacing bounds the delays searched (+ half a sample of slack); measure it centre to
+                centre of the sound ports. The status line prints the delay found and the talker's angle. Only used
+                with KWS_MIC_SELECT = 0.
+        config KWS_MIC_GAIN_SHIFT
+            int "Digital gain (0=x1, 1=x2, 2=x4, 3=x8, 4=x16)"
+            range 0 4
+            default 0
+            help
+                x1 measured best on the test board: speech at 30-50 cm peaks around -9 dBFS, x4 clipped.
+                Raise it only if speech in the saved recordings stays below about -40 dBFS.
+    endmenu
+
+    menu "Wake word detection"
+        config KWS_CUTOFF_PERCENT
+            int "Detection threshold in percent (0 = use the value from the model .json)"
+            range 0 99
+            default 0
+            help
+                Higher = fewer false triggers but more missed words. Colab Step 12 suggests a value.
+        config KWS_SLIDING_WINDOW
+            int "Sliding window size (0 = use the value from the model .json)"
+            range 0 20
+            default 0
+        config KWS_COOLDOWN_MS
+            int "Cool-down after a detection (ms of below-threshold audio)"
+            default 1000
+        config KWS_TENSOR_ARENA_KB
+            int "Tensor arena size to try first (KB, 0 = use the value from the model .json)"
+            range 0 200
+            default 0
+            help
+                Working memory for the model. 0 = the model's "tensor_arena_size" (30000 bytes for
+                microWakeWord models). The firmware grows it automatically if needed and prints the
+                amount actually used at boot.
+        config KWS_FAST_SLICE
+            bool "Fast STRIDED_SLICE / CONCATENATION / SPLIT_V kernels (same results, copy plan computed once)"
+            default y
+            help
+                The model's state-update operations only copy bytes; TFLite Micro's reference kernels recompute the
+                geometry on every call. main/fast_ops.cc works it out once. Off = reference kernels.
+        config KWS_SELFTEST
+            bool "Run the self-test on model/*.wav at boot"
+            default y
+    endmenu
+
+    menu "Wi-Fi and speech-recognition server"
+        config KWS_WIFI_SSID
+            string "Wi-Fi name (SSID), 2.4 GHz only. Empty = no Wi-Fi"
+            default ""
+        config KWS_WIFI_PASSWORD
+            string "Wi-Fi password"
+            default ""
+        config KWS_SERVER_URI
+            string "WebSocket server, e.g. ws://192.168.1.50:3000/ws . Empty = no streaming"
+            default ""
+        config KWS_PREROLL_MS
+            int "Audio sent from before the detection (ms)"
+            range 0 1000
+            default 0
+            help
+                0 (default) = stream from the detection on. The board fires ~90-120 ms (median) after the wake word
+                ends, sometimes 300+ ms, so a command that follows "Marvin" without a pause can lose its first word.
+                250 also sends the last 250 ms before the detection; the server drops the wake word from the
+                transcript by Whisper's word timestamps (host test on validation recordings: command WER
+                31.7 % -> 24.4 %) and the first audio leaves 6 ms after the detection instead of 20 ms. On the
+                board (benchmarks/results/F10_*) it worked, but 3 of 36 transcripts kept a piece of the wake word
+                ("And ...", "Carmen, ..."), hence not the default. 1000 also sends the whole wake word
+                (to collect training recordings). The audio ring
+                buffer holds 512 ms (8 KB) up to 250 ms of pre-roll, 1 s (16 KB) up to 750 ms and 2 s (32 KB)
+                above that: the pre-roll plus the slack for a slow network.
+        config KWS_STREAM_MIN_MS
+            int "Always stream at least this long after detection (ms)"
+            default 1500
+        config KWS_STREAM_MAX_MS
+            int "Stop streaming after this long (ms)"
+            default 8000
+        config KWS_STREAM_SILENCE_MS
+            int "Stop streaming after this much silence (ms)"
+            default 700
+    endmenu
+
+    menu "Board"
+        config KWS_LED_GPIO
+            int "RGB LED (WS2812) GPIO, -1 = none"
+            default 48
+            help
+                ESP32-S3-DevKitC-1 v1.0 boards and most clones use GPIO48, v1.1 boards use GPIO38.
+        config KWS_BUTTON_GPIO
+            int "Button that manually starts streaming (BOOT = GPIO0), -1 = none"
+            default 0
+        config KWS_STATUS_INTERVAL_S
+            int "Print a status line every N seconds"
+            default 10
+        config KWS_RAM_LIMIT_KB
+            int "RAM limit test: make only this much RAM usable (KB, 0 = off)"
+            range 0 512
+            default 0
+            help
+                Proof for the SIH "< 256 KB of RAM" limit, counted strictly: code the chip keeps in internal
+                RAM (IRAM) + static data + heap. At boot the firmware reserves all internal RAM beyond this
+                limit, so everything after that (Wi-Fi, model, audio, streaming) has to fit. Run it for a
+                while with streaming: any allocation failure shows up in the log. (The 96 KB configured as
+                flash cache is not software RAM and is not counted.)
+        config KWS_PROFILE_OPS
+            bool "Profile the model's operations and the feature stages (benchmark builds only)"
+            default n
+            help
+                Every 1000 inferences, prints the CPU time of each TFLite operation type and of each feature
+                frontend stage ("[prof]" lines). Adds a few cycle-counter reads per operation.
+        config KWS_INJECT_TEST
+            bool "Injection test firmware: take test audio from the serial port instead of the microphones"
+            default n
+            help
+                Benchmark build only ([DEVICE-INJECTED] evidence). No microphones, no Wi-Fi: after boot the console
+                switches to 921600 baud and waits for "INJ <id> <samples>" + raw 16 kHz int16 audio, runs it through
+                the same features + model + detector as the live firmware and answers
+                "INJ <id> det=<n> first=<sample> max=<score>". Driven by benchmarks/run_injected.py.
+        config KWS_TELEMETRY_MS
+            int "Telemetry line for the live dashboard every N ms (0 = off)"
+            default 0
+            range 0 10000
+            help
+                Prints one short "@T ..." line per period (score, CPU, RAM, mic level) that
+                tools/dashboard.py turns into live graphs. About 1.4 KB/s at 100 ms.
+                0 = off (default): only the human status line is printed. Measured: 100 ms telemetry costs
+                ~4 % of core 0 (formatting + heap and task walks 10 times a second), more than Wi-Fi itself.
+                Turn it on only for the dashboard, never for CPU measurements.
+    endmenu
+
+endmenu

@@ -1,0 +1,21 @@
+file,label,kw_end,command,voice,rate,gap_ms
+lat_00_David_r-2_g150.wav,1,1.0593,turn on the lights,David,-2,150
+lat_01_David_r-2_g350.wav,1,1.0593,what is the weather today,David,-2,350
+lat_02_David_r0_g150.wav,1,0.9565,play some music,David,0,150
+lat_03_David_r0_g350.wav,1,0.9565,set an alarm for seven,David,0,350
+lat_04_David_r2_g150.wav,1,0.8579,call my mother,David,2,150
+lat_05_David_r2_g350.wav,1,0.8579,open the door,David,2,350
+lat_06_Zira_r-2_g150.wav,1,1.2913,what time is it,Zira,-2,150
+lat_07_Zira_r-2_g350.wav,1,1.2913,stop the music,Zira,-2,350
+lat_08_Zira_r0_g150.wav,1,1.164,increase the volume,Zira,0,150
+lat_09_Zira_r0_g350.wav,1,1.164,tell me a joke,Zira,0,350
+lat_10_Zira_r2_g150.wav,1,1.0115,turn on the lights,Zira,2,150
+lat_11_Zira_r2_g350.wav,1,1.0115,what is the weather today,Zira,2,350
+lat_12_David_r-2_g150.wav,1,1.0593,play some music,David,-2,150
+lat_13_David_r-2_g350.wav,1,1.0593,set an alarm for seven,David,-2,350
+lat_14_David_r0_g150.wav,1,0.9565,call my mother,David,0,150
+lat_15_David_r0_g350.wav,1,0.9565,open the door,David,0,350
+lat_16_David_r2_g150.wav,1,0.8579,what time is it,David,2,150
+lat_17_David_r2_g350.wav,1,0.8579,stop the music,David,2,350
+lat_18_Zira_r-2_g150.wav,1,1.2913,increase the volume,Zira,-2,150
+lat_19_Zira_r-2_g350.wav,1,1.2913,tell me a joke,Zira,-2,350

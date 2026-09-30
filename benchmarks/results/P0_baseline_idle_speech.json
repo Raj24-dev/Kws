@@ -1,0 +1,94 @@
+{
+ "label": "P0_baseline",
+ "condition": "speech",
+ "evidence": "DEVICE-ACOUSTIC",
+ "audio": "synthetic TTS speech looped from the PC speakers",
+ "boot": {
+  "static": 42,
+  "heapfree": 134,
+  "iram": 54
+ },
+ "heap_regions": [
+  {
+   "addr": "3FCA0028",
+   "bytes": 300776,
+   "kind": "RAM"
+  },
+  {
+   "addr": "3FCE9710",
+   "bytes": 22308,
+   "kind": "RAM"
+  },
+  {
+   "addr": "600FE000",
+   "bytes": 8168,
+   "kind": "RTCRAM"
+  }
+ ],
+ "summary": {
+  "windows_10s": 37,
+  "minutes": 6.2,
+  "cpu_core0": {
+   "mean": 0.92,
+   "p95": 1.4,
+   "max": 1.4,
+   "min": 0.6
+  },
+  "cpu_core1": {
+   "mean": 8.71,
+   "p95": 8.8,
+   "max": 8.9,
+   "min": 8.6
+  },
+  "cpu_sum_both_cores": {
+   "mean": 9.64,
+   "p95": 10.1,
+   "max": 10.1
+  },
+  "pipeline_pct_one_core": {
+   "mean": 8.44,
+   "p95": 8.53,
+   "max": 8.59,
+   "min": 8.39
+  },
+  "model_ms": {
+   "mean": 0.9,
+   "p95": 0.92,
+   "max": 0.92,
+   "min": 0.89
+  },
+  "features_ms_per_30ms": {
+   "mean": 1.39,
+   "p95": 1.4,
+   "max": 1.4,
+   "min": 1.38
+  },
+  "paused_in_quiet_pct": {
+   "mean": 0.05,
+   "p95": 1.0,
+   "max": 1.0,
+   "min": 0.0
+  },
+  "mic_dbfs": {
+   "mean": -31.83,
+   "p95": -30.9,
+   "max": -30.5,
+   "min": -33.7
+  },
+  "ram_used_kb": {
+   "mean": 177.76,
+   "p95": 178.0,
+   "max": 178.0,
+   "min": 177.0
+  },
+  "ram_peak_since_boot_kb": 181.0,
+  "ram_strict_peak_kb": 235.0,
+  "heap_free_kb_min": 23.0,
+  "wifi_ok_share": 0.757,
+  "server_ok_share": 0.757,
+  "detections_during": 0,
+  "audio_lost_i2s": 0,
+  "audio_lost_net": 0
+ },
+ "detections": []
+}
