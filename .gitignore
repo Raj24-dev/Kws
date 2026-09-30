@@ -1,19 +1,34 @@
-# Secrets: kws_s3/sdkconfig holds the Wi-Fi password (set it with idf.py menuconfig, never commit it)
+# --- Secrets and per-machine config: never commit ---
+# firmware/sdkconfig holds the Wi-Fi password; set it with `idf.py menuconfig`.
 sdkconfig
 sdkconfig.*
 !sdkconfig.defaults
 .env
-# Generated / downloaded
+.env.*
+!.env.example
+.vscode/
+.idea/
+
+# --- Build output and downloaded dependencies ---
 build/
 build_*/
 managed_components/
 node_modules/
 __pycache__/
 *.pyc
-# Personal voice recordings and raw logs stay local (benchmark evidence goes to benchmarks/results/)
+.ipynb_checkpoints/
+
+# --- Personal voice recordings and raw captures stay local ---
+*.wav
+*.pcm
 recordings/
 logs/
-training_clips/
-# Benchmark audio is generated (make_tts.py) or copied from recordings; not versioned
+training/clips/
 benchmarks/audio/
-benchmarks/*.out
+# Raw serial output of benchmark runs; the summaries are the *.json next to them.
+benchmarks/**/*.out
+benchmarks/results/*.log
+
+# --- OS / editor noise ---
+.DS_Store
+Thumbs.db
