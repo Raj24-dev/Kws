@@ -2,6 +2,23 @@
 
 > **ESP32-S3 • Stateful Streaming TinyML • Fixed-Point Feature Frontend • Zero PSRAM • Dual-Core Isolation • Low-Latency Cloud ASR**
 
+| Attribute | Detail |
+| :--- | :--- |
+| **Event** | Smart India Hackathon (SIH) 2026 |
+| **Problem Statement** | SIH26172 (Low-Power Voice Activator on Edge Devices) |
+| **Organization / Ministry** | ISRO (Indian Space Research Organisation) |
+| **Team Name** | [TODO: Insert Team Name] |
+| **Institute** | [TODO: Insert Institute Name] |
+| **Team Members** | Rajkishor Kumar (`@Raj24-dev`), Arjun (`@myselfisarjun-bot`), [TODO: Member 3], [TODO: Member 4], [TODO: Member 5], [TODO: Member 6] |
+| **Repository CI** | [![checks](https://github.com/Raj24-dev/Kws/actions/workflows/checks.yml/badge.svg)](https://github.com/Raj24-dev/Kws/actions/workflows/checks.yml) |
+| **60-Second Demo Video** | [TODO: Insert 60-second demo video link (e.g. YouTube / Google Drive)] |
+
+<p align="center">
+  <img src="docs/img/board_wiring.png" alt="ESP32-S3 Hardware Wiring" width="32%" />
+  <img src="docs/img/serial_status.png" alt="Firmware Serial Status Monitor" width="34%" />
+  <img src="docs/img/live_transcription.png" alt="Live Cloud ASR Transcription Interface" width="32%" />
+</p>
+
 Smart India Hackathon, problem statement **26172** (low-power voice activator). An **ESP32-S3** listens continuously
 for the wake word **"Marvin"** with a small int8 neural network running on the chip itself. Only after it hears the
 word does it stream what the speaker says next to a server, which writes the command down
@@ -10,6 +27,21 @@ word does it stream what the speaker says next to a server, which writes the com
 Nothing is sent to the cloud before the wake word. The whole edge application fits the hackathon limits on their
 strictest reading: **< 256 KiB RAM** (IRAM code + static data + peak heap, measured while streaming) and
 **< 10 % CPU** while listening (both cores summed, with speech in the room).
+
+#### Hackathon Requirements & Compliance Scorecard
+
+| PS requirement | Limit | Result | Details |
+| :--- | :--- | :--- | :--- |
+| RAM | < 256 KiB | 253 KiB strict, enforced in firmware, PSRAM off | §17 |
+| Idle CPU | < 10 % | 9.43 % mean, 9.9 % worst 10 s window, both cores, speech playing | §18 |
+| Latency, keyword end → server | minimal | 132 ms median (p95 299 ms, n = 32) | §12, §21 |
+| Wake-word hit rate | high | 33/33, one speaker, 95 % lower bound 89 % | §20 |
+| False activations | near zero | Not met. 45 % of synthetic sound-alikes fire, 9/17 real false triggers fire, 0.64 FA/h on synthetic speech, real-room FA/h unmeasured. Retrain v3 planned. | §25.1 |
+| Open source only | required | Yes, no proprietary SDK | §30 |
+| Custom keyword | required | "Marvin", trained from scratch | §15 |
+| Heavy transformers on the edge | disallowed | None. The edge runs a 60.9 KB CNN. Whisper runs on the server, outside the edge budget. | §14 |
+
+> ¹ On the test board the right microphone has an electrical fault and is faded to 0–1 %, so the measurements below are effectively single-microphone. The two-microphone gain was verified in the PC test only.
 
 The design combines:
 
@@ -31,7 +63,7 @@ The design combines:
 
 ---
 
-## Table of Contents
+### Table of Contents
 
 * [1. Problem](#1-problem)
 * [2. Solution](#2-solution)
@@ -67,7 +99,7 @@ The design combines:
 
 ---
 
-# 1. Problem
+## 1. Problem
 
 Cloud-first voice interfaces stream microphone audio to a remote server all the time. This causes:
 
@@ -83,11 +115,11 @@ The objective of this project is therefore:
 
 ---
 
-# 2. Solution
+## 2. Solution
 
 Speech processing is split into two stages.
 
-### Stage 1: always-on edge KWS (on the board)
+#### Stage 1: always-on edge KWS (on the board)
 
 ```text
 2 × INMP441 microphones
@@ -112,7 +144,7 @@ Average of 5 outputs ≥ 0.6 → wake word
 
 Only this lightweight path runs continuously.
 
-### Stage 2: cloud speech recognition (after the wake word)
+#### Stage 2: cloud speech recognition (after the wake word)
 
 ```text
 Wake word detected
@@ -132,7 +164,7 @@ This separates **always-on detection** from **expensive speech recognition**.
 
 ---
 
-# 3. System Overview
+## 3. System Overview
 
 ```mermaid
 flowchart LR
@@ -167,7 +199,7 @@ flowchart LR
 
 ---
 
-# 4. End-to-End Architecture
+## 4. End-to-End Architecture
 
 ```mermaid
 flowchart TD
@@ -212,37 +244,113 @@ flowchart TD
 
 ---
 
-# 5. Getting Started
+## 5. Getting Started
 
-1. **Hardware.** You need an ESP32-S3 DevKit and one or two INMP441 microphones on GPIO 15 (WS), 16 (SCK) and 17 (SD).
-   With two microphones, one has L/R to GND and the other has L/R to 3V3. Wiring details are in
-   [`firmware/README.md`](firmware/README.md).
-2. **Server.** Run it on a PC in the same 2.4 GHz network, in two terminals from the repository root:
-   ```
-   cd server/stt-services
-   pip install -r requirements.txt
-   uvicorn main:app --port 8000
-   ```
-   ```
-   cd server
-   npm install
-   npm start
-   ```
-3. **Firmware** (ESP-IDF 5.5):
-   ```
-   cd firmware
-   idf.py set-target esp32s3
-   idf.py menuconfig          # KWS settings: Wi-Fi name and password, server ws://<PC-IP>:3000/ws
-   idf.py -p <port> build flash monitor
-   ```
-4. **Try it.** Say "Marvin", then a command. The LED blinks green at the detection. The transcript appears in the
-   serial monitor and in `server/recordings/index.jsonl`.
+#### Prerequisites
+* **Python**: 3.10 – 3.12 recommended (for `faster-whisper` and training tools)
+* **Node.js**: ≥ 22 (required for the built-in native `WebSocket` client in the server gateway)
+* **ESP-IDF**: v5.5 (installed and activated in your terminal)
+* **Wi-Fi**: 2.4 GHz network (the ESP32-S3 radio does not support 5 GHz Wi-Fi)
 
 ---
 
-# 6. Audio Capture and Acoustic Frontend
+#### Option A: With Hardware (ESP32-S3 + INMP441)
 
-## 6.1 Two microphones, time-aligned
+1. **Hardware wiring.** You need an ESP32-S3 DevKit and one or two INMP441 microphones on GPIO 15 (WS), 16 (SCK) and 17 (SD).
+   With two microphones, mic 1 has L/R to GND (left slot) and mic 2 has L/R to 3V3 (right slot). Detailed pinout diagrams are in
+   [`firmware/README.md`](firmware/README.md).
+2. **Cloud speech server.** Run it on a PC in the same 2.4 GHz local network, in two terminals from the repository root:
+   * **Terminal 1: Speech-to-Text service** (FastAPI + `faster-whisper` small.en):
+     ```bash
+     cd server/stt-services
+     python -m venv .venv
+     # Windows: .venv\Scripts\activate | Linux/macOS: source .venv/bin/activate
+     pip install -r requirements.txt
+     uvicorn main:app --host 127.0.0.1 --port 8000
+     ```
+     *(The first start downloads Whisper `small.en` weights, ~0.5 GB).*
+
+   * **Terminal 2: WebSocket gateway** (Node.js ≥ 22):
+     ```bash
+     cd server
+     npm install
+     npm start
+     ```
+     *(Listens on port 3000. Ensure your PC's firewall allows inbound TCP traffic on port 3000 from the local network).*
+3. **Firmware build and flash** (ESP-IDF 5.5):
+
+   Tip: Run these commands inside an active **ESP-IDF terminal** (e.g., run `. $IDF_PATH/export.ps1` on Windows or `source $IDF_PATH/export.sh` on Linux/macOS, or open the ESP-IDF VS Code extension terminal).
+
+   ```bash
+   cd firmware
+   idf.py set-target esp32s3
+   idf.py menuconfig
+   ```
+   In `menuconfig` → **KWS (wake word) settings**:
+   * Set your 2.4 GHz Wi-Fi SSID and password
+   * Set the server URI to `ws://<YOUR-PC-IP>:3000/ws` *(e.g. `ws://192.168.1.50:3000/ws` — use your PC's local LAN IP, **not** `localhost`)*
+
+   Build, flash, and monitor:
+   ```bash
+   idf.py -p <port> build flash monitor
+   ```
+   *(Replace `<port>` with your serial port, e.g. `COM6` or `/dev/ttyUSB0`. If compilation runs low on RAM on 16 GB machines, use `ninja -C build -j 3`).*
+4. **Try it.** Say **"Marvin"**, then a command (e.g. *"Marvin, turn on the lights"*). The onboard LED blinks green on detection. The transcript appears in the
+   serial monitor, in `server/recordings/index.jsonl`, or open [`tools/transcription.html`](tools/transcription.html) from your clone in a browser.
+
+   Expected serial monitor status output during normal operation and wake-word trigger:
+   ```text
+   [status] up 21s | mic -39.9 dBFS (peak -34.9) | score max 0.00 | detections 0 | inferences 100 (9.9/s; model 0.88 ms each, paused in quiet 72%; features 1.35 ms per 30 ms) | CPU core0 0.6% core1 6.4% (wake word pipeline 7.00% of one core) | RAM used 178 KB (peak 181 KB; peak + IRAM code 235 KB of the 256 KB limit, 21 KB free) | wifi OK, server OK | mics: mix left 99% right 1% (right noise +24.1 dB) | audio lost since boot: i2s 0 net 0
+   >>> WAKE WORD "marvin" DETECTED  (score 0.67, t = 364.76 s)
+   stream: first audio sent 22 ms after the detection
+   stream: stream finished (silence): 2520 ms of audio sent (39 KB), 0 ms lost, 0 resumes
+   stream: server: {"type":"response","text":"turn on the lights","saved":"server/recordings/20261002_160210.wav"}
+   ```
+
+---
+
+#### Option B: Without Hardware (PC Simulation Mode)
+
+If you don't have the ESP32-S3 or microphones on hand, you can still test and verify the entire pipeline on your PC:
+
+1. **Verify the wake-word model on PC:**
+   The PC mirror reproduces the on-device feature extraction and model inference bit-for-bit:
+   ```bash
+   pip install numpy pymicro-features ai-edge-litert soundfile
+   python training/check_model.py firmware/model/marvin.tflite
+   ```
+   *(Feeds 3 s of deterministic noise; passes if the model stays quiet with max score ≤ 0.01).*
+
+2. **Simulate the ESP32 streaming to the server:**
+   Start the STT service and gateway as shown in Step 2 above, then stream a test audio file to the server:
+   ```bash
+   pip install -r tools/requirements.txt
+   python tools/fake_device.py path/to/command.wav --url ws://127.0.0.1:3000/ws
+   ```
+   Open [`tools/transcription.html`](tools/transcription.html) in your browser to see the live detection and transcription arrive in real time.
+
+3. **Verify the dual-microphone alignment algorithm:**
+   Compile and run the host C unit test (no hardware or ESP-IDF required):
+   ```bash
+   gcc -O2 -std=c99 -Ifirmware/main firmware/test/test_mic_align.c firmware/main/mic_align.c -lm -o test_mic_align
+   ./test_mic_align
+   ```
+
+#### Bill of Materials (BOM)
+
+| Item | Component / Variant | Source / Notes | Est. Price (INR) | Est. Price (USD) |
+| :--- | :--- | :--- | :--- | :--- |
+| Microcontroller Board | ESP32-S3-DevKitC-1-N8 (Dual-core LX7 @ 240 MHz, 8 MB Flash, No PSRAM / PSRAM Off) | Espressif Systems / Authorized distributor | ₹550 | ~$6.60 |
+| I2S Digital Microphones (×2) | INMP441 Omnidirectional MEMS Microphone Breakouts (TDM stereo bus, 55 mm spacing) | InvenSense / TDK breakout module | ₹360 (₹180 ea) | ~$4.30 |
+| Prototyping & Spacing | Breadboard, 55 mm rigid spacer fixture, jumper wires | Standard prototyping kit | ₹100 | ~$1.20 |
+| Power & Interconnect | USB-C to USB-A data cable (5V / 1A) | Standard peripheral | ₹90 | ~$1.10 |
+| **Total Hardware Cost** | | | **₹1,100** | **~$13.20** |
+
+---
+
+## 6. Audio Capture and Acoustic Frontend
+
+### 6.1 Two microphones, time-aligned
 
 Two INMP441s share SCK, WS and SD, so they sample at the same instants. One sits in the left I2S slot and the other in
 the right. They are 55 mm apart, so a talker off to one side reaches the nearer microphone up to 160 µs (2.6 samples)
@@ -255,9 +363,12 @@ While someone speaks, `main/mic_align.c` does two things:
 * **Mix.** It mixes the two by inverse noise power. A healthy pair is mixed about 50/50 and gains about 3 dB SNR. A
   faulty, noisy microphone is faded out instead of drowning the good one.
 
+> [!NOTE]
+> On the test board the right microphone has an electrical fault and is faded to 0–1 %, so the measurements below are effectively single-microphone. The two-microphone gain was verified in the PC test only.
+
 One microphone works too. `KWS_MIC_SELECT = 1` / `2` reads only that slot.
 
-## 6.2 80 Hz high-pass filter
+### 6.2 80 Hz high-pass filter
 
 The INMP441 delivers 24-bit samples with a DC offset and low-frequency drift. A second-order **80 Hz Butterworth
 high-pass biquad** removes them before the conversion to int16, so nothing clips:
@@ -277,7 +388,7 @@ int16 saturation → features + µ-law ring
 
 The loop is branch-free and unrolled. The whole audio stage costs 0.85 % of one core with two microphones.
 
-## 6.3 Feature frontend
+### 6.3 Feature frontend
 
 The frontend is the TensorFlow Lite Micro microfrontend (`components/esp-micro-speech-features`). It is fixed-point
 and **bit-identical to the features used in training**. A SIMD FFT from esp-dsp changed scores by up to 0.26 and was
@@ -303,14 +414,14 @@ rejected.
 
 ---
 
-# 7. Stateful Streaming TinyML
+## 7. Stateful Streaming TinyML
 
-## 7.1 Conventional approach
+### 7.1 Conventional approach
 
 A sliding-window KWS model re-processes the whole ~1.5 s spectrogram (about 150 frames × 40 features) every time a
 new frame arrives. Most of that work was already done.
 
-## 7.2 Streaming approach
+### 7.2 Streaming approach
 
 The model takes only the **3 newest feature frames** (`[1, 3, 40]` int8, 30 ms of audio) per call. It keeps its
 temporal context in internal state, held in TFLite Micro resource variables (`VAR_HANDLE`, `READ_VARIABLE` and
@@ -330,7 +441,7 @@ flowchart LR
     B --> D
 ```
 
-## 7.3 Model characteristics
+### 7.3 Model characteristics
 
 | Property         | Value                                               |
 | ---------------- | --------------------------------------------------: |
@@ -349,7 +460,7 @@ The architecture is made of multi-scale depthwise-separable convolutions (MixCon
 
 ---
 
-# 8. Custom TFLite Micro Kernels
+## 8. Custom TFLite Micro Kernels
 
 To update its state, the streaming model runs these operations on every inference:
 
@@ -362,7 +473,7 @@ To update its state, the streaming model runs these operations on every inferenc
 They only copy bytes, but TFLite Micro's reference kernels re-derive the tensor geometry on every call. Together these
 operations took about 24 % of the model's time on the ESP32-S3.
 
-## 8.1 Optimization
+### 8.1 Optimization
 
 `main/fast_ops.cc` registers:
 
@@ -384,7 +495,7 @@ Eval()                                  (every inference)
        (anything else falls back to the reference kernel)
 ```
 
-## 8.2 Performance impact
+### 8.2 Performance impact
 
 ```text
 Reference kernels  →  1.07 ms per inference
@@ -395,13 +506,13 @@ The outputs are **bit-identical** to the reference kernels on all 226 benchmark 
 
 ---
 
-# 9. Adaptive Quiet Gate
+## 9. Adaptive Quiet Gate
 
 Running the network in a silent room wastes CPU. The firmware therefore tracks the background level, falling fast
 and rising slowly. If the sound stays within **6 dB** of it for **1.6 s**, model inference pauses. The feature
 frontend keeps running, so the background estimate stays current.
 
-## 9.1 Quiet gate flow
+### 9.1 Quiet gate flow
 
 ```mermaid
 flowchart TD
@@ -420,7 +531,7 @@ flowchart TD
     C -->|Yes| G --> H --> I --> A
 ```
 
-## 9.2 300 ms feature lookback
+### 9.2 300 ms feature lookback
 
 While the model is paused, a circular buffer keeps the last **30 feature frames (300 ms)**. When sound returns, those
 frames are replayed through the model first, so a soft onset (the "M" of "Marvin") is not lost.
@@ -432,7 +543,7 @@ they are the worst case.
 
 ---
 
-# 10. Dual-Core Architecture
+## 10. Dual-Core Architecture
 
 ```mermaid
 flowchart TB
@@ -465,7 +576,7 @@ Network activity cannot block the real-time audio path.
 
 ---
 
-# 11. Audio Ring Buffer
+## 11. Audio Ring Buffer
 
 The audio task writes every block, as µ-law, into an **8 KiB ring (0.5 s)**. The streamer on core 0 reads from it.
 
@@ -488,7 +599,7 @@ The audio task writes every block, as µ-law, into an **8 KiB ring (0.5 s)**. Th
 
 ---
 
-# 12. Keyword Detection to Cloud Handoff
+## 12. Keyword Detection to Cloud Handoff
 
 ```mermaid
 stateDiagram-v2
@@ -521,7 +632,7 @@ some transcripts kept a fragment of the wake word.
 
 ---
 
-# 13. µ-law Audio Compression
+## 13. µ-law Audio Compression
 
 ```text
 16,000 samples/s × 16 bit = 256 kbit/s   (16-bit PCM)
@@ -533,7 +644,7 @@ the total is about **147 kbit/s** on air. Nothing is sent at all while no comman
 
 ---
 
-# 14. Cloud ASR Pipeline
+## 14. Cloud ASR Pipeline
 
 ```mermaid
 flowchart LR
@@ -552,7 +663,7 @@ flowchart LR
     E --> F --> G --> H
 ```
 
-## 14.1 Gateway (`server/server.js`)
+### 14.1 Gateway (`server/server.js`)
 
 The gateway uses Fastify with `@fastify/websocket`. It decodes µ-law with a **256-entry lookup table** and saves every
 command as a WAV plus a line in `recordings/index.jsonl`. It forwards each PCM frame to the STT service over a
@@ -560,12 +671,12 @@ WebSocket (`/stream`) as it arrives.
 
 `/live` pushes every command (`start`, then `final`) to [`tools/transcription.html`](tools/transcription.html).
 
-## 14.2 Speech check (Silero VAD)
+### 14.2 Speech check (Silero VAD)
 
 The STT service runs faster-whisper's bundled **Silero VAD** first. If there is no speech (for example "Marvin" with
 nothing after it), the result is an empty transcript at once, instead of text Whisper invented.
 
-## 14.3 faster-whisper
+### 14.3 faster-whisper
 
 ```text
 model:        small.en
@@ -576,7 +687,7 @@ decoding:     beam 5, temperature 0, neutral punctuated prompt
 A transcript is ready ~2–3 s after the speaker stops. Whisper always encodes 30 s of audio, so each call takes ~2 s on
 an 8-thread laptop CPU. Transcriptions run one at a time.
 
-## 14.4 Hallucination filter
+### 14.4 Hallucination filter
 
 The filter drops looping text (high compression ratio) and prompt echoes (low log-probability, prompt words only).
 On the 79 server transcripts it was tested on, it removed **15 / 15** Whisper loops and prompt echoes and changed
@@ -587,7 +698,7 @@ through the air to the board).
 
 ---
 
-# 15. Model Training
+## 15. Model Training
 
 The wake-word model was trained **from scratch** with [microWakeWord](https://github.com/kahrendt/microWakeWord). No
 pre-trained wake-word weights were used. The notebook is
@@ -637,12 +748,12 @@ flowchart TD
 **Cutoff.** The operating cutoff **0.6** was chosen on the frozen *validation* set (`benchmarks/sweep_window.py`), not
 on the notebook's own test split.
 
-The board recordings used in training (27 Sep, 04:18–06:00) do not overlap the frozen benchmark sets (27 Sep, 08:12
+The board recordings used in training (27 Sep 2026, 04:18–06:00) do not overlap the frozen benchmark sets (27 Sep 2026, 08:12
 onward).
 
 ---
 
-# 16. Hard-Negative Mining
+## 16. Hard-Negative Mining
 
 Wake-word systems rarely fail because they cannot hear the target word. They fail because other words sound like it.
 
@@ -654,10 +765,12 @@ margin, marlin, martian, marvelous, garvin, harvin, starving, carbon
 ```
 
 That gives **6,400 synthetic clips** (16 × 400) plus the board's own false triggers. They form a separate training
-set with its own sampling weight, `HARD_NEG_WEIGHT = 3.0`. Mixed into the 20,000 ordinary negatives, they would be
-only ~2 % of the data.
+set with its own dedicated sampling weight (`HARD_NEG_WEIGHT = 3.0` out of a total negative sampling weight of 33.0, representing
+9.1 % of all sampled training negative data across `sc_negatives` [weight 5.0], `speech` [10.0], `dinner_party` [10.0], `no_speech` [5.0],
+and `hard_negatives` [3.0]). Without this dedicated weighting, if mixed uniformly across the ~350,000 total negative windows
+(including Speech Commands and microWakeWord's speech, dinner-party and no-speech sets), they would account for under 2 % of the raw negative data.
 
-## Hard-negative training loop
+### Hard-negative training loop
 
 ```mermaid
 flowchart TD
@@ -678,7 +791,7 @@ flowchart TD
 
 ---
 
-# 17. Memory Optimization
+## 17. Memory Optimization
 
 Everything is counted strictly: **IRAM code + static data + peak heap**, with Wi-Fi up and a command streaming. Units
 are KiB (1024 B). PSRAM is disabled.
@@ -699,13 +812,13 @@ peak heap.
 
 The 96 KiB of SRAM configured as flash cache is hardware cache, not software RAM, so it is excluded (and disclosed).
 
-## The limit is enforced, not just reported
+### The limit is enforced, not just reported
 
 `KWS_RAM_LIMIT_KB = 256` is on by default. At boot the firmware allocates, and never frees, all internal RAM above
 256 KiB minus the IRAM code, so the application **cannot** use more. The status line prints the strict peak, and
 failed allocations are counted.
 
-## Major memory optimizations
+### Major memory optimizations
 
 | Change | Effect |
 |---|---|
@@ -722,7 +835,7 @@ Before these changes the same strict reading gave **343 KiB**.
 
 ---
 
-# 18. CPU Optimization
+## 18. CPU Optimization
 
 The budget is **< 10 % CPU while idle-listening**. It is measured strictly:
 
@@ -737,7 +850,7 @@ The budget is **< 10 % CPU while idle-listening**. It is measured strictly:
 | Continuous speech, both cores, mean | **9.43 %** |
 | Highest 10 s window | 9.9 % |
 | Per core (core 1 / core 0) | ~8.7 % / ~0.7 % |
-| Quiet room (one-microphone build, 29 Sep) | 8.5 % mean |
+| Quiet room (one-microphone build, 29 Sep 2026) | 8.5 % mean |
 
 The baseline before optimization was 14.4 %. It came down through a series of independent optimizations:
 
@@ -757,7 +870,7 @@ Streaming inference (3 frames per call)
 
 ---
 
-# 19. Boot Self-Test
+## 19. Boot Self-Test
 
 At every boot the firmware:
 
@@ -799,7 +912,7 @@ flowchart TD
 
 ---
 
-# 20. Deterministic Hardware-in-the-Loop Testing
+## 20. Deterministic Hardware-in-the-Loop Testing
 
 Live microphone tests cannot be repeated exactly. The firmware therefore has a separate build mode:
 
@@ -831,10 +944,10 @@ in section 25.
 
 ---
 
-# 21. Performance Metrics
+## 21. Performance Metrics
 
-All numbers come from the board, using the scripts in [`benchmarks/`](benchmarks). Raw results are in
-`benchmarks/results/` and the full report is [`benchmarks/REPORT.md`](benchmarks/REPORT.md).
+All numbers come from the board, using the scripts in [`benchmarks/`](benchmarks). Raw results and metric summaries are in
+`benchmarks/results/`.
 
 | Metric | Result |
 | --- | ---: |
@@ -846,48 +959,57 @@ All numbers come from the board, using the scripts in [`benchmarks/`](benchmarks
 | KWS inference | **0.88 ms** per 30 ms (reference kernels: 1.07 ms) |
 | Feature frontend | ~1.4 ms per 30 ms |
 | Detection → first audio sent | **21–26 ms** |
-| End of wake word → first audio at the server | **122 ms median**¹ (p95 323 ms, 35 trials) |
+| End of wake word → first audio at the server | **132 ms median** (p95 299 ms, n = 32) |
 | µ-law payload bitrate | 128 kbit/s (50 % of PCM), ~147 kbit/s on air |
-| Wake word, frozen real test set (injected) | **33 / 33** (100 %) |
+| Wake word, frozen real test set (injected) | **33 / 33** (100 %, 95 % lower bound 89 %) |
 | Wake word, synthetic commands through the air | 35 / 40 (87.5 %) |
-| Command WER (synthetic commands, end to end) | **5.3 %** |
+| Command WER (synthetic commands, end to end) | **5.3 %** (n = 131 words across 35 clips; 1.7 % on final run with 121 words across 32 clips) |
 | Whisper hallucinations removed by the filter | 15 / 15, no real command changed |
 | Audio lost in normal operation | **0** (I2S and network) |
 
-¹ Measured on the one-microphone firmware of 29 Sep. A 15-trial re-check of the current firmware gave 140 ms. Almost
-all of the latency is the detector's 5-output average (~100 ms). Buffering and encoding add ~20 ms and Wi-Fi ~1 ms.
+*Dated history:* The 29 Sep 2026 one-microphone firmware measured 122 ms (n = 35); the 30 Sep 2026 P4 check measured 140 ms (n = 15); the final firmware re-verification measured 132 ms median (p95 299 ms, n = 32). Almost all of the latency is the detector's 5-output sliding average (~100 ms). Buffering and encoding add ~20 ms and Wi-Fi ~1 ms.
+
+#### Reproducing the numbers
+
+To verify and reproduce these figures on the hardware test bench:
+
+```bash
+# 1. On-device accuracy on frozen test set (requires injection firmware build, Windows or Linux):
+python benchmarks/run_injected.py --label final --cutoff 0.6 sets/real_test.csv
+
+# 2. Idle CPU and strict RAM measurement (speech and quiet conditions, 6 minutes each):
+python benchmarks/run_idle.py --label final --cond speech --minutes 6 --gain 0.5
+python benchmarks/run_idle.py --label final --cond quiet --minutes 6
+
+# 3. Full automated verification pass (CPU, acoustic latency, transcripts, streaming peak RAM):
+# NOTE: The .ps1 automation scripts require Windows (PowerShell with WASAPI audio playback).
+powershell -ExecutionPolicy Bypass -File benchmarks/run_final.ps1 -Label final -Level -24 -SpeechGain 0.5
+```
 
 ---
 
-# 22. Resource Budget
+## 22. Resource Budget
 
-```mermaid
-pie title Strict internal SRAM, KiB (limit 256)
-    "IRAM code" : 54
-    "Static data + peak heap" : 199
-    "Remaining margin" : 3
-```
-
-```text
-256 KiB limit
-│
-├──  54 KiB   IRAM code
-├── ~199 KiB  static data + peak heap (Wi-Fi up, streaming)
-└──  ~3 KiB   remaining margin
-```
+| Memory Segment | Allocation | Notes |
+| :--- | :--- | :--- |
+| **IRAM Code** | 54.0 KiB | Code permanently kept in internal SRAM (time-critical ISRs, cache, core audio) |
+| **Static Data & Heap Peak** | ~199 KiB | Static data (.data + .bss), model arena (26 KB), Wi-Fi buffers, and TCP/IP stack during streaming |
+| **Strict Peak RAM Used** | **253 KiB** | Enforced at boot via `KWS_RAM_LIMIT_KB = 256` |
+| **Remaining SRAM Margin** | ~3 KiB | Safety margin under the strict hackathon ceiling |
+| **PSRAM** | **0 B** | External PSRAM disabled; internal SRAM represents the entire budget |
 
 No PSRAM is used. Internal RAM is the whole budget.
 
 ---
 
-# 23. Reliability & Fault Handling
+## 23. Reliability & Fault Handling
 
-## Microphone diagnostics
+### Microphone diagnostics
 
 At boot, each I2S slot is checked for dead, floating or mis-wired input (section 19). While running, a microphone that
 becomes much noisier than its partner is faded out of the mix.
 
-## Network recovery
+### Network recovery
 
 | Mechanism | Setting |
 | --- | --- |
@@ -900,20 +1022,20 @@ becomes much noisier than its partner is faded out of the mix.
 This was tested with a TCP proxy that cut the connection for 0.5, 1 and 2 s after a detection. Each test produced one
 recording and one transcript. Only the part of the outage longer than the 0.47 s ring was lost.
 
-## Watchdogs
+### Watchdogs
 
 * The audio task and the main loop are watched by the task watchdog. A hang restarts the board after 5 s.
 * 5 s without I2S data also restarts the board.
 * The boot banner prints why the board last restarted.
 
-## End of command
+### End of command
 
 The stream stops after **700 ms of silence** (sound below the background + 10 dB), with a minimum of 1.5 s and a
 maximum of 8 s. No trailing audio is sent.
 
 ---
 
-# 24. Security Considerations
+## 24. Security Considerations
 
 This is a prototype for a trusted network (a lab LAN or laptop hotspot):
 
@@ -937,9 +1059,9 @@ Planned:   16-bit PCM → 4-bit ADPCM   →  64 kbit/s  (~83 kbit/s on air)
 
 ---
 
-# 25. Current Limitations
+## 25. Current Limitations
 
-## 25.1 Phonetic false triggers (the main open issue)
+### 25.1 Phonetic false triggers (the main open issue)
 
 At cutoff 0.6, words that sound like "Marvin" still fire:
 
@@ -953,25 +1075,25 @@ At cutoff 0.6, words that sound like "Marvin" still fire:
 These words score like a real "Marvin" (up to 0.9+), so no threshold fixes it.
 
 The fix is a retrained model (v3) with more and heavier sound-alike negatives, plus the board's recorded false
-triggers. The steps are in [`training/`](training) and [`benchmarks/REPORT.md`](benchmarks/REPORT.md) (H2, H3).
+triggers. The steps are described in [`training/`](training) and [`benchmarks/`](benchmarks) (H2, H3).
 
-## 25.2 Evaluation coverage
+### 25.2 Evaluation coverage
 
 The real test recordings are **one speaker in one room**, and all through-the-air tests use synthetic voices. TPR
 across speakers, distances and noise levels is not yet measured.
 
-## 25.3 Tight resource margins
+### 25.3 Tight resource margins
 
 The margins are **253 / 256 KiB** RAM and **9.9 % / 10 %** CPU in the worst 10 s window. Any addition (Wi-Fi buffers,
 model size, logging, features) must be re-measured. The RAM limit is enforced by the firmware. The CPU limit is not,
 so re-run `benchmarks/run_final.ps1` after every change.
 
-## 25.4 First ~100 ms after the wake word
+### 25.4 First ~100 ms after the wake word
 
 This audio is not streamed (`KWS_PREROLL_MS = 0`). A command spoken with no pause after "Marvin" can lose its first
 syllable.
 
-## 25.5 Network dependency for ASR
+### 25.5 Network dependency for ASR
 
 ```text
 No network:  wake-word detection → still works on the board
@@ -980,16 +1102,16 @@ No network:  wake-word detection → still works on the board
 
 ---
 
-# 26. Production Roadmap
+## 26. Production Roadmap
 
-## Phase 1: current
+### Phase 1: current
 
 ```text
 ESP32-S3 + 2 × INMP441 + 60.9 KB int8 KWS + local wake-word detection
 + µ-law streaming to a Whisper server
 ```
 
-## Phase 2: fewer false activations
+### Phase 2: fewer false activations
 
 ```text
 8 h of real negative audio → false triggers collected
@@ -999,20 +1121,20 @@ Retrain v3 (more sound-alikes, HARD_NEG_WEIGHT 5, board false triggers)
 Cutoff on validation → test once → firmware update
 ```
 
-## Phase 3: secure streaming
+### Phase 3: secure streaming
 
 ```text
 ws:// → wss:// + device authentication, Wi-Fi provisioning, OTA updates
 ```
 
-## Phase 4: lower bandwidth and latency
+### Phase 4: lower bandwidth and latency
 
 ```text
 128 kbit/s µ-law → 64 kbit/s IMA-ADPCM
 250 ms pre-roll with a robust wake-word strip on the server
 ```
 
-## Phase 5: larger-scale deployment
+### Phase 5: larger-scale deployment
 
 ```mermaid
 flowchart LR
@@ -1036,11 +1158,31 @@ No device streams continuously, so the ASR load grows with the number of command
 
 ---
 
-# 27. Project Structure
+#### Documentation Map
+
+| Document | Location | Scope & Focus |
+| :--- | :--- | :--- |
+| **System Specification** | [`README.md`](README.md) | High-level system architecture, getting started, hardware wiring, benchmarks, compliance scorecard |
+| **Firmware Guide** | [`firmware/README.md`](firmware/README.md) | ESP-IDF firmware setup, dual-mic I2S pinout, stateful streaming pipeline, memory layout |
+| **Model Manifest** | [`firmware/model/README.md`](firmware/model/README.md) | Trained TFLite model structure, int8 quantization, tensor arena, ESPHome JSON manifest |
+| **Cloud Speech Server** | [`server/README.md`](server/README.md) | Fastify WebSocket gateway, FastAPI STT service, faster-whisper small.en, hallucination filter |
+| **Training Pipeline** | [`training/README.md`](training/README.md) | Model retraining instructions, synthetic Piper TTS generation, confusable phrases, hard-negative mining |
+| **Developer Tools** | [`tools/README.md`](tools/README.md) | PC simulator, fake device audio injector, real-time transcription web UI, serial logger |
+| **Benchmarking Suite** | [`benchmarks/README.md`](benchmarks/README.md) | Automated benchmark scripts, test protocols, hardware-in-the-loop injection, reproducibility |
+
+---
+
+## 27. Project Structure
 
 ```text
 .
+├── .github/
+│   ├── pull_request_template.md
+│   └── workflows/
+│       └── checks.yml                GitHub Actions CI workflow (syntax, hygiene, host tests)
 ├── firmware/                         ESP-IDF project (ESP32-S3)
+│   ├── README.md                     firmware architecture, pinout, memory and build instructions
+│   ├── CMakeLists.txt, dependencies.lock, sdkconfig.defaults
 │   ├── main/
 │   │   ├── main.c                    start-up, RAM limit, audio task, status line
 │   │   ├── audio_input.c             I2S, mic check, 80 Hz HPF, µ-law ring
@@ -1053,23 +1195,42 @@ No device streams continuously, so the ASR load grows with the number of command
 │   │   └── Kconfig.projbuild         all KWS_* settings
 │   ├── components/esp-micro-speech-features/   TFLM microfrontend (fft, filterbank,
 │   │                                 noise_reduction, pcan_gain_control, log_scale)
-│   ├── model/                        marvin.tflite + marvin.json (deployed model)
-│   ├── test/test_mic_align.c         PC unit test
-│   └── sdkconfig.defaults            the tested, locked build profile
+│   ├── model/
+│   │   ├── README.md                 model documentation, manifest description
+│   │   └── marvin.tflite, marvin.json (deployed model)
+│   └── test/test_mic_align.c         PC unit test
 ├── server/
-│   ├── server.js                     Fastify WebSocket gateway (/ws, /live)
-│   └── stt-services/main.py          FastAPI + faster-whisper small.en
+│   ├── README.md                     gateway and STT service architecture & protocol
+│   ├── .env.example                  sample configuration for host & ports
+│   ├── package.json, server.js       Fastify WebSocket gateway (/ws, /live)
+│   └── stt-services/
+│       ├── main.py                   FastAPI + faster-whisper small.en
+│       └── requirements.txt
 ├── training/
+│   ├── README.md                     model retraining workflow & dataset provenance
 │   ├── SIH_marvin_retrain_v2.ipynb   Colab training notebook
 │   ├── check_model.py                PC mirror of the on-device pipeline
 │   └── export_training_clips.py      board recordings → training clips
-├── benchmarks/                       measurement scripts, frozen sets, results/, REPORT.md
-└── tools/                            dashboard, serial logger, fake device, live transcript page, report
+├── benchmarks/
+│   ├── README.md                     benchmark protocols, test scripts, reproducibility
+│   ├── results/                      reproducible JSON metric summaries
+│   ├── sets/                         frozen test sets (synthetic and real)
+│   ├── run_idle.py, run_acoustic.py, run_injected.py, run_host.py
+│   └── run_final.ps1, run_trigger.ps1, run_micab.ps1
+├── tools/
+│   ├── README.md                     developer utilities guide
+│   ├── dashboard.html, dashboard.py  live telemetry dashboard
+│   ├── serial_log.py                 serial monitor logger
+│   ├── fake_device.py                PC hardware simulation tool
+│   └── transcription.html            live web transcription UI
+├── docs/
+│   └── img/                          architectural, wiring, and console screenshots
+└── LICENSE                           Apache-2.0 open source license
 ```
 
 ---
 
-# 28. Frequently Asked Questions
+## 28. Frequently Asked Questions
 
 **What runs on the ESP32?**
 A 60.9 KB fully int8 streaming MixedNet decides the wake word on the board. It is fed by a fixed-point frontend with
@@ -1119,9 +1280,7 @@ with Silero VAD, transcribes it with faster-whisper small.en and filters halluci
 It halves the payload (256 → 128 kbit/s) at almost no CPU cost, and the decoder is a 256-entry table.
 
 **What is the handoff latency?**
-From the end of the wake word to the first audio at the server: median 122 ms (35 trials), or 140 ms in a 15-trial
-re-check of the current firmware. That is ~100 ms of detection delay (the 5-output average), ~20 ms of buffering and
-encoding, and ~1 ms of Wi-Fi.
+From the end of the wake word to the first audio at the server: median 132 ms (p95 299 ms, n = 32 trials; dated runs: 122 ms in earlier 1-mic F8 build, 140 ms in 15-trial P4 run). That is ~110 ms of detection delay (the 5-output average), ~20 ms of buffering and encoding, and ~1 ms of Wi-Fi.
 
 **How do you test the model reproducibly?**
 An injection build feeds frozen, SHA-256-hashed WAV sets over the serial port at 921600 baud into the board's own
@@ -1136,7 +1295,7 @@ False activations are the open issue: 45 % of synthetic sound-alikes still fire 
 
 ---
 
-# 29. Key Engineering Innovations
+## 29. Key Engineering Innovations
 
 1. **Stateful streaming TinyML.** 3 new frames per call instead of re-running a 1.5 s window.
 2. **Training-identical fixed-point frontend.** The bit-exact microfrontend with LUT-based PCAN. A faster SIMD FFT was
@@ -1144,8 +1303,8 @@ False activations are the open issue: 45 % of synthetic sound-alikes still fire 
 3. **Custom TFLite Micro kernels.** They target the model's state-copy overhead rather than convolution speed: −18 %
    inference time, bit-identical outputs.
 4. **Adaptive compute gating.** The model pauses in quiet and replays 300 ms of features on sound onset.
-5. **Two-microphone alignment.** Sub-sample delay estimation and a noise-weighted mix, so the voice adds in phase from
-   any direction and a faulty microphone is faded out.
+5. **Two-microphone alignment.** Sub-sample delay estimation and a noise-weighted mix designed to align voice signals in phase from
+   any direction (verified in PC simulation) and fade out a faulty microphone.
 6. **Asymmetric dual-core design.** Core 1 runs real-time audio + KWS and core 0 runs Wi-Fi + WebSocket, joined by a
    lock-free ring.
 7. **Firmware-enforced resource compliance.** The 256 KiB limit is reserved at boot, not just reported.
@@ -1164,23 +1323,42 @@ False activations are the open issue: 45 % of synthetic sound-alikes still fire 
 
 ---
 
-# 30. Credits and Licences
+## 30. Credits and Licences
 
-| Part | Project | Licence |
-| --- | --- | --- |
-| Model training | [microWakeWord](https://github.com/kahrendt/microWakeWord) | Apache-2.0 |
-| Feature frontend | TensorFlow Lite Micro microfrontend (`firmware/components/esp-micro-speech-features`) | Apache-2.0 |
-| Runtime | `espressif/esp-tflite-micro` and `esp-nn` | Apache-2.0 |
-| Speech-to-text | faster-whisper with Whisper small.en | MIT |
+#### Software Components
 
-Detection logic follows ESPHome's `micro_wake_word`. No proprietary wake-word SDK is used.
+| Component | Project / Repository | Licence | Verified Role in Repository |
+| :--- | :--- | :--- | :--- |
+| RTOS & Hardware HAL | [ESP-IDF v5.5](https://github.com/espressif/esp-idf) | Apache-2.0 | Microcontroller runtime, FreeRTOS dual-core scheduling, I2S DMA, lwIP networking |
+| ML Runtime | [esp-tflite-micro](https://github.com/espressif/esp-tflite-micro) & [esp-nn](https://github.com/espressif/esp-nn) | Apache-2.0 | On-device int8 tensor inference with ESP32-S3 SIMD assembly kernel acceleration |
+| Feature Extraction | [esp-micro-speech-features](https://github.com/kahrendt/esp-micro-speech-features) | Apache-2.0 | Fixed-point KissFFT, 40 mel bands, noise reduction, PCAN, and log compression |
+| Wake-Word Architecture | [microWakeWord](https://github.com/kahrendt/microWakeWord) | Apache-2.0 | Training framework, streaming MixedNet neural architecture, and quantization pipeline |
+| Cloud WebSocket Server | [Node.js](https://nodejs.org/) & [Fastify](https://fastify.io/) | MIT | Low-latency asynchronous WebSocket gateway connecting edge devices to ASR backends |
+| Cloud Speech-to-Text | [faster-whisper](https://github.com/SYSTRAN/faster-whisper) (CTranslate2) | MIT | High-throughput server-side ASR using quantized OpenAI Whisper small.en |
+| Voice Activity Detection | [Silero VAD](https://github.com/snakers4/silero-vad) | MIT | Pre-ASR speech boundary validation and silence gating on the server |
+| Detection Logic Reference | [ESPHome `micro_wake_word`](https://github.com/esphome/esphome/tree/dev/esphome/components/micro_wake_word) | GPL-3.0 (Reference) | Sliding-window voting and cooldown design patterns. **Verification:** No C++ code was copied from ESPHome into the firmware; all firmware files are an independent implementation in C/C++ licensed under Apache-2.0. |
 
-Datasets and their licences are listed in [`training/README.md`](training/README.md). Some of microWakeWord's negative
-sets are CC-BY-NC: fine for SIH, but not for a commercial product.
+#### Training & Evaluation Datasets
+
+| Dataset | Primary Source | Licence | Notes & Scope |
+| :--- | :--- | :--- | :--- |
+| Speech Commands v2 | Google Research (Pete Warden) | CC-BY 4.0 | Positive samples ("marvin") and baseline negative vocabulary |
+| microWakeWord Negative Sets | microWakeWord (LibriSpeech, CHiME-6) | CC-BY-NC 4.0 | Pre-computed feature maps for background speech, dinner party noise, and non-speech. **Permissible for SIH academic / competition evaluation; commercial redistribution requires replacement.** |
+| AudioSet | Google Research (Gemmeke et al.) | CC-BY 4.0 | Environmental noise augmentation during model retraining |
+| Free Music Archive (FMA) | FMA (Defferrard et al.) | CC-BY-NC 4.0 | Music background noise augmentation during model retraining |
+| Environmental Impulse Responses | MIT Acoustic Research | MIT / Research | Room acoustic simulation and reverberation augmentation |
+
+#### Synthetic Voices (TTS)
+
+| Voice System | Origin / Model | Licence | Usage |
+| :--- | :--- | :--- | :--- |
+| Piper TTS | Michael Hansen (Rhasspy) | MIT | Synthetic training audio generation for the "Marvin" keyword and 16 sound-alike phrases |
+| Piper Voice Checkpoints | Trained on LibriTTS / LJSpeech | CC-BY 4.0 / Public Domain | Open acoustic checkpoints for diverse synthetic speaker profiles |
+| Windows SAPI Voices | Microsoft Corporation (David, Zira, Mark) | Proprietary | Local hardware acoustic benchmark playback via WASAPI only; no proprietary audio or binaries are bundled in the repository |
 
 ---
 
-# 31. Conclusion
+## 31. Conclusion
 
 This project is a complete **edge-to-cloud speech pipeline** built on a highly constrained ESP32-S3.
 
@@ -1212,7 +1390,7 @@ The central design principle is:
              └─────────────────────────────┘
 ```
 
-### Measured system metrics
+#### Measured system metrics
 
 **60.9 KB model • 253 KiB strict RAM (enforced 256) • 0 B PSRAM • 0.88 ms inference • 9.43 % CPU (both cores) •
-122 ms median handoff • 128 kbit/s µ-law • 33/33 frozen real test clips • 5.3 % command WER • 0 audio lost**
+132 ms median handoff • 128 kbit/s µ-law • 33/33 frozen real test clips (95 % lower bound 89 %) • 5.3 % command WER (1.7 % on final run) • 0 audio lost**
